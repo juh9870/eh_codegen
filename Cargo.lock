@@ -259,6 +259,7 @@ dependencies = [
  "serde_json",
  "serde_json5",
  "tracing",
+ "walkdir",
 ]
 
 [[package]]
@@ -269,6 +270,18 @@ dependencies = [
  "color-backtrace",
  "eh_mod_dev",
  "eh_schema",
+ "tracing",
+ "tracing-panic",
+ "tracing-subscriber",
+]
+
+[[package]]
+name = "eh_rogue_mod"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "color-backtrace",
+ "eh_mod_dev",
  "tracing",
  "tracing-panic",
  "tracing-subscriber",

@@ -23,10 +23,10 @@ macro_rules! item_impls {
                 self.add_item(<$ty>::new($(process_arg_conversion!($($arg_ty)*, $arg, self)),*))
             }
             paste::paste! {
-                pub fn [< $name  _iter >]<U>(self: &Arc<Self>, func: impl Fn(DatabaseItemIter<'_, $ty>) -> U) -> U {
+                pub fn [< $name  _iter >]<U>(self: &Self, func: impl Fn(DatabaseItemIter<'_, $ty>) -> U) -> U {
                     self.iter::<$ty, U>(func)
                 }
-                pub fn [< $name  _iter_mut >]<U>(self: &Arc<Self>, func: impl Fn(DatabaseItemIterMut<'_, $ty>) -> U) -> U {
+                pub fn [< $name  _iter_mut >]<U>(self: &Self, func: impl Fn(DatabaseItemIterMut<'_, $ty>) -> U) -> U {
                     self.iter_mut::<$ty, U>(func)
                 }
             }

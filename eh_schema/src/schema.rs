@@ -1860,6 +1860,7 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementAny {
+    #[serde(default)]
     pub r#requirements: Vec<BehaviorNodeRequirement>,
 }
 impl BehaviorNodeRequirementAny {
@@ -1912,6 +1913,7 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementAll {
+    #[serde(default)]
     pub r#requirements: Vec<BehaviorNodeRequirement>,
 }
 impl BehaviorNodeRequirementAll {
@@ -1964,6 +1966,7 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementNone {
+    #[serde(default)]
     pub r#requirements: Vec<BehaviorNodeRequirement>,
 }
 impl BehaviorNodeRequirementNone {
@@ -2017,6 +2020,7 @@ impl BehaviorNodeRequirement {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementAiLevel {
     ///AiLevel rises with the level of enemies. Always High for drones and autopilot
+    #[serde(default)]
     pub r#difficulty_level: AiDifficultyLevel,
 }
 impl BehaviorNodeRequirementAiLevel {
@@ -2070,6 +2074,7 @@ impl BehaviorNodeRequirement {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementMinAiLevel {
     ///AiLevel rises with the level of enemies. Always High for drones and autopilot
+    #[serde(default)]
     pub r#difficulty_level: AiDifficultyLevel,
 }
 impl BehaviorNodeRequirementMinAiLevel {
@@ -2122,6 +2127,7 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementSizeClass {
+    #[serde(default)]
     pub r#size_class: SizeClass,
 }
 impl BehaviorNodeRequirementSizeClass {
@@ -2168,6 +2174,7 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasDevice {
+    #[serde(default)]
     pub r#device_class: DeviceClass,
 }
 impl BehaviorNodeRequirementHasDevice {
@@ -2418,13 +2425,13 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasLongRangeWeapon {
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#value: f32,
 }
 impl BehaviorNodeRequirementHasLongRangeWeapon {
     pub fn new() -> Self {
-        Self {
-            r#value: Default::default(),
-        }
+        Self { r#value: 0.0 }
     }
     pub fn with_value(mut self, r#value: impl Into<f32>) -> Self {
         self.r#value = r#value.into();
@@ -2610,6 +2617,8 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasKineticResistance {
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#value: f32,
 }
 impl BehaviorNodeRequirementHasKineticResistance {
@@ -2664,6 +2673,8 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasHighManeuverability {
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#value: f32,
 }
 impl BehaviorNodeRequirementHasHighManeuverability {
@@ -2718,13 +2729,13 @@ impl BehaviorNodeRequirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasHighRammingDamage {
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#value: f32,
 }
 impl BehaviorNodeRequirementHasHighRammingDamage {
     pub fn new() -> Self {
-        Self {
-            r#value: Default::default(),
-        }
+        Self { r#value: 0.0 }
     }
     pub fn with_value(mut self, r#value: impl Into<f32>) -> Self {
         self.r#value = r#value.into();
@@ -2904,11 +2915,11 @@ impl<'de> serde::Deserialize<'de> for BehaviorNodeRequirement {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: BehaviorRequirementType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: BehaviorRequirementType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             BehaviorRequirementType::Empty => {
                 Self::Empty(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -3232,6 +3243,7 @@ impl Default for BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSuccess {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeSuccess {
@@ -3282,6 +3294,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeFailure {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeFailure {
@@ -3332,7 +3345,10 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSubTree {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#item_id: Option<BehaviorTreeId>,
 }
 impl BehaviorTreeNodeSubTree {
@@ -3392,7 +3408,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSelector {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#nodes: Vec<BehaviorTreeNode>,
 }
 impl BehaviorTreeNodeSelector {
@@ -3452,7 +3470,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSequence {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#nodes: Vec<BehaviorTreeNode>,
 }
 impl BehaviorTreeNodeSequence {
@@ -3512,7 +3532,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeParallel {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#nodes: Vec<BehaviorTreeNode>,
 }
 impl BehaviorTreeNodeParallel {
@@ -3572,8 +3594,12 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeRandomSelector {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#nodes: Vec<BehaviorTreeNode>,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
 }
 impl BehaviorTreeNodeRandomSelector {
@@ -3581,7 +3607,7 @@ impl BehaviorTreeNodeRandomSelector {
         Self {
             r#requirement: Default::default(),
             r#nodes: Default::default(),
-            r#cooldown: Default::default(),
+            r#cooldown: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -3652,7 +3678,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeInvertor {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#node: Box<BehaviorTreeNode>,
 }
 impl BehaviorTreeNodeInvertor {
@@ -3712,10 +3740,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeCooldown {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#node: Box<BehaviorTreeNode>,
+    #[serde(default)]
     pub r#execution_mode: NodeExecutionMode,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#result: bool,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
 }
 impl BehaviorTreeNodeCooldown {
@@ -3724,8 +3759,8 @@ impl BehaviorTreeNodeCooldown {
             r#requirement: Default::default(),
             r#node: Default::default(),
             r#execution_mode: Default::default(),
-            r#result: Default::default(),
-            r#cooldown: Default::default(),
+            r#result: false,
+            r#cooldown: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -3815,9 +3850,14 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeExecute {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#node: Box<BehaviorTreeNode>,
+    #[serde(default)]
     pub r#execution_mode: NodeExecutionMode,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#result: bool,
 }
 impl BehaviorTreeNodeExecute {
@@ -3826,7 +3866,7 @@ impl BehaviorTreeNodeExecute {
             r#requirement: Default::default(),
             r#node: Default::default(),
             r#execution_mode: Default::default(),
-            r#result: Default::default(),
+            r#result: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -3898,7 +3938,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeParallelSequence {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#nodes: Vec<BehaviorTreeNode>,
 }
 impl BehaviorTreeNodeParallelSequence {
@@ -3958,7 +4000,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodePreserveTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#node: Box<BehaviorTreeNode>,
 }
 impl BehaviorTreeNodePreserveTarget {
@@ -4018,7 +4062,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeIfThenElse {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#nodes: Vec<BehaviorTreeNode>,
 }
 impl BehaviorTreeNodeIfThenElse {
@@ -4078,7 +4124,10 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasEnoughEnergy {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ1f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ1f32")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeHasEnoughEnergy {
@@ -4157,14 +4206,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeIsLowOnHp {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeIsLowOnHp {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -4236,14 +4288,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeIsNotControledByPlayer {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
 }
 impl BehaviorTreeNodeIsNotControledByPlayer {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#cooldown: Default::default(),
+            r#cooldown: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -4306,7 +4361,10 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasIncomingThreat {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_5f32")]
+    #[serde(skip_serializing_if = "skip_if_5f32")]
     pub r#cooldown: f32,
 }
 impl BehaviorTreeNodeHasIncomingThreat {
@@ -4376,6 +4434,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasAdditionalTargets {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeHasAdditionalTargets {
@@ -4426,14 +4485,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeIsFasterThanTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeIsFasterThanTarget {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -4505,6 +4567,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasMainTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeHasMainTarget {
@@ -4555,6 +4618,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMainTargetIsAlly {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeMainTargetIsAlly {
@@ -4605,6 +4669,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMainTargetIsEnemy {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeMainTargetIsEnemy {
@@ -4655,14 +4720,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMainTargetLowHp {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeMainTargetLowHp {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -4734,8 +4802,11 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMainTargetWithinAttackRange {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
     ///Linear interpolation between shortest and longest weapon ranges
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeMainTargetWithinAttackRange {
@@ -4814,6 +4885,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasMothership {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeHasMothership {
@@ -4864,15 +4936,18 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetDistance {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
     ///Max distance. If value is 0, prefefined value will be used (e.g. DroneBay range)
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeTargetDistance {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#max_value: Default::default(),
+            r#max_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -4935,14 +5010,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasLongerAttackRange {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeHasLongerAttackRange {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5014,20 +5092,29 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeFindEnemy {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
+    #[serde(default = "default_5f32")]
+    #[serde(skip_serializing_if = "skip_if_5f32")]
     pub r#max_value: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#in_range: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#no_drones: bool,
 }
 impl BehaviorTreeNodeFindEnemy {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
             r#max_value: 5f32,
-            r#in_range: Default::default(),
-            r#no_drones: Default::default(),
+            r#in_range: false,
+            r#no_drones: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5123,9 +5210,14 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMoveToAttackRange {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
     ///Linear interpolation between shortest and longest weapon ranges
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#min_value: f32,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeMoveToAttackRange {
@@ -5231,14 +5323,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAttackMainTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#in_range: bool,
 }
 impl BehaviorTreeNodeAttackMainTarget {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#in_range: Default::default(),
+            r#in_range: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5291,7 +5386,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSelectWeapon {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#weapon_type: AiWeaponCategory,
 }
 impl BehaviorTreeNodeSelectWeapon {
@@ -5351,6 +5448,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSpawnDrones {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeSpawnDrones {
@@ -5401,14 +5499,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeRam {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#use_systems: bool,
 }
 impl BehaviorTreeNodeRam {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#use_systems: Default::default(),
+            r#use_systems: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5461,14 +5562,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeDetonateShip {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#in_range: bool,
 }
 impl BehaviorTreeNodeDetonateShip {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#in_range: Default::default(),
+            r#in_range: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5521,6 +5625,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeVanish {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeVanish {
@@ -5571,10 +5676,15 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMaintainAttackRange {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
     ///Linear interpolation between shortest and longest weapon ranges
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#min_value: f32,
     ///A valid distance between ships will be [range*(1-tolerance) .. range]
+    #[serde(default = "default_0ඞdotඞ2f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ2f32")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeMaintainAttackRange {
@@ -5680,16 +5790,21 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeWait {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#in_range: bool,
 }
 impl BehaviorTreeNodeWait {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#cooldown: Default::default(),
-            r#in_range: Default::default(),
+            r#cooldown: 0.0,
+            r#in_range: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5760,6 +5875,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeLookAtTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeLookAtTarget {
@@ -5810,14 +5926,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeLookForAdditionalTargets {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
 }
 impl BehaviorTreeNodeLookForAdditionalTargets {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#cooldown: Default::default(),
+            r#cooldown: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5880,14 +5999,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeLookForThreats {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
 }
 impl BehaviorTreeNodeLookForThreats {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#cooldown: Default::default(),
+            r#cooldown: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -5950,8 +6072,11 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMatchVelocityWithTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
     ///Acceptable speed deviation
+    #[serde(default = "default_0ඞdotඞ2f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ2f32")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeMatchVelocityWithTarget {
@@ -6030,7 +6155,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeActivateDevice {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#device_class: DeviceClass,
 }
 impl BehaviorTreeNodeActivateDevice {
@@ -6090,8 +6217,13 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeRechargeEnergy {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ1f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ1f32")]
     pub r#min_value: f32,
+    #[serde(default = "default_0ඞdotඞ9f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ9f32")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeRechargeEnergy {
@@ -6197,6 +6329,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSustainAim {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeSustainAim {
@@ -6247,6 +6380,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeChargeWeapons {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeChargeWeapons {
@@ -6297,6 +6431,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeChase {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeChase {
@@ -6347,6 +6482,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAvoidThreats {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeAvoidThreats {
@@ -6397,8 +6533,11 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSlowDown {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
     ///Acceptable speed deviation
+    #[serde(default = "default_0ඞdotඞ2f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ2f32")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeSlowDown {
@@ -6477,6 +6616,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeUseRecoil {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeUseRecoil {
@@ -6527,6 +6667,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeDefendWithFronalShield {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeDefendWithFronalShield {
@@ -6577,6 +6718,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTrackControllableAmmo {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeTrackControllableAmmo {
@@ -6627,8 +6769,13 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeKeepDistance {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_2ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_2ඞdotඞ5f32")]
     pub r#min_value: f32,
+    #[serde(default = "default_3ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_3ඞdotඞ5f32")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeKeepDistance {
@@ -6734,6 +6881,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeForgetMainTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeForgetMainTarget {
@@ -6784,6 +6932,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeEscapeTargetAttackRadius {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeEscapeTargetAttackRadius {
@@ -6834,14 +6983,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAttackAdditionalTargets {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#in_range: bool,
 }
 impl BehaviorTreeNodeAttackAdditionalTargets {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#in_range: Default::default(),
+            r#in_range: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -6894,6 +7046,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetAllyStarbase {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeTargetAllyStarbase {
@@ -6944,6 +7097,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetEnemyStarbase {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeTargetEnemyStarbase {
@@ -6994,6 +7148,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeBypassObstacles {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeBypassObstacles {
@@ -7044,6 +7199,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAttackTurretTargets {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeAttackTurretTargets {
@@ -7094,6 +7250,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHoldHarpoon {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeHoldHarpoon {
@@ -7144,18 +7301,25 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeFindDamagedAlly {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
+    #[serde(default = "default_5f32")]
+    #[serde(skip_serializing_if = "skip_if_5f32")]
     pub r#max_value: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#in_range: bool,
 }
 impl BehaviorTreeNodeFindDamagedAlly {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
             r#max_value: 5f32,
-            r#in_range: Default::default(),
+            r#in_range: false,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -7243,14 +7407,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeEnginePropulsionForce {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeEnginePropulsionForce {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -7322,6 +7489,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMotherShipRetreated {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeMotherShipRetreated {
@@ -7372,6 +7540,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMotherShipDestroyed {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeMotherShipDestroyed {
@@ -7422,8 +7591,13 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeFlyAroundMothership {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_2ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_2ඞdotඞ5f32")]
     pub r#min_value: f32,
+    #[serde(default = "default_3ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_3ඞdotඞ5f32")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeFlyAroundMothership {
@@ -7529,6 +7703,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeGoBerserk {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeGoBerserk {
@@ -7579,6 +7754,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetMothership {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeTargetMothership {
@@ -7629,14 +7805,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMothershipLowHp {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeMothershipLowHp {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -7708,15 +7887,18 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMothershipDistanceExceeded {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
     ///Max distance. If value is 0, prefefined value will be used (e.g. DroneBay range)
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#max_value: f32,
 }
 impl BehaviorTreeNodeMothershipDistanceExceeded {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#max_value: Default::default(),
+            r#max_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -7779,6 +7961,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMakeTargetMothership {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeMakeTargetMothership {
@@ -7829,14 +8012,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMothershipLowEnergy {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeMothershipLowEnergy {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -7908,14 +8094,17 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMothershipLowShield {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#min_value: f32,
 }
 impl BehaviorTreeNodeMothershipLowShield {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0.0,
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -7987,8 +8176,12 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeShowMessage {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
 }
 impl BehaviorTreeNodeShowMessage {
@@ -7996,7 +8189,7 @@ impl BehaviorTreeNodeShowMessage {
         Self {
             r#requirement: Default::default(),
             r#text: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
         }
     }
     pub fn with_requirement(mut self, r#requirement: impl Into<BehaviorNodeRequirement>) -> Self {
@@ -8057,7 +8250,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeDebugLog {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeDebugLog {
@@ -8117,15 +8312,19 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSetValue {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#result: bool,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeSetValue {
     pub fn new() -> Self {
         Self {
             r#requirement: Default::default(),
-            r#result: Default::default(),
+            r#result: false,
             r#text: Default::default(),
         }
     }
@@ -8187,7 +8386,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeGetValue {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeGetValue {
@@ -8247,7 +8448,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSendMessage {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeSendMessage {
@@ -8307,7 +8510,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMessageReceived {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeMessageReceived {
@@ -8367,6 +8572,7 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetMessageSender {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
 }
 impl BehaviorTreeNodeTargetMessageSender {
@@ -8417,7 +8623,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSaveTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeSaveTarget {
@@ -8477,7 +8685,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeLoadTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeLoadTarget {
@@ -8537,7 +8747,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasSavedTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeHasSavedTarget {
@@ -8597,7 +8809,9 @@ impl BehaviorTreeNode {
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeForgetSavedTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
+    #[serde(default)]
     pub r#requirement: BehaviorNodeRequirement,
+    #[serde(default)]
     pub r#text: String,
 }
 impl BehaviorTreeNodeForgetSavedTarget {
@@ -9091,11 +9305,11 @@ impl<'de> serde::Deserialize<'de> for BehaviorTreeNode {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: BehaviorNodeType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: BehaviorNodeType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             BehaviorNodeType::Success => {
                 Self::Success(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -9993,28 +10207,44 @@ impl BehaviorTreeNode {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Barrel {
+    #[serde(default)]
+    #[serde(with = "crate::helpers::glam_ser")]
     pub r#position: glam::f32::Vec2,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#rotation: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#offset: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#platform_type: i32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#auto_aiming_arc: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#rotation_speed: f32,
+    #[serde(default)]
     pub r#weapon_class: String,
+    #[serde(default)]
     pub r#image: String,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
 }
 impl Barrel {
     pub fn new() -> Self {
         Self {
             r#position: Default::default(),
-            r#rotation: Default::default(),
-            r#offset: Default::default(),
-            r#platform_type: Default::default(),
-            r#auto_aiming_arc: Default::default(),
-            r#rotation_speed: Default::default(),
+            r#rotation: 0.0,
+            r#offset: 0.0,
+            r#platform_type: 0,
+            r#auto_aiming_arc: 0.0,
+            r#rotation_speed: 0.0,
             r#weapon_class: Default::default(),
             r#image: Default::default(),
-            r#size: Default::default(),
+            r#size: 0.0,
         }
     }
     pub fn with_position(mut self, r#position: impl Into<glam::f32::Vec2>) -> Self {
@@ -10128,7 +10358,7 @@ impl DatabaseItem for Barrel {
             );
             self.r#offset = 1f32 as f32;
         }
-        let dw: i32 = Default::default();
+        let dw: i32 = 0;
         if self.r#platform_type != dw {
             tracing::error!(
                 ield = "r#platform_type",
@@ -10204,20 +10434,28 @@ impl Default for Barrel {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentRestrictions {
+    #[serde(default)]
     pub r#ship_sizes: std::collections::HashSet<SizeClass>,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#not_for_organic_ships: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#not_for_mechanic_ships: bool,
+    #[serde(default)]
     pub r#unique_component_tag: String,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_component_amount: i32,
 }
 impl ComponentRestrictions {
     pub fn new() -> Self {
         Self {
             r#ship_sizes: Default::default(),
-            r#not_for_organic_ships: Default::default(),
-            r#not_for_mechanic_ships: Default::default(),
+            r#not_for_organic_ships: false,
+            r#not_for_mechanic_ships: false,
             r#unique_component_tag: Default::default(),
-            r#max_component_amount: Default::default(),
+            r#max_component_amount: 0,
         }
     }
     pub fn with_ship_sizes(
@@ -10308,14 +10546,18 @@ impl Default for ComponentRestrictions {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Engine {
+    #[serde(default)]
+    #[serde(with = "crate::helpers::glam_ser")]
     pub r#position: glam::f32::Vec2,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
 }
 impl Engine {
     pub fn new() -> Self {
         Self {
             r#position: Default::default(),
-            r#size: Default::default(),
+            r#size: 0.0,
         }
     }
     pub fn with_position(mut self, r#position: impl Into<glam::f32::Vec2>) -> Self {
@@ -10371,12 +10613,25 @@ impl Default for Engine {
 #[serde(rename_all = "PascalCase")]
 pub struct InstalledComponent {
     pub r#component_id: ComponentId,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#modification: Option<ComponentModId>,
+    #[serde(default)]
     pub r#quality: ModificationQuality,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#x: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#y: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#barrel_id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#behaviour: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#key_binding: i32,
 }
 impl InstalledComponent {
@@ -10385,11 +10640,11 @@ impl InstalledComponent {
             r#component_id,
             r#modification: Default::default(),
             r#quality: Default::default(),
-            r#x: Default::default(),
-            r#y: Default::default(),
-            r#barrel_id: Default::default(),
-            r#behaviour: Default::default(),
-            r#key_binding: Default::default(),
+            r#x: 0,
+            r#y: 0,
+            r#barrel_id: 0,
+            r#behaviour: 0,
+            r#key_binding: 0,
         }
     }
     pub fn with_component_id(mut self, r#component_id: impl Into<ComponentId>) -> Self {
@@ -10562,7 +10817,9 @@ impl DatabaseItem for InstalledComponent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct FactionFilter {
+    #[serde(default)]
     pub r#type: FactionFilterType,
+    #[serde(default)]
     pub r#list: Vec<FactionId>,
 }
 impl FactionFilter {
@@ -10664,13 +10921,13 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentSomeMoney {
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#value_ratio: f32,
 }
 impl LootContentSomeMoney {
     pub fn new() -> Self {
-        Self {
-            r#value_ratio: Default::default(),
-        }
+        Self { r#value_ratio: 0.0 }
     }
     pub fn with_value_ratio(mut self, r#value_ratio: impl Into<f32>) -> Self {
         self.r#value_ratio = r#value_ratio.into();
@@ -10729,14 +10986,18 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentFuel {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
 }
 impl LootContentFuel {
     pub fn new() -> Self {
         Self {
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
         }
     }
     pub fn with_min_amount(mut self, r#min_amount: impl Into<i32>) -> Self {
@@ -10822,14 +11083,18 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentMoney {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
 }
 impl LootContentMoney {
     pub fn new() -> Self {
         Self {
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
         }
     }
     pub fn with_min_amount(mut self, r#min_amount: impl Into<i32>) -> Self {
@@ -10915,14 +11180,18 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentStars {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
 }
 impl LootContentStars {
     pub fn new() -> Self {
         Self {
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
         }
     }
     pub fn with_min_amount(mut self, r#min_amount: impl Into<i32>) -> Self {
@@ -11042,17 +11311,24 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentRandomComponents {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#value_ratio: f32,
+    #[serde(default)]
     pub r#factions: FactionFilter,
 }
 impl LootContentRandomComponents {
     pub fn new() -> Self {
         Self {
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
-            r#value_ratio: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
+            r#value_ratio: 0.0,
             r#factions: Default::default(),
         }
     }
@@ -11173,15 +11449,20 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentRandomItems {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
+    #[serde(default)]
     pub r#items: Vec<LootItem>,
 }
 impl LootContentRandomItems {
     pub fn new() -> Self {
         Self {
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
             r#items: Default::default(),
         }
     }
@@ -11276,6 +11557,7 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentAllItems {
+    #[serde(default)]
     pub r#items: Vec<LootItem>,
 }
 impl LootContentAllItems {
@@ -11322,6 +11604,7 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentItemsWithChance {
+    #[serde(default)]
     pub r#items: Vec<LootItem>,
 }
 impl LootContentItemsWithChance {
@@ -11369,15 +11652,19 @@ impl LootContent {
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentQuestItem {
     pub r#item_id: QuestItemId,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
 }
 impl LootContentQuestItem {
     pub fn new(r#item_id: QuestItemId) -> Self {
         Self {
             r#item_id,
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
         }
     }
     pub fn with_item_id(mut self, r#item_id: impl Into<QuestItemId>) -> Self {
@@ -11545,15 +11832,19 @@ impl LootContent {
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentComponent {
     pub r#item_id: ComponentId,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
 }
 impl LootContentComponent {
     pub fn new(r#item_id: ComponentId) -> Self {
         Self {
             r#item_id,
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
         }
     }
     pub fn with_item_id(mut self, r#item_id: impl Into<ComponentId>) -> Self {
@@ -11681,15 +11972,20 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentResearchPoints {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
+    #[serde(default)]
     pub r#factions: FactionFilter,
 }
 impl LootContentResearchPoints {
     pub fn new() -> Self {
         Self {
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
             r#factions: Default::default(),
         }
     }
@@ -11785,15 +12081,19 @@ impl LootContent {
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentSatellite {
     pub r#item_id: SatelliteId,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_amount: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_amount: i32,
 }
 impl LootContentSatellite {
     pub fn new(r#item_id: SatelliteId) -> Self {
         Self {
             r#item_id,
-            r#min_amount: Default::default(),
-            r#max_amount: Default::default(),
+            r#min_amount: 0,
+            r#max_amount: 0,
         }
     }
     pub fn with_item_id(mut self, r#item_id: impl Into<SatelliteId>) -> Self {
@@ -11987,11 +12287,11 @@ impl<'de> serde::Deserialize<'de> for LootContent {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: LootItemType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: LootItemType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             LootItemType::None => {
                 Self::None(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -12173,13 +12473,16 @@ impl LootContent {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootItem {
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weight: f32,
+    #[serde(default)]
     pub r#loot: LootContent,
 }
 impl LootItem {
     pub fn new() -> Self {
         Self {
-            r#weight: Default::default(),
+            r#weight: 0.0,
             r#loot: Default::default(),
         }
     }
@@ -12254,13 +12557,13 @@ impl Default for Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeUndefined {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
 }
 impl NodeUndefined {
     pub fn new() -> Self {
-        Self {
-            r#id: Default::default(),
-        }
+        Self { r#id: 0 }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
         self.r#id = r#id.into();
@@ -12319,13 +12622,13 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeComingSoon {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
 }
 impl NodeComingSoon {
     pub fn new() -> Self {
-        Self {
-            r#id: Default::default(),
-        }
+        Self { r#id: 0 }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
         self.r#id = r#id.into();
@@ -12384,18 +12687,29 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeShowDialog {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default)]
     pub r#required_view: RequiredViewMode,
+    #[serde(default)]
     pub r#message: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#enemy: Option<FleetId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#loot: Option<LootId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#character: Option<CharacterId>,
+    #[serde(default)]
     pub r#actions: Vec<NodeAction>,
 }
 impl NodeShowDialog {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
+            r#id: 0,
             r#required_view: Default::default(),
             r#message: Default::default(),
             r#enemy: Default::default(),
@@ -12509,18 +12823,26 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeOpenShipyard {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeOpenShipyard {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#faction: Default::default(),
-            r#value: Default::default(),
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -12640,18 +12962,26 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeOpenWorkshop {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeOpenWorkshop {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#faction: Default::default(),
-            r#value: Default::default(),
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -12771,17 +13101,23 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSwitch {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default)]
     pub r#message: String,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
     pub r#transitions: Vec<NodeTransition>,
 }
 impl NodeSwitch {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
+            r#id: 0,
             r#message: Default::default(),
-            r#default_transition: Default::default(),
+            r#default_transition: 0,
             r#transitions: Default::default(),
         }
     }
@@ -12884,17 +13220,23 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeRandom {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default)]
     pub r#message: String,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
     pub r#transitions: Vec<NodeTransition>,
 }
 impl NodeRandom {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
+            r#id: 0,
             r#message: Default::default(),
-            r#default_transition: Default::default(),
+            r#default_transition: 0,
             r#transitions: Default::default(),
         }
     }
@@ -12997,14 +13339,18 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCondition {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default)]
     pub r#message: String,
+    #[serde(default)]
     pub r#transitions: Vec<NodeTransition>,
 }
 impl NodeCondition {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
+            r#id: 0,
             r#message: Default::default(),
             r#transitions: Default::default(),
         }
@@ -13082,18 +13428,28 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAttackFleet {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#failure_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#enemy: Option<FleetId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#loot: Option<LootId>,
 }
 impl NodeAttackFleet {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
-            r#failure_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
+            r#failure_transition: 0,
             r#enemy: Default::default(),
             r#loot: Default::default(),
         }
@@ -13223,16 +13579,22 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAttackOccupants {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#failure_transition: i32,
 }
 impl NodeAttackOccupants {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
-            r#failure_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
+            r#failure_transition: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -13344,16 +13706,22 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAttackStarbase {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#failure_transition: i32,
 }
 impl NodeAttackStarbase {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
-            r#failure_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
+            r#failure_transition: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -13465,14 +13833,18 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeDestroyOccupants {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
 }
 impl NodeDestroyOccupants {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -13558,14 +13930,18 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSuppressOccupants {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
 }
 impl NodeSuppressOccupants {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -13651,14 +14027,18 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeRetreat {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
 }
 impl NodeRetreat {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -13744,15 +14124,21 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeReceiveItem {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#loot: Option<LootId>,
 }
 impl NodeReceiveItem {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#loot: Default::default(),
         }
     }
@@ -13847,15 +14233,21 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeRemoveItem {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#loot: Option<LootId>,
 }
 impl NodeRemoveItem {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#loot: Default::default(),
         }
     }
@@ -13950,15 +14342,21 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeTrade {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#loot: Option<LootId>,
 }
 impl NodeTrade {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#loot: Default::default(),
         }
     }
@@ -14053,13 +14451,13 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCompleteQuest {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
 }
 impl NodeCompleteQuest {
     pub fn new() -> Self {
-        Self {
-            r#id: Default::default(),
-        }
+        Self { r#id: 0 }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
         self.r#id = r#id.into();
@@ -14118,13 +14516,13 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeFailQuest {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
 }
 impl NodeFailQuest {
     pub fn new() -> Self {
-        Self {
-            r#id: Default::default(),
-        }
+        Self { r#id: 0 }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
         self.r#id = r#id.into();
@@ -14183,13 +14581,13 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCancelQuest {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
 }
 impl NodeCancelQuest {
     pub fn new() -> Self {
-        Self {
-            r#id: Default::default(),
-        }
+        Self { r#id: 0 }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
         self.r#id = r#id.into();
@@ -14248,15 +14646,21 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeStartQuest {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#quest: Option<QuestId>,
 }
 impl NodeStartQuest {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#quest: Default::default(),
         }
     }
@@ -14351,18 +14755,26 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSetCharacterRelations {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#character: Option<CharacterId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeSetCharacterRelations {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#character: Default::default(),
-            r#value: Default::default(),
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -14482,16 +14894,22 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSetFactionRelations {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeSetFactionRelations {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
-            r#value: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -14603,17 +15021,23 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSetFactionStarbasePower {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
     ///Percentage value
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeSetFactionStarbasePower {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
-            r#value: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -14725,18 +15149,26 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeCharacterRelations {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#character: Option<CharacterId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeChangeCharacterRelations {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#character: Default::default(),
-            r#value: Default::default(),
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -14856,16 +15288,22 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeFactionRelations {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeChangeFactionRelations {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
-            r#value: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -14977,17 +15415,23 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeFactionStarbasePower {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
     ///Percentage value
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl NodeChangeFactionStarbasePower {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
-            r#value: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
+            r#value: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -15099,14 +15543,18 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCaptureStarBase {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
 }
 impl NodeCaptureStarBase {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -15192,14 +15640,18 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeLiberateStarBase {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
 }
 impl NodeLiberateStarBase {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<i32>) -> Self {
@@ -15285,15 +15737,21 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeFaction {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#id: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#default_transition: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
 }
 impl NodeChangeFaction {
     pub fn new() -> Self {
         Self {
-            r#id: Default::default(),
-            r#default_transition: Default::default(),
+            r#id: 0,
+            r#default_transition: 0,
             r#faction: Default::default(),
         }
     }
@@ -15558,11 +16016,11 @@ impl<'de> serde::Deserialize<'de> for Node {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: NodeType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: NodeType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             NodeType::Undefined => {
                 Self::Undefined(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -15918,14 +16376,18 @@ impl Node {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAction {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#target_node: i32,
+    #[serde(default)]
     pub r#requirement: Requirement,
+    #[serde(default)]
     pub r#button_text: String,
 }
 impl NodeAction {
     pub fn new() -> Self {
         Self {
-            r#target_node: Default::default(),
+            r#target_node: 0,
             r#requirement: Default::default(),
             r#button_text: Default::default(),
         }
@@ -15990,16 +16452,21 @@ impl Default for NodeAction {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeTransition {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#target_node: i32,
+    #[serde(default)]
     pub r#requirement: Requirement,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weight: f32,
 }
 impl NodeTransition {
     pub fn new() -> Self {
         Self {
-            r#target_node: Default::default(),
+            r#target_node: 0,
             r#requirement: Default::default(),
-            r#weight: Default::default(),
+            r#weight: 0.0,
         }
     }
     pub fn with_target_node(mut self, r#target_node: impl Into<i32>) -> Self {
@@ -16080,11 +16547,21 @@ impl Default for NodeTransition {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct QuestOrigin {
+    #[serde(default)]
     pub r#type: QuestOriginType,
+    #[serde(default)]
     pub r#factions: FactionFilter,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_distance: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_distance: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_relations: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_relations: i32,
 }
 impl QuestOrigin {
@@ -16092,10 +16569,10 @@ impl QuestOrigin {
         Self {
             r#type: Default::default(),
             r#factions: Default::default(),
-            r#min_distance: Default::default(),
-            r#max_distance: Default::default(),
-            r#min_relations: Default::default(),
-            r#max_relations: Default::default(),
+            r#min_distance: 0,
+            r#max_distance: 0,
+            r#min_relations: 0,
+            r#max_relations: 0,
         }
     }
     pub fn with_type(mut self, r#type: impl Into<QuestOriginType>) -> Self {
@@ -16299,6 +16776,7 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementAny {
+    #[serde(default)]
     pub r#requirements: Vec<Requirement>,
 }
 impl RequirementAny {
@@ -16345,6 +16823,7 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementAll {
+    #[serde(default)]
     pub r#requirements: Vec<Requirement>,
 }
 impl RequirementAll {
@@ -16391,6 +16870,7 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementNone {
+    #[serde(default)]
     pub r#requirements: Vec<Requirement>,
 }
 impl RequirementNone {
@@ -16437,16 +16917,22 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementPlayerPosition {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_value: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#bool_value: bool,
 }
 impl RequirementPlayerPosition {
     pub fn new() -> Self {
         Self {
-            r#min_value: Default::default(),
-            r#max_value: Default::default(),
-            r#bool_value: Default::default(),
+            r#min_value: 0,
+            r#max_value: 0,
+            r#bool_value: false,
         }
     }
     pub fn with_min_value(mut self, r#min_value: impl Into<i32>) -> Self {
@@ -16540,16 +17026,22 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementRandomStarSystem {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_value: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#bool_value: bool,
 }
 impl RequirementRandomStarSystem {
     pub fn new() -> Self {
         Self {
-            r#min_value: Default::default(),
-            r#max_value: Default::default(),
-            r#bool_value: Default::default(),
+            r#min_value: 0,
+            r#max_value: 0,
+            r#bool_value: false,
         }
     }
     pub fn with_min_value(mut self, r#min_value: impl Into<i32>) -> Self {
@@ -16677,6 +17169,8 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementQuestCompleted {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#item_id: Option<QuestId>,
 }
 impl RequirementQuestCompleted {
@@ -16723,6 +17217,8 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementQuestActive {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#item_id: Option<QuestId>,
 }
 impl RequirementQuestActive {
@@ -16769,15 +17265,21 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementCharacterRelations {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_value: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#character: Option<CharacterId>,
 }
 impl RequirementCharacterRelations {
     pub fn new() -> Self {
         Self {
-            r#min_value: Default::default(),
-            r#max_value: Default::default(),
+            r#min_value: 0,
+            r#max_value: 0,
             r#character: Default::default(),
         }
     }
@@ -16872,14 +17374,18 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementFactionRelations {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_value: i32,
 }
 impl RequirementFactionRelations {
     pub fn new() -> Self {
         Self {
-            r#min_value: Default::default(),
-            r#max_value: Default::default(),
+            r#min_value: 0,
+            r#max_value: 0,
         }
     }
     pub fn with_min_value(mut self, r#min_value: impl Into<i32>) -> Self {
@@ -17000,15 +17506,19 @@ impl Requirement {
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementFactionStarbasePower {
     ///Percentage value
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
     ///Percentage value
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_value: i32,
 }
 impl RequirementFactionStarbasePower {
     pub fn new() -> Self {
         Self {
-            r#min_value: Default::default(),
-            r#max_value: Default::default(),
+            r#min_value: 0,
+            r#max_value: 0,
         }
     }
     pub fn with_min_value(mut self, r#min_value: impl Into<i32>) -> Self {
@@ -17128,6 +17638,8 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementFaction {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
 }
 impl RequirementFaction {
@@ -17174,14 +17686,18 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementHaveQuestItem {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#item_id: Option<QuestItemId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
 }
 impl RequirementHaveQuestItem {
     pub fn new() -> Self {
         Self {
             r#item_id: Default::default(),
-            r#min_value: Default::default(),
+            r#min_value: 0,
         }
     }
     pub fn with_item_id(mut self, r#item_id: impl Into<Option<QuestItemId>>) -> Self {
@@ -17249,6 +17765,7 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementHaveItem {
+    #[serde(default)]
     pub r#loot: LootContent,
 }
 impl RequirementHaveItem {
@@ -17295,6 +17812,8 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementHaveItemById {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#item_id: Option<LootId>,
 }
 impl RequirementHaveItemById {
@@ -17341,12 +17860,14 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementComeToOrigin {
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#bool_value: bool,
 }
 impl RequirementComeToOrigin {
     pub fn new() -> Self {
         Self {
-            r#bool_value: Default::default(),
+            r#bool_value: false,
         }
     }
     pub fn with_bool_value(mut self, r#bool_value: impl Into<bool>) -> Self {
@@ -17387,14 +17908,18 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementTimeSinceQuestStart {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_value: i32,
 }
 impl RequirementTimeSinceQuestStart {
     pub fn new() -> Self {
         Self {
-            r#min_value: Default::default(),
-            r#max_value: Default::default(),
+            r#min_value: 0,
+            r#max_value: 0,
         }
     }
     pub fn with_min_value(mut self, r#min_value: impl Into<i32>) -> Self {
@@ -17480,14 +18005,18 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementTimeSinceLastCompletion {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#min_value: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_value: i32,
 }
 impl RequirementTimeSinceLastCompletion {
     pub fn new() -> Self {
         Self {
-            r#min_value: Default::default(),
-            r#max_value: Default::default(),
+            r#min_value: 0,
+            r#max_value: 0,
         }
     }
     pub fn with_min_value(mut self, r#min_value: impl Into<i32>) -> Self {
@@ -17698,11 +18227,11 @@ impl<'de> serde::Deserialize<'de> for Requirement {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: RequirementType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: RequirementType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             RequirementType::Empty => {
                 Self::Empty(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -17916,13 +18445,16 @@ impl Requirement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DebugCode {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#code: i32,
+    #[serde(default)]
     pub r#loot: LootContent,
 }
 impl DebugCode {
     pub fn new() -> Self {
         Self {
-            r#code: Default::default(),
+            r#code: 0,
             r#loot: Default::default(),
         }
     }
@@ -17978,14 +18510,18 @@ impl Default for DebugCode {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipToValue {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#ship: Option<ShipId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#value: i32,
 }
 impl ShipToValue {
     pub fn new() -> Self {
         Self {
             r#ship: Default::default(),
-            r#value: Default::default(),
+            r#value: 0,
         }
     }
     pub fn with_ship(mut self, r#ship: impl Into<Option<ShipId>>) -> Self {
@@ -18031,6 +18567,7 @@ impl Default for ShipToValue {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct SoundTrack {
+    #[serde(default)]
     pub r#audio: String,
 }
 impl SoundTrack {
@@ -18064,8 +18601,11 @@ impl Default for SoundTrack {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipBuildPerks {
+    #[serde(default)]
     pub r#perk_1: ShipPerkType,
+    #[serde(default)]
     pub r#perk_2: ShipPerkType,
+    #[serde(default)]
     pub r#perk_3: ShipPerkType,
 }
 impl ShipBuildPerks {
@@ -18117,39 +18657,68 @@ impl Default for ShipBuildPerks {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipFeatures {
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#kinetic_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#heat_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#ship_weight_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#equipment_weight_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#velocity_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#turn_rate_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#armor_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#shield_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_build_speed_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_attack_bonus: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_defense_bonus: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#regeneration: bool,
+    #[serde(default)]
     pub r#builtin_devices: Vec<DeviceId>,
 }
 impl ShipFeatures {
     pub fn new() -> Self {
         Self {
-            r#energy_resistance: Default::default(),
-            r#kinetic_resistance: Default::default(),
-            r#heat_resistance: Default::default(),
-            r#ship_weight_bonus: Default::default(),
-            r#equipment_weight_bonus: Default::default(),
-            r#velocity_bonus: Default::default(),
-            r#turn_rate_bonus: Default::default(),
-            r#armor_bonus: Default::default(),
-            r#shield_bonus: Default::default(),
-            r#energy_bonus: Default::default(),
-            r#drone_build_speed_bonus: Default::default(),
-            r#drone_attack_bonus: Default::default(),
-            r#drone_defense_bonus: Default::default(),
-            r#regeneration: Default::default(),
+            r#energy_resistance: 0.0,
+            r#kinetic_resistance: 0.0,
+            r#heat_resistance: 0.0,
+            r#ship_weight_bonus: 0.0,
+            r#equipment_weight_bonus: 0.0,
+            r#velocity_bonus: 0.0,
+            r#turn_rate_bonus: 0.0,
+            r#armor_bonus: 0.0,
+            r#shield_bonus: 0.0,
+            r#energy_bonus: 0.0,
+            r#drone_build_speed_bonus: 0.0,
+            r#drone_attack_bonus: 0.0,
+            r#drone_defense_bonus: 0.0,
+            r#regeneration: false,
             r#builtin_devices: Default::default(),
         }
     }
@@ -18537,24 +19106,37 @@ impl Default for ShipFeatures {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct StatModification {
+    #[serde(default)]
     pub r#type: StatModificationType,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#gray_3: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#gray_2: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#gray_1: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#green: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#purple: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#gold: f32,
 }
 impl StatModification {
     pub fn new() -> Self {
         Self {
             r#type: Default::default(),
-            r#gray_3: Default::default(),
-            r#gray_2: Default::default(),
-            r#gray_1: Default::default(),
-            r#green: Default::default(),
-            r#purple: Default::default(),
-            r#gold: Default::default(),
+            r#gray_3: 0.0,
+            r#gray_2: 0.0,
+            r#gray_1: 0.0,
+            r#green: 0.0,
+            r#purple: 0.0,
+            r#gold: 0.0,
         }
     }
     pub fn with_type(mut self, r#type: impl Into<StatModificationType>) -> Self {
@@ -18630,43 +19212,73 @@ impl Default for StatModification {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletBody {
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#length: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#velocity: f32,
     ///How hard is the ammunition affected by the parent velocity during spawn.
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#parent_velocity_effect: f32,
     ///Specifies whenever ammunition is attached to the parent ship or ammo. Moving ammo will move in parent's coordinate space
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#attached_to_parent: bool,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#range: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#lifetime: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weight: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#hit_points: i32,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#bullet_prefab: Option<BulletPrefabId>,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_cost: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#can_be_disarmed: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#friendly_fire: bool,
     ///Hints for AI and auto-aim0 on usage of this weapon
+    #[serde(default)]
     pub r#ai_bullet_behavior: AiBulletBehavior,
+    #[serde(default)]
     pub r#type: BulletTypeObsolete,
 }
 impl BulletBody {
     pub fn new() -> Self {
         Self {
-            r#size: Default::default(),
-            r#length: Default::default(),
-            r#velocity: Default::default(),
+            r#size: 0.0,
+            r#length: 0.0,
+            r#velocity: 0.0,
             r#parent_velocity_effect: 1f32,
-            r#attached_to_parent: Default::default(),
-            r#range: Default::default(),
-            r#lifetime: Default::default(),
-            r#weight: Default::default(),
-            r#hit_points: Default::default(),
-            r#color: Default::default(),
+            r#attached_to_parent: false,
+            r#range: 0.0,
+            r#lifetime: 0.0,
+            r#weight: 0.0,
+            r#hit_points: 0,
+            r#color: "#00000000".into(),
             r#bullet_prefab: Default::default(),
-            r#energy_cost: Default::default(),
-            r#can_be_disarmed: Default::default(),
-            r#friendly_fire: Default::default(),
+            r#energy_cost: 0.0,
+            r#can_be_disarmed: false,
+            r#friendly_fire: false,
             r#ai_bullet_behavior: Default::default(),
             r#type: Default::default(),
         }
@@ -19049,16 +19661,22 @@ impl BulletController {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletControllerHoming {
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#starting_velocity_modifier: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#ignore_rotation: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#smart_aim: bool,
 }
 impl BulletControllerHoming {
     pub fn new() -> Self {
         Self {
             r#starting_velocity_modifier: 1f32,
-            r#ignore_rotation: Default::default(),
-            r#smart_aim: Default::default(),
+            r#ignore_rotation: false,
+            r#smart_aim: false,
         }
     }
     pub fn with_starting_velocity_modifier(
@@ -19174,20 +19792,30 @@ impl BulletController {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletControllerParametric {
+    #[serde(default = "default_ඞquoteඞ0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞquoteඞ")]
     pub r#x: String,
+    #[serde(default = "default_ඞquoteඞ0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞquoteඞ")]
     pub r#y: String,
+    #[serde(default = "default_ඞquoteඞ0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞquoteඞ")]
     pub r#rotation: String,
+    #[serde(default = "default_ඞquoteඞ1ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ1ඞquoteඞ")]
     pub r#size: String,
+    #[serde(default = "default_ඞquoteඞ1ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ1ඞquoteඞ")]
     pub r#length: String,
 }
 impl BulletControllerParametric {
     pub fn new() -> Self {
         Self {
-            r#x: "0".to_string(),
-            r#y: "0".to_string(),
-            r#rotation: "0".to_string(),
-            r#size: "1".to_string(),
-            r#length: "1".to_string(),
+            r#x: "0".into(),
+            r#y: "0".into(),
+            r#rotation: "0".into(),
+            r#size: "1".into(),
+            r#length: "1".into(),
         }
     }
     pub fn with_x(mut self, r#x: impl Into<String>) -> Self {
@@ -19378,11 +20006,11 @@ impl<'de> serde::Deserialize<'de> for BulletController {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: BulletControllerType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: BulletControllerType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             BulletControllerType::Projectile => {
                 Self::Projectile(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -19490,14 +20118,17 @@ impl Default for BulletTrigger {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletTriggerNone {
+    #[serde(default)]
     pub r#condition: BulletTriggerCondition,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
 }
 impl BulletTriggerNone {
     pub fn new() -> Self {
         Self {
             r#condition: Default::default(),
-            r#cooldown: Default::default(),
+            r#cooldown: 0.0,
         }
     }
     pub fn with_condition(mut self, r#condition: impl Into<BulletTriggerCondition>) -> Self {
@@ -19565,16 +20196,35 @@ impl BulletTrigger {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletTriggerPlaySfx {
+    #[serde(default)]
     pub r#condition: BulletTriggerCondition,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#visual_effect: Option<VisualEffectId>,
+    #[serde(default)]
     pub r#audio_clip: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default)]
     pub r#color_mode: ColorMode,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#lifetime: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#once_per_collision: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#use_bullet_position: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#sync_lifetime_with_bullet: bool,
 }
 impl BulletTriggerPlaySfx {
@@ -19583,14 +20233,14 @@ impl BulletTriggerPlaySfx {
             r#condition: Default::default(),
             r#visual_effect: Default::default(),
             r#audio_clip: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
             r#color_mode: Default::default(),
-            r#size: Default::default(),
-            r#lifetime: Default::default(),
-            r#cooldown: Default::default(),
-            r#once_per_collision: Default::default(),
-            r#use_bullet_position: Default::default(),
-            r#sync_lifetime_with_bullet: Default::default(),
+            r#size: 0.0,
+            r#lifetime: 0.0,
+            r#cooldown: 0.0,
+            r#once_per_collision: false,
+            r#use_bullet_position: false,
+            r#sync_lifetime_with_bullet: false,
         }
     }
     pub fn with_condition(mut self, r#condition: impl Into<BulletTriggerCondition>) -> Self {
@@ -19778,19 +20428,52 @@ impl BulletTrigger {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletTriggerSpawnBullet {
+    #[serde(default)]
     pub r#condition: BulletTriggerCondition,
+    #[serde(default)]
     pub r#audio_clip: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#ammunition: Option<AmmunitionId>,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default)]
     pub r#color_mode: ColorMode,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#quantity: i32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#random_factor: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#power_multiplier: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#max_nesting_level: i32,
+    #[serde(
+        default = "default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞRANDOMඞlparenඞ0ඞcommaඞඞspaceඞ360ඞrparenඞඞrparenඞඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞRANDOMඞlparenඞ0ඞcommaඞඞspaceඞ360ඞrparenඞඞrparenඞඞquoteඞ"
+    )]
     pub r#rotation: String,
+    #[serde(
+        default = "default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ"
+    )]
     pub r#offset_x: String,
+    #[serde(default = "default_ඞquoteඞ0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞquoteඞ")]
     pub r#offset_y: String,
 }
 impl BulletTriggerSpawnBullet {
@@ -19799,17 +20482,17 @@ impl BulletTriggerSpawnBullet {
             r#condition: Default::default(),
             r#audio_clip: Default::default(),
             r#ammunition: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
             r#color_mode: Default::default(),
-            r#quantity: Default::default(),
-            r#size: Default::default(),
-            r#cooldown: Default::default(),
-            r#random_factor: Default::default(),
-            r#power_multiplier: Default::default(),
-            r#max_nesting_level: Default::default(),
-            r#rotation: "IF(Quantity <= 1, 0, RANDOM(0, 360))".to_string(),
-            r#offset_x: "IF(Quantity <= 1, 0, Size / 2)".to_string(),
-            r#offset_y: "0".to_string(),
+            r#quantity: 0,
+            r#size: 0.0,
+            r#cooldown: 0.0,
+            r#random_factor: 0.0,
+            r#power_multiplier: 0.0,
+            r#max_nesting_level: 0,
+            r#rotation: "IF(Quantity <= 1, 0, RANDOM(0, 360))".into(),
+            r#offset_x: "IF(Quantity <= 1, 0, Size / 2)".into(),
+            r#offset_y: "0".into(),
         }
     }
     pub fn with_condition(mut self, r#condition: impl Into<BulletTriggerCondition>) -> Self {
@@ -20054,14 +20737,17 @@ impl BulletTrigger {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletTriggerDetonate {
+    #[serde(default)]
     pub r#condition: BulletTriggerCondition,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
 }
 impl BulletTriggerDetonate {
     pub fn new() -> Self {
         Self {
             r#condition: Default::default(),
-            r#cooldown: Default::default(),
+            r#cooldown: 0.0,
         }
     }
     pub fn with_condition(mut self, r#condition: impl Into<BulletTriggerCondition>) -> Self {
@@ -20129,14 +20815,29 @@ impl BulletTrigger {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletTriggerSpawnStaticSfx {
+    #[serde(default)]
     pub r#condition: BulletTriggerCondition,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#visual_effect: Option<VisualEffectId>,
+    #[serde(default)]
     pub r#audio_clip: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default)]
     pub r#color_mode: ColorMode,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#lifetime: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#once_per_collision: bool,
 }
 impl BulletTriggerSpawnStaticSfx {
@@ -20145,12 +20846,12 @@ impl BulletTriggerSpawnStaticSfx {
             r#condition: Default::default(),
             r#visual_effect: Default::default(),
             r#audio_clip: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
             r#color_mode: Default::default(),
-            r#size: Default::default(),
-            r#lifetime: Default::default(),
-            r#cooldown: Default::default(),
-            r#once_per_collision: Default::default(),
+            r#size: 0.0,
+            r#lifetime: 0.0,
+            r#cooldown: 0.0,
+            r#once_per_collision: false,
         }
     }
     pub fn with_condition(mut self, r#condition: impl Into<BulletTriggerCondition>) -> Self {
@@ -20316,18 +21017,25 @@ impl BulletTrigger {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletTriggerGravityField {
+    #[serde(default)]
     pub r#condition: BulletTriggerCondition,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#power_multiplier: f32,
 }
 impl BulletTriggerGravityField {
     pub fn new() -> Self {
         Self {
             r#condition: Default::default(),
-            r#size: Default::default(),
-            r#cooldown: Default::default(),
-            r#power_multiplier: Default::default(),
+            r#size: 0.0,
+            r#cooldown: 0.0,
+            r#power_multiplier: 0.0,
         }
     }
     pub fn with_condition(mut self, r#condition: impl Into<BulletTriggerCondition>) -> Self {
@@ -20488,11 +21196,11 @@ impl<'de> serde::Deserialize<'de> for BulletTrigger {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("EffectType") else {
-            return Err(serde::de::Error::missing_field("EffectType"));
+        let variant_ty: BulletEffectType = if let Some(variant) = data.get("EffectType") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: BulletEffectType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             BulletEffectType::None => {
                 Self::None(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -20630,9 +21338,15 @@ impl BulletTrigger {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ImpactEffect {
+    #[serde(default)]
     pub r#type: ImpactEffectType,
+    #[serde(default)]
     pub r#damage_type: DamageType,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#power: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#factor: f32,
 }
 impl ImpactEffect {
@@ -20640,8 +21354,8 @@ impl ImpactEffect {
         Self {
             r#type: Default::default(),
             r#damage_type: Default::default(),
-            r#power: Default::default(),
-            r#factor: Default::default(),
+            r#power: 0.0,
+            r#factor: 0.0,
         }
     }
     pub fn with_type(mut self, r#type: impl Into<ImpactEffectType>) -> Self {
@@ -20730,21 +21444,50 @@ impl Default for ImpactEffect {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct VisualEffectElement {
+    #[serde(default)]
     pub r#type: VisualEffectType,
+    #[serde(default)]
     pub r#image: String,
+    #[serde(default)]
     pub r#color_mode: ColorMode,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default = "default_1i32")]
+    #[serde(skip_serializing_if = "skip_if_1i32")]
     pub r#quantity: i32,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#growth_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#turn_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#start_time: f32,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#lifetime: f32,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#particle_size: f32,
+    #[serde(default)]
+    #[serde(with = "crate::helpers::glam_ser")]
     pub r#offset: glam::f32::Vec2,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#rotation: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#loop: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#inverse: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#use_real_time: bool,
 }
 impl VisualEffectElement {
@@ -20753,19 +21496,19 @@ impl VisualEffectElement {
             r#type: Default::default(),
             r#image: Default::default(),
             r#color_mode: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
             r#quantity: 1i32,
             r#size: 1f32,
-            r#growth_rate: Default::default(),
-            r#turn_rate: Default::default(),
-            r#start_time: Default::default(),
+            r#growth_rate: 0.0,
+            r#turn_rate: 0.0,
+            r#start_time: 0.0,
             r#lifetime: 1f32,
             r#particle_size: 1f32,
             r#offset: Default::default(),
-            r#rotation: Default::default(),
-            r#loop: Default::default(),
-            r#inverse: Default::default(),
-            r#use_real_time: Default::default(),
+            r#rotation: 0.0,
+            r#loop: false,
+            r#inverse: false,
+            r#use_real_time: false,
         }
     }
     pub fn with_type(mut self, r#type: impl Into<VisualEffectType>) -> Self {
@@ -21058,12 +21801,26 @@ impl Default for VisualEffectElement {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct CombatSettings {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#enemy_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#autopilot_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#clone_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#defensive_drone_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#offensive_drone_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#starbase_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#default_combat_rules: Option<CombatRulesId>,
 }
 impl CombatSettings {
@@ -21175,22 +21932,32 @@ impl Default for CombatSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DatabaseSettings {
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#database_version: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#database_version_minor: i32,
+    #[serde(default)]
     pub r#mod_name: String,
+    #[serde(default)]
     pub r#mod_id: String,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#mod_version: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#unload_original_database: bool,
 }
 impl DatabaseSettings {
     pub fn new() -> Self {
         Self {
-            r#database_version: Default::default(),
-            r#database_version_minor: Default::default(),
+            r#database_version: 0,
+            r#database_version_minor: 0,
             r#mod_name: Default::default(),
             r#mod_id: Default::default(),
-            r#mod_version: Default::default(),
-            r#unload_original_database: Default::default(),
+            r#mod_version: 0,
+            r#unload_original_database: false,
         }
     }
     pub fn with_database_version(mut self, r#database_version: impl Into<i32>) -> Self {
@@ -21286,14 +22053,17 @@ impl Default for DatabaseSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DebugSettings {
+    #[serde(default)]
     pub r#codes: Vec<DebugCode>,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#enable_debug_console: bool,
 }
 impl DebugSettings {
     pub fn new() -> Self {
         Self {
             r#codes: Default::default(),
-            r#enable_debug_console: Default::default(),
+            r#enable_debug_console: false,
         }
     }
     pub fn with_codes(mut self, r#codes: impl Into<Vec<DebugCode>>) -> Self {
@@ -21332,10 +22102,22 @@ impl Default for DebugSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ExplorationSettings {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#outpost_ship: Option<ShipId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#turret_ship: Option<ShipId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#infected_planet_faction: Option<FactionId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#hive_ship_build: Option<ShipBuildId>,
+    #[serde(default = "default_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ")]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ"
+    )]
     pub r#gas_cloud_dps: String,
 }
 impl ExplorationSettings {
@@ -21345,7 +22127,7 @@ impl ExplorationSettings {
             r#turret_ship: Default::default(),
             r#infected_planet_faction: Default::default(),
             r#hive_ship_build: Default::default(),
-            r#gas_cloud_dps: "MIN(level*2,500)".to_string(),
+            r#gas_cloud_dps: "MIN(level*2,500)".into(),
         }
     }
     pub fn with_outpost_ship(mut self, r#outpost_ship: impl Into<Option<ShipId>>) -> Self {
@@ -21417,14 +22199,24 @@ impl Default for ExplorationSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct FactionsSettings {
+    #[serde(
+        default = "default_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ"
+    )]
     pub r#starbase_initial_defense: String,
+    #[serde(default = "default_50i32")]
+    #[serde(skip_serializing_if = "skip_if_50i32")]
     pub r#starbase_min_defense: i32,
+    #[serde(default = "default_10i32")]
+    #[serde(skip_serializing_if = "skip_if_10i32")]
     pub r#defense_loss_per_enemy_defeated: i32,
 }
 impl FactionsSettings {
     pub fn new() -> Self {
         Self {
-            r#starbase_initial_defense: "MIN(1000, 300 + 5*distance)".to_string(),
+            r#starbase_initial_defense: "MIN(1000, 300 + 5*distance)".into(),
             r#starbase_min_defense: 50i32,
             r#defense_loss_per_enemy_defeated: 10i32,
         }
@@ -21504,21 +22296,60 @@ impl Default for FactionsSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct GalaxySettings {
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#abandoned_starbase_faction: Option<FactionId>,
+    #[serde(default)]
     pub r#starting_ship_builds: Vec<ShipBuildId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#starting_inventory: Option<LootId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#supporter_pack_ship: Option<ShipBuildId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#default_starbase_build: Option<ShipBuildId>,
+    #[serde(default = "default_300i32")]
+    #[serde(skip_serializing_if = "skip_if_300i32")]
     pub r#max_enemy_ships_level: i32,
+    #[serde(
+        default = "default_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ"
+    )]
     pub r#enemy_level: String,
+    #[serde(
+        default = "default_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞDestroyerඞcommaඞඞspaceඞ5ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞCruiserඞcommaඞඞspaceඞ15ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞBattleshipඞcommaඞඞspaceඞ50ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞTitanඞcommaඞඞspaceඞ100ඞcommaඞඞspaceඞ0ඞrparenඞඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞDestroyerඞcommaඞඞspaceඞ5ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞCruiserඞcommaඞඞspaceඞ15ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞBattleshipඞcommaඞඞspaceඞ50ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞTitanඞcommaඞඞspaceඞ100ඞcommaඞඞspaceඞ0ඞrparenඞඞquoteඞ"
+    )]
     pub r#ship_min_spawn_distance: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#capture_starbase_quest: Option<QuestId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#starting_invenory: Option<LootId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#survival_combat_rules: Option<CombatRulesId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#starbase_combat_rules: Option<CombatRulesId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#flagship_combat_rules: Option<CombatRulesId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#arena_combat_rules: Option<CombatRulesId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#challenge_combat_rules: Option<CombatRulesId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#quick_combat_rules: Option<CombatRulesId>,
 }
 impl GalaxySettings {
@@ -21530,9 +22361,9 @@ impl GalaxySettings {
             r#supporter_pack_ship: Default::default(),
             r#default_starbase_build: Default::default(),
             r#max_enemy_ships_level: 300i32,
-            r#enemy_level: "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)".to_string(),
+            r#enemy_level: "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)".into(),
             r#ship_min_spawn_distance: "IF(size == Destroyer, 5, size == Cruiser, 15, size == Battleship, 50, size == Titan, 100, 0)"
-                .to_string(),
+                .into(),
             r#capture_starbase_quest: Default::default(),
             r#starting_invenory: Default::default(),
             r#survival_combat_rules: Default::default(),
@@ -21801,14 +22632,18 @@ impl Default for GalaxySettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LocalizationSettings {
+    #[serde(default = "default_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ")]
     pub r#corrosive_damage_text: String,
+    #[serde(default = "default_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ")]
     pub r#corrosive_dps_text: String,
 }
 impl LocalizationSettings {
     pub fn new() -> Self {
         Self {
-            r#corrosive_damage_text: "$WeaponDamage".to_string(),
-            r#corrosive_dps_text: "$WeaponDPS".to_string(),
+            r#corrosive_damage_text: "$WeaponDamage".into(),
+            r#corrosive_dps_text: "$WeaponDPS".into(),
         }
     }
     pub fn with_corrosive_damage_text(
@@ -21850,9 +22685,13 @@ impl Default for LocalizationSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct MusicPlaylist {
+    #[serde(default)]
     pub r#main_menu_music: Vec<SoundTrack>,
+    #[serde(default)]
     pub r#galaxy_map_music: Vec<SoundTrack>,
+    #[serde(default)]
     pub r#combat_music: Vec<SoundTrack>,
+    #[serde(default)]
     pub r#exploration_music: Vec<SoundTrack>,
 }
 impl MusicPlaylist {
@@ -21925,29 +22764,57 @@ impl Default for MusicPlaylist {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipModSettings {
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#remove_weapon_slot_mod: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#remove_unlimited_respawn_mod: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#remove_energy_recharge_cd_mod: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#remove_shield_recharge_cd_mod: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#remove_bigger_satellites_mod: bool,
+    #[serde(default = "default_0ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ5f32")]
     pub r#heat_defense_value: f32,
+    #[serde(default = "default_0ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ5f32")]
     pub r#kinetic_defense_value: f32,
+    #[serde(default = "default_0ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ5f32")]
     pub r#energy_defense_value: f32,
+    #[serde(default = "default_0ඞdotඞ01f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ01f32")]
     pub r#regeneration_value: f32,
+    #[serde(default = "default_0ඞdotඞ85f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ85f32")]
     pub r#regeneration_armor: f32,
+    #[serde(default = "default_0ඞdotඞ8f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ8f32")]
     pub r#weight_reduction: f32,
+    #[serde(default = "default_0ඞdotඞ2f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ2f32")]
     pub r#attack_reduction: f32,
+    #[serde(default = "default_0ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ5f32")]
     pub r#energy_reduction: f32,
+    #[serde(default = "default_0ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ5f32")]
     pub r#shield_reduction: f32,
 }
 impl ShipModSettings {
     pub fn new() -> Self {
         Self {
-            r#remove_weapon_slot_mod: Default::default(),
-            r#remove_unlimited_respawn_mod: Default::default(),
-            r#remove_energy_recharge_cd_mod: Default::default(),
-            r#remove_shield_recharge_cd_mod: Default::default(),
-            r#remove_bigger_satellites_mod: Default::default(),
+            r#remove_weapon_slot_mod: false,
+            r#remove_unlimited_respawn_mod: false,
+            r#remove_energy_recharge_cd_mod: false,
+            r#remove_shield_recharge_cd_mod: false,
+            r#remove_bigger_satellites_mod: false,
             r#heat_defense_value: 0.5f32,
             r#kinetic_defense_value: 0.5f32,
             r#energy_defense_value: 0.5f32,
@@ -22287,44 +23154,78 @@ impl Default for ShipModSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipSettings {
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#default_weight_per_cell: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#minimum_weight_per_cell: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#base_armor_points: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#armor_points_per_cell: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#armor_repair_cooldown: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#base_energy_points: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#base_energy_recharge_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_recharge_cooldown: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#base_shield_recharge_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#shield_recharge_cooldown: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#base_drone_reconstruction_speed: f32,
+    #[serde(default = "default_0ඞdotඞ9f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ9f32")]
     pub r#shield_corrosive_resistance: f32,
+    #[serde(default = "default_30f32")]
+    #[serde(skip_serializing_if = "skip_if_30f32")]
     pub r#max_velocity: f32,
+    #[serde(default = "default_30f32")]
+    #[serde(skip_serializing_if = "skip_if_30f32")]
     pub r#max_angular_velocity: f32,
+    #[serde(default = "default_300f32")]
+    #[serde(skip_serializing_if = "skip_if_300f32")]
     pub r#max_acceleration: f32,
+    #[serde(default = "default_300f32")]
+    #[serde(skip_serializing_if = "skip_if_300f32")]
     pub r#max_angular_acceleration: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#disable_cells_expansions: bool,
 }
 impl ShipSettings {
     pub fn new() -> Self {
         Self {
-            r#default_weight_per_cell: Default::default(),
-            r#minimum_weight_per_cell: Default::default(),
-            r#base_armor_points: Default::default(),
-            r#armor_points_per_cell: Default::default(),
-            r#armor_repair_cooldown: Default::default(),
-            r#base_energy_points: Default::default(),
-            r#base_energy_recharge_rate: Default::default(),
-            r#energy_recharge_cooldown: Default::default(),
-            r#base_shield_recharge_rate: Default::default(),
-            r#shield_recharge_cooldown: Default::default(),
-            r#base_drone_reconstruction_speed: Default::default(),
+            r#default_weight_per_cell: 0.0,
+            r#minimum_weight_per_cell: 0.0,
+            r#base_armor_points: 0.0,
+            r#armor_points_per_cell: 0.0,
+            r#armor_repair_cooldown: 0.0,
+            r#base_energy_points: 0.0,
+            r#base_energy_recharge_rate: 0.0,
+            r#energy_recharge_cooldown: 0.0,
+            r#base_shield_recharge_rate: 0.0,
+            r#shield_recharge_cooldown: 0.0,
+            r#base_drone_reconstruction_speed: 0.0,
             r#shield_corrosive_resistance: 0.9f32,
             r#max_velocity: 30f32,
             r#max_angular_velocity: 30f32,
             r#max_acceleration: 300f32,
             r#max_angular_acceleration: 300f32,
-            r#disable_cells_expansions: Default::default(),
+            r#disable_cells_expansions: false,
         }
     }
     pub fn with_default_weight_per_cell(
@@ -22838,49 +23739,106 @@ impl Default for ShipSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct SkillSettings {
+    #[serde(default)]
     pub r#beat_all_enemies_faction_list: Vec<FactionId>,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#disable_exceed_the_limits: bool,
+    #[serde(default = "default_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ")]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ"
+    )]
     pub r#fuel_tank_capacity: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#attack_bonus: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#defense_bonus: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#shield_strength_bonus: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#shield_recharge_bonus: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#experience_bonus: String,
+    #[serde(
+        default = "default_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ"
+    )]
     pub r#flight_speed: String,
+    #[serde(
+        default = "default_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ"
+    )]
     pub r#flight_range: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#exploration_loot_bonus: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#heat_resistance: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#kinetic_resistance: String,
+    #[serde(default = "default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ")]
     pub r#energy_resistance: String,
+    #[serde(default = "default_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ")]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ"
+    )]
     pub r#merchant_price_factor: String,
+    #[serde(default = "default_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ")]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ"
+    )]
     pub r#crafting_price_factor: String,
+    #[serde(default = "default_ඞquoteඞ5ඞstarඞlevelඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ5ඞstarඞlevelඞquoteඞ")]
     pub r#crafting_level_reduction: String,
+    #[serde(default = "default_100i32")]
+    #[serde(skip_serializing_if = "skip_if_100i32")]
     pub r#max_player_ships_level: i32,
+    #[serde(default = "default_200i32")]
+    #[serde(skip_serializing_if = "skip_if_200i32")]
     pub r#increased_level_limit: i32,
+    #[serde(default = "default_100i32")]
+    #[serde(skip_serializing_if = "skip_if_100i32")]
     pub r#base_fuel_capacity: i32,
+    #[serde(default = "default_1ඞdotඞ5f32")]
+    #[serde(skip_serializing_if = "skip_if_1ඞdotඞ5f32")]
     pub r#base_flight_range: f32,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#base_flight_speed: f32,
 }
 impl SkillSettings {
     pub fn new() -> Self {
         Self {
             r#beat_all_enemies_faction_list: Default::default(),
-            r#disable_exceed_the_limits: Default::default(),
-            r#fuel_tank_capacity: "BaseFuelCapacity + 50*level".to_string(),
-            r#attack_bonus: "0.1*level".to_string(),
-            r#defense_bonus: "0.1*level".to_string(),
-            r#shield_strength_bonus: "0.1*level".to_string(),
-            r#shield_recharge_bonus: "0.1*level".to_string(),
-            r#experience_bonus: "0.1*level".to_string(),
-            r#flight_speed: "BaseFlightSpeed + 0.4*level".to_string(),
-            r#flight_range: "BaseFlightRange + 0.09*level".to_string(),
-            r#exploration_loot_bonus: "0.1*level".to_string(),
-            r#heat_resistance: "0.1*level".to_string(),
-            r#kinetic_resistance: "0.1*level".to_string(),
-            r#energy_resistance: "0.1*level".to_string(),
-            r#merchant_price_factor: "1 - 0.05*level".to_string(),
-            r#crafting_price_factor: "1 - 0.05*level".to_string(),
-            r#crafting_level_reduction: "5*level".to_string(),
+            r#disable_exceed_the_limits: false,
+            r#fuel_tank_capacity: "BaseFuelCapacity + 50*level".into(),
+            r#attack_bonus: "0.1*level".into(),
+            r#defense_bonus: "0.1*level".into(),
+            r#shield_strength_bonus: "0.1*level".into(),
+            r#shield_recharge_bonus: "0.1*level".into(),
+            r#experience_bonus: "0.1*level".into(),
+            r#flight_speed: "BaseFlightSpeed + 0.4*level".into(),
+            r#flight_range: "BaseFlightRange + 0.09*level".into(),
+            r#exploration_loot_bonus: "0.1*level".into(),
+            r#heat_resistance: "0.1*level".into(),
+            r#kinetic_resistance: "0.1*level".into(),
+            r#energy_resistance: "0.1*level".into(),
+            r#merchant_price_factor: "1 - 0.05*level".into(),
+            r#crafting_price_factor: "1 - 0.05*level".into(),
+            r#crafting_level_reduction: "5*level".into(),
             r#max_player_ships_level: 100i32,
             r#increased_level_limit: 200i32,
             r#base_fuel_capacity: 100i32,
@@ -23199,19 +24157,47 @@ impl Default for SkillSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct SpecialEventSettings {
+    #[serde(default = "default_true")]
+    #[serde(skip_serializing_if = "skip_if_true")]
     pub r#enable_xmas_event: bool,
+    #[serde(default = "default_24i32")]
+    #[serde(skip_serializing_if = "skip_if_24i32")]
     pub r#xmas_days_before: i32,
+    #[serde(default = "default_15i32")]
+    #[serde(skip_serializing_if = "skip_if_15i32")]
     pub r#xmas_days_after: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#xmas_quest: Option<QuestId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#xmas_combat_rules: Option<CombatRulesId>,
+    #[serde(default = "default_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ")]
     pub r#convert_credits_to_snowflakes: String,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#enable_easter_event: bool,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#easter_days_before: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#easter_days_after: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#easter_quest: Option<QuestId>,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#enable_halloween_event: bool,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#halloween_days_before: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#halloween_days_after: i32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#halloween_quest: Option<QuestId>,
 }
 impl SpecialEventSettings {
@@ -23222,14 +24208,14 @@ impl SpecialEventSettings {
             r#xmas_days_after: 15i32,
             r#xmas_quest: Default::default(),
             r#xmas_combat_rules: Default::default(),
-            r#convert_credits_to_snowflakes: "1 + credits/500".to_string(),
-            r#enable_easter_event: Default::default(),
-            r#easter_days_before: Default::default(),
-            r#easter_days_after: Default::default(),
+            r#convert_credits_to_snowflakes: "1 + credits/500".into(),
+            r#enable_easter_event: false,
+            r#easter_days_before: 0,
+            r#easter_days_after: 0,
             r#easter_quest: Default::default(),
-            r#enable_halloween_event: Default::default(),
-            r#halloween_days_before: Default::default(),
-            r#halloween_days_after: Default::default(),
+            r#enable_halloween_event: false,
+            r#halloween_days_before: 0,
+            r#halloween_days_after: 0,
             r#halloween_quest: Default::default(),
         }
     }
@@ -23498,86 +24484,161 @@ impl Default for SpecialEventSettings {
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct UiSettings {
+    #[serde(default = "default_ඞquoteඞඞhashඞ50C0FFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ50C0FFඞquoteඞ")]
     pub r#window_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞC050C0FFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞC050C0FFඞquoteඞ")]
     pub r#scroll_bar_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
     pub r#icon_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
     pub r#selection_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ50C0FFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ50C0FFඞquoteඞ")]
     pub r#button_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ")]
     pub r#button_focus_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
     pub r#button_text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞE080FFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞE080FFFFඞquoteඞ")]
     pub r#button_icon_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFF8050ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFF8050ඞquoteඞ")]
     pub r#warning_button_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ")]
     pub r#warning_button_focus_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
     pub r#warning_button_text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
     pub r#warning_button_icon_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
     pub r#premium_button_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ")]
     pub r#premium_button_focus_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ")]
     pub r#premium_button_text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
     pub r#premium_button_icon_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
     pub r#text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFF4040ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFF4040ඞquoteඞ")]
     pub r#error_text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
     pub r#header_text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ")]
     pub r#pale_text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFFFඞquoteඞ")]
     pub r#bright_text_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ000000ඞquoteඞ")]
     pub r#background_dark: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ")]
     pub r#low_quality_item_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ")]
     pub r#common_quality_item_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ80FF80ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ80FF80ඞquoteඞ")]
     pub r#medium_quality_item_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞF09FFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞF09FFFඞquoteඞ")]
     pub r#high_quality_item_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFDF51ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFDF51ඞquoteඞ")]
     pub r#perfect_quality_item_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ")]
     pub r#available_tech_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ808080ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ808080ඞquoteඞ")]
     pub r#unavailable_tech_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ50C0FFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ50C0FFඞquoteඞ")]
     pub r#obtained_tech_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ8080FFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ8080FFඞquoteඞ")]
     pub r#hidden_tech_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00FF00ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00FF00ඞquoteඞ")]
     pub r#credits_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ")]
     pub r#stars_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ")]
     pub r#money_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00FFFFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00FFFFඞquoteඞ")]
     pub r#fuel_color: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ8080FFඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ8080FFඞquoteඞ")]
     pub r#tokens_color: String,
+    #[serde(default)]
     pub r#main_menu_background_image: String,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#no_credits_text: bool,
 }
 impl UiSettings {
     pub fn new() -> Self {
         Self {
-            r#window_color: "#50C0FF".to_string(),
-            r#scroll_bar_color: "#C050C0FF".to_string(),
-            r#icon_color: "#80FFFF".to_string(),
-            r#selection_color: "#80FFFF".to_string(),
-            r#button_color: "#50C0FF".to_string(),
-            r#button_focus_color: "#4050C0FF".to_string(),
-            r#button_text_color: "#80FFFF".to_string(),
-            r#button_icon_color: "#E080FFFF".to_string(),
-            r#warning_button_color: "#FF8050".to_string(),
-            r#warning_button_focus_color: "#20FF8050".to_string(),
-            r#warning_button_text_color: "#FFFFC0".to_string(),
-            r#warning_button_icon_color: "#FFFFC0".to_string(),
-            r#premium_button_color: "#FFFFC0".to_string(),
-            r#premium_button_focus_color: "#40FFFFC0".to_string(),
-            r#premium_button_text_color: "#FFFFE0".to_string(),
-            r#premium_button_icon_color: "#FFFFC0".to_string(),
-            r#text_color: "#80FFFF".to_string(),
-            r#error_text_color: "#FF4040".to_string(),
-            r#header_text_color: "#FFFFC0".to_string(),
-            r#pale_text_color: "#A0FFFFFF".to_string(),
-            r#bright_text_color: "#FFFFFF".to_string(),
-            r#background_dark: "#000000".to_string(),
-            r#low_quality_item_color: "#C0C0C0".to_string(),
-            r#common_quality_item_color: "#80FFFF".to_string(),
-            r#medium_quality_item_color: "#80FF80".to_string(),
-            r#high_quality_item_color: "#F09FFF".to_string(),
-            r#perfect_quality_item_color: "#FFDF51".to_string(),
-            r#available_tech_color: "#FFFFC0".to_string(),
-            r#unavailable_tech_color: "#808080".to_string(),
-            r#obtained_tech_color: "#50C0FF".to_string(),
-            r#hidden_tech_color: "#8080FF".to_string(),
-            r#credits_color: "#00FF00".to_string(),
-            r#stars_color: "#FFF0A0".to_string(),
-            r#money_color: "#FFF0A0".to_string(),
-            r#fuel_color: "#00FFFF".to_string(),
-            r#tokens_color: "#8080FF".to_string(),
+            r#window_color: "#50C0FF".into(),
+            r#scroll_bar_color: "#C050C0FF".into(),
+            r#icon_color: "#80FFFF".into(),
+            r#selection_color: "#80FFFF".into(),
+            r#button_color: "#50C0FF".into(),
+            r#button_focus_color: "#4050C0FF".into(),
+            r#button_text_color: "#80FFFF".into(),
+            r#button_icon_color: "#E080FFFF".into(),
+            r#warning_button_color: "#FF8050".into(),
+            r#warning_button_focus_color: "#20FF8050".into(),
+            r#warning_button_text_color: "#FFFFC0".into(),
+            r#warning_button_icon_color: "#FFFFC0".into(),
+            r#premium_button_color: "#FFFFC0".into(),
+            r#premium_button_focus_color: "#40FFFFC0".into(),
+            r#premium_button_text_color: "#FFFFE0".into(),
+            r#premium_button_icon_color: "#FFFFC0".into(),
+            r#text_color: "#80FFFF".into(),
+            r#error_text_color: "#FF4040".into(),
+            r#header_text_color: "#FFFFC0".into(),
+            r#pale_text_color: "#A0FFFFFF".into(),
+            r#bright_text_color: "#FFFFFF".into(),
+            r#background_dark: "#000000".into(),
+            r#low_quality_item_color: "#C0C0C0".into(),
+            r#common_quality_item_color: "#80FFFF".into(),
+            r#medium_quality_item_color: "#80FF80".into(),
+            r#high_quality_item_color: "#F09FFF".into(),
+            r#perfect_quality_item_color: "#FFDF51".into(),
+            r#available_tech_color: "#FFFFC0".into(),
+            r#unavailable_tech_color: "#808080".into(),
+            r#obtained_tech_color: "#50C0FF".into(),
+            r#hidden_tech_color: "#8080FF".into(),
+            r#credits_color: "#00FF00".into(),
+            r#stars_color: "#FFF0A0".into(),
+            r#money_color: "#FFF0A0".into(),
+            r#fuel_color: "#00FFFF".into(),
+            r#tokens_color: "#8080FF".into(),
             r#main_menu_background_image: Default::default(),
-            r#no_credits_text: Default::default(),
+            r#no_credits_text: false,
         }
     }
     pub fn with_window_color(mut self, r#window_color: impl Into<String>) -> Self {
@@ -23993,6 +25054,7 @@ pub type BehaviorTreeId = DatabaseItemId<BehaviorTree>;
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTree {
     pub r#id: BehaviorTreeId,
+    #[serde(default)]
     pub r#root_node: BehaviorTreeNode,
 }
 impl BehaviorTree {
@@ -24038,25 +25100,59 @@ pub type AmmunitionObsoleteId = DatabaseItemId<AmmunitionObsolete>;
 #[serde(rename_all = "PascalCase")]
 pub struct AmmunitionObsolete {
     pub r#id: AmmunitionObsoleteId,
+    #[serde(default)]
     pub r#ammunition_class: AmmunitionClassObsolete,
+    #[serde(default)]
     pub r#damage_type: DamageType,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#impulse: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#recoil: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default)]
+    #[serde(with = "crate::helpers::glam_ser")]
     pub r#initial_position: glam::f32::Vec2,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#area_of_effect: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#damage: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#range: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#velocity: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#life_time: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#hit_points: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#ignores_ship_velocity: bool,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_cost: f32,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#coupled_ammunition_id: Option<AmmunitionObsoleteId>,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default)]
     pub r#fire_sound: String,
+    #[serde(default)]
     pub r#hit_sound: String,
+    #[serde(default)]
     pub r#hit_effect_prefab: String,
+    #[serde(default)]
     pub r#bullet_prefab: String,
 }
 impl AmmunitionObsolete {
@@ -24065,20 +25161,20 @@ impl AmmunitionObsolete {
             r#id,
             r#ammunition_class: Default::default(),
             r#damage_type: Default::default(),
-            r#impulse: Default::default(),
-            r#recoil: Default::default(),
-            r#size: Default::default(),
+            r#impulse: 0.0,
+            r#recoil: 0.0,
+            r#size: 0.0,
             r#initial_position: Default::default(),
-            r#area_of_effect: Default::default(),
-            r#damage: Default::default(),
-            r#range: Default::default(),
-            r#velocity: Default::default(),
-            r#life_time: Default::default(),
-            r#hit_points: Default::default(),
-            r#ignores_ship_velocity: Default::default(),
-            r#energy_cost: Default::default(),
+            r#area_of_effect: 0.0,
+            r#damage: 0.0,
+            r#range: 0.0,
+            r#velocity: 0.0,
+            r#life_time: 0.0,
+            r#hit_points: 0,
+            r#ignores_ship_velocity: false,
+            r#energy_cost: 0.0,
             r#coupled_ammunition_id: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
             r#fire_sound: Default::default(),
             r#hit_sound: Default::default(),
             r#hit_effect_prefab: Default::default(),
@@ -24472,24 +25568,50 @@ pub type ComponentId = DatabaseItemId<Component>;
 #[serde(rename_all = "PascalCase")]
 pub struct Component {
     pub r#id: ComponentId,
+    #[serde(default)]
     pub r#name: String,
+    #[serde(default)]
     pub r#description: String,
+    #[serde(default)]
     pub r#display_category: ComponentCategory,
+    #[serde(default)]
     pub r#availability: Availability,
     pub r#component_stats_id: ComponentStatsId,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#level: i32,
+    #[serde(default)]
     pub r#icon: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default)]
     pub r#layout: String,
+    #[serde(default)]
     pub r#cell_type: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#device_id: Option<DeviceId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#weapon_id: Option<WeaponId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#ammunition_id: Option<AmmunitionId>,
+    #[serde(default)]
     pub r#weapon_slot_type: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#drone_bay_id: Option<DroneBayId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#drone_id: Option<ShipBuildId>,
+    #[serde(default)]
     pub r#restrictions: ComponentRestrictions,
+    #[serde(default)]
     pub r#possible_modifications: Vec<ComponentModId>,
 }
 impl Component {
@@ -24502,9 +25624,9 @@ impl Component {
             r#availability: Default::default(),
             r#component_stats_id,
             r#faction: Default::default(),
-            r#level: Default::default(),
+            r#level: 0,
             r#icon: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
             r#layout: Default::default(),
             r#cell_type: Default::default(),
             r#device_id: Default::default(),
@@ -24745,7 +25867,9 @@ pub type ComponentModId = DatabaseItemId<ComponentMod>;
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentMod {
     pub r#id: ComponentModId,
+    #[serde(default)]
     pub r#description: String,
+    #[serde(default)]
     pub r#modifications: Vec<StatModification>,
 }
 impl ComponentMod {
@@ -24836,37 +25960,100 @@ pub type ComponentStatsId = DatabaseItemId<ComponentStats>;
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentStats {
     pub r#id: ComponentStatsId,
+    #[serde(default)]
     pub r#type: ComponentStatsType,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#armor_points: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#armor_repair_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#armor_repair_cooldown_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_points: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_recharge_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_recharge_cooldown_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#shield_points: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#shield_recharge_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#shield_recharge_cooldown_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weight: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#ramming_damage: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_absorption: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#kinetic_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#thermal_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#engine_power: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#turn_rate: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#autopilot: bool,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_range_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_damage_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_defense_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_speed_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drones_built_per_second: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#drone_build_time_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weapon_fire_rate_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weapon_damage_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weapon_range_modifier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weapon_energy_cost_modifier: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#alter_weapon_platform: i32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#auto_aiming_arc: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#turret_turn_speed: f32,
 }
 impl ComponentStats {
@@ -24874,37 +26061,37 @@ impl ComponentStats {
         Self {
             r#id,
             r#type: Default::default(),
-            r#armor_points: Default::default(),
-            r#armor_repair_rate: Default::default(),
-            r#armor_repair_cooldown_modifier: Default::default(),
-            r#energy_points: Default::default(),
-            r#energy_recharge_rate: Default::default(),
-            r#energy_recharge_cooldown_modifier: Default::default(),
-            r#shield_points: Default::default(),
-            r#shield_recharge_rate: Default::default(),
-            r#shield_recharge_cooldown_modifier: Default::default(),
-            r#weight: Default::default(),
-            r#ramming_damage: Default::default(),
-            r#energy_absorption: Default::default(),
-            r#kinetic_resistance: Default::default(),
-            r#energy_resistance: Default::default(),
-            r#thermal_resistance: Default::default(),
-            r#engine_power: Default::default(),
-            r#turn_rate: Default::default(),
-            r#autopilot: Default::default(),
-            r#drone_range_modifier: Default::default(),
-            r#drone_damage_modifier: Default::default(),
-            r#drone_defense_modifier: Default::default(),
-            r#drone_speed_modifier: Default::default(),
-            r#drones_built_per_second: Default::default(),
-            r#drone_build_time_modifier: Default::default(),
-            r#weapon_fire_rate_modifier: Default::default(),
-            r#weapon_damage_modifier: Default::default(),
-            r#weapon_range_modifier: Default::default(),
-            r#weapon_energy_cost_modifier: Default::default(),
-            r#alter_weapon_platform: Default::default(),
-            r#auto_aiming_arc: Default::default(),
-            r#turret_turn_speed: Default::default(),
+            r#armor_points: 0.0,
+            r#armor_repair_rate: 0.0,
+            r#armor_repair_cooldown_modifier: 0.0,
+            r#energy_points: 0.0,
+            r#energy_recharge_rate: 0.0,
+            r#energy_recharge_cooldown_modifier: 0.0,
+            r#shield_points: 0.0,
+            r#shield_recharge_rate: 0.0,
+            r#shield_recharge_cooldown_modifier: 0.0,
+            r#weight: 0.0,
+            r#ramming_damage: 0.0,
+            r#energy_absorption: 0.0,
+            r#kinetic_resistance: 0.0,
+            r#energy_resistance: 0.0,
+            r#thermal_resistance: 0.0,
+            r#engine_power: 0.0,
+            r#turn_rate: 0.0,
+            r#autopilot: false,
+            r#drone_range_modifier: 0.0,
+            r#drone_damage_modifier: 0.0,
+            r#drone_defense_modifier: 0.0,
+            r#drone_speed_modifier: 0.0,
+            r#drones_built_per_second: 0.0,
+            r#drone_build_time_modifier: 0.0,
+            r#weapon_fire_rate_modifier: 0.0,
+            r#weapon_damage_modifier: 0.0,
+            r#weapon_range_modifier: 0.0,
+            r#weapon_energy_cost_modifier: 0.0,
+            r#alter_weapon_platform: 0,
+            r#auto_aiming_arc: 0.0,
+            r#turret_turn_speed: 0.0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<ComponentStatsId>) -> Self {
@@ -25729,7 +26916,7 @@ impl DatabaseItem for ComponentStats {
             );
             self.r#weapon_energy_cost_modifier = 100f32 as f32;
         }
-        let dw: i32 = Default::default();
+        let dw: i32 = 0;
         if self.r#alter_weapon_platform != dw {
             tracing::error!(
                 ield = "r#alter_weapon_platform",
@@ -25790,23 +26977,53 @@ pub type DeviceId = DatabaseItemId<Device>;
 #[serde(rename_all = "PascalCase")]
 pub struct Device {
     pub r#id: DeviceId,
+    #[serde(default)]
     pub r#device_class: DeviceClass,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_consumption: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#passive_energy_consumption: f32,
+    #[serde(default = "default_true")]
+    #[serde(skip_serializing_if = "skip_if_true")]
     pub r#scale_energy_with_ship_size: bool,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#power: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#range: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#cooldown: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#lifetime: f32,
+    #[serde(default)]
+    #[serde(with = "crate::helpers::glam_ser")]
     pub r#offset: glam::f32::Vec2,
+    #[serde(default)]
     pub r#activation_type: ActivationType,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default)]
     pub r#sound: String,
+    #[serde(default)]
     pub r#effect_prefab: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#visual_effect: Option<VisualEffectId>,
+    #[serde(default)]
     pub r#object_prefab: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#prefab: Option<GameObjectPrefabId>,
+    #[serde(default)]
     pub r#control_button_icon: String,
 }
 impl Device {
@@ -25814,17 +27031,17 @@ impl Device {
         Self {
             r#id,
             r#device_class: Default::default(),
-            r#energy_consumption: Default::default(),
-            r#passive_energy_consumption: Default::default(),
+            r#energy_consumption: 0.0,
+            r#passive_energy_consumption: 0.0,
             r#scale_energy_with_ship_size: true,
-            r#power: Default::default(),
-            r#range: Default::default(),
-            r#size: Default::default(),
-            r#cooldown: Default::default(),
-            r#lifetime: Default::default(),
+            r#power: 0.0,
+            r#range: 0.0,
+            r#size: 0.0,
+            r#cooldown: 0.0,
+            r#lifetime: 0.0,
             r#offset: Default::default(),
             r#activation_type: Default::default(),
-            r#color: Default::default(),
+            r#color: "#00000000".into(),
             r#sound: Default::default(),
             r#effect_prefab: Default::default(),
             r#visual_effect: Default::default(),
@@ -26156,35 +27373,61 @@ pub type DroneBayId = DatabaseItemId<DroneBay>;
 #[serde(rename_all = "PascalCase")]
 pub struct DroneBay {
     pub r#id: DroneBayId,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_consumption: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#passive_energy_consumption: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#range: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#damage_multiplier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#defense_multiplier: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#speed_multiplier: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#build_extra_cycles: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#improved_ai: bool,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#capacity: i32,
+    #[serde(default)]
     pub r#activation_type: ActivationType,
+    #[serde(default)]
     pub r#launch_sound: String,
+    #[serde(default)]
     pub r#launch_effect_prefab: String,
+    #[serde(default)]
     pub r#control_button_icon: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#defensive_drone_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#offensive_drone_ai: Option<BehaviorTreeId>,
 }
 impl DroneBay {
     pub fn new(r#id: DroneBayId) -> Self {
         Self {
             r#id,
-            r#energy_consumption: Default::default(),
-            r#passive_energy_consumption: Default::default(),
-            r#range: Default::default(),
-            r#damage_multiplier: Default::default(),
-            r#defense_multiplier: Default::default(),
-            r#speed_multiplier: Default::default(),
-            r#build_extra_cycles: Default::default(),
-            r#improved_ai: Default::default(),
-            r#capacity: Default::default(),
+            r#energy_consumption: 0.0,
+            r#passive_energy_consumption: 0.0,
+            r#range: 0.0,
+            r#damage_multiplier: 0.0,
+            r#defense_multiplier: 0.0,
+            r#speed_multiplier: 0.0,
+            r#build_extra_cycles: 0,
+            r#improved_ai: false,
+            r#capacity: 0,
             r#activation_type: Default::default(),
             r#launch_sound: Default::default(),
             r#launch_effect_prefab: Default::default(),
@@ -26477,7 +27720,7 @@ impl DatabaseItem for DroneBay {
             );
             self.r#build_extra_cycles = 100f32 as i32;
         }
-        let dw: bool = Default::default();
+        let dw: bool = false;
         if self.r#improved_ai != dw {
             tracing::error!(
                 ield = "r#improved_ai",
@@ -26520,18 +27763,43 @@ pub type FactionId = DatabaseItemId<Faction>;
 #[serde(rename_all = "PascalCase")]
 pub struct Faction {
     pub r#id: FactionId,
+    #[serde(default)]
     pub r#name: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#no_territories: bool,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#home_star_distance: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#home_star_distance_max: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#no_wandering_ships: bool,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#wandering_ships_distance: i32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#wandering_ships_distance_max: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#hide_from_merchants: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#hide_research_tree: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#no_missions: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#hidden: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#hostile: bool,
 }
 impl Faction {
@@ -26539,18 +27807,18 @@ impl Faction {
         Self {
             r#id,
             r#name: Default::default(),
-            r#color: Default::default(),
-            r#no_territories: Default::default(),
-            r#home_star_distance: Default::default(),
-            r#home_star_distance_max: Default::default(),
-            r#no_wandering_ships: Default::default(),
-            r#wandering_ships_distance: Default::default(),
-            r#wandering_ships_distance_max: Default::default(),
-            r#hide_from_merchants: Default::default(),
-            r#hide_research_tree: Default::default(),
-            r#no_missions: Default::default(),
-            r#hidden: Default::default(),
-            r#hostile: Default::default(),
+            r#color: "#00000000".into(),
+            r#no_territories: false,
+            r#home_star_distance: 0,
+            r#home_star_distance_max: 0,
+            r#no_wandering_ships: false,
+            r#wandering_ships_distance: 0,
+            r#wandering_ships_distance_max: 0,
+            r#hide_from_merchants: false,
+            r#hide_research_tree: false,
+            r#no_missions: false,
+            r#hidden: false,
+            r#hostile: false,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<FactionId>) -> Self {
@@ -26755,14 +28023,14 @@ impl DatabaseItem for Faction {
             );
             self.r#wandering_ships_distance_max = 5000f32 as i32;
         }
-        let dw: bool = Default::default();
+        let dw: bool = false;
         if self.r#hidden != dw {
             tracing::error!(
                 ield = "r#hidden",
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: bool = Default::default();
+        let dw: bool = false;
         if self.r#hostile != dw {
             tracing::error!(
                 ield = "r#hostile",
@@ -26833,14 +28101,30 @@ impl GameObjectPrefab {
 #[serde(rename_all = "PascalCase")]
 pub struct GameObjectPrefabWormTailSegment {
     pub r#id: GameObjectPrefabId,
+    #[serde(default)]
     pub r#image_1: String,
+    #[serde(default)]
     pub r#image_2: String,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#image_scale: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#image_offset: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#length: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#offset_1: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#offset_2: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#angle_1: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#angle_2: f32,
 }
 impl GameObjectPrefabWormTailSegment {
@@ -26849,13 +28133,13 @@ impl GameObjectPrefabWormTailSegment {
             r#id,
             r#image_1: Default::default(),
             r#image_2: Default::default(),
-            r#image_scale: Default::default(),
-            r#image_offset: Default::default(),
-            r#length: Default::default(),
-            r#offset_1: Default::default(),
-            r#offset_2: Default::default(),
-            r#angle_1: Default::default(),
-            r#angle_2: Default::default(),
+            r#image_scale: 0.0,
+            r#image_offset: 0.0,
+            r#length: 0.0,
+            r#offset_1: 0.0,
+            r#offset_2: 0.0,
+            r#angle_1: 0.0,
+            r#angle_2: 0.0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<GameObjectPrefabId>) -> Self {
@@ -27091,7 +28375,10 @@ impl GameObjectPrefab {
 #[serde(rename_all = "PascalCase")]
 pub struct GameObjectPrefabCircularSpriteObject {
     pub r#id: GameObjectPrefabId,
+    #[serde(default)]
     pub r#image_1: String,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#image_scale: f32,
 }
 impl GameObjectPrefabCircularSpriteObject {
@@ -27173,9 +28460,16 @@ impl GameObjectPrefab {
 #[serde(rename_all = "PascalCase")]
 pub struct GameObjectPrefabCircularOutlineObject {
     pub r#id: GameObjectPrefabId,
+    #[serde(default)]
     pub r#image_1: String,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#image_scale: f32,
+    #[serde(default = "default_0ඞdotඞ1f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ1f32")]
     pub r#thickness: f32,
+    #[serde(default = "default_1f32")]
+    #[serde(skip_serializing_if = "skip_if_1f32")]
     pub r#aspect_ratio: f32,
 }
 impl GameObjectPrefabCircularOutlineObject {
@@ -27350,11 +28644,11 @@ impl<'de> serde::Deserialize<'de> for GameObjectPrefab {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: ObjectPrefabType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: ObjectPrefabType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             ObjectPrefabType::Undefined => {
                 Self::Undefined(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -27458,12 +28752,24 @@ pub type CharacterId = DatabaseItemId<Character>;
 #[serde(rename_all = "PascalCase")]
 pub struct Character {
     pub r#id: CharacterId,
+    #[serde(default)]
     pub r#name: String,
+    #[serde(default)]
     pub r#avatar_icon: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#inventory: Option<LootId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#fleet: Option<FleetId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#relations: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#is_unique: bool,
 }
 impl Character {
@@ -27475,8 +28781,8 @@ impl Character {
             r#faction: Default::default(),
             r#inventory: Default::default(),
             r#fleet: Default::default(),
-            r#relations: Default::default(),
-            r#is_unique: Default::default(),
+            r#relations: 0,
+            r#is_unique: false,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<CharacterId>) -> Self {
@@ -27582,41 +28888,70 @@ pub type CombatRulesId = DatabaseItemId<CombatRules>;
 #[serde(rename_all = "PascalCase")]
 pub struct CombatRules {
     pub r#id: CombatRulesId,
+    #[serde(default = "default_ඞquoteඞ1ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ1ඞquoteඞ")]
     pub r#initial_enemy_ships: String,
+    #[serde(default = "default_ඞquoteඞ12ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞ12ඞquoteඞ")]
     pub r#max_enemy_ships: String,
+    #[serde(default = "default_200i32")]
+    #[serde(skip_serializing_if = "skip_if_200i32")]
     pub r#battle_map_size: i32,
+    #[serde(
+        default = "default_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ"
+    )]
+    #[serde(
+        skip_serializing_if = "skip_if_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ"
+    )]
     pub r#time_limit: String,
+    #[serde(default)]
     pub r#time_out_mode: TimeOutMode,
+    #[serde(default)]
     pub r#loot_condition: RewardCondition,
+    #[serde(default)]
     pub r#exp_condition: RewardCondition,
+    #[serde(default)]
     pub r#ship_selection: PlayerShipSelectionMode,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#disable_skill_bonuses: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#disable_random_loot: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#disable_asteroids: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#disable_planet: bool,
+    #[serde(default = "default_true")]
+    #[serde(skip_serializing_if = "skip_if_true")]
     pub r#next_enemy_button: bool,
     ///For debug purposes
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#kill_them_all_button: bool,
+    #[serde(default)]
     pub r#custom_soundtrack: Vec<SoundTrack>,
 }
 impl CombatRules {
     pub fn new(r#id: CombatRulesId) -> Self {
         Self {
             r#id,
-            r#initial_enemy_ships: "1".to_string(),
-            r#max_enemy_ships: "12".to_string(),
+            r#initial_enemy_ships: "1".into(),
+            r#max_enemy_ships: "12".into(),
             r#battle_map_size: 200i32,
-            r#time_limit: "MAX(40, 100 - level)".to_string(),
+            r#time_limit: "MAX(40, 100 - level)".into(),
             r#time_out_mode: Default::default(),
             r#loot_condition: Default::default(),
             r#exp_condition: Default::default(),
             r#ship_selection: Default::default(),
-            r#disable_skill_bonuses: Default::default(),
-            r#disable_random_loot: Default::default(),
-            r#disable_asteroids: Default::default(),
-            r#disable_planet: Default::default(),
+            r#disable_skill_bonuses: false,
+            r#disable_random_loot: false,
+            r#disable_asteroids: false,
+            r#disable_planet: false,
             r#next_enemy_button: true,
-            r#kill_them_all_button: Default::default(),
+            r#kill_them_all_button: false,
             r#custom_soundtrack: Default::default(),
         }
     }
@@ -27802,15 +29137,31 @@ pub type FleetId = DatabaseItemId<Fleet>;
 #[serde(rename_all = "PascalCase")]
 pub struct Fleet {
     pub r#id: FleetId,
+    #[serde(default)]
     pub r#factions: FactionFilter,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#level_bonus: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#no_random_ships: bool,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#combat_time_limit: i32,
+    #[serde(default)]
     pub r#loot_condition: RewardCondition,
+    #[serde(default)]
     pub r#exp_condition: RewardCondition,
+    #[serde(default)]
     pub r#specific_ships: Vec<ShipBuildId>,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#no_ship_changing: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#player_has_one_ship: bool,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#combat_rules: Option<CombatRulesId>,
 }
 impl Fleet {
@@ -27818,14 +29169,14 @@ impl Fleet {
         Self {
             r#id,
             r#factions: Default::default(),
-            r#level_bonus: Default::default(),
-            r#no_random_ships: Default::default(),
-            r#combat_time_limit: Default::default(),
+            r#level_bonus: 0,
+            r#no_random_ships: false,
+            r#combat_time_limit: 0,
             r#loot_condition: Default::default(),
             r#exp_condition: Default::default(),
             r#specific_ships: Default::default(),
-            r#no_ship_changing: Default::default(),
-            r#player_has_one_ship: Default::default(),
+            r#no_ship_changing: false,
+            r#player_has_one_ship: false,
             r#combat_rules: Default::default(),
         }
     }
@@ -27965,7 +29316,7 @@ impl DatabaseItem for Fleet {
             );
             self.r#combat_time_limit = 999f32 as i32;
         }
-        let dw: i32 = Default::default();
+        let dw: i32 = 0;
         if self.r#combat_time_limit != dw {
             tracing::error!(
                 ield = "r#combat_time_limit",
@@ -27986,14 +29337,14 @@ impl DatabaseItem for Fleet {
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: bool = Default::default();
+        let dw: bool = false;
         if self.r#no_ship_changing != dw {
             tracing::error!(
                 ield = "r#no_ship_changing",
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: bool = Default::default();
+        let dw: bool = false;
         if self.r#player_has_one_ship != dw {
             tracing::error!(
                 ield = "r#player_has_one_ship",
@@ -28018,6 +29369,7 @@ pub type LootId = DatabaseItemId<Loot>;
 #[serde(rename_all = "PascalCase")]
 pub struct Loot {
     pub r#id: LootId,
+    #[serde(default)]
     pub r#loot: LootContent,
 }
 impl Loot {
@@ -28063,14 +29415,26 @@ pub type QuestId = DatabaseItemId<Quest>;
 #[serde(rename_all = "PascalCase")]
 pub struct Quest {
     pub r#id: QuestId,
+    #[serde(default)]
     pub r#name: String,
+    #[serde(default)]
     pub r#quest_type: QuestType,
+    #[serde(default)]
     pub r#start_condition: StartCondition,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#weight: f32,
+    #[serde(default)]
     pub r#origin: QuestOrigin,
+    #[serde(default)]
     pub r#requirement: Requirement,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#level: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#use_random_seed: bool,
+    #[serde(default)]
     pub r#nodes: Vec<Node>,
 }
 impl Quest {
@@ -28080,11 +29444,11 @@ impl Quest {
             r#name: Default::default(),
             r#quest_type: Default::default(),
             r#start_condition: Default::default(),
-            r#weight: Default::default(),
+            r#weight: 0.0,
             r#origin: Default::default(),
             r#requirement: Default::default(),
-            r#level: Default::default(),
-            r#use_random_seed: Default::default(),
+            r#level: 0,
+            r#use_random_seed: false,
             r#nodes: Default::default(),
         }
     }
@@ -28228,10 +29592,17 @@ pub type QuestItemId = DatabaseItemId<QuestItem>;
 #[serde(rename_all = "PascalCase")]
 pub struct QuestItem {
     pub r#id: QuestItemId,
+    #[serde(default)]
     pub r#name: String,
+    #[serde(default)]
     pub r#description: String,
+    #[serde(default)]
     pub r#icon: String,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#color: String,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#price: i32,
 }
 impl QuestItem {
@@ -28241,8 +29612,8 @@ impl QuestItem {
             r#name: Default::default(),
             r#description: Default::default(),
             r#icon: Default::default(),
-            r#color: Default::default(),
-            r#price: Default::default(),
+            r#color: "#00000000".into(),
+            r#price: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<QuestItemId>) -> Self {
@@ -28332,11 +29703,18 @@ pub type SatelliteId = DatabaseItemId<Satellite>;
 #[serde(rename_all = "PascalCase")]
 pub struct Satellite {
     pub r#id: SatelliteId,
+    #[serde(default)]
     pub r#name: String,
+    #[serde(default)]
     pub r#model_image: String,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#model_scale: f32,
+    #[serde(default)]
     pub r#size_class: SizeClass,
+    #[serde(default)]
     pub r#layout: String,
+    #[serde(default)]
     pub r#barrels: Vec<Barrel>,
 }
 impl Satellite {
@@ -28345,7 +29723,7 @@ impl Satellite {
             r#id,
             r#name: Default::default(),
             r#model_image: Default::default(),
-            r#model_scale: Default::default(),
+            r#model_scale: 0.0,
             r#size_class: Default::default(),
             r#layout: Default::default(),
             r#barrels: Default::default(),
@@ -28447,8 +29825,12 @@ pub type SatelliteBuildId = DatabaseItemId<SatelliteBuild>;
 pub struct SatelliteBuild {
     pub r#id: SatelliteBuildId,
     pub r#satellite_id: SatelliteId,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#not_available_in_game: bool,
+    #[serde(default)]
     pub r#difficulty_class: DifficultyClass,
+    #[serde(default)]
     pub r#components: Vec<InstalledComponent>,
 }
 impl SatelliteBuild {
@@ -28456,7 +29838,7 @@ impl SatelliteBuild {
         Self {
             r#id,
             r#satellite_id,
-            r#not_available_in_game: Default::default(),
+            r#not_available_in_game: false,
             r#difficulty_class: Default::default(),
             r#components: Default::default(),
         }
@@ -28530,31 +29912,70 @@ pub type ShipId = DatabaseItemId<Ship>;
 #[serde(rename_all = "PascalCase")]
 pub struct Ship {
     pub r#id: ShipId,
+    #[serde(default)]
     pub r#ship_type: ShipType,
+    #[serde(default)]
     pub r#ship_rarity: ShipRarity,
+    #[serde(default)]
     pub r#size_class: SizeClass,
+    #[serde(default)]
     pub r#name: String,
+    #[serde(default)]
     pub r#description: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
+    #[serde(default)]
     pub r#icon_image: String,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#icon_scale: f32,
+    #[serde(default)]
     pub r#model_image: String,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#model_scale: f32,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#engine_color: String,
+    #[serde(default)]
     pub r#engines: Vec<Engine>,
+    #[serde(default)]
     pub r#layout: String,
+    #[serde(default)]
     pub r#barrels: Vec<Barrel>,
+    #[serde(default)]
     pub r#features: ShipFeatures,
+    #[serde(default)]
     pub r#cells_expansions: ToggleState,
+    #[serde(default = "default_0ඞdotඞ02f32")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ02f32")]
     pub r#collider_tolerance: f32,
+    #[serde(default)]
+    #[serde(with = "crate::helpers::glam_ser")]
     pub r#engine_position: glam::f32::Vec2,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#engine_size: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#ship_category: i32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#energy_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#kinetic_resistance: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#heat_resistance: f32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#regeneration: bool,
+    #[serde(default)]
     pub r#builtin_devices: Vec<DeviceId>,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#base_weight_modifier: f32,
 }
 impl Ship {
@@ -28568,10 +29989,10 @@ impl Ship {
             r#description: Default::default(),
             r#faction: Default::default(),
             r#icon_image: Default::default(),
-            r#icon_scale: Default::default(),
+            r#icon_scale: 0.0,
             r#model_image: Default::default(),
-            r#model_scale: Default::default(),
-            r#engine_color: Default::default(),
+            r#model_scale: 0.0,
+            r#engine_color: "#00000000".into(),
             r#engines: Default::default(),
             r#layout: Default::default(),
             r#barrels: Default::default(),
@@ -28579,14 +30000,14 @@ impl Ship {
             r#cells_expansions: Default::default(),
             r#collider_tolerance: 0.02f32,
             r#engine_position: Default::default(),
-            r#engine_size: Default::default(),
-            r#ship_category: Default::default(),
-            r#energy_resistance: Default::default(),
-            r#kinetic_resistance: Default::default(),
-            r#heat_resistance: Default::default(),
-            r#regeneration: Default::default(),
+            r#engine_size: 0.0,
+            r#ship_category: 0,
+            r#energy_resistance: 0.0,
+            r#kinetic_resistance: 0.0,
+            r#heat_resistance: 0.0,
+            r#regeneration: false,
             r#builtin_devices: Default::default(),
-            r#base_weight_modifier: Default::default(),
+            r#base_weight_modifier: 0.0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<ShipId>) -> Self {
@@ -28881,42 +30302,42 @@ impl DatabaseItem for Ship {
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: f32 = Default::default();
+        let dw: f32 = 0.0;
         if self.r#engine_size != dw {
             tracing::error!(
                 ield = "r#engine_size",
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: i32 = Default::default();
+        let dw: i32 = 0;
         if self.r#ship_category != dw {
             tracing::error!(
                 ield = "r#ship_category",
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: f32 = Default::default();
+        let dw: f32 = 0.0;
         if self.r#energy_resistance != dw {
             tracing::error!(
                 ield = "r#energy_resistance",
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: f32 = Default::default();
+        let dw: f32 = 0.0;
         if self.r#kinetic_resistance != dw {
             tracing::error!(
                 ield = "r#kinetic_resistance",
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: f32 = Default::default();
+        let dw: f32 = 0.0;
         if self.r#heat_resistance != dw {
             tracing::error!(
                 ield = "r#heat_resistance",
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: bool = Default::default();
+        let dw: bool = false;
         if self.r#regeneration != dw {
             tracing::error!(
                 ield = "r#regeneration",
@@ -28930,7 +30351,7 @@ impl DatabaseItem for Ship {
                 "Obsolete field usage detected, generated code may not work",
             );
         }
-        let dw: f32 = Default::default();
+        let dw: f32 = 0.0;
         if self.r#base_weight_modifier != dw {
             tracing::error!(
                 ield = "r#base_weight_modifier",
@@ -28956,17 +30377,38 @@ pub type ShipBuildId = DatabaseItemId<ShipBuild>;
 pub struct ShipBuild {
     pub r#id: ShipBuildId,
     pub r#ship_id: ShipId,
+    #[serde(default = "default_true")]
+    #[serde(skip_serializing_if = "skip_if_true")]
     pub r#available_for_player: bool,
+    #[serde(default = "default_true")]
+    #[serde(skip_serializing_if = "skip_if_true")]
     pub r#available_for_enemy: bool,
+    #[serde(default)]
     pub r#difficulty_class: DifficultyClass,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#build_faction: Option<FactionId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#custom_ai: Option<BehaviorTreeId>,
+    #[serde(default)]
     pub r#components: Vec<InstalledComponent>,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#not_available_in_game: bool,
+    #[serde(default)]
     pub r#perks: ShipBuildPerks,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#extended_layout: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#random_color: bool,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#left_satellite_build: Option<SatelliteBuildId>,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#right_satellite_build: Option<SatelliteBuildId>,
 }
 impl ShipBuild {
@@ -28980,10 +30422,10 @@ impl ShipBuild {
             r#build_faction: Default::default(),
             r#custom_ai: Default::default(),
             r#components: Default::default(),
-            r#not_available_in_game: Default::default(),
+            r#not_available_in_game: false,
             r#perks: Default::default(),
-            r#extended_layout: Default::default(),
-            r#random_color: Default::default(),
+            r#extended_layout: false,
+            r#random_color: false,
             r#left_satellite_build: Default::default(),
             r#right_satellite_build: Default::default(),
         }
@@ -29130,7 +30572,7 @@ impl ShipBuild {
 }
 impl DatabaseItem for ShipBuild {
     fn validate(&mut self) {
-        let dw: bool = Default::default();
+        let dw: bool = false;
         if self.r#not_available_in_game != dw {
             tracing::error!(
                 ield = "r#not_available_in_game",
@@ -29155,9 +30597,14 @@ pub type StatUpgradeTemplateId = DatabaseItemId<StatUpgradeTemplate>;
 #[serde(rename_all = "PascalCase")]
 pub struct StatUpgradeTemplate {
     pub r#id: StatUpgradeTemplateId,
+    #[serde(default = "default_20i32")]
+    #[serde(skip_serializing_if = "skip_if_20i32")]
     pub r#max_level: i32,
+    #[serde(default)]
     pub r#stars: String,
+    #[serde(default)]
     pub r#credits: String,
+    #[serde(default)]
     pub r#resources: String,
 }
 impl StatUpgradeTemplate {
@@ -29247,11 +30694,22 @@ pub enum Technology {
 pub struct TechnologyComponent {
     pub r#id: TechnologyId,
     pub r#item_id: ComponentId,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#price: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#hidden: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#special: bool,
+    #[serde(default)]
     pub r#dependencies: Vec<TechnologyId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#custom_crafting_level: i32,
 }
 impl TechnologyComponent {
@@ -29260,11 +30718,11 @@ impl TechnologyComponent {
             r#id,
             r#item_id,
             r#faction: Default::default(),
-            r#price: Default::default(),
-            r#hidden: Default::default(),
-            r#special: Default::default(),
+            r#price: 0,
+            r#hidden: false,
+            r#special: false,
             r#dependencies: Default::default(),
-            r#custom_crafting_level: Default::default(),
+            r#custom_crafting_level: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<TechnologyId>) -> Self {
@@ -29389,10 +30847,19 @@ impl Technology {
 pub struct TechnologyShip {
     pub r#id: TechnologyId,
     pub r#item_id: ShipId,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#price: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#hidden: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#special: bool,
+    #[serde(default)]
     pub r#dependencies: Vec<TechnologyId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#custom_crafting_level: i32,
 }
 impl TechnologyShip {
@@ -29400,11 +30867,11 @@ impl TechnologyShip {
         Self {
             r#id,
             r#item_id,
-            r#price: Default::default(),
-            r#hidden: Default::default(),
-            r#special: Default::default(),
+            r#price: 0,
+            r#hidden: false,
+            r#special: false,
             r#dependencies: Default::default(),
-            r#custom_crafting_level: Default::default(),
+            r#custom_crafting_level: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<TechnologyId>) -> Self {
@@ -29521,11 +30988,22 @@ impl Technology {
 pub struct TechnologySatellite {
     pub r#id: TechnologyId,
     pub r#item_id: SatelliteId,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#faction: Option<FactionId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#price: i32,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#hidden: bool,
+    #[serde(default = "default_false")]
+    #[serde(skip_serializing_if = "skip_if_false")]
     pub r#special: bool,
+    #[serde(default)]
     pub r#dependencies: Vec<TechnologyId>,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#custom_crafting_level: i32,
 }
 impl TechnologySatellite {
@@ -29534,11 +31012,11 @@ impl TechnologySatellite {
             r#id,
             r#item_id,
             r#faction: Default::default(),
-            r#price: Default::default(),
-            r#hidden: Default::default(),
-            r#special: Default::default(),
+            r#price: 0,
+            r#hidden: false,
+            r#special: false,
             r#dependencies: Default::default(),
-            r#custom_crafting_level: Default::default(),
+            r#custom_crafting_level: 0,
         }
     }
     pub fn with_id(mut self, r#id: impl Into<TechnologyId>) -> Self {
@@ -29696,11 +31174,11 @@ impl<'de> serde::Deserialize<'de> for Technology {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("Type") else {
-            return Err(serde::de::Error::missing_field("Type"));
+        let variant_ty: TechType = if let Some(variant) = data.get("Type") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: TechType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             TechType::Component => {
                 Self::Component(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -29874,10 +31352,15 @@ pub type AmmunitionId = DatabaseItemId<Ammunition>;
 #[serde(rename_all = "PascalCase")]
 pub struct Ammunition {
     pub r#id: AmmunitionId,
+    #[serde(default)]
     pub r#body: BulletBody,
+    #[serde(default)]
     pub r#controller: BulletController,
+    #[serde(default)]
     pub r#triggers: Vec<BulletTrigger>,
+    #[serde(default)]
     pub r#impact_type: BulletImpactType,
+    #[serde(default)]
     pub r#effects: Vec<ImpactEffect>,
 }
 impl Ammunition {
@@ -29959,14 +31442,28 @@ pub type BulletPrefabId = DatabaseItemId<BulletPrefab>;
 #[serde(rename_all = "PascalCase")]
 pub struct BulletPrefab {
     pub r#id: BulletPrefabId,
+    #[serde(default)]
     pub r#shape: BulletShape,
+    #[serde(default)]
     pub r#image: String,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#size: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#margins: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#deformation: f32,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#main_color: String,
+    #[serde(default)]
     pub r#main_color_mode: ColorMode,
+    #[serde(default = "default_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
+    #[serde(skip_serializing_if = "skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ")]
     pub r#second_color: String,
+    #[serde(default)]
     pub r#second_color_mode: ColorMode,
 }
 impl BulletPrefab {
@@ -29975,12 +31472,12 @@ impl BulletPrefab {
             r#id,
             r#shape: Default::default(),
             r#image: Default::default(),
-            r#size: Default::default(),
-            r#margins: Default::default(),
-            r#deformation: Default::default(),
-            r#main_color: Default::default(),
+            r#size: 0.0,
+            r#margins: 0.0,
+            r#deformation: 0.0,
+            r#main_color: "#00000000".into(),
             r#main_color_mode: Default::default(),
-            r#second_color: Default::default(),
+            r#second_color: "#00000000".into(),
             r#second_color_mode: Default::default(),
         }
     }
@@ -30142,6 +31639,7 @@ pub type VisualEffectId = DatabaseItemId<VisualEffect>;
 #[serde(rename_all = "PascalCase")]
 pub struct VisualEffect {
     pub r#id: VisualEffectId,
+    #[serde(default)]
     pub r#elements: Vec<VisualEffectElement>,
 }
 impl VisualEffect {
@@ -30187,16 +31685,32 @@ pub type WeaponId = DatabaseItemId<Weapon>;
 #[serde(rename_all = "PascalCase")]
 pub struct Weapon {
     pub r#id: WeaponId,
+    #[serde(default)]
     pub r#weapon_class: WeaponClass,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#fire_rate: f32,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#spread: f32,
+    #[serde(default = "default_0")]
+    #[serde(skip_serializing_if = "skip_if_0")]
     pub r#magazine: i32,
+    #[serde(default)]
     pub r#activation_type: ActivationType,
+    #[serde(default)]
     pub r#shot_sound: String,
+    #[serde(default)]
     pub r#charge_sound: String,
+    #[serde(default)]
     pub r#shot_effect_prefab: String,
+    #[serde(default)]
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub r#visual_effect: Option<VisualEffectId>,
+    #[serde(default = "default_0ඞdotඞ0")]
+    #[serde(skip_serializing_if = "skip_if_0ඞdotඞ0")]
     pub r#effect_size: f32,
+    #[serde(default)]
     pub r#control_button_icon: String,
 }
 impl Weapon {
@@ -30204,15 +31718,15 @@ impl Weapon {
         Self {
             r#id,
             r#weapon_class: Default::default(),
-            r#fire_rate: Default::default(),
-            r#spread: Default::default(),
-            r#magazine: Default::default(),
+            r#fire_rate: 0.0,
+            r#spread: 0.0,
+            r#magazine: 0,
             r#activation_type: Default::default(),
             r#shot_sound: Default::default(),
             r#charge_sound: Default::default(),
             r#shot_effect_prefab: Default::default(),
             r#visual_effect: Default::default(),
-            r#effect_size: Default::default(),
+            r#effect_size: 0.0,
             r#control_button_icon: Default::default(),
         }
     }
@@ -31247,11 +32761,11 @@ impl<'de> serde::Deserialize<'de> for Item {
         D: serde::de::Deserializer<'de>,
     {
         let data = serde_json::Value::deserialize(deserializer)?;
-        let Some(variant) = data.get("ItemType") else {
-            return Err(serde::de::Error::missing_field("ItemType"));
+        let variant_ty: ItemType = if let Some(variant) = data.get("ItemType") {
+            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+        } else {
+            Default::default()
         };
-        let variant_ty: ItemType =
-            serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
         let value = match variant_ty {
             ItemType::Component => {
                 Self::Component(serde_json::from_value(data).map_err(serde::de::Error::custom)?)
@@ -31685,4 +33199,606 @@ macro_rules! apply_items {
         factions_settings() -> FactionsSettings, music_playlist() -> MusicPlaylist,
         localization_settings() -> LocalizationSettings, }
     };
+}
+
+// Helper functions
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ(x: &String) -> bool {
+    x == "#A0FFFFFF"
+}
+#[allow(non_snake_case)]
+pub fn default_300f32() -> f32 {
+    300f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "1 + credits/500"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ(x: &String) -> bool {
+    x == "#FFF0A0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ50C0FFඞquoteඞ(x: &String) -> bool {
+    x == "#50C0FF"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ() -> String {
+    "MIN(level*2,500)".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ() -> String {
+    "#20FF8050".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFF4040ඞquoteඞ() -> String {
+    "#FF4040".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ000000ඞquoteඞ(x: &String) -> bool {
+    x == "#000000"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ() -> String {
+    "#40FFFFC0".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞF09FFFඞquoteඞ(x: &String) -> bool {
+    x == "#F09FFF"
+}
+#[allow(non_snake_case)]
+pub fn default_10i32() -> i32 {
+    10i32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ(
+) -> String {
+    "IF(Quantity <= 1, 0, Size / 2)".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ(x: &String) -> bool {
+    x == "#00000000"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ(x: &String) -> bool {
+    x == "$WeaponDPS"
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ01f32() -> f32 {
+    0.01f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ01f32(x: &f32) -> bool {
+    *x == 0.01f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ() -> String {
+    "#FFF0A0".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_300i32(x: &i32) -> bool {
+    *x == 300i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFDF51ඞquoteඞ(x: &String) -> bool {
+    x == "#FFDF51"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "BaseFlightSpeed + 0.4*level"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ() -> String {
+    "1 + credits/500".into()
+}
+#[allow(non_snake_case)]
+pub fn default_1ඞdotඞ5f32() -> f32 {
+    1.5f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ(
+) -> String {
+    "MIN(1000, 300 + 5*distance)".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MIN(level*2,500)"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MIN(1000, 300 + 5*distance)"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ8080FFඞquoteඞ(x: &String) -> bool {
+    x == "#8080FF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFF8050ඞquoteඞ(x: &String) -> bool {
+    x == "#FF8050"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ() -> String {
+    "$WeaponDamage".into()
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ2f32() -> f32 {
+    0.2f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ1f32(x: &f32) -> bool {
+    *x == 0.1f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0(x: &i32) -> bool {
+    *x == 0
+}
+#[allow(non_snake_case)]
+pub fn skip_if_2ඞdotඞ5f32(x: &f32) -> bool {
+    *x == 2.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_30f32(x: &f32) -> bool {
+    *x == 30f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞE080FFFFඞquoteඞ() -> String {
+    "#E080FFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ02f32(x: &f32) -> bool {
+    *x == 0.02f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ1ඞquoteඞ() -> String {
+    "1".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_300f32(x: &f32) -> bool {
+    *x == 300f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ() -> String {
+    "BaseFuelCapacity + 50*level".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ12ඞquoteඞ(x: &String) -> bool {
+    x == "12"
+}
+#[allow(non_snake_case)]
+pub fn default_1f32() -> f32 {
+    1f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ808080ඞquoteඞ(x: &String) -> bool {
+    x == "#808080"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ(x: &String) -> bool {
+    x == "#80FFFF"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ() -> String {
+    "BaseFlightSpeed + 0.4*level".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "1 - 0.05*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ(x: &String) -> bool {
+    x == "0.1*level"
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ9f32() -> f32 {
+    0.9f32
+}
+#[allow(non_snake_case)]
+pub fn default_15i32() -> i32 {
+    15i32
+}
+#[allow(non_snake_case)]
+pub fn default_24i32() -> i32 {
+    24i32
+}
+#[allow(non_snake_case)]
+pub fn default_0() -> i32 {
+    0
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ() -> String {
+    "#FFFFE0".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFF4040ඞquoteඞ(x: &String) -> bool {
+    x == "#FF4040"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "IF(Quantity <= 1, 0, Size / 2)"
+}
+#[allow(non_snake_case)]
+pub fn default_2ඞdotඞ5f32() -> f32 {
+    2.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞE080FFFFඞquoteඞ(x: &String) -> bool {
+    x == "#E080FFFF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ00FF00ඞquoteඞ(x: &String) -> bool {
+    x == "#00FF00"
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ0() -> f32 {
+    0.0
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ00FFFFඞquoteඞ() -> String {
+    "#00FFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ02f32() -> f32 {
+    0.02f32
+}
+#[allow(non_snake_case)]
+pub fn default_50i32() -> i32 {
+    50i32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ50C0FFඞquoteඞ() -> String {
+    "#50C0FF".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ(x: &String) -> bool {
+    x == "#C0C0C0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ8f32(x: &f32) -> bool {
+    *x == 0.8f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ80FF80ඞquoteඞ(x: &String) -> bool {
+    x == "#80FF80"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_1f32(x: &f32) -> bool {
+    *x == 1f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_200i32(x: &i32) -> bool {
+    *x == 200i32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ() -> String {
+    "#80FFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ() -> String {
+    "#FFFFC0".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFFFFFඞquoteඞ(x: &String) -> bool {
+    x == "#FFFFFF"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ00FF00ඞquoteඞ() -> String {
+    "#00FF00".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ() -> String {
+    "$WeaponDPS".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ() -> String {
+    "#A0FFFFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ85f32() -> f32 {
+    0.85f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞRANDOMඞlparenඞ0ඞcommaඞඞspaceඞ360ඞrparenඞඞrparenඞඞquoteඞ(
+) -> String {
+    "IF(Quantity <= 1, 0, RANDOM(0, 360))".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "BaseFlightRange + 0.09*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MAX(40, 100 - level)"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ0ඞquoteඞ() -> String {
+    "0".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ85f32(x: &f32) -> bool {
+    *x == 0.85f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ() -> String {
+    "0.1*level".into()
+}
+#[allow(non_snake_case)]
+pub fn default_true() -> bool {
+    true
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "BaseFuelCapacity + 50*level"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞDestroyerඞcommaඞඞspaceඞ5ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞCruiserඞcommaඞඞspaceඞ15ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞBattleshipඞcommaඞඞspaceඞ50ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞTitanඞcommaඞඞspaceඞ100ඞcommaඞඞspaceඞ0ඞrparenඞඞquoteඞ(
+) -> String {
+    "IF(size == Destroyer, 5, size == Cruiser, 15, size == Battleship, 50, size == Titan, 100, 0)"
+        .into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_10i32(x: &i32) -> bool {
+    *x == 10i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ(x: &String) -> bool {
+    x == "#20FF8050"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ1ඞquoteඞ(x: &String) -> bool {
+    x == "1"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ(x: &String) -> bool {
+    x == "#FFFFE0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ(x: &String) -> bool {
+    x == "#FFFFC0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_5f32(x: &f32) -> bool {
+    *x == 5f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ() -> String {
+    "1 - 0.05*level".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ2f32(x: &f32) -> bool {
+    *x == 0.2f32
+}
+#[allow(non_snake_case)]
+pub fn default_1i32() -> i32 {
+    1i32
+}
+#[allow(non_snake_case)]
+pub fn default_30f32() -> f32 {
+    30f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ(x: &String) -> bool {
+    x == "#40FFFFC0"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ808080ඞquoteඞ() -> String {
+    "#808080".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ() -> String {
+    "#4050C0FF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ5f32() -> f32 {
+    0.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_1ඞdotඞ5f32(x: &f32) -> bool {
+    *x == 1.5f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFDF51ඞquoteඞ() -> String {
+    "#FFDF51".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_50i32(x: &i32) -> bool {
+    *x == 50i32
+}
+#[allow(non_snake_case)]
+pub fn default_200i32() -> i32 {
+    200i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ5f32(x: &f32) -> bool {
+    *x == 0.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_15i32(x: &i32) -> bool {
+    *x == 15i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ(x: &String) -> bool {
+    x == "#4050C0FF"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFFFFFඞquoteඞ() -> String {
+    "#FFFFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ() -> String {
+    "BaseFlightRange + 0.09*level".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_false(x: &bool) -> bool {
+    !(*x)
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ0(x: &f32) -> bool {
+    *x == 0.0
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ00FFFFඞquoteඞ(x: &String) -> bool {
+    x == "#00FFFF"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ8080FFඞquoteඞ() -> String {
+    "#8080FF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ() -> String {
+    "#C0C0C0".into()
+}
+#[allow(non_snake_case)]
+pub fn default_300i32() -> i32 {
+    300i32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞC050C0FFඞquoteඞ() -> String {
+    "#C050C0FF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ000000ඞquoteඞ() -> String {
+    "#000000".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞF09FFFඞquoteඞ() -> String {
+    "#F09FFF".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_true(x: &bool) -> bool {
+    *x
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ0ඞquoteඞ(x: &String) -> bool {
+    x == "0"
+}
+#[allow(non_snake_case)]
+pub fn default_3ඞdotඞ5f32() -> f32 {
+    3.5f32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ00000000ඞquoteඞ() -> String {
+    "#00000000".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_3ඞdotඞ5f32(x: &f32) -> bool {
+    *x == 3.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞRANDOMඞlparenඞ0ඞcommaඞඞspaceඞ360ඞrparenඞඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "IF(Quantity <= 1, 0, RANDOM(0, 360))"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFF8050ඞquoteඞ() -> String {
+    "#FF8050".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_1i32(x: &i32) -> bool {
+    *x == 1i32
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ(
+) -> String {
+    "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ(
+) -> String {
+    "MAX(40, 100 - level)".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ80FF80ඞquoteඞ() -> String {
+    "#80FF80".into()
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ8f32() -> f32 {
+    0.8f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ(x: &String) -> bool {
+    x == "$WeaponDamage"
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ5ඞstarඞlevelඞquoteඞ() -> String {
+    "5*level".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ12ඞquoteඞ() -> String {
+    "12".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_100i32(x: &i32) -> bool {
+    *x == 100i32
+}
+#[allow(non_snake_case)]
+pub fn default_20i32() -> i32 {
+    20i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_20i32(x: &i32) -> bool {
+    *x == 20i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ9f32(x: &f32) -> bool {
+    *x == 0.9f32
+}
+#[allow(non_snake_case)]
+pub fn default_false() -> bool {
+    false
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞDestroyerඞcommaඞඞspaceඞ5ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞCruiserඞcommaඞඞspaceඞ15ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞBattleshipඞcommaඞඞspaceඞ50ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞTitanඞcommaඞඞspaceඞ100ඞcommaඞඞspaceඞ0ඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x
+        == "IF(size == Destroyer, 5, size == Cruiser, 15, size == Battleship, 50, size == Titan, 100, 0)"
+}
+#[allow(non_snake_case)]
+pub fn default_100i32() -> i32 {
+    100i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_24i32(x: &i32) -> bool {
+    *x == 24i32
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ1f32() -> f32 {
+    0.1f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ5ඞstarඞlevelඞquoteඞ(x: &String) -> bool {
+    x == "5*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞC050C0FFඞquoteඞ(x: &String) -> bool {
+    x == "#C050C0FF"
+}
+#[allow(non_snake_case)]
+pub fn default_5f32() -> f32 {
+    5f32
 }

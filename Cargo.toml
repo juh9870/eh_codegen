@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = ["eh_codegen", "eh_mod_dev", "eh_mod_example", "eh_schema"]
+members = ["eh_codegen", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_schema"]
 
 [workspace.dependencies]
 clap = "4.5.7"
@@ -26,6 +26,6 @@ serde_repr = "0.1.19"
 syn = "2.0.66"
 thiserror = "1.0.61"
 tracing = "0.1.40"
-tracing-panic = "0.1.2"
+tracing-panic = { version = "0.1.2", default-features = false }
 tracing-subscriber = "0.3.18"
 walkdir = "2.5.0"

@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::str::FromStr;
 
 use convert_case::{Case, Casing};
@@ -14,6 +15,8 @@ pub struct Field {
     pub ident: Ident,
     pub ty: TokenStream,
     pub default_value: Option<TokenStream>,
+    pub serde_default: Option<Ident>,
+    pub skip_serializing_if: Option<Ident>,
     pub field: SchemaStructMember,
 }
 
@@ -23,23 +26,105 @@ impl Field {
         let (ty, no_default) = rust_type(&field, struct_name)?;
         let ident = format_ident!("r#{}", name_snake);
         let default_value = (!no_default).then(|| default_value(&field)).transpose()?;
+        let cleaned_value_name = default_value.as_ref().map(|v| {
+            if v.to_string().replace(' ', "") == "Default::default()" {
+                return "default".to_string();
+            }
+            v.to_string()
+                .replace('.', "ඞdotඞ")
+                .replace(':', "ඞcolonඞ")
+                .replace(' ', "ඞspaceඞ")
+                .replace('-', "ඞdashඞ")
+                .replace('+', "ඞplusඞ")
+                .replace('(', "ඞlparenඞ")
+                .replace(')', "ඞrparenඞ")
+                .replace('[', "ඞlbracketඞ")
+                .replace(']', "ඞrbracketඞ")
+                .replace('{', "ඞlbraceඞ")
+                .replace('}', "ඞrbraceඞ")
+                .replace('=', "ඞeqඞ")
+                .replace('!', "ඞbangඞ")
+                .replace('@', "ඞatඞ")
+                .replace('#', "ඞhashඞ")
+                .replace('$', "ඞdollarඞ")
+                .replace('%', "ඞpercentඞ")
+                .replace('^', "ඞcaretඞ")
+                .replace('&', "ඞampඞ")
+                .replace('*', "ඞstarඞ")
+                .replace('?', "ඞquestionඞ")
+                .replace('/', "ඞslashඞ")
+                .replace('\\', "ඞbackslashඞ")
+                .replace('|', "ඞpipeඞ")
+                .replace('~', "ඞtildeඞ")
+                .replace('`', "ඞbacktickඞ")
+                .replace('"', "ඞquoteඞ")
+                .replace('\'', "ඞsquoteඞ")
+                .replace('<', "ඞltඞ")
+                .replace('>', "ඞgtඞ")
+                .replace(',', "ඞcommaඞ")
+                .replace(';', "ඞsemicolonඞ")
+                .replace('+', "ඞplusඞ")
+        });
+        let serde_default = cleaned_value_name
+            .as_ref()
+            .map(|val| format_ident!("default_{}", val));
+        let skip_serializing_if = cleaned_value_name.map(|val| format_ident!("skip_if_{}", val));
 
         Ok(Field {
             ident,
             ty,
             field,
             default_value,
+            serde_default,
+            skip_serializing_if,
         })
     }
 
     pub fn struct_field(&self) -> TokenStream {
         let Self {
-            ident, ty, field, ..
+            ident,
+            ty,
+            serde_default,
+            skip_serializing_if,
+            field,
+            ..
         } = self;
 
         let desc = field.description.as_ref().map(|s| quote!(#[doc = #s]));
+        let serde_default = serde_default.as_ref().map(|s| s.to_string()).map(|s| {
+            if s == "default_default" {
+                quote! {#[serde(default)]}
+            } else {
+                quote!(#[serde(default=#s)])
+            }
+        });
+        let skip_serializing_if = skip_serializing_if
+            .as_ref()
+            .map(|s| s.to_string())
+            .and_then(|s| {
+                if s == "skip_if_default" {
+                    None
+                } else {
+                    Some(quote!(#[serde(skip_serializing_if=#s)]))
+                }
+            })
+            .or_else(|| {
+                if ty.to_string().starts_with("Option") {
+                    Some(quote!(#[serde(skip_serializing_if = "Option::is_none")]))
+                } else {
+                    None
+                }
+            });
+
+        let serde_with = match field.ty {
+            SchemaStructMemberType::Vector => quote!(#[serde(with = "crate::helpers::glam_ser")]),
+            _ => quote!(),
+        };
         quote! {
             #desc
+            #serde_default
+            #skip_serializing_if
+            #serde_with
             pub #ident: #ty,
         }
     }
@@ -70,8 +155,14 @@ impl Field {
             ..
         } = self;
         if let Some(value) = default_value {
-            quote! {
-                #ident: #value,
+            if value.to_string().contains("default ()") {
+                quote! {
+                    #ident: #value,
+                }
+            } else {
+                quote! {
+                    #ident: #value.into(),
+                }
             }
         } else {
             quote! {
@@ -136,6 +227,43 @@ impl Field {
             #(#validation)*
         })
     }
+
+    pub fn add_extra_functions(&self, funcs: &mut HashMap<String, TokenStream>) {
+        let ty = &self.ty;
+        let Some(default) = &self.default_value else {
+            return;
+        };
+        if let Some(name) = &self.serde_default {
+            if name != "default_default" {
+                funcs.entry(name.to_string()).or_insert_with(|| {
+                    quote! {
+                        #[allow(non_snake_case)]
+                        pub fn #name() -> #ty {
+                            #default.into()
+                        }
+                    }
+                });
+            }
+        }
+        if let Some(name) = &self.skip_serializing_if {
+            if name != "skip_if_default" {
+                let lhs = match self.field.ty {
+                    SchemaStructMemberType::Int
+                    | SchemaStructMemberType::Float
+                    | SchemaStructMemberType::Bool => quote!(*x),
+                    _ => quote!(x),
+                };
+                funcs.entry(name.to_string()).or_insert_with(|| {
+                    quote! {
+                        #[allow(non_snake_case)]
+                        pub fn #name(x: &#ty) -> bool {
+                            #lhs == #default
+                        }
+                    }
+                });
+            }
+        }
+    }
 }
 
 #[derive(Debug)]
@@ -174,6 +302,10 @@ impl CodegenState {
             .into_iter()
             .map(|f| Field::new(f, &name))
             .try_collect()?;
+
+        for f in &fields {
+            f.add_extra_functions(&mut self.extra_functions)
+        }
 
         let struct_fields = fields.iter().map(|f| f.struct_field());
         let builder_fns = fields.iter().map(|f| f.builder_fn());
@@ -244,7 +376,21 @@ impl CodegenState {
 
 fn default_value(field: &SchemaStructMember) -> TokensResult {
     let Some(default) = &field.default else {
-        return Ok(quote!(Default::default()));
+        return Ok(match field.ty {
+            SchemaStructMemberType::Int => {
+                quote! {0}
+            }
+            SchemaStructMemberType::Bool => {
+                quote! {false}
+            }
+            SchemaStructMemberType::Float => {
+                quote! {0.0}
+            }
+            SchemaStructMemberType::Color => {
+                quote! {"#00000000"}
+            }
+            _ => quote!(Default::default()),
+        });
     };
 
     Ok(match field.ty {
@@ -266,6 +412,9 @@ fn default_value(field: &SchemaStructMember) -> TokensResult {
                 .context("Encountered an issue during parsing default float value")?;
             quote!(#value)
         }
+        SchemaStructMemberType::String => quote!(#default),
+        SchemaStructMemberType::Expression => quote!(#default),
+        SchemaStructMemberType::Color => quote!(#default),
         _ => quote!(#default.to_string()),
     })
 }

@@ -71,3 +71,44 @@ impl<T: DatabaseItem> std::fmt::Debug for DatabaseItemId<T> {
             .finish()
     }
 }
+
+pub mod glam_ser {
+    use serde::{Deserialize, Serialize};
+
+    fn if_zero(x: &f32) -> bool {
+        x.eq(&0.0)
+    }
+
+    #[derive(Debug, Clone, serde::Deserialize, serde::Serialize)]
+    struct Vec2Shim {
+        #[serde(default, skip_serializing_if = "if_zero")]
+        x: f32,
+        #[serde(default, skip_serializing_if = "if_zero")]
+        y: f32,
+    }
+
+    impl From<glam::f32::Vec2> for Vec2Shim {
+        fn from(v: glam::f32::Vec2) -> Self {
+            Self { x: v.x, y: v.y }
+        }
+    }
+
+    impl From<Vec2Shim> for glam::f32::Vec2 {
+        fn from(v: Vec2Shim) -> Self {
+            glam::f32::Vec2::new(v.x, v.y)
+        }
+    }
+
+    pub fn serialize<S: serde::Serializer>(
+        value: &glam::f32::Vec2,
+        s: S,
+    ) -> Result<S::Ok, S::Error> {
+        Vec2Shim::from(*value).serialize(s)
+    }
+
+    pub fn deserialize<'de, D: serde::Deserializer<'de>>(
+        de: D,
+    ) -> Result<glam::f32::Vec2, D::Error> {
+        Ok(Vec2Shim::deserialize(de)?.into())
+    }
+}

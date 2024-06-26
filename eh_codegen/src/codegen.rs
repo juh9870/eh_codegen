@@ -22,6 +22,7 @@ type TokensResult = Result<TokenStream>;
 pub struct CodegenState {
     pub enums: HashMap<String, Vec<String>>,
     pub objects: HashMap<String, StructData>,
+    pub extra_functions: HashMap<String, TokenStream>,
 }
 
 impl CodegenState {
@@ -177,6 +178,13 @@ impl CodegenState {
                     }
                 }
             }
+        })
+    }
+
+    pub fn codegen_extra_functions(&mut self) -> TokensResult {
+        let values = self.extra_functions.values();
+        Ok(quote! {
+            #(#values)*
         })
     }
 

@@ -1,0 +1,12 @@
+[package]
+name = "eh_rogue_mod"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { workspace = true, features = ["derive"] }
+color-backtrace = { workspace = true }
+eh_mod_dev = { path = "../eh_mod_dev" }
+tracing = { workspace = true }
+tracing-panic = { workspace = true, default-features = false }
+tracing-subscriber = { workspace = true, features = ["env-filter"] }

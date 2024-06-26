@@ -105,6 +105,13 @@ fn main() -> miette::Result<()> {
         code_builder += "\n// Core Database Item\n";
         code_builder += &db_item_code.unwrap_or_default();
 
+        let extra_funcs_code = state
+            .codegen_extra_functions()
+            .and_then(|c| CodegenState::format_tokens(Some(c)))
+            .with_context(|| "Failed to generate extra functions".to_string())?;
+        code_builder += "\n// Helper functions\n";
+        code_builder += &extra_funcs_code.unwrap_or_default();
+
         fs_err::write(output, code_builder)
             .into_diagnostic()
             .context("Failed to write a file")?;

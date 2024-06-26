@@ -304,20 +304,23 @@ impl DatabaseHolder {
             let id = item_handle.id();
             drop(item_handle);
 
-            let _guard = error_span!("Saving item", ty = type_name, id);
+            let _guard = error_span!("Saving item", ty = type_name, id).entered();
             let item = Arc::into_inner(item).expect(ERR_DANGLING_ITEM).into_inner();
             let type_name = item.inner_type_name();
             let file_name = item
                 .id()
-                .and_then(|id| {
-                    inverse_ids.get(type_name).map(|ids| {
-                        let id = ids
-                            .get(&id)
-                            .cloned()
-                            .unwrap_or_else(|| format!("auto_{}", id))
-                            .replace(':', "-");
-                        format!("{id}_{type_name}.json")
-                    })
+                .map(|id| {
+                    inverse_ids
+                        .get(type_name)
+                        .map(|ids| {
+                            let id = ids
+                                .get(&id)
+                                .cloned()
+                                .unwrap_or_else(|| format!("auto_{}", id))
+                                .replace(':', "-");
+                            format!("{id}_{type_name}.json")
+                        })
+                        .unwrap_or_else(|| format!("{type_name}_{id}.json"))
                 })
                 .unwrap_or_else(|| format!("{type_name}.json"));
 
@@ -408,7 +411,7 @@ impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for String {
 
 impl DatabaseHolder {
     pub fn iter<T: Into<Item> + DatabaseItem + Any, U>(
-        self: &Arc<Self>,
+        &self,
         func: impl Fn(DatabaseItemIter<'_, T>) -> U,
     ) -> U {
         let mut db_lock = self.inner.lock();
@@ -424,7 +427,7 @@ impl DatabaseHolder {
     }
 
     pub fn iter_mut<T: Into<Item> + DatabaseItem + Any, U>(
-        self: &Arc<Self>,
+        &self,
         func: impl Fn(DatabaseItemIterMut<'_, T>) -> U,
     ) -> U {
         let mut db_lock = self.inner.lock();
@@ -471,5 +474,28 @@ impl<'a, T: Into<Item> + DatabaseItem + Any> Iterator for DatabaseItemIterMut<'a
         return Some(RwLockWriteGuard::map(next_value.write(), |lock| {
             lock.as_inner_any_mut().downcast_mut::<T>().unwrap()
         }));
+    }
+}
+
+impl DatabaseHolder {
+    pub fn load_from_dir(&self, dir: impl AsRef<Path>) {
+        let path = dir.as_ref();
+        let _guard = error_span!("Loading existing database files", path=%path.display()).entered();
+        for entry in walkdir::WalkDir::new(dir) {
+            let entry = entry.expect("Should be able to read a file");
+            if !entry.file_type().is_file() {
+                continue;
+            }
+
+            let path = entry.path();
+
+            let _guard = error_span!("Loading file", path=%path.display()).entered();
+
+            let data = fs_err::read(path).expect("Should be able to read a file");
+
+            let data: Item = serde_json5::from_slice(&data).expect("Should be a valid json");
+
+            self.consume_item(data);
+        }
     }
 }

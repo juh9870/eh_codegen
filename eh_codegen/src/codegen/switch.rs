@@ -270,11 +270,12 @@ impl CodegenState {
             impl<'de> serde::Deserialize<'de> for #switch_struct_ident {
                 fn deserialize<D>(deserializer: D) -> Result<Self, D::Error> where D: serde::de::Deserializer<'de> {
                     let data = serde_json::Value::deserialize(deserializer)?;
-                    let Some(variant) = data.get(#tag_field) else {
-                        return Err(serde::de::Error::missing_field(#tag_field));
+                    let variant_ty: #enum_ident = if let Some(variant) = data.get(#tag_field) {
+                        serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?
+                        // return Err(serde::de::Error::missing_field(#tag_field));
+                    } else {
+                        Default::default()
                     };
-
-                    let variant_ty: #enum_ident = serde_json::from_value(variant.clone()).map_err(serde::de::Error::custom)?;
 
                     let value = match variant_ty {
                         #(#serde_deser_matcher)*
