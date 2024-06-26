@@ -80,9 +80,7 @@ fn main() -> miette::Result<()> {
         let mut state = CodegenState::default();
 
         let mut code_builder = "\
-            #![allow(clippy::unnecessary_cast)]\n\
             #![allow(clippy::large_enum_variant)]\n\
-            #![allow(clippy::explicit_auto_deref)]\n\
             #![allow(dead_code)]\n\
             #![allow(unreachable_patterns)]\n\n"
             .to_string();
