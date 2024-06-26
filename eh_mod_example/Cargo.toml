@@ -1,0 +1,13 @@
+[package]
+name = "eh_mod_example"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { workspace = true, features = ["derive"] }
+color-backtrace = { workspace = true }
+eh_mod_dev = { path = "../eh_mod_dev" }
+eh_schema = { path = "../eh_schema" }
+tracing = { workspace = true }
+tracing-panic = { workspace = true }
+tracing-subscriber = { workspace = true, features = ["env-filter"] }

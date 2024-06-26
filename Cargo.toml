@@ -1,20 +1,24 @@
 [workspace]
 resolver = "2"
 
-members = ["eh_codegen", "eh_mod_dev", "eh_schema"]
+members = ["eh_codegen", "eh_mod_dev", "eh_mod_example", "eh_schema"]
 
 [workspace.dependencies]
 clap = "4.5.7"
 color-backtrace = "0.6.1"
 convert_case = "0.6.0"
+downcast-rs = "1.2.1"
 fs-err = "2.11.0"
 glam = "0.28"
 itertools = "0.13.0"
 miette = "7.2.0"
+parking_lot = "0.12.3"
+paste = "1.0.15"
 prettyplease = "0.2.20"
 proc-macro2 = "1.0.85"
-quick-xml = "0.32.0"
+quick-xml = "0.34.0"
 quote = "1.0.36"
+replace_with = "0.1.7"
 serde = "1.0.203"
 serde_json = "1.0.117"
 serde_json5 = "0.1.0"

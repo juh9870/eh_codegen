@@ -1,13 +1,24 @@
 use eh_schema::schema::{DatabaseItem, DatabaseItemId, Item};
-use std::any::TypeId;
+use std::any::Any;
+use std::borrow::Cow;
 
 use std::collections::{HashMap, HashSet};
+use std::marker::PhantomData;
 
-use std::ops::{Deref, DerefMut, Range};
+use parking_lot::{
+    MappedRwLockReadGuard, MappedRwLockWriteGuard, Mutex, RwLock, RwLockReadGuard, RwLockWriteGuard,
+};
+use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 
-use tracing::{error_span, info};
+use tracing::{error, error_span, info};
+
+pub use crate::database::db_item::DbItem;
+pub use crate::database::stored_db_item::StoredDbItem;
+
+pub mod db_item;
+pub mod stored_db_item;
 
 mod macro_impls;
 
@@ -19,16 +30,22 @@ const MAPPINGS_NAME: &str = "id_mappings.json5";
 const MAPPINGS_BACKUP_NAME: &str = "id_mappings.json5.backup";
 
 pub type Database = Arc<DatabaseHolder>;
+
 pub struct DatabaseHolder {
     inner: Mutex<DatabaseInner>,
 }
+
+type SharedItem = Arc<RwLock<Item>>;
+type ItemsMap = Arc<RwLock<HashMap<Option<i32>, SharedItem>>>;
+
 pub struct DatabaseInner {
     path: PathBuf,
-    ids: HashMap<String, HashMap<String, i32>>,
-    used_ids: HashMap<String, HashSet<i32>>,
-    available_ids: HashMap<TypeId, Vec<Range<i32>>>,
+    ids: HashMap<Cow<'static, str>, HashMap<String, i32>>,
+    used_ids: HashMap<Cow<'static, str>, HashSet<i32>>,
+    available_ids: HashMap<&'static str, Vec<Range<i32>>>,
     default_ids: Vec<Range<i32>>,
-    items: Vec<Item>,
+    items: HashMap<&'static str, ItemsMap>,
+    // items: Vec<Item>,
 }
 
 fn check_no_backup(path: &Path) {
@@ -59,7 +76,7 @@ impl DatabaseHolder {
         }
 
         let mappings_path = output_path.join(MAPPINGS_NAME);
-        let mappings: HashMap<String, HashMap<String, i32>> = mappings_path
+        let mappings: HashMap<Cow<'static, str>, HashMap<String, i32>> = mappings_path
             .exists()
             .then(|| {
                 let data = fs_err::read_to_string(output_path.join(MAPPINGS_NAME))
@@ -90,7 +107,7 @@ impl DatabaseHolder {
 
     /// Adds another ID range to use for all types
     pub fn add_id_range(&self, range: Range<i32>) {
-        let mut db = self.inner.lock().unwrap();
+        let mut db = self.inner.lock();
         let db = db.deref_mut();
         for ids in db.available_ids.values_mut() {
             ids.push(range.clone());
@@ -100,11 +117,10 @@ impl DatabaseHolder {
 
     /// Adds another ID range to use for one specified type
     pub fn add_id_range_for<T: 'static + DatabaseItem>(&self, range: Range<i32>) {
-        let mut db = self.inner.lock().unwrap();
+        let mut db = self.inner.lock();
         let db = db.deref_mut();
-        let type_id = TypeId::of::<T>();
         db.available_ids
-            .entry(type_id)
+            .entry(T::type_name())
             .or_insert_with(|| db.default_ids.clone())
             .push(range)
     }
@@ -113,11 +129,10 @@ impl DatabaseHolder {
     /// of new IDs until [add_id_range] or [add_id_range_for] are used to
     /// allocate new ID space for this type
     pub fn clear_id_ranges_for<T: 'static + DatabaseItem>(&mut self) {
-        let mut db = self.inner.lock().unwrap();
+        let mut db = self.inner.lock();
         let db = db.deref_mut();
-        let type_id = TypeId::of::<T>();
         db.available_ids
-            .entry(type_id)
+            .entry(T::type_name())
             .or_insert_with(|| db.default_ids.clone())
             .clear()
     }
@@ -126,13 +141,13 @@ impl DatabaseHolder {
     ///
     /// Aborts the execution if generating ID is not possible
     pub fn id<T: 'static + DatabaseItem>(&self, id: impl Into<String>) -> DatabaseItemId<T> {
-        let mut db = self.inner.lock().unwrap();
+        let mut db = self.inner.lock();
         let db = db.deref_mut();
         let id_str = id.into();
         let _guard = error_span!("Getting item ID", id = id_str, ty = T::type_name()).entered();
 
         let type_name = T::type_name();
-        let mapping = db.ids.entry(type_name.to_string()).or_default();
+        let mapping = db.ids.entry(Cow::Borrowed(type_name)).or_default();
 
         match mapping.get(&id_str) {
             None => {
@@ -153,15 +168,15 @@ impl DatabaseHolder {
         string_id: impl Into<String>,
         numeric_id: i32,
     ) -> DatabaseItemId<T> {
-        let mut db = self.inner.lock().unwrap();
+        let mut db = self.inner.lock();
         let db = db.deref_mut();
         let type_name = T::type_name();
         db.ids
-            .entry(type_name.to_string())
+            .entry(Cow::Borrowed(type_name))
             .or_default()
             .insert(string_id.into(), numeric_id);
         db.used_ids
-            .entry(type_name.to_string())
+            .entry(Cow::Borrowed(type_name))
             .or_default()
             .insert(numeric_id);
         DatabaseItemId::new(numeric_id)
@@ -172,30 +187,69 @@ impl DatabaseHolder {
     /// All returned handles **must** be dropped before saving the database, otherwise a panic will occur.
     ///
     /// # Panics
-    /// All items are stored behind a [RefCell], so regular runtime borrowing rules apply
-    pub fn add_item<T: Into<Item>>(self: &Arc<Self>, item: T) -> DbItem<T> {
-        DbItem {
-            item: Some(item),
-            db: self.clone(),
-        }
+    /// All items are stored behind a [Mutex], so regular runtime borrowing rules apply
+    pub fn add_item<T: Into<Item> + DatabaseItem>(self: &Arc<Self>, item: T) -> DbItem<T> {
+        DbItem::new(item, self.clone())
+    }
+
+    /// Gets the item that was saved to the database previously
+    ///
+    /// All returned handles **must** be dropped before saving the database, otherwise a panic will occur.
+    ///
+    /// # Panics
+    /// Each item is individually stored behind a [RwLock], so regular runtime borrowing rules apply
+    pub fn get_item<T: Into<Item> + DatabaseItem + Any>(
+        self: &Arc<Self>,
+        id: impl DatabaseIdLike<T>,
+    ) -> Option<StoredDbItem<T>> {
+        let id = id.into_id(self);
+
+        let mut db = self.inner.lock();
+        let db = db.deref_mut();
+
+        let item = db
+            .items
+            .get_mut(T::type_name())
+            .and_then(|i| i.read().get(&Some(id.0)).cloned())
+            .map(|i| StoredDbItem::new(i, self.clone()));
+
+        item
     }
 
     /// Adds an item to the database immediately
     ///
     /// It is not possible to get back an item added this way, if you want to
     /// reference or modify the added item, use [add_item]
-    pub fn consume_item<T: Into<Item>>(&self, item: T) {
-        let mut db = self.inner.lock().unwrap();
+    pub(crate) fn consume_item<T: Into<Item>>(&self, item: T) {
+        let mut db = self.inner.lock();
         let db = db.deref_mut();
-        db.items.push(item.into());
+
+        let item = item.into();
+        let type_name = item.inner_type_name();
+        let id = item.id();
+        let map = db.items.entry(type_name).or_default();
+        if map
+            .write()
+            .insert(id, Arc::new(RwLock::new(item)))
+            .is_some()
+        {
+            if let Some(id) = id {
+                error!(id, ty = type_name, "Item ID collision detected")
+            } else {
+                error!(ty = type_name, "Duplicate setting detected")
+            }
+        }
     }
 
     /// Saves database to the file system, overriding old files
     pub fn save(self: Arc<Self>) {
+        const ERR_DANGLING_DATABASE: &str = "Should not have dangling references to the database before saving. Check your item handles for leakage";
+        const ERR_DANGLING_COLLECTION: &str = "Should not have dangling references to the database collections before saving. Check your iterator usage for leaking";
+        const ERR_DANGLING_ITEM: &str = "Should not have dangling references to the database item before saving. Check your item handles for leakage";
+
         let guard_a = error_span!("Saving database").entered();
-        let db = Arc::into_inner(self)
-            .expect("Should not have dangling references to the database before saving. Check your item handles for leakage");
-        let db = db.inner.into_inner().unwrap();
+        let db = Arc::into_inner(self).expect(ERR_DANGLING_DATABASE);
+        let db = db.inner.into_inner();
         let path = db.path;
         drop(guard_a);
         let _guard = error_span!("Saving database", path=%path.display()).entered();
@@ -239,7 +293,19 @@ impl DatabaseHolder {
             })
             .collect();
 
-        for item in db.items {
+        for item in db.items.into_values().flat_map(|m| {
+            Arc::into_inner(m)
+                .expect(ERR_DANGLING_COLLECTION)
+                .into_inner()
+                .into_values()
+        }) {
+            let item_handle = item.read();
+            let type_name = item_handle.inner_type_name();
+            let id = item_handle.id();
+            drop(item_handle);
+
+            let _guard = error_span!("Saving item", ty = type_name, id);
+            let item = Arc::into_inner(item).expect(ERR_DANGLING_ITEM).into_inner();
             let type_name = item.inner_type_name();
             let file_name = item
                 .id()
@@ -257,7 +323,7 @@ impl DatabaseHolder {
 
             let path = path.join(file_name);
 
-            let _guard = error_span!("Saving file", path=%path.display()).entered();
+            let _save_file_guard = error_span!("Writing file", path=%path.display()).entered();
 
             if saved_files.contains(&path) {
                 panic!("File with this name was already saved");
@@ -298,14 +364,13 @@ impl DatabaseHolder {
             )
         }
 
-        let type_id = TypeId::of::<T>();
         let type_name = T::type_name();
         let ids = db
             .available_ids
-            .entry(type_id)
+            .entry(T::type_name())
             .or_insert_with(|| db.default_ids.clone());
 
-        let mappings = db.used_ids.entry(type_name.to_string()).or_default();
+        let mappings = db.used_ids.entry(Cow::Borrowed(type_name)).or_default();
 
         while let Some(id) = ids.iter_mut().find_map(|range| range.next()) {
             // Check that ID is not already in use
@@ -341,64 +406,70 @@ impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for String {
     }
 }
 
-pub struct DbItem<T: Into<Item>> {
-    item: Option<T>,
-    db: Arc<DatabaseHolder>,
-}
+impl DatabaseHolder {
+    pub fn iter<T: Into<Item> + DatabaseItem + Any, U>(
+        self: &Arc<Self>,
+        func: impl Fn(DatabaseItemIter<'_, T>) -> U,
+    ) -> U {
+        let mut db_lock = self.inner.lock();
+        let items = db_lock.items.entry(T::type_name()).or_default().clone();
+        drop(db_lock);
+        let items = items.read();
+        let values = DatabaseItemIter {
+            values: items.values(),
+            _type: Default::default(),
+        };
 
-impl<T: Into<Item>> DbItem<T> {
-    /// Prevents item from getting written into the database
-    pub fn forget(mut self) {
-        self.item = None
+        func(values)
     }
 
-    /// Runs a range of actions in a convenient closure
-    ///
-    /// Value returned from closure is ignored, to simplify one-liners (no ; needed)
-    pub fn edit(mut self, actions: impl FnOnce(&mut T)) -> Self {
-        actions(self.deref_mut());
-        self
-    }
+    pub fn iter_mut<T: Into<Item> + DatabaseItem + Any, U>(
+        self: &Arc<Self>,
+        func: impl Fn(DatabaseItemIterMut<'_, T>) -> U,
+    ) -> U {
+        let mut db_lock = self.inner.lock();
+        let items = db_lock.items.entry(T::type_name()).or_default().clone();
+        drop(db_lock);
+        let mut items = items.write();
+        let values = DatabaseItemIterMut {
+            values: items.values_mut(),
+            _type: Default::default(),
+        };
 
-    /// Runs a range of actions on an owned instance of an item, that must be
-    /// returned back
-    pub fn with(mut self, actions: impl FnOnce(T) -> T) -> Self {
-        let item = std::mem::take(&mut self.item);
-        self.item = item.map(actions);
-        self
-    }
-}
-
-impl<T: Into<Item> + Clone> DbItem<T> {
-    /// Creates a new database item that is a clone of the current one
-    ///
-    /// Don't forget to change ID, otherwise the app will panic
-    pub fn new_clone(&self) -> Self {
-        Self {
-            item: self.item.clone(),
-            db: self.db.clone(),
-        }
+        func(values)
     }
 }
 
-impl<T: Into<Item>> Deref for DbItem<T> {
-    type Target = T;
+pub struct DatabaseItemIter<'a, T: Into<Item> + DatabaseItem + Any> {
+    values: std::collections::hash_map::Values<'a, Option<i32>, SharedItem>,
+    _type: PhantomData<T>,
+}
 
-    fn deref(&self) -> &Self::Target {
-        self.item.as_ref().unwrap()
+impl<'a, T: Into<Item> + DatabaseItem + Any> Iterator for DatabaseItemIter<'a, T> {
+    type Item = MappedRwLockReadGuard<'a, T>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let next_value = self.values.next()?;
+
+        return Some(RwLockReadGuard::map(next_value.read(), |lock| {
+            lock.as_inner_any_ref().downcast_ref::<T>().unwrap()
+        }));
     }
 }
 
-impl<T: Into<Item>> DerefMut for DbItem<T> {
-    fn deref_mut(&mut self) -> &mut Self::Target {
-        self.item.as_mut().unwrap()
-    }
+pub struct DatabaseItemIterMut<'a, T: Into<Item> + DatabaseItem + Any> {
+    values: std::collections::hash_map::ValuesMut<'a, Option<i32>, SharedItem>,
+    _type: PhantomData<T>,
 }
 
-impl<T: Into<Item>> Drop for DbItem<T> {
-    fn drop(&mut self) {
-        if let Some(i) = std::mem::take(&mut self.item) {
-            self.db.consume_item(i)
-        }
+impl<'a, T: Into<Item> + DatabaseItem + Any> Iterator for DatabaseItemIterMut<'a, T> {
+    type Item = MappedRwLockWriteGuard<'a, T>;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let next_value = self.values.next()?;
+
+        return Some(RwLockWriteGuard::map(next_value.write(), |lock| {
+            lock.as_inner_any_mut().downcast_mut::<T>().unwrap()
+        }));
     }
 }

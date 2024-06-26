@@ -1,4 +1,4 @@
-use crate::database::{database, Database, DatabaseIdLike, DbItem};
+use eh_mod_dev::database::{database, Database, DatabaseIdLike, DbItem};
 use eh_schema::schema::{
     ActivationType, Ammunition, BulletBody, BulletController, BulletControllerParametric,
     BulletImpactType, BulletPrefab, BulletPrefabId, BulletTrigger, BulletTriggerCondition,

@@ -4,10 +4,10 @@
 #![allow(dead_code)]
 #![allow(unreachable_patterns)]
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/versions.xml
+// versions.xml
 pub use crate::helpers::*;
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ActivationType.xml
+// v1/Enums/ActivationType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -33,7 +33,7 @@ impl DatabaseItem for ActivationType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Ai/AiDifficultyLevel.xml
+// v1/Enums/Ai/AiDifficultyLevel.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -62,7 +62,7 @@ impl DatabaseItem for AiDifficultyLevel {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Ai/AiWeaponCategory.xml
+// v1/Enums/Ai/AiWeaponCategory.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -90,7 +90,7 @@ impl DatabaseItem for AiWeaponCategory {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Ai/BehaviorNodeType.xml
+// v1/Enums/Ai/BehaviorNodeType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -263,7 +263,7 @@ impl DatabaseItem for BehaviorNodeType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Ai/BehaviorRequirementType.xml
+// v1/Enums/Ai/BehaviorRequirementType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -311,7 +311,7 @@ impl DatabaseItem for BehaviorRequirementType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Ai/NodeExecutionMode.xml
+// v1/Enums/Ai/NodeExecutionMode.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -339,7 +339,7 @@ impl DatabaseItem for NodeExecutionMode {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/AmmunitionClassObsolete.xml
+// v1/Enums/AmmunitionClassObsolete.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -394,7 +394,7 @@ impl DatabaseItem for AmmunitionClassObsolete {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Availability.xml
+// v1/Enums/Availability.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -423,7 +423,7 @@ impl DatabaseItem for Availability {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/CellType.xml
+// v1/Enums/CellType.xml
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash)]
 pub enum CellType {
@@ -486,7 +486,7 @@ impl std::fmt::Display for CellType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ComponentCategory.xml
+// v1/Enums/ComponentCategory.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -516,7 +516,7 @@ impl DatabaseItem for ComponentCategory {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ComponentStatsType.xml
+// v1/Enums/ComponentStatsType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -541,7 +541,7 @@ impl DatabaseItem for ComponentStatsType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/DeviceClass.xml
+// v1/Enums/DeviceClass.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -587,7 +587,7 @@ impl DatabaseItem for DeviceClass {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/DifficultyClass.xml
+// v1/Enums/DifficultyClass.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -614,7 +614,7 @@ impl DatabaseItem for DifficultyClass {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ItemType.xml
+// v1/Enums/ItemType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -685,7 +685,7 @@ impl DatabaseItem for ItemType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ModificationQuality.xml
+// v1/Enums/ModificationQuality.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -714,7 +714,7 @@ impl DatabaseItem for ModificationQuality {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ObjectPrefabType.xml
+// v1/Enums/ObjectPrefabType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -741,7 +741,7 @@ impl DatabaseItem for ObjectPrefabType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/FactionFilterType.xml
+// v1/Enums/Quests/FactionFilterType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -768,7 +768,7 @@ impl DatabaseItem for FactionFilterType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/LootItemType.xml
+// v1/Enums/Quests/LootItemType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -808,7 +808,7 @@ impl DatabaseItem for LootItemType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/NodeType.xml
+// v1/Enums/Quests/NodeType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -861,7 +861,7 @@ impl DatabaseItem for NodeType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/PlayerShipSelectionMode.xml
+// v1/Enums/Quests/PlayerShipSelectionMode.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -891,7 +891,7 @@ impl DatabaseItem for PlayerShipSelectionMode {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/QuestOriginType.xml
+// v1/Enums/Quests/QuestOriginType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -919,7 +919,7 @@ impl DatabaseItem for QuestOriginType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/QuestType.xml
+// v1/Enums/Quests/QuestType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -947,7 +947,7 @@ impl DatabaseItem for QuestType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/RequiredViewMode.xml
+// v1/Enums/Quests/RequiredViewMode.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -974,7 +974,7 @@ impl DatabaseItem for RequiredViewMode {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/RequirementType.xml
+// v1/Enums/Quests/RequirementType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1018,7 +1018,7 @@ impl DatabaseItem for RequirementType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/RewardCondition.xml
+// v1/Enums/Quests/RewardCondition.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1044,7 +1044,7 @@ impl DatabaseItem for RewardCondition {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/StartCondition.xml
+// v1/Enums/Quests/StartCondition.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1075,7 +1075,7 @@ impl DatabaseItem for StartCondition {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Quests/TimeOutMode.xml
+// v1/Enums/Quests/TimeOutMode.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1102,7 +1102,7 @@ impl DatabaseItem for TimeOutMode {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ShipPerkType.xml
+// v1/Enums/ShipPerkType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1137,7 +1137,7 @@ impl DatabaseItem for ShipPerkType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ShipRarity.xml
+// v1/Enums/ShipRarity.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1164,7 +1164,7 @@ impl DatabaseItem for ShipRarity {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ShipType.xml
+// v1/Enums/ShipType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1192,7 +1192,7 @@ impl DatabaseItem for ShipType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/SizeClass.xml
+// v1/Enums/SizeClass.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1222,7 +1222,7 @@ impl DatabaseItem for SizeClass {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/SkillType.xml
+// v1/Enums/SkillType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1256,7 +1256,7 @@ impl DatabaseItem for SkillType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/StatModificationType.xml
+// v1/Enums/StatModificationType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1305,7 +1305,7 @@ impl DatabaseItem for StatModificationType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/TechType.xml
+// v1/Enums/TechType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1331,7 +1331,7 @@ impl DatabaseItem for TechType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/ToggleState.xml
+// v1/Enums/ToggleState.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1357,7 +1357,7 @@ impl DatabaseItem for ToggleState {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/AiBulletBehavior.xml
+// v1/Enums/Weapon/AiBulletBehavior.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1386,7 +1386,7 @@ impl DatabaseItem for AiBulletBehavior {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/BulletControllerType.xml
+// v1/Enums/Weapon/BulletControllerType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1415,7 +1415,7 @@ impl DatabaseItem for BulletControllerType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/BulletEffectType.xml
+// v1/Enums/Weapon/BulletEffectType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1444,7 +1444,7 @@ impl DatabaseItem for BulletEffectType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/BulletImpactType.xml
+// v1/Enums/Weapon/BulletImpactType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1470,7 +1470,7 @@ impl DatabaseItem for BulletImpactType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/BulletShape.xml
+// v1/Enums/Weapon/BulletShape.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1505,7 +1505,7 @@ impl DatabaseItem for BulletShape {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/BulletTriggerCondition.xml
+// v1/Enums/Weapon/BulletTriggerCondition.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1537,7 +1537,7 @@ impl DatabaseItem for BulletTriggerCondition {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/BulletTypeObsolete.xml
+// v1/Enums/Weapon/BulletTypeObsolete.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1565,7 +1565,7 @@ impl DatabaseItem for BulletTypeObsolete {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/ColorMode.xml
+// v1/Enums/Weapon/ColorMode.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1592,7 +1592,7 @@ impl DatabaseItem for ColorMode {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/DamageType.xml
+// v1/Enums/Weapon/DamageType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1619,7 +1619,7 @@ impl DatabaseItem for DamageType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/ImpactEffectType.xml
+// v1/Enums/Weapon/ImpactEffectType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1661,7 +1661,7 @@ impl DatabaseItem for ImpactEffectType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/VisualEffectType.xml
+// v1/Enums/Weapon/VisualEffectType.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1694,7 +1694,7 @@ impl DatabaseItem for VisualEffectType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/WeaponClass.xml
+// v1/Enums/Weapon/WeaponClass.xml
 #[repr(i32)]
 #[derive(
     Debug,
@@ -1723,7 +1723,7 @@ impl DatabaseItem for WeaponClass {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Enums/Weapon/WeaponSlotType.xml
+// v1/Enums/Weapon/WeaponSlotType.xml
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash)]
 pub enum WeaponSlotType {
@@ -1784,15 +1784,15 @@ impl std::fmt::Display for WeaponSlotType {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Expressions/FloatToFloat.xml
+// v1/Expressions/FloatToFloat.xml
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Expressions/IntToFloat.xml
+// v1/Expressions/IntToFloat.xml
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Expressions/IntToInt.xml
+// v1/Expressions/IntToInt.xml
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Expressions/SizeClassToInt.xml
+// v1/Expressions/SizeClassToInt.xml
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Ai/BehaviorNodeRequirement.xml
+// v1/Objects/Ai/BehaviorNodeRequirement.xml
 #[derive(Debug, Clone)]
 pub enum BehaviorNodeRequirement {
     Empty(BehaviorNodeRequirementEmpty),
@@ -2988,6 +2988,86 @@ impl<'de> serde::Deserialize<'de> for BehaviorNodeRequirement {
         Ok(value)
     }
 }
+impl BehaviorNodeRequirement {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Empty(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Any(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::All(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::None(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AiLevel(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MinAiLevel(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SizeClass(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasDevice(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasDrones(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasAnyWeapon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CanRepairAllies(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasHighRecoilWeapon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasChargeableWeapon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasRemotelyControlledWeapon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasLongRangeWeapon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasEngine(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasHarpoon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CanRechargeAllies(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::IsDrone(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasKineticResistance(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasHighManeuverability(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasHighRammingDamage(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Empty(x) => x as &dyn std::any::Any,
+            Self::Any(x) => x as &dyn std::any::Any,
+            Self::All(x) => x as &dyn std::any::Any,
+            Self::None(x) => x as &dyn std::any::Any,
+            Self::AiLevel(x) => x as &dyn std::any::Any,
+            Self::MinAiLevel(x) => x as &dyn std::any::Any,
+            Self::SizeClass(x) => x as &dyn std::any::Any,
+            Self::HasDevice(x) => x as &dyn std::any::Any,
+            Self::HasDrones(x) => x as &dyn std::any::Any,
+            Self::HasAnyWeapon(x) => x as &dyn std::any::Any,
+            Self::CanRepairAllies(x) => x as &dyn std::any::Any,
+            Self::HasHighRecoilWeapon(x) => x as &dyn std::any::Any,
+            Self::HasChargeableWeapon(x) => x as &dyn std::any::Any,
+            Self::HasRemotelyControlledWeapon(x) => x as &dyn std::any::Any,
+            Self::HasLongRangeWeapon(x) => x as &dyn std::any::Any,
+            Self::HasEngine(x) => x as &dyn std::any::Any,
+            Self::HasHarpoon(x) => x as &dyn std::any::Any,
+            Self::CanRechargeAllies(x) => x as &dyn std::any::Any,
+            Self::IsDrone(x) => x as &dyn std::any::Any,
+            Self::HasKineticResistance(x) => x as &dyn std::any::Any,
+            Self::HasHighManeuverability(x) => x as &dyn std::any::Any,
+            Self::HasHighRammingDamage(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Empty(x) => x as &mut dyn std::any::Any,
+            Self::Any(x) => x as &mut dyn std::any::Any,
+            Self::All(x) => x as &mut dyn std::any::Any,
+            Self::None(x) => x as &mut dyn std::any::Any,
+            Self::AiLevel(x) => x as &mut dyn std::any::Any,
+            Self::MinAiLevel(x) => x as &mut dyn std::any::Any,
+            Self::SizeClass(x) => x as &mut dyn std::any::Any,
+            Self::HasDevice(x) => x as &mut dyn std::any::Any,
+            Self::HasDrones(x) => x as &mut dyn std::any::Any,
+            Self::HasAnyWeapon(x) => x as &mut dyn std::any::Any,
+            Self::CanRepairAllies(x) => x as &mut dyn std::any::Any,
+            Self::HasHighRecoilWeapon(x) => x as &mut dyn std::any::Any,
+            Self::HasChargeableWeapon(x) => x as &mut dyn std::any::Any,
+            Self::HasRemotelyControlledWeapon(x) => x as &mut dyn std::any::Any,
+            Self::HasLongRangeWeapon(x) => x as &mut dyn std::any::Any,
+            Self::HasEngine(x) => x as &mut dyn std::any::Any,
+            Self::HasHarpoon(x) => x as &mut dyn std::any::Any,
+            Self::CanRechargeAllies(x) => x as &mut dyn std::any::Any,
+            Self::IsDrone(x) => x as &mut dyn std::any::Any,
+            Self::HasKineticResistance(x) => x as &mut dyn std::any::Any,
+            Self::HasHighManeuverability(x) => x as &mut dyn std::any::Any,
+            Self::HasHighRammingDamage(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
 impl DatabaseItem for BehaviorNodeRequirement {
     fn validate(&mut self) {
         match self {
@@ -3056,7 +3136,7 @@ impl BehaviorNodeRequirement {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Ai/BehaviorTreeNode.xml
+// v1/Objects/Ai/BehaviorTreeNode.xml
 #[derive(Debug, Clone)]
 pub enum BehaviorTreeNode {
     Success(BehaviorTreeNodeSuccess),
@@ -9277,6 +9357,269 @@ impl<'de> serde::Deserialize<'de> for BehaviorTreeNode {
     }
 }
 impl BehaviorTreeNode {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Success(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Failure(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SubTree(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Selector(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Sequence(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Parallel(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::RandomSelector(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Invertor(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Cooldown(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Execute(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ParallelSequence(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::PreserveTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::IfThenElse(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasEnoughEnergy(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::IsLowOnHp(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::IsNotControledByPlayer(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasIncomingThreat(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasAdditionalTargets(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::IsFasterThanTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasMainTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MainTargetIsAlly(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MainTargetIsEnemy(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MainTargetLowHp(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MainTargetWithinAttackRange(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasMothership(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TargetDistance(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasLongerAttackRange(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::FindEnemy(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MoveToAttackRange(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AttackMainTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SelectWeapon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SpawnDrones(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Ram(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::DetonateShip(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Vanish(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MaintainAttackRange(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Wait(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::LookAtTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::LookForAdditionalTargets(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::LookForThreats(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MatchVelocityWithTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ActivateDevice(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::RechargeEnergy(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SustainAim(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ChargeWeapons(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Chase(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AvoidThreats(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SlowDown(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::UseRecoil(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::DefendWithFronalShield(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TrackControllableAmmo(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::KeepDistance(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ForgetMainTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::EscapeTargetAttackRadius(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AttackAdditionalTargets(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TargetAllyStarbase(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TargetEnemyStarbase(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::BypassObstacles(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AttackTurretTargets(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HoldHarpoon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::FindDamagedAlly(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::EnginePropulsionForce(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MotherShipRetreated(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MotherShipDestroyed(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::FlyAroundMothership(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::GoBerserk(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TargetMothership(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MothershipLowHp(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MothershipDistanceExceeded(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MakeTargetMothership(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MothershipLowEnergy(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MothershipLowShield(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ShowMessage(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::DebugLog(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SetValue(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::GetValue(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SendMessage(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MessageReceived(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TargetMessageSender(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SaveTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::LoadTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HasSavedTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ForgetSavedTarget(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Success(x) => x as &dyn std::any::Any,
+            Self::Failure(x) => x as &dyn std::any::Any,
+            Self::SubTree(x) => x as &dyn std::any::Any,
+            Self::Selector(x) => x as &dyn std::any::Any,
+            Self::Sequence(x) => x as &dyn std::any::Any,
+            Self::Parallel(x) => x as &dyn std::any::Any,
+            Self::RandomSelector(x) => x as &dyn std::any::Any,
+            Self::Invertor(x) => x as &dyn std::any::Any,
+            Self::Cooldown(x) => x as &dyn std::any::Any,
+            Self::Execute(x) => x as &dyn std::any::Any,
+            Self::ParallelSequence(x) => x as &dyn std::any::Any,
+            Self::PreserveTarget(x) => x as &dyn std::any::Any,
+            Self::IfThenElse(x) => x as &dyn std::any::Any,
+            Self::HasEnoughEnergy(x) => x as &dyn std::any::Any,
+            Self::IsLowOnHp(x) => x as &dyn std::any::Any,
+            Self::IsNotControledByPlayer(x) => x as &dyn std::any::Any,
+            Self::HasIncomingThreat(x) => x as &dyn std::any::Any,
+            Self::HasAdditionalTargets(x) => x as &dyn std::any::Any,
+            Self::IsFasterThanTarget(x) => x as &dyn std::any::Any,
+            Self::HasMainTarget(x) => x as &dyn std::any::Any,
+            Self::MainTargetIsAlly(x) => x as &dyn std::any::Any,
+            Self::MainTargetIsEnemy(x) => x as &dyn std::any::Any,
+            Self::MainTargetLowHp(x) => x as &dyn std::any::Any,
+            Self::MainTargetWithinAttackRange(x) => x as &dyn std::any::Any,
+            Self::HasMothership(x) => x as &dyn std::any::Any,
+            Self::TargetDistance(x) => x as &dyn std::any::Any,
+            Self::HasLongerAttackRange(x) => x as &dyn std::any::Any,
+            Self::FindEnemy(x) => x as &dyn std::any::Any,
+            Self::MoveToAttackRange(x) => x as &dyn std::any::Any,
+            Self::AttackMainTarget(x) => x as &dyn std::any::Any,
+            Self::SelectWeapon(x) => x as &dyn std::any::Any,
+            Self::SpawnDrones(x) => x as &dyn std::any::Any,
+            Self::Ram(x) => x as &dyn std::any::Any,
+            Self::DetonateShip(x) => x as &dyn std::any::Any,
+            Self::Vanish(x) => x as &dyn std::any::Any,
+            Self::MaintainAttackRange(x) => x as &dyn std::any::Any,
+            Self::Wait(x) => x as &dyn std::any::Any,
+            Self::LookAtTarget(x) => x as &dyn std::any::Any,
+            Self::LookForAdditionalTargets(x) => x as &dyn std::any::Any,
+            Self::LookForThreats(x) => x as &dyn std::any::Any,
+            Self::MatchVelocityWithTarget(x) => x as &dyn std::any::Any,
+            Self::ActivateDevice(x) => x as &dyn std::any::Any,
+            Self::RechargeEnergy(x) => x as &dyn std::any::Any,
+            Self::SustainAim(x) => x as &dyn std::any::Any,
+            Self::ChargeWeapons(x) => x as &dyn std::any::Any,
+            Self::Chase(x) => x as &dyn std::any::Any,
+            Self::AvoidThreats(x) => x as &dyn std::any::Any,
+            Self::SlowDown(x) => x as &dyn std::any::Any,
+            Self::UseRecoil(x) => x as &dyn std::any::Any,
+            Self::DefendWithFronalShield(x) => x as &dyn std::any::Any,
+            Self::TrackControllableAmmo(x) => x as &dyn std::any::Any,
+            Self::KeepDistance(x) => x as &dyn std::any::Any,
+            Self::ForgetMainTarget(x) => x as &dyn std::any::Any,
+            Self::EscapeTargetAttackRadius(x) => x as &dyn std::any::Any,
+            Self::AttackAdditionalTargets(x) => x as &dyn std::any::Any,
+            Self::TargetAllyStarbase(x) => x as &dyn std::any::Any,
+            Self::TargetEnemyStarbase(x) => x as &dyn std::any::Any,
+            Self::BypassObstacles(x) => x as &dyn std::any::Any,
+            Self::AttackTurretTargets(x) => x as &dyn std::any::Any,
+            Self::HoldHarpoon(x) => x as &dyn std::any::Any,
+            Self::FindDamagedAlly(x) => x as &dyn std::any::Any,
+            Self::EnginePropulsionForce(x) => x as &dyn std::any::Any,
+            Self::MotherShipRetreated(x) => x as &dyn std::any::Any,
+            Self::MotherShipDestroyed(x) => x as &dyn std::any::Any,
+            Self::FlyAroundMothership(x) => x as &dyn std::any::Any,
+            Self::GoBerserk(x) => x as &dyn std::any::Any,
+            Self::TargetMothership(x) => x as &dyn std::any::Any,
+            Self::MothershipLowHp(x) => x as &dyn std::any::Any,
+            Self::MothershipDistanceExceeded(x) => x as &dyn std::any::Any,
+            Self::MakeTargetMothership(x) => x as &dyn std::any::Any,
+            Self::MothershipLowEnergy(x) => x as &dyn std::any::Any,
+            Self::MothershipLowShield(x) => x as &dyn std::any::Any,
+            Self::ShowMessage(x) => x as &dyn std::any::Any,
+            Self::DebugLog(x) => x as &dyn std::any::Any,
+            Self::SetValue(x) => x as &dyn std::any::Any,
+            Self::GetValue(x) => x as &dyn std::any::Any,
+            Self::SendMessage(x) => x as &dyn std::any::Any,
+            Self::MessageReceived(x) => x as &dyn std::any::Any,
+            Self::TargetMessageSender(x) => x as &dyn std::any::Any,
+            Self::SaveTarget(x) => x as &dyn std::any::Any,
+            Self::LoadTarget(x) => x as &dyn std::any::Any,
+            Self::HasSavedTarget(x) => x as &dyn std::any::Any,
+            Self::ForgetSavedTarget(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Success(x) => x as &mut dyn std::any::Any,
+            Self::Failure(x) => x as &mut dyn std::any::Any,
+            Self::SubTree(x) => x as &mut dyn std::any::Any,
+            Self::Selector(x) => x as &mut dyn std::any::Any,
+            Self::Sequence(x) => x as &mut dyn std::any::Any,
+            Self::Parallel(x) => x as &mut dyn std::any::Any,
+            Self::RandomSelector(x) => x as &mut dyn std::any::Any,
+            Self::Invertor(x) => x as &mut dyn std::any::Any,
+            Self::Cooldown(x) => x as &mut dyn std::any::Any,
+            Self::Execute(x) => x as &mut dyn std::any::Any,
+            Self::ParallelSequence(x) => x as &mut dyn std::any::Any,
+            Self::PreserveTarget(x) => x as &mut dyn std::any::Any,
+            Self::IfThenElse(x) => x as &mut dyn std::any::Any,
+            Self::HasEnoughEnergy(x) => x as &mut dyn std::any::Any,
+            Self::IsLowOnHp(x) => x as &mut dyn std::any::Any,
+            Self::IsNotControledByPlayer(x) => x as &mut dyn std::any::Any,
+            Self::HasIncomingThreat(x) => x as &mut dyn std::any::Any,
+            Self::HasAdditionalTargets(x) => x as &mut dyn std::any::Any,
+            Self::IsFasterThanTarget(x) => x as &mut dyn std::any::Any,
+            Self::HasMainTarget(x) => x as &mut dyn std::any::Any,
+            Self::MainTargetIsAlly(x) => x as &mut dyn std::any::Any,
+            Self::MainTargetIsEnemy(x) => x as &mut dyn std::any::Any,
+            Self::MainTargetLowHp(x) => x as &mut dyn std::any::Any,
+            Self::MainTargetWithinAttackRange(x) => x as &mut dyn std::any::Any,
+            Self::HasMothership(x) => x as &mut dyn std::any::Any,
+            Self::TargetDistance(x) => x as &mut dyn std::any::Any,
+            Self::HasLongerAttackRange(x) => x as &mut dyn std::any::Any,
+            Self::FindEnemy(x) => x as &mut dyn std::any::Any,
+            Self::MoveToAttackRange(x) => x as &mut dyn std::any::Any,
+            Self::AttackMainTarget(x) => x as &mut dyn std::any::Any,
+            Self::SelectWeapon(x) => x as &mut dyn std::any::Any,
+            Self::SpawnDrones(x) => x as &mut dyn std::any::Any,
+            Self::Ram(x) => x as &mut dyn std::any::Any,
+            Self::DetonateShip(x) => x as &mut dyn std::any::Any,
+            Self::Vanish(x) => x as &mut dyn std::any::Any,
+            Self::MaintainAttackRange(x) => x as &mut dyn std::any::Any,
+            Self::Wait(x) => x as &mut dyn std::any::Any,
+            Self::LookAtTarget(x) => x as &mut dyn std::any::Any,
+            Self::LookForAdditionalTargets(x) => x as &mut dyn std::any::Any,
+            Self::LookForThreats(x) => x as &mut dyn std::any::Any,
+            Self::MatchVelocityWithTarget(x) => x as &mut dyn std::any::Any,
+            Self::ActivateDevice(x) => x as &mut dyn std::any::Any,
+            Self::RechargeEnergy(x) => x as &mut dyn std::any::Any,
+            Self::SustainAim(x) => x as &mut dyn std::any::Any,
+            Self::ChargeWeapons(x) => x as &mut dyn std::any::Any,
+            Self::Chase(x) => x as &mut dyn std::any::Any,
+            Self::AvoidThreats(x) => x as &mut dyn std::any::Any,
+            Self::SlowDown(x) => x as &mut dyn std::any::Any,
+            Self::UseRecoil(x) => x as &mut dyn std::any::Any,
+            Self::DefendWithFronalShield(x) => x as &mut dyn std::any::Any,
+            Self::TrackControllableAmmo(x) => x as &mut dyn std::any::Any,
+            Self::KeepDistance(x) => x as &mut dyn std::any::Any,
+            Self::ForgetMainTarget(x) => x as &mut dyn std::any::Any,
+            Self::EscapeTargetAttackRadius(x) => x as &mut dyn std::any::Any,
+            Self::AttackAdditionalTargets(x) => x as &mut dyn std::any::Any,
+            Self::TargetAllyStarbase(x) => x as &mut dyn std::any::Any,
+            Self::TargetEnemyStarbase(x) => x as &mut dyn std::any::Any,
+            Self::BypassObstacles(x) => x as &mut dyn std::any::Any,
+            Self::AttackTurretTargets(x) => x as &mut dyn std::any::Any,
+            Self::HoldHarpoon(x) => x as &mut dyn std::any::Any,
+            Self::FindDamagedAlly(x) => x as &mut dyn std::any::Any,
+            Self::EnginePropulsionForce(x) => x as &mut dyn std::any::Any,
+            Self::MotherShipRetreated(x) => x as &mut dyn std::any::Any,
+            Self::MotherShipDestroyed(x) => x as &mut dyn std::any::Any,
+            Self::FlyAroundMothership(x) => x as &mut dyn std::any::Any,
+            Self::GoBerserk(x) => x as &mut dyn std::any::Any,
+            Self::TargetMothership(x) => x as &mut dyn std::any::Any,
+            Self::MothershipLowHp(x) => x as &mut dyn std::any::Any,
+            Self::MothershipDistanceExceeded(x) => x as &mut dyn std::any::Any,
+            Self::MakeTargetMothership(x) => x as &mut dyn std::any::Any,
+            Self::MothershipLowEnergy(x) => x as &mut dyn std::any::Any,
+            Self::MothershipLowShield(x) => x as &mut dyn std::any::Any,
+            Self::ShowMessage(x) => x as &mut dyn std::any::Any,
+            Self::DebugLog(x) => x as &mut dyn std::any::Any,
+            Self::SetValue(x) => x as &mut dyn std::any::Any,
+            Self::GetValue(x) => x as &mut dyn std::any::Any,
+            Self::SendMessage(x) => x as &mut dyn std::any::Any,
+            Self::MessageReceived(x) => x as &mut dyn std::any::Any,
+            Self::TargetMessageSender(x) => x as &mut dyn std::any::Any,
+            Self::SaveTarget(x) => x as &mut dyn std::any::Any,
+            Self::LoadTarget(x) => x as &mut dyn std::any::Any,
+            Self::HasSavedTarget(x) => x as &mut dyn std::any::Any,
+            Self::ForgetSavedTarget(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
+impl BehaviorTreeNode {
     pub fn r#requirement(&self) -> &BehaviorNodeRequirement {
         match self {
             Self::Success(x) => &x.r#requirement,
@@ -9646,7 +9989,7 @@ impl BehaviorTreeNode {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Barrel.xml
+// v1/Objects/Barrel.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Barrel {
@@ -9857,7 +10200,7 @@ impl Default for Barrel {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/ComponentRestrictions.xml
+// v1/Objects/ComponentRestrictions.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentRestrictions {
@@ -9961,7 +10304,7 @@ impl Default for ComponentRestrictions {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Engine.xml
+// v1/Objects/Engine.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct Engine {
@@ -10023,7 +10366,7 @@ impl Default for Engine {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/InstalledComponent.xml
+// v1/Objects/InstalledComponent.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct InstalledComponent {
@@ -10215,7 +10558,7 @@ impl DatabaseItem for InstalledComponent {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/FactionFilter.xml
+// v1/Objects/Quests/FactionFilter.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct FactionFilter {
@@ -10258,7 +10601,7 @@ impl Default for FactionFilter {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/LootContent.xml
+// v1/Objects/Quests/LootContent.xml
 #[derive(Debug, Clone)]
 pub enum LootContent {
     None(LootContentNone),
@@ -11711,6 +12054,71 @@ impl<'de> serde::Deserialize<'de> for LootContent {
         Ok(value)
     }
 }
+impl LootContent {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::None(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SomeMoney(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Fuel(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Money(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Stars(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::StarMap(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::RandomComponents(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::RandomItems(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AllItems(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ItemsWithChance(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::QuestItem(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Ship(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::EmptyShip(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Component(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Blueprint(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ResearchPoints(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Satellite(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::None(x) => x as &dyn std::any::Any,
+            Self::SomeMoney(x) => x as &dyn std::any::Any,
+            Self::Fuel(x) => x as &dyn std::any::Any,
+            Self::Money(x) => x as &dyn std::any::Any,
+            Self::Stars(x) => x as &dyn std::any::Any,
+            Self::StarMap(x) => x as &dyn std::any::Any,
+            Self::RandomComponents(x) => x as &dyn std::any::Any,
+            Self::RandomItems(x) => x as &dyn std::any::Any,
+            Self::AllItems(x) => x as &dyn std::any::Any,
+            Self::ItemsWithChance(x) => x as &dyn std::any::Any,
+            Self::QuestItem(x) => x as &dyn std::any::Any,
+            Self::Ship(x) => x as &dyn std::any::Any,
+            Self::EmptyShip(x) => x as &dyn std::any::Any,
+            Self::Component(x) => x as &dyn std::any::Any,
+            Self::Blueprint(x) => x as &dyn std::any::Any,
+            Self::ResearchPoints(x) => x as &dyn std::any::Any,
+            Self::Satellite(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::None(x) => x as &mut dyn std::any::Any,
+            Self::SomeMoney(x) => x as &mut dyn std::any::Any,
+            Self::Fuel(x) => x as &mut dyn std::any::Any,
+            Self::Money(x) => x as &mut dyn std::any::Any,
+            Self::Stars(x) => x as &mut dyn std::any::Any,
+            Self::StarMap(x) => x as &mut dyn std::any::Any,
+            Self::RandomComponents(x) => x as &mut dyn std::any::Any,
+            Self::RandomItems(x) => x as &mut dyn std::any::Any,
+            Self::AllItems(x) => x as &mut dyn std::any::Any,
+            Self::ItemsWithChance(x) => x as &mut dyn std::any::Any,
+            Self::QuestItem(x) => x as &mut dyn std::any::Any,
+            Self::Ship(x) => x as &mut dyn std::any::Any,
+            Self::EmptyShip(x) => x as &mut dyn std::any::Any,
+            Self::Component(x) => x as &mut dyn std::any::Any,
+            Self::Blueprint(x) => x as &mut dyn std::any::Any,
+            Self::ResearchPoints(x) => x as &mut dyn std::any::Any,
+            Self::Satellite(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
 impl DatabaseItem for LootContent {
     fn validate(&mut self) {
         match self {
@@ -11761,7 +12169,7 @@ impl LootContent {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/LootItem.xml
+// v1/Objects/Quests/LootItem.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootItem {
@@ -11804,7 +12212,7 @@ impl Default for LootItem {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/Node.xml
+// v1/Objects/Quests/Node.xml
 #[derive(Debug, Clone)]
 pub enum Node {
     Undefined(NodeUndefined),
@@ -15257,6 +15665,110 @@ impl<'de> serde::Deserialize<'de> for Node {
     }
 }
 impl Node {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Undefined(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ComingSoon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ShowDialog(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::OpenShipyard(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::OpenWorkshop(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Switch(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Random(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Condition(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AttackFleet(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AttackOccupants(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AttackStarbase(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::DestroyOccupants(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SuppressOccupants(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Retreat(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ReceiveItem(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::RemoveItem(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Trade(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CompleteQuest(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::FailQuest(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CancelQuest(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::StartQuest(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SetCharacterRelations(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SetFactionRelations(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SetFactionStarbasePower(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ChangeCharacterRelations(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ChangeFactionRelations(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ChangeFactionStarbasePower(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CaptureStarBase(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::LiberateStarBase(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ChangeFaction(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Undefined(x) => x as &dyn std::any::Any,
+            Self::ComingSoon(x) => x as &dyn std::any::Any,
+            Self::ShowDialog(x) => x as &dyn std::any::Any,
+            Self::OpenShipyard(x) => x as &dyn std::any::Any,
+            Self::OpenWorkshop(x) => x as &dyn std::any::Any,
+            Self::Switch(x) => x as &dyn std::any::Any,
+            Self::Random(x) => x as &dyn std::any::Any,
+            Self::Condition(x) => x as &dyn std::any::Any,
+            Self::AttackFleet(x) => x as &dyn std::any::Any,
+            Self::AttackOccupants(x) => x as &dyn std::any::Any,
+            Self::AttackStarbase(x) => x as &dyn std::any::Any,
+            Self::DestroyOccupants(x) => x as &dyn std::any::Any,
+            Self::SuppressOccupants(x) => x as &dyn std::any::Any,
+            Self::Retreat(x) => x as &dyn std::any::Any,
+            Self::ReceiveItem(x) => x as &dyn std::any::Any,
+            Self::RemoveItem(x) => x as &dyn std::any::Any,
+            Self::Trade(x) => x as &dyn std::any::Any,
+            Self::CompleteQuest(x) => x as &dyn std::any::Any,
+            Self::FailQuest(x) => x as &dyn std::any::Any,
+            Self::CancelQuest(x) => x as &dyn std::any::Any,
+            Self::StartQuest(x) => x as &dyn std::any::Any,
+            Self::SetCharacterRelations(x) => x as &dyn std::any::Any,
+            Self::SetFactionRelations(x) => x as &dyn std::any::Any,
+            Self::SetFactionStarbasePower(x) => x as &dyn std::any::Any,
+            Self::ChangeCharacterRelations(x) => x as &dyn std::any::Any,
+            Self::ChangeFactionRelations(x) => x as &dyn std::any::Any,
+            Self::ChangeFactionStarbasePower(x) => x as &dyn std::any::Any,
+            Self::CaptureStarBase(x) => x as &dyn std::any::Any,
+            Self::LiberateStarBase(x) => x as &dyn std::any::Any,
+            Self::ChangeFaction(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Undefined(x) => x as &mut dyn std::any::Any,
+            Self::ComingSoon(x) => x as &mut dyn std::any::Any,
+            Self::ShowDialog(x) => x as &mut dyn std::any::Any,
+            Self::OpenShipyard(x) => x as &mut dyn std::any::Any,
+            Self::OpenWorkshop(x) => x as &mut dyn std::any::Any,
+            Self::Switch(x) => x as &mut dyn std::any::Any,
+            Self::Random(x) => x as &mut dyn std::any::Any,
+            Self::Condition(x) => x as &mut dyn std::any::Any,
+            Self::AttackFleet(x) => x as &mut dyn std::any::Any,
+            Self::AttackOccupants(x) => x as &mut dyn std::any::Any,
+            Self::AttackStarbase(x) => x as &mut dyn std::any::Any,
+            Self::DestroyOccupants(x) => x as &mut dyn std::any::Any,
+            Self::SuppressOccupants(x) => x as &mut dyn std::any::Any,
+            Self::Retreat(x) => x as &mut dyn std::any::Any,
+            Self::ReceiveItem(x) => x as &mut dyn std::any::Any,
+            Self::RemoveItem(x) => x as &mut dyn std::any::Any,
+            Self::Trade(x) => x as &mut dyn std::any::Any,
+            Self::CompleteQuest(x) => x as &mut dyn std::any::Any,
+            Self::FailQuest(x) => x as &mut dyn std::any::Any,
+            Self::CancelQuest(x) => x as &mut dyn std::any::Any,
+            Self::StartQuest(x) => x as &mut dyn std::any::Any,
+            Self::SetCharacterRelations(x) => x as &mut dyn std::any::Any,
+            Self::SetFactionRelations(x) => x as &mut dyn std::any::Any,
+            Self::SetFactionStarbasePower(x) => x as &mut dyn std::any::Any,
+            Self::ChangeCharacterRelations(x) => x as &mut dyn std::any::Any,
+            Self::ChangeFactionRelations(x) => x as &mut dyn std::any::Any,
+            Self::ChangeFactionStarbasePower(x) => x as &mut dyn std::any::Any,
+            Self::CaptureStarBase(x) => x as &mut dyn std::any::Any,
+            Self::LiberateStarBase(x) => x as &mut dyn std::any::Any,
+            Self::ChangeFaction(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
+impl Node {
     pub fn r#id(&self) -> &i32 {
         match self {
             Self::Undefined(x) => &x.r#id,
@@ -15402,7 +15914,7 @@ impl Node {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/NodeAction.xml
+// v1/Objects/Quests/NodeAction.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAction {
@@ -15474,7 +15986,7 @@ impl Default for NodeAction {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/NodeTransition.xml
+// v1/Objects/Quests/NodeTransition.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeTransition {
@@ -15564,7 +16076,7 @@ impl Default for NodeTransition {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/QuestOrigin.xml
+// v1/Objects/Quests/QuestOrigin.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct QuestOrigin {
@@ -15720,7 +16232,7 @@ impl Default for QuestOrigin {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/Requirement.xml
+// v1/Objects/Quests/Requirement.xml
 #[derive(Debug, Clone)]
 pub enum Requirement {
     Empty(RequirementEmpty),
@@ -17265,6 +17777,83 @@ impl<'de> serde::Deserialize<'de> for Requirement {
         Ok(value)
     }
 }
+impl Requirement {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Empty(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Any(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::All(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::None(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::PlayerPosition(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::RandomStarSystem(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AggressiveOccupants(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::QuestCompleted(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::QuestActive(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CharacterRelations(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::FactionRelations(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::StarbaseCaptured(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::FactionStarbasePower(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::IsHostileFaction(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Faction(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HaveQuestItem(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HaveItem(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::HaveItemById(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ComeToOrigin(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TimeSinceQuestStart(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::TimeSinceLastCompletion(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Empty(x) => x as &dyn std::any::Any,
+            Self::Any(x) => x as &dyn std::any::Any,
+            Self::All(x) => x as &dyn std::any::Any,
+            Self::None(x) => x as &dyn std::any::Any,
+            Self::PlayerPosition(x) => x as &dyn std::any::Any,
+            Self::RandomStarSystem(x) => x as &dyn std::any::Any,
+            Self::AggressiveOccupants(x) => x as &dyn std::any::Any,
+            Self::QuestCompleted(x) => x as &dyn std::any::Any,
+            Self::QuestActive(x) => x as &dyn std::any::Any,
+            Self::CharacterRelations(x) => x as &dyn std::any::Any,
+            Self::FactionRelations(x) => x as &dyn std::any::Any,
+            Self::StarbaseCaptured(x) => x as &dyn std::any::Any,
+            Self::FactionStarbasePower(x) => x as &dyn std::any::Any,
+            Self::IsHostileFaction(x) => x as &dyn std::any::Any,
+            Self::Faction(x) => x as &dyn std::any::Any,
+            Self::HaveQuestItem(x) => x as &dyn std::any::Any,
+            Self::HaveItem(x) => x as &dyn std::any::Any,
+            Self::HaveItemById(x) => x as &dyn std::any::Any,
+            Self::ComeToOrigin(x) => x as &dyn std::any::Any,
+            Self::TimeSinceQuestStart(x) => x as &dyn std::any::Any,
+            Self::TimeSinceLastCompletion(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Empty(x) => x as &mut dyn std::any::Any,
+            Self::Any(x) => x as &mut dyn std::any::Any,
+            Self::All(x) => x as &mut dyn std::any::Any,
+            Self::None(x) => x as &mut dyn std::any::Any,
+            Self::PlayerPosition(x) => x as &mut dyn std::any::Any,
+            Self::RandomStarSystem(x) => x as &mut dyn std::any::Any,
+            Self::AggressiveOccupants(x) => x as &mut dyn std::any::Any,
+            Self::QuestCompleted(x) => x as &mut dyn std::any::Any,
+            Self::QuestActive(x) => x as &mut dyn std::any::Any,
+            Self::CharacterRelations(x) => x as &mut dyn std::any::Any,
+            Self::FactionRelations(x) => x as &mut dyn std::any::Any,
+            Self::StarbaseCaptured(x) => x as &mut dyn std::any::Any,
+            Self::FactionStarbasePower(x) => x as &mut dyn std::any::Any,
+            Self::IsHostileFaction(x) => x as &mut dyn std::any::Any,
+            Self::Faction(x) => x as &mut dyn std::any::Any,
+            Self::HaveQuestItem(x) => x as &mut dyn std::any::Any,
+            Self::HaveItem(x) => x as &mut dyn std::any::Any,
+            Self::HaveItemById(x) => x as &mut dyn std::any::Any,
+            Self::ComeToOrigin(x) => x as &mut dyn std::any::Any,
+            Self::TimeSinceQuestStart(x) => x as &mut dyn std::any::Any,
+            Self::TimeSinceLastCompletion(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
 impl DatabaseItem for Requirement {
     fn validate(&mut self) {
         match self {
@@ -17323,7 +17912,7 @@ impl Requirement {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/DebugCode.xml
+// v1/Objects/Settings/DebugCode.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DebugCode {
@@ -17385,7 +17974,7 @@ impl Default for DebugCode {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/ShipToValue.xml
+// v1/Objects/Settings/ShipToValue.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipToValue {
@@ -17438,7 +18027,7 @@ impl Default for ShipToValue {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/SoundTrack.xml
+// v1/Objects/Settings/SoundTrack.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct SoundTrack {
@@ -17471,7 +18060,7 @@ impl Default for SoundTrack {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/ShipBuildPerks.xml
+// v1/Objects/ShipBuildPerks.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipBuildPerks {
@@ -17524,7 +18113,7 @@ impl Default for ShipBuildPerks {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/ShipFeatures.xml
+// v1/Objects/ShipFeatures.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipFeatures {
@@ -17944,7 +18533,7 @@ impl Default for ShipFeatures {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/StatModification.xml
+// v1/Objects/StatModification.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct StatModification {
@@ -18037,7 +18626,7 @@ impl Default for StatModification {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/BulletBody.xml
+// v1/Objects/Weapon/BulletBody.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletBody {
@@ -18408,7 +18997,7 @@ impl Default for BulletBody {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/BulletController.xml
+// v1/Objects/Weapon/BulletController.xml
 #[derive(Debug, Clone)]
 pub enum BulletController {
     Projectile(BulletControllerProjectile),
@@ -18823,6 +19412,38 @@ impl<'de> serde::Deserialize<'de> for BulletController {
         Ok(value)
     }
 }
+impl BulletController {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Projectile(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Homing(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Beam(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Parametric(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Harpoon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AuraEmitter(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Projectile(x) => x as &dyn std::any::Any,
+            Self::Homing(x) => x as &dyn std::any::Any,
+            Self::Beam(x) => x as &dyn std::any::Any,
+            Self::Parametric(x) => x as &dyn std::any::Any,
+            Self::Harpoon(x) => x as &dyn std::any::Any,
+            Self::AuraEmitter(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Projectile(x) => x as &mut dyn std::any::Any,
+            Self::Homing(x) => x as &mut dyn std::any::Any,
+            Self::Beam(x) => x as &mut dyn std::any::Any,
+            Self::Parametric(x) => x as &mut dyn std::any::Any,
+            Self::Harpoon(x) => x as &mut dyn std::any::Any,
+            Self::AuraEmitter(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
 impl DatabaseItem for BulletController {
     fn validate(&mut self) {
         match self {
@@ -18851,7 +19472,7 @@ impl BulletController {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/BulletTrigger.xml
+// v1/Objects/Weapon/BulletTrigger.xml
 #[derive(Debug, Clone)]
 pub enum BulletTrigger {
     None(BulletTriggerNone),
@@ -19902,6 +20523,38 @@ impl<'de> serde::Deserialize<'de> for BulletTrigger {
     }
 }
 impl BulletTrigger {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::None(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::PlaySfx(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SpawnBullet(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Detonate(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SpawnStaticSfx(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::GravityField(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::None(x) => x as &dyn std::any::Any,
+            Self::PlaySfx(x) => x as &dyn std::any::Any,
+            Self::SpawnBullet(x) => x as &dyn std::any::Any,
+            Self::Detonate(x) => x as &dyn std::any::Any,
+            Self::SpawnStaticSfx(x) => x as &dyn std::any::Any,
+            Self::GravityField(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::None(x) => x as &mut dyn std::any::Any,
+            Self::PlaySfx(x) => x as &mut dyn std::any::Any,
+            Self::SpawnBullet(x) => x as &mut dyn std::any::Any,
+            Self::Detonate(x) => x as &mut dyn std::any::Any,
+            Self::SpawnStaticSfx(x) => x as &mut dyn std::any::Any,
+            Self::GravityField(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
+impl BulletTrigger {
     pub fn r#condition(&self) -> &BulletTriggerCondition {
         match self {
             Self::None(x) => &x.r#condition,
@@ -19973,7 +20626,7 @@ impl BulletTrigger {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/ImpactEffect.xml
+// v1/Objects/Weapon/ImpactEffect.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ImpactEffect {
@@ -20073,7 +20726,7 @@ impl Default for ImpactEffect {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/VisualEffectElement.xml
+// v1/Objects/Weapon/VisualEffectElement.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct VisualEffectElement {
@@ -20401,7 +21054,7 @@ impl Default for VisualEffectElement {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/CombatSettings.xml
+// v1/Objects/Settings/CombatSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct CombatSettings {
@@ -20518,7 +21171,7 @@ impl Default for CombatSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/DatabaseSettings.xml
+// v1/Objects/Settings/DatabaseSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DatabaseSettings {
@@ -20629,7 +21282,7 @@ impl Default for DatabaseSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/DebugSettings.xml
+// v1/Objects/Settings/DebugSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct DebugSettings {
@@ -20675,7 +21328,7 @@ impl Default for DebugSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/ExplorationSettings.xml
+// v1/Objects/Settings/ExplorationSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ExplorationSettings {
@@ -20760,7 +21413,7 @@ impl Default for ExplorationSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/FactionsSettings.xml
+// v1/Objects/Settings/FactionsSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct FactionsSettings {
@@ -20847,7 +21500,7 @@ impl Default for FactionsSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/GalaxySettings.xml
+// v1/Objects/Settings/GalaxySettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct GalaxySettings {
@@ -21144,7 +21797,7 @@ impl Default for GalaxySettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/LocalizationSettings.xml
+// v1/Objects/Settings/LocalizationSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct LocalizationSettings {
@@ -21193,7 +21846,7 @@ impl Default for LocalizationSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/MusicPlaylist.xml
+// v1/Objects/Settings/MusicPlaylist.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct MusicPlaylist {
@@ -21268,7 +21921,7 @@ impl Default for MusicPlaylist {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/ShipModSettings.xml
+// v1/Objects/Settings/ShipModSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipModSettings {
@@ -21630,7 +22283,7 @@ impl Default for ShipModSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/ShipSettings.xml
+// v1/Objects/Settings/ShipSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipSettings {
@@ -22181,7 +22834,7 @@ impl Default for ShipSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/SkillSettings.xml
+// v1/Objects/Settings/SkillSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct SkillSettings {
@@ -22542,7 +23195,7 @@ impl Default for SkillSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/SpecialEventSettings.xml
+// v1/Objects/Settings/SpecialEventSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct SpecialEventSettings {
@@ -22841,7 +23494,7 @@ impl Default for SpecialEventSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Settings/UiSettings.xml
+// v1/Objects/Settings/UiSettings.xml
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
 pub struct UiSettings {
@@ -23334,7 +23987,7 @@ impl Default for UiSettings {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Ai/BehaviorTree.xml
+// v1/Objects/Ai/BehaviorTree.xml
 pub type BehaviorTreeId = DatabaseItemId<BehaviorTree>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -23379,7 +24032,7 @@ impl DatabaseItemWithId for BehaviorTree {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/AmmunitionObsolete.xml
+// v1/Objects/AmmunitionObsolete.xml
 pub type AmmunitionObsoleteId = DatabaseItemId<AmmunitionObsolete>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -23813,7 +24466,7 @@ impl DatabaseItemWithId for AmmunitionObsolete {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Component.xml
+// v1/Objects/Component.xml
 pub type ComponentId = DatabaseItemId<Component>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -24086,7 +24739,7 @@ impl DatabaseItemWithId for Component {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/ComponentMod.xml
+// v1/Objects/ComponentMod.xml
 pub type ComponentModId = DatabaseItemId<ComponentMod>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -24144,7 +24797,7 @@ impl DatabaseItemWithId for ComponentMod {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/ComponentStatUpgrade.xml
+// v1/Objects/ComponentStatUpgrade.xml
 pub type ComponentStatUpgradeId = DatabaseItemId<ComponentStatUpgrade>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -24177,7 +24830,7 @@ impl DatabaseItemWithId for ComponentStatUpgrade {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/ComponentStats.xml
+// v1/Objects/ComponentStats.xml
 pub type ComponentStatsId = DatabaseItemId<ComponentStats>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -25131,7 +25784,7 @@ impl DatabaseItemWithId for ComponentStats {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Device.xml
+// v1/Objects/Device.xml
 pub type DeviceId = DatabaseItemId<Device>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -25497,7 +26150,7 @@ impl DatabaseItemWithId for Device {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/DroneBay.xml
+// v1/Objects/DroneBay.xml
 pub type DroneBayId = DatabaseItemId<DroneBay>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -25861,7 +26514,7 @@ impl DatabaseItemWithId for DroneBay {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Faction.xml
+// v1/Objects/Faction.xml
 pub type FactionId = DatabaseItemId<Faction>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -26128,7 +26781,7 @@ impl DatabaseItemWithId for Faction {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/GameObjectPrefab.xml
+// v1/Objects/GameObjectPrefab.xml
 pub type GameObjectPrefabId = DatabaseItemId<GameObjectPrefab>;
 #[derive(Debug, Clone)]
 pub enum GameObjectPrefab {
@@ -26726,6 +27379,32 @@ impl<'de> serde::Deserialize<'de> for GameObjectPrefab {
     }
 }
 impl GameObjectPrefab {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Undefined(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::WormTailSegment(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CircularSpriteObject(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CircularOutlineObject(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Undefined(x) => x as &dyn std::any::Any,
+            Self::WormTailSegment(x) => x as &dyn std::any::Any,
+            Self::CircularSpriteObject(x) => x as &dyn std::any::Any,
+            Self::CircularOutlineObject(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Undefined(x) => x as &mut dyn std::any::Any,
+            Self::WormTailSegment(x) => x as &mut dyn std::any::Any,
+            Self::CircularSpriteObject(x) => x as &mut dyn std::any::Any,
+            Self::CircularOutlineObject(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
+impl GameObjectPrefab {
     pub fn r#id(&self) -> &GameObjectPrefabId {
         match self {
             Self::Undefined(x) => &x.r#id,
@@ -26773,7 +27452,7 @@ impl DatabaseItemWithId for GameObjectPrefab {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/Character.xml
+// v1/Objects/Quests/Character.xml
 pub type CharacterId = DatabaseItemId<Character>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -26897,7 +27576,7 @@ impl DatabaseItemWithId for Character {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/CombatRules.xml
+// v1/Objects/Quests/CombatRules.xml
 pub type CombatRulesId = DatabaseItemId<CombatRules>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -27117,7 +27796,7 @@ impl DatabaseItemWithId for CombatRules {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/Fleet.xml
+// v1/Objects/Quests/Fleet.xml
 pub type FleetId = DatabaseItemId<Fleet>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -27333,7 +28012,7 @@ impl DatabaseItemWithId for Fleet {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/Loot.xml
+// v1/Objects/Quests/Loot.xml
 pub type LootId = DatabaseItemId<Loot>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -27378,7 +28057,7 @@ impl DatabaseItemWithId for Loot {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/Quest.xml
+// v1/Objects/Quests/Quest.xml
 pub type QuestId = DatabaseItemId<Quest>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -27543,7 +28222,7 @@ impl DatabaseItemWithId for Quest {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Quests/QuestItem.xml
+// v1/Objects/Quests/QuestItem.xml
 pub type QuestItemId = DatabaseItemId<QuestItem>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -27647,7 +28326,7 @@ impl DatabaseItemWithId for QuestItem {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Satellite.xml
+// v1/Objects/Satellite.xml
 pub type SatelliteId = DatabaseItemId<Satellite>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -27761,7 +28440,7 @@ impl DatabaseItemWithId for Satellite {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/SatelliteBuild.xml
+// v1/Objects/SatelliteBuild.xml
 pub type SatelliteBuildId = DatabaseItemId<SatelliteBuild>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -27845,7 +28524,7 @@ impl DatabaseItemWithId for SatelliteBuild {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Ship.xml
+// v1/Objects/Ship.xml
 pub type ShipId = DatabaseItemId<Ship>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -28270,7 +28949,7 @@ impl DatabaseItemWithId for Ship {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/ShipBuild.xml
+// v1/Objects/ShipBuild.xml
 pub type ShipBuildId = DatabaseItemId<ShipBuild>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -28470,7 +29149,7 @@ impl DatabaseItemWithId for ShipBuild {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/StatUpgradeTemplate.xml
+// v1/Objects/StatUpgradeTemplate.xml
 pub type StatUpgradeTemplateId = DatabaseItemId<StatUpgradeTemplate>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -28555,7 +29234,7 @@ impl DatabaseItemWithId for StatUpgradeTemplate {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Technology.xml
+// v1/Objects/Technology.xml
 pub type TechnologyId = DatabaseItemId<Technology>;
 #[derive(Debug, Clone)]
 pub enum Technology {
@@ -29043,6 +29722,29 @@ impl<'de> serde::Deserialize<'de> for Technology {
     }
 }
 impl Technology {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Component(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Ship(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Satellite(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Component(x) => x as &dyn std::any::Any,
+            Self::Ship(x) => x as &dyn std::any::Any,
+            Self::Satellite(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Component(x) => x as &mut dyn std::any::Any,
+            Self::Ship(x) => x as &mut dyn std::any::Any,
+            Self::Satellite(x) => x as &mut dyn std::any::Any,
+        }
+    }
+}
+impl Technology {
     pub fn r#id(&self) -> &TechnologyId {
         match self {
             Self::Component(x) => &x.r#id,
@@ -29166,7 +29868,7 @@ impl DatabaseItemWithId for Technology {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/Ammunition.xml
+// v1/Objects/Weapon/Ammunition.xml
 pub type AmmunitionId = DatabaseItemId<Ammunition>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -29251,7 +29953,7 @@ impl DatabaseItemWithId for Ammunition {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/BulletPerfab.xml
+// v1/Objects/Weapon/BulletPerfab.xml
 pub type BulletPrefabId = DatabaseItemId<BulletPrefab>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -29434,7 +30136,7 @@ impl DatabaseItemWithId for BulletPrefab {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/VisualEffect.xml
+// v1/Objects/Weapon/VisualEffect.xml
 pub type VisualEffectId = DatabaseItemId<VisualEffect>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -29479,7 +30181,7 @@ impl DatabaseItemWithId for VisualEffect {
     }
 }
 
-// /home/juh9870/shared_projects/event-horizon-main/Assets/Modules/Database/.Schema/v1/Objects/Weapon/Weapon.xml
+// v1/Objects/Weapon/Weapon.xml
 pub type WeaponId = DatabaseItemId<Weapon>;
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
 #[serde(rename_all = "PascalCase")]
@@ -30676,6 +31378,137 @@ impl<'de> serde::Deserialize<'de> for Item {
             }
         };
         Ok(value)
+    }
+}
+impl Item {
+    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+        match self {
+            Self::Component(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Device(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Weapon(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::AmmunitionObsolete(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::DroneBay(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Ship(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Satellite(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ShipBuild(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SatelliteBuild(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Technology(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ComponentStats(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ComponentMod(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Faction(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Quest(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Loot(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Fleet(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Character(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::QuestItem(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::Ammunition(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::VisualEffect(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::BulletPrefab(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::BehaviorTree(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::GameObjectPrefab(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CombatRules(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ComponentStatUpgrade(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::StatUpgradeTemplate(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ShipSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::GalaxySettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::DatabaseSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ExplorationSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::ShipModSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SpecialEventSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::SkillSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::DebugSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::CombatSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::UiSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::FactionsSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::MusicPlaylist(x) => Box::new(x) as Box<dyn std::any::Any>,
+            Self::LocalizationSettings(x) => Box::new(x) as Box<dyn std::any::Any>,
+        }
+    }
+    pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+        match self {
+            Self::Component(x) => x as &dyn std::any::Any,
+            Self::Device(x) => x as &dyn std::any::Any,
+            Self::Weapon(x) => x as &dyn std::any::Any,
+            Self::AmmunitionObsolete(x) => x as &dyn std::any::Any,
+            Self::DroneBay(x) => x as &dyn std::any::Any,
+            Self::Ship(x) => x as &dyn std::any::Any,
+            Self::Satellite(x) => x as &dyn std::any::Any,
+            Self::ShipBuild(x) => x as &dyn std::any::Any,
+            Self::SatelliteBuild(x) => x as &dyn std::any::Any,
+            Self::Technology(x) => x as &dyn std::any::Any,
+            Self::ComponentStats(x) => x as &dyn std::any::Any,
+            Self::ComponentMod(x) => x as &dyn std::any::Any,
+            Self::Faction(x) => x as &dyn std::any::Any,
+            Self::Quest(x) => x as &dyn std::any::Any,
+            Self::Loot(x) => x as &dyn std::any::Any,
+            Self::Fleet(x) => x as &dyn std::any::Any,
+            Self::Character(x) => x as &dyn std::any::Any,
+            Self::QuestItem(x) => x as &dyn std::any::Any,
+            Self::Ammunition(x) => x as &dyn std::any::Any,
+            Self::VisualEffect(x) => x as &dyn std::any::Any,
+            Self::BulletPrefab(x) => x as &dyn std::any::Any,
+            Self::BehaviorTree(x) => x as &dyn std::any::Any,
+            Self::GameObjectPrefab(x) => x as &dyn std::any::Any,
+            Self::CombatRules(x) => x as &dyn std::any::Any,
+            Self::ComponentStatUpgrade(x) => x as &dyn std::any::Any,
+            Self::StatUpgradeTemplate(x) => x as &dyn std::any::Any,
+            Self::ShipSettings(x) => x as &dyn std::any::Any,
+            Self::GalaxySettings(x) => x as &dyn std::any::Any,
+            Self::DatabaseSettings(x) => x as &dyn std::any::Any,
+            Self::ExplorationSettings(x) => x as &dyn std::any::Any,
+            Self::ShipModSettings(x) => x as &dyn std::any::Any,
+            Self::SpecialEventSettings(x) => x as &dyn std::any::Any,
+            Self::SkillSettings(x) => x as &dyn std::any::Any,
+            Self::DebugSettings(x) => x as &dyn std::any::Any,
+            Self::CombatSettings(x) => x as &dyn std::any::Any,
+            Self::UiSettings(x) => x as &dyn std::any::Any,
+            Self::FactionsSettings(x) => x as &dyn std::any::Any,
+            Self::MusicPlaylist(x) => x as &dyn std::any::Any,
+            Self::LocalizationSettings(x) => x as &dyn std::any::Any,
+        }
+    }
+    pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+        match self {
+            Self::Component(x) => x as &mut dyn std::any::Any,
+            Self::Device(x) => x as &mut dyn std::any::Any,
+            Self::Weapon(x) => x as &mut dyn std::any::Any,
+            Self::AmmunitionObsolete(x) => x as &mut dyn std::any::Any,
+            Self::DroneBay(x) => x as &mut dyn std::any::Any,
+            Self::Ship(x) => x as &mut dyn std::any::Any,
+            Self::Satellite(x) => x as &mut dyn std::any::Any,
+            Self::ShipBuild(x) => x as &mut dyn std::any::Any,
+            Self::SatelliteBuild(x) => x as &mut dyn std::any::Any,
+            Self::Technology(x) => x as &mut dyn std::any::Any,
+            Self::ComponentStats(x) => x as &mut dyn std::any::Any,
+            Self::ComponentMod(x) => x as &mut dyn std::any::Any,
+            Self::Faction(x) => x as &mut dyn std::any::Any,
+            Self::Quest(x) => x as &mut dyn std::any::Any,
+            Self::Loot(x) => x as &mut dyn std::any::Any,
+            Self::Fleet(x) => x as &mut dyn std::any::Any,
+            Self::Character(x) => x as &mut dyn std::any::Any,
+            Self::QuestItem(x) => x as &mut dyn std::any::Any,
+            Self::Ammunition(x) => x as &mut dyn std::any::Any,
+            Self::VisualEffect(x) => x as &mut dyn std::any::Any,
+            Self::BulletPrefab(x) => x as &mut dyn std::any::Any,
+            Self::BehaviorTree(x) => x as &mut dyn std::any::Any,
+            Self::GameObjectPrefab(x) => x as &mut dyn std::any::Any,
+            Self::CombatRules(x) => x as &mut dyn std::any::Any,
+            Self::ComponentStatUpgrade(x) => x as &mut dyn std::any::Any,
+            Self::StatUpgradeTemplate(x) => x as &mut dyn std::any::Any,
+            Self::ShipSettings(x) => x as &mut dyn std::any::Any,
+            Self::GalaxySettings(x) => x as &mut dyn std::any::Any,
+            Self::DatabaseSettings(x) => x as &mut dyn std::any::Any,
+            Self::ExplorationSettings(x) => x as &mut dyn std::any::Any,
+            Self::ShipModSettings(x) => x as &mut dyn std::any::Any,
+            Self::SpecialEventSettings(x) => x as &mut dyn std::any::Any,
+            Self::SkillSettings(x) => x as &mut dyn std::any::Any,
+            Self::DebugSettings(x) => x as &mut dyn std::any::Any,
+            Self::CombatSettings(x) => x as &mut dyn std::any::Any,
+            Self::UiSettings(x) => x as &mut dyn std::any::Any,
+            Self::FactionsSettings(x) => x as &mut dyn std::any::Any,
+            Self::MusicPlaylist(x) => x as &mut dyn std::any::Any,
+            Self::LocalizationSettings(x) => x as &mut dyn std::any::Any,
+        }
     }
 }
 impl DatabaseItem for Item {

@@ -7,13 +7,11 @@ repository = "https://github.com/juh9870/random_cli"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-
-clap = { workspace = true, features = ["derive"] }
-color-backtrace = { workspace = true }
 eh_schema = { path = "../eh_schema" }
 fs-err = { workspace = true }
+parking_lot = { workspace = true }
+paste = { workspace = true }
+replace_with = { workspace = true }
 serde_json = { workspace = true }
 serde_json5 = { workspace = true }
 tracing = { workspace = true }
-tracing-panic = { workspace = true }
-tracing-subscriber = { workspace = true, features = ["env-filter"] }

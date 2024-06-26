@@ -49,7 +49,7 @@ fn main() -> miette::Result<()> {
         let Args { schema, output } = Args::parse();
 
         let mut files = vec![];
-        for entry in WalkDir::new(schema).into_iter() {
+        for entry in WalkDir::new(&schema).into_iter() {
             let entry = entry.into_diagnostic()?;
             if !entry.file_type().is_file() {
                 continue;
@@ -80,10 +80,10 @@ fn main() -> miette::Result<()> {
         let mut state = CodegenState::default();
 
         let mut code_builder = "\
-            #![allow(clippy::unnecessary_cast)]\
-            #![allow(clippy::large_enum_variant)]\
-            #![allow(clippy::explicit_auto_deref)]\
-            #![allow(dead_code)]\
+            #![allow(clippy::unnecessary_cast)]\n\
+            #![allow(clippy::large_enum_variant)]\n\
+            #![allow(clippy::explicit_auto_deref)]\n\
+            #![allow(dead_code)]\n\
             #![allow(unreachable_patterns)]\n\n"
             .to_string();
 
@@ -94,7 +94,7 @@ fn main() -> miette::Result<()> {
                 .with_context(|| {
                     format!("Failed to generate code for file at `{}`", path.display())
                 })?;
-            code_builder += &format!("\n// {}\n", path.display());
+            code_builder += &format!("\n// {}\n", path.strip_prefix(&schema).unwrap().display());
             code_builder += &code.unwrap_or_default();
         }
 

@@ -1,4 +1,4 @@
-use super::{DatabaseHolder, DatabaseIdLike, DbItem};
+use super::{DatabaseHolder, DatabaseIdLike, DatabaseItemIter, DatabaseItemIterMut, DbItem};
 use eh_schema::apply_items;
 use eh_schema::schema::*;
 use std::sync::Arc;
@@ -21,6 +21,14 @@ macro_rules! item_impls {
         $(
             pub fn $name(self: &Arc<Self>, $($arg: process_arg_type!($($arg_ty)*)),*) -> DbItem::<$ty> {
                 self.add_item(<$ty>::new($(process_arg_conversion!($($arg_ty)*, $arg, self)),*))
+            }
+            paste::paste! {
+                pub fn [< $name  _iter >]<U>(self: &Arc<Self>, func: impl Fn(DatabaseItemIter<'_, $ty>) -> U) -> U {
+                    self.iter::<$ty, U>(func)
+                }
+                pub fn [< $name  _iter_mut >]<U>(self: &Arc<Self>, func: impl Fn(DatabaseItemIterMut<'_, $ty>) -> U) -> U {
+                    self.iter_mut::<$ty, U>(func)
+                }
             }
         )*
     };

@@ -289,6 +289,47 @@ impl CodegenState {
 
         blocks.push(serde_impl);
 
+        let (deref_box_matchers, deref_matchers, deref_mut_matchers): (Vec<_>, Vec<_>, Vec<_>) =
+            variants
+                .iter()
+                .map(|v| {
+                    let name = &v.ident;
+                    (
+                        quote! {
+                            Self::#name(x) => Box::new(x) as Box<dyn std::any::Any>,
+                        },
+                        quote! {
+                            Self::#name(x) => x as &dyn std::any::Any,
+                        },
+                        quote! {
+                            Self::#name(x) => x as &mut dyn std::any::Any,
+                        },
+                    )
+                })
+                .multiunzip();
+
+        let deref_impl = quote! {
+            impl #switch_struct_ident {
+                pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+                    match self {
+                        #(#deref_box_matchers)*
+                    }
+                }
+                pub fn as_inner_any_ref(&self) -> &dyn std::any::Any {
+                    match self {
+                        #(#deref_matchers)*
+                    }
+                }
+                pub fn as_inner_any_mut(&mut self) -> &mut dyn std::any::Any {
+                    match self {
+                        #(#deref_mut_matchers)*
+                    }
+                }
+            }
+        };
+
+        blocks.push(deref_impl);
+
         for Field {
             ident: field_name,
             ty,

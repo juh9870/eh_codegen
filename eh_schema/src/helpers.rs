@@ -1,6 +1,6 @@
 use serde::Deserializer;
 
-pub trait DatabaseItem: serde::Serialize {
+pub trait DatabaseItem: serde::Serialize + for<'a> serde::Deserialize<'a> {
     fn validate(&mut self);
     fn type_name() -> &'static str;
 }
@@ -60,6 +60,7 @@ impl<T: DatabaseItem> Clone for DatabaseItemId<T> {
         *self
     }
 }
+
 impl<T: DatabaseItem> Copy for DatabaseItemId<T> {}
 
 impl<T: DatabaseItem> std::fmt::Debug for DatabaseItemId<T> {
