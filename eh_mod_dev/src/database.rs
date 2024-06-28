@@ -499,3 +499,7 @@ impl DatabaseHolder {
         }
     }
 }
+
+pub trait Remember: Into<Item> + DatabaseItem {
+    fn remember(self, db: &Database) -> DbItem<Self>;
+}
