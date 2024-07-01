@@ -283,6 +283,7 @@ dependencies = [
  "clap",
  "color-backtrace",
  "eh_mod_dev",
+ "pretty-duration",
  "serde",
  "tracing",
  "tracing-panic",
@@ -588,6 +589,12 @@ name = "pin-project-lite"
 version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bda66fc9667c18cb2758a2ac84d1167245054bcf85d5d1aaa6923f45801bdd02"
+
+[[package]]
+name = "pretty-duration"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d8868e7264af614b3634ff0abbe37b178e61000611b8a75221aea40221924aba"
 
 [[package]]
 name = "prettyplease"

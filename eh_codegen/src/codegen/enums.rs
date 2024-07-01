@@ -115,7 +115,7 @@ impl CodegenState {
 
         Ok(quote! {
             #[repr(#repr)]
-            #[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash)]
+            #[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash, Ord, PartialOrd)]
             #derive_reprs
             pub enum #name {
                 #[default]

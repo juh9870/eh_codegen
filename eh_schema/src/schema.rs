@@ -15,6 +15,8 @@ pub use crate::helpers::*;
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -41,6 +43,8 @@ impl DatabaseItem for ActivationType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -70,6 +74,8 @@ impl DatabaseItem for AiDifficultyLevel {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -98,6 +104,8 @@ impl DatabaseItem for AiWeaponCategory {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -271,6 +279,8 @@ impl DatabaseItem for BehaviorNodeType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -319,6 +329,8 @@ impl DatabaseItem for BehaviorRequirementType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -347,6 +359,8 @@ impl DatabaseItem for NodeExecutionMode {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -402,6 +416,8 @@ impl DatabaseItem for AmmunitionClassObsolete {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -423,7 +439,7 @@ impl DatabaseItem for Availability {
 
 // v1/Enums/CellType.xml
 #[repr(u32)]
-#[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash)]
+#[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash, Ord, PartialOrd)]
 pub enum CellType {
     #[default]
     ///'0'
@@ -494,6 +510,8 @@ impl std::fmt::Display for CellType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -524,6 +542,8 @@ impl DatabaseItem for ComponentCategory {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -549,6 +569,8 @@ impl DatabaseItem for ComponentStatsType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -595,6 +617,8 @@ impl DatabaseItem for DeviceClass {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -622,6 +646,8 @@ impl DatabaseItem for DifficultyClass {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -693,6 +719,8 @@ impl DatabaseItem for ItemType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -722,6 +750,8 @@ impl DatabaseItem for ModificationQuality {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -749,6 +779,8 @@ impl DatabaseItem for ObjectPrefabType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -776,6 +808,8 @@ impl DatabaseItem for FactionFilterType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -816,6 +850,8 @@ impl DatabaseItem for LootItemType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -869,6 +905,8 @@ impl DatabaseItem for NodeType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -899,6 +937,8 @@ impl DatabaseItem for PlayerShipSelectionMode {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -927,6 +967,8 @@ impl DatabaseItem for QuestOriginType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -955,6 +997,8 @@ impl DatabaseItem for QuestType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -982,6 +1026,8 @@ impl DatabaseItem for RequiredViewMode {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1026,6 +1072,8 @@ impl DatabaseItem for RequirementType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1052,6 +1100,8 @@ impl DatabaseItem for RewardCondition {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1083,6 +1133,8 @@ impl DatabaseItem for StartCondition {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1110,6 +1162,8 @@ impl DatabaseItem for TimeOutMode {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1145,6 +1199,8 @@ impl DatabaseItem for ShipPerkType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1172,6 +1228,8 @@ impl DatabaseItem for ShipRarity {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1200,6 +1258,8 @@ impl DatabaseItem for ShipType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1230,6 +1290,8 @@ impl DatabaseItem for SizeClass {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1264,6 +1326,8 @@ impl DatabaseItem for SkillType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1313,6 +1377,8 @@ impl DatabaseItem for StatModificationType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1339,6 +1405,8 @@ impl DatabaseItem for TechType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1365,6 +1433,8 @@ impl DatabaseItem for ToggleState {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1394,6 +1464,8 @@ impl DatabaseItem for AiBulletBehavior {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1423,6 +1495,8 @@ impl DatabaseItem for BulletControllerType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1452,6 +1526,8 @@ impl DatabaseItem for BulletEffectType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1478,6 +1554,8 @@ impl DatabaseItem for BulletImpactType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1513,6 +1591,8 @@ impl DatabaseItem for BulletShape {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1545,6 +1625,8 @@ impl DatabaseItem for BulletTriggerCondition {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1573,6 +1655,8 @@ impl DatabaseItem for BulletTypeObsolete {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1600,6 +1684,8 @@ impl DatabaseItem for ColorMode {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1627,6 +1713,8 @@ impl DatabaseItem for DamageType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1669,6 +1757,8 @@ impl DatabaseItem for ImpactEffectType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1702,6 +1792,8 @@ impl DatabaseItem for VisualEffectType {
     Eq,
     PartialEq,
     Hash,
+    Ord,
+    PartialOrd,
     serde_repr::Serialize_repr,
     serde_repr::Deserialize_repr,
 )]
@@ -1723,7 +1815,7 @@ impl DatabaseItem for WeaponClass {
 
 // v1/Enums/Weapon/WeaponSlotType.xml
 #[repr(u32)]
-#[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash)]
+#[derive(Debug, Copy, Clone, Default, Eq, PartialEq, Hash, Ord, PartialOrd)]
 pub enum WeaponSlotType {
     #[default]
     Default,
@@ -10611,7 +10703,7 @@ impl Default for Barrel {
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentRestrictions {
     #[serde(default)]
-    pub r#ship_sizes: std::collections::HashSet<SizeClass>,
+    pub r#ship_sizes: std::collections::BTreeSet<SizeClass>,
     #[serde(default = "default_false")]
     #[serde(skip_serializing_if = "skip_if_false")]
     pub r#not_for_organic_ships: bool,
@@ -10636,14 +10728,14 @@ impl ComponentRestrictions {
     }
     pub fn with_ship_sizes(
         mut self,
-        r#ship_sizes: impl Into<std::collections::HashSet<SizeClass>>,
+        r#ship_sizes: impl Into<std::collections::BTreeSet<SizeClass>>,
     ) -> Self {
         self.r#ship_sizes = r#ship_sizes.into();
         self
     }
     pub fn set_ship_sizes(
         &mut self,
-        r#ship_sizes: impl Into<std::collections::HashSet<SizeClass>>,
+        r#ship_sizes: impl Into<std::collections::BTreeSet<SizeClass>>,
     ) -> &mut Self {
         self.r#ship_sizes = r#ship_sizes.into();
         self

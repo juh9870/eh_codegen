@@ -330,7 +330,7 @@ impl DatabaseHolder {
                                 .replace(':', "-");
                             format!("{id}_{type_name}.json")
                         })
-                        .unwrap_or_else(|| format!("{type_name}_{id}.json"))
+                        .unwrap_or_else(|| format!("auto_{id}_{type_name}.json"))
                 })
                 .unwrap_or_else(|| format!("{type_name}.json"));
 

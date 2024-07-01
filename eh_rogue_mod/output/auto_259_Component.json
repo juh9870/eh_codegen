@@ -15,9 +15,9 @@
   "WeaponSlotType": "",
   "Restrictions": {
     "ShipSizes": [
-      2,
       0,
       1,
+      2,
       3
     ],
     "UniqueComponentTag": "safeguard"

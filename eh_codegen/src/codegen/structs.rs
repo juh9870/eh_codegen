@@ -471,7 +471,7 @@ fn rust_type(field: &SchemaStructMember, struct_name: &Ident) -> Result<(TokenSt
             }
             SchemaStructMemberType::EnumFlags => {
                 let id = type_id()?;
-                quote!(std::collections::HashSet::<#id>)
+                quote!(std::collections::BTreeSet::<#id>)
             }
             SchemaStructMemberType::Expression => {
                 // MAYBE?: something smarter for expressions?

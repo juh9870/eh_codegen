@@ -1,7 +1,7 @@
 {
   "ItemType": 1,
-  "Id": 267,
-  "Name": "$DroneCamouflage",
+  "Id": 268,
+  "Name": "$MissileCamouflage",
   "Description": "",
   "DisplayCategory": 2,
   "Availability": 2,
@@ -9,17 +9,17 @@
   "Faction": 18,
   "Level": 100,
   "Icon": "camouflage",
-  "Color": "#C7FFC3",
+  "Color": "#B7B9FB",
   "Layout": "111101111",
   "CellType": "2",
-  "DeviceId": 27,
+  "DeviceId": 28,
   "WeaponSlotType": "",
   "Restrictions": {
     "ShipSizes": [
-      2,
-      3,
       0,
-      1
+      1,
+      2,
+      3
     ],
     "UniqueComponentTag": "camouflage"
   },

@@ -2,3 +2,6 @@
 /.idea
 /eh_mod_example/database
 /eh_rogue_mod/database
+flamegraph.svg
+perf.data
+perf.data.old

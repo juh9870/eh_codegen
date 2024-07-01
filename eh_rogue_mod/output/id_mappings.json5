@@ -17,6 +17,9 @@
   "Quest": {
     "debug:starting_boost": 9870001,
     "eh:local_pirates": 5,
+    "eh:scavenger_distress": 106,
+    "eh:scavenger_harbor": 107,
+    "eh:scavenger_trade": 105,
     "eh:tutorial": 1,
     "roguelike:lock_quest": 9870000
   },
