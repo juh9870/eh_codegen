@@ -1,0 +1,108 @@
+{
+  "ItemType": 28,
+  "Id": 128,
+  "RootNode": {
+    "Type": 3,
+    "Requirement": {
+      "Type": 11
+    },
+    "Nodes": [
+      {
+        "Type": 103,
+        "Requirement": {
+          "Type": 0
+        },
+        "WeaponType": 0
+      },
+      {
+        "Type": 4,
+        "Requirement": {
+          "Type": 0
+        },
+        "Nodes": [
+          {
+            "Type": 58,
+            "Requirement": {
+              "Type": 0
+            }
+          },
+          {
+            "Type": 111,
+            "Requirement": {
+              "Type": 6,
+              "DifficultyLevel": 1
+            },
+            "Cooldown": 0.1
+          }
+        ]
+      },
+      {
+        "Type": 4,
+        "Requirement": {
+          "Type": 0
+        },
+        "Nodes": [
+          {
+            "Type": 1,
+            "Requirement": {
+              "Type": 0
+            },
+            "ItemId": 141
+          },
+          {
+            "Type": 3,
+            "Requirement": {
+              "Type": 0
+            },
+            "Nodes": [
+              {
+                "Type": 58,
+                "Requirement": {
+                  "Type": 0
+                }
+              },
+              {
+                "Type": 115,
+                "Requirement": {
+                  "Type": 0
+                }
+              },
+              {
+                "Type": 102,
+                "Requirement": {
+                  "Type": 0
+                }
+              }
+            ]
+          },
+          {
+            "Type": 3,
+            "Requirement": {
+              "Type": 0
+            },
+            "Nodes": [
+              {
+                "Type": 54,
+                "Requirement": {
+                  "Type": 0
+                }
+              },
+              {
+                "Type": 115,
+                "Requirement": {
+                  "Type": 0
+                }
+              },
+              {
+                "Type": 127,
+                "Requirement": {
+                  "Type": 0
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

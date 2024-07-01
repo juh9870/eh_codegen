@@ -1,0 +1,57 @@
+{
+  "ItemType": 28,
+  "Id": 113,
+  "RootNode": {
+    "Type": 3,
+    "Requirement": {
+      "Type": 10,
+      "DeviceClass": 7
+    },
+    "Nodes": [
+      {
+        "Type": 51,
+        "Requirement": {
+          "Type": 0
+        },
+        "MinValue": 0.99
+      },
+      {
+        "Type": 6,
+        "Requirement": {
+          "Type": 0
+        },
+        "Node": {
+          "Type": 60,
+          "Requirement": {
+            "Type": 0
+          }
+        }
+      },
+      {
+        "Type": 6,
+        "Requirement": {
+          "Type": 0
+        },
+        "Node": {
+          "Type": 53,
+          "Requirement": {
+            "Type": 0
+          }
+        }
+      },
+      {
+        "Type": 115,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 114,
+        "Requirement": {
+          "Type": 0
+        },
+        "DeviceClass": 7
+      }
+    ]
+  }
+}

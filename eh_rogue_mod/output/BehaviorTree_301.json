@@ -1,0 +1,19 @@
+{
+  "ItemType": 28,
+  "Id": 301,
+  "RootNode": {
+    "Type": 0,
+    "Requirement": {
+      "Type": 2,
+      "Requirements": [
+        {
+          "Type": 13
+        },
+        {
+          "Type": 101,
+          "Value": 5.0
+        }
+      ]
+    }
+  }
+}

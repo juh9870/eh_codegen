@@ -1,0 +1,19 @@
+{
+  "ItemType": 2,
+  "Id": 32,
+  "DeviceClass": 21,
+  "EnergyConsumption": 10.0,
+  "PassiveEnergyConsumption": 5.0,
+  "Power": 100.0,
+  "Range": 44.0,
+  "Size": 2.0,
+  "Cooldown": 3.0,
+  "Offset": {},
+  "ActivationType": 1,
+  "Color": "#FF40FF",
+  "Sound": "hit_01",
+  "EffectPrefab": "",
+  "VisualEffect": 17,
+  "ObjectPrefab": "",
+  "ControlButtonIcon": "controls_gear"
+}

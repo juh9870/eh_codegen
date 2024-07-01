@@ -1,0 +1,14 @@
+{
+  "ItemType": 2,
+  "Id": 28,
+  "DeviceClass": 20,
+  "PassiveEnergyConsumption": 20.0,
+  "Power": 0.9,
+  "Offset": {},
+  "ActivationType": 0,
+  "Color": "#40FFFFFF",
+  "Sound": "",
+  "EffectPrefab": "",
+  "ObjectPrefab": "",
+  "ControlButtonIcon": ""
+}

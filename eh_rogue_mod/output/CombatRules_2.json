@@ -1,0 +1,11 @@
+{
+  "ItemType": 30,
+  "Id": 2,
+  "TimeLimit": "60",
+  "TimeOutMode": 0,
+  "LootCondition": 2,
+  "ExpCondition": 2,
+  "ShipSelection": 0,
+  "DisableSkillBonuses": true,
+  "CustomSoundtrack": []
+}

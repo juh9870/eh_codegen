@@ -1,0 +1,35 @@
+{
+  "ItemType": 25,
+  "Id": 121,
+  "Body": {
+    "Size": 1.0,
+    "ParentVelocityEffect": 0.0,
+    "Lifetime": 0.5,
+    "Color": "#FF0000",
+    "EnergyCost": 1.0,
+    "AiBulletBehavior": 0,
+    "Type": 2
+  },
+  "Controller": {
+    "Type": 0
+  },
+  "Triggers": [
+    {
+      "EffectType": 1,
+      "Condition": 1,
+      "VisualEffect": 7,
+      "AudioClip": "",
+      "ColorMode": 0,
+      "Size": 1.0,
+      "Lifetime": 1.0
+    }
+  ],
+  "ImpactType": 1,
+  "Effects": [
+    {
+      "Type": 0,
+      "DamageType": 1,
+      "Power": 1.0
+    }
+  ]
+}

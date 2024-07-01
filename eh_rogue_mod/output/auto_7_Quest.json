@@ -1,0 +1,80 @@
+{
+  "ItemType": 15,
+  "Id": 7,
+  "Name": "",
+  "QuestType": 0,
+  "StartCondition": 1,
+  "Weight": 0.2,
+  "Origin": {
+    "Type": 0,
+    "Factions": {
+      "Type": 0,
+      "List": []
+    }
+  },
+  "Requirement": {
+    "Type": 0
+  },
+  "Nodes": [
+    {
+      "Type": 10,
+      "Id": 1,
+      "RequiredView": 0,
+      "Message": "$WORM_Message",
+      "Enemy": 4,
+      "Actions": [
+        {
+          "TargetNode": 2,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$WORM_ACTION_Attack"
+        },
+        {
+          "TargetNode": 5,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$WORM_ACTION_Ignore"
+        }
+      ]
+    },
+    {
+      "Type": 20,
+      "Id": 2,
+      "DefaultTransition": 3,
+      "FailureTransition": 6,
+      "Enemy": 4
+    },
+    {
+      "Type": 10,
+      "Id": 3,
+      "RequiredView": 0,
+      "Message": "$MessageCombatReward",
+      "Loot": 7,
+      "Actions": [
+        {
+          "TargetNode": 4,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$ACTION_Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 4,
+      "DefaultTransition": 5,
+      "Loot": 7
+    },
+    {
+      "Type": 40,
+      "Id": 5
+    },
+    {
+      "Type": 41,
+      "Id": 6
+    }
+  ]
+}

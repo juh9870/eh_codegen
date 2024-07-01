@@ -1,0 +1,78 @@
+{
+  "ItemType": 8,
+  "Id": 231,
+  "ShipId": 96,
+  "DifficultyClass": 0,
+  "Components": [
+    {
+      "ComponentId": 21,
+      "Quality": 0
+    },
+    {
+      "ComponentId": 74,
+      "Quality": 0,
+      "X": 1,
+      "Y": 2,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 66,
+      "Quality": 0,
+      "X": 4,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 69,
+      "Quality": 0,
+      "X": 3,
+      "Y": 4,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 69,
+      "Quality": 0,
+      "X": 3,
+      "Y": 2,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 69,
+      "Quality": 0,
+      "X": 4,
+      "Y": 3,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 69,
+      "Quality": 0,
+      "X": 4,
+      "Y": 2,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 66,
+      "Quality": 0,
+      "Y": 4,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 5,
+      "Y": 2,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 58,
+      "Quality": 0,
+      "X": 4,
+      "Y": 4,
+      "KeyBinding": 1
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "ItemType": 26,
+  "Id": 2,
+  "Elements": [
+    {
+      "Type": 2,
+      "Image": "wave",
+      "ColorMode": 0,
+      "Size": 1.2,
+      "Offset": {}
+    },
+    {
+      "Type": 1,
+      "Image": "star",
+      "ColorMode": 0,
+      "Size": 2.0,
+      "Offset": {}
+    },
+    {
+      "Type": 1,
+      "Image": "star",
+      "ColorMode": 1,
+      "Offset": {}
+    },
+    {
+      "Type": 5,
+      "Image": "",
+      "ColorMode": 0,
+      "Offset": {}
+    }
+  ]
+}

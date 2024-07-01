@@ -1,0 +1,57 @@
+{
+  "ItemType": 28,
+  "Id": 125,
+  "RootNode": {
+    "Type": 7,
+    "Requirement": {
+      "Type": 0
+    },
+    "Node": {
+      "Type": 2,
+      "Requirement": {
+        "Type": 0
+      },
+      "Nodes": [
+        {
+          "Type": 3,
+          "Requirement": {
+            "Type": 0
+          },
+          "Nodes": [
+            {
+              "Type": 304,
+              "Requirement": {
+                "Type": 0
+              },
+              "Text": "need_repair"
+            },
+            {
+              "Type": 1,
+              "Requirement": {
+                "Type": 0
+              },
+              "ItemId": 108
+            },
+            {
+              "Type": 302,
+              "Requirement": {
+                "Type": 0
+              },
+              "Result": true,
+              "Text": "wait_for_help"
+            }
+          ]
+        },
+        {
+          "Type": 302,
+          "Requirement": {
+            "Type": 0
+          },
+          "Text": "wait_for_help"
+        }
+      ]
+    },
+    "ExecutionMode": 2,
+    "Cooldown": 20.0
+  }
+}

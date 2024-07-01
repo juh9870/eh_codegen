@@ -1,0 +1,28 @@
+{
+  "ItemType": 1,
+  "Id": 283,
+  "Name": "$ChargerBeam",
+  "Description": "",
+  "DisplayCategory": 1,
+  "Availability": 2,
+  "ComponentStatsId": 1,
+  "Faction": 13,
+  "Level": 150,
+  "Icon": "cannon_1x4",
+  "Color": "#8080FF",
+  "Layout": "0110011001100110",
+  "CellType": "4",
+  "WeaponId": 102,
+  "AmmunitionId": 148,
+  "WeaponSlotType": "L",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    5,
+    7,
+    1,
+    2
+  ]
+}

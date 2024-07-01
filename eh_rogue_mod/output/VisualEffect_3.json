@@ -1,0 +1,38 @@
+{
+  "ItemType": 26,
+  "Id": 3,
+  "Elements": [
+    {
+      "Type": 1,
+      "Image": "star",
+      "ColorMode": 2,
+      "Size": 2.0,
+      "Offset": {}
+    },
+    {
+      "Type": 4,
+      "Image": "CloudWhite",
+      "ColorMode": 2,
+      "Quantity": 3,
+      "GrowthRate": 0.1,
+      "Offset": {}
+    },
+    {
+      "Type": 3,
+      "Image": "CloudWhite",
+      "ColorMode": 1,
+      "Color": "#80202020",
+      "Quantity": 3,
+      "Size": 1.5,
+      "GrowthRate": 0.2,
+      "Lifetime": 3.0,
+      "Offset": {}
+    },
+    {
+      "Type": 5,
+      "Image": "",
+      "ColorMode": 0,
+      "Offset": {}
+    }
+  ]
+}

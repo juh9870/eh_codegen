@@ -1,0 +1,23 @@
+{
+  "ItemType": 1,
+  "Id": 66,
+  "Name": "$FuelCell_M",
+  "Description": "",
+  "DisplayCategory": 3,
+  "Availability": 1,
+  "ComponentStatsId": 66,
+  "Faction": -1,
+  "Level": 15,
+  "Icon": "fueltank12",
+  "Layout": "1111",
+  "CellType": "",
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    9,
+    1
+  ]
+}

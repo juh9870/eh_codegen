@@ -1,0 +1,131 @@
+{
+  "ItemType": 8,
+  "Id": 315,
+  "ShipId": 140,
+  "DifficultyClass": 0,
+  "Components": [
+    {
+      "ComponentId": 199,
+      "Quality": 0,
+      "X": 12,
+      "Y": 7
+    },
+    {
+      "ComponentId": 120,
+      "Quality": 0,
+      "X": 12,
+      "Y": 11,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 61,
+      "Quality": 0,
+      "X": 10,
+      "Y": 21,
+      "KeyBinding": 2
+    },
+    {
+      "ComponentId": 61,
+      "Quality": 0,
+      "X": 14,
+      "Y": 21,
+      "KeyBinding": 2
+    },
+    {
+      "ComponentId": 195,
+      "Quality": 0,
+      "X": 13,
+      "Y": 21,
+      "KeyBinding": 2
+    },
+    {
+      "ComponentId": 55,
+      "Quality": 0,
+      "X": 17,
+      "Y": 21,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 55,
+      "Quality": 0,
+      "X": 8,
+      "Y": 21,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 76,
+      "Quality": 0,
+      "X": 8,
+      "Y": 18,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 76,
+      "Quality": 0,
+      "X": 16,
+      "Y": 18,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 76,
+      "Quality": 0,
+      "X": 12,
+      "Y": 18,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 65,
+      "Quality": 0,
+      "X": 9,
+      "Y": 9,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 65,
+      "Quality": 0,
+      "X": 15,
+      "Y": 9,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 76,
+      "Quality": 0,
+      "X": 8,
+      "Y": 15,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 76,
+      "Quality": 0,
+      "X": 16,
+      "Y": 15,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 10,
+      "Quality": 0,
+      "X": 4,
+      "Y": 13,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 10,
+      "Quality": 0,
+      "X": 20,
+      "Y": 13,
+      "KeyBinding": 3
+    },
+    {
+      "ComponentId": 10,
+      "Quality": 0,
+      "X": 12,
+      "Y": 2,
+      "KeyBinding": 3
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

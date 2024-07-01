@@ -1,0 +1,33 @@
+{
+  "ItemType": 25,
+  "Id": 106,
+  "Body": {
+    "Size": 0.5,
+    "Velocity": 20.0,
+    "Range": 6.0,
+    "Color": "#00C7FF",
+    "BulletPrefab": 7,
+    "AiBulletBehavior": 0,
+    "Type": 0
+  },
+  "Controller": {
+    "Type": 0
+  },
+  "Triggers": [
+    {
+      "EffectType": 1,
+      "Condition": 3,
+      "VisualEffect": 1,
+      "AudioClip": "hit_05",
+      "ColorMode": 0
+    }
+  ],
+  "ImpactType": 0,
+  "Effects": [
+    {
+      "Type": 0,
+      "DamageType": 1,
+      "Power": 3.0
+    }
+  ]
+}

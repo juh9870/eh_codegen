@@ -1,0 +1,13 @@
+{
+  "ItemType": 26,
+  "Id": 14,
+  "Elements": [
+    {
+      "Type": 8,
+      "Image": "beam",
+      "ColorMode": 0,
+      "Quantity": 3,
+      "Offset": {}
+    }
+  ]
+}

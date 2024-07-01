@@ -1,0 +1,45 @@
+{
+  "ItemType": 26,
+  "Id": 4,
+  "Elements": [
+    {
+      "Type": 2,
+      "Image": "wave",
+      "ColorMode": 2,
+      "Size": 6.0,
+      "Offset": {}
+    },
+    {
+      "Type": 1,
+      "Image": "star",
+      "ColorMode": 2,
+      "Size": 4.0,
+      "Offset": {}
+    },
+    {
+      "Type": 4,
+      "Image": "CloudWhite",
+      "ColorMode": 2,
+      "Quantity": 3,
+      "Size": 1.5,
+      "Offset": {}
+    },
+    {
+      "Type": 3,
+      "Image": "CloudWhite",
+      "ColorMode": 1,
+      "Color": "#80202020",
+      "Quantity": 3,
+      "Size": 2.0,
+      "Lifetime": 3.0,
+      "Offset": {}
+    },
+    {
+      "Type": 5,
+      "Image": "",
+      "ColorMode": 0,
+      "Size": 4.0,
+      "Offset": {}
+    }
+  ]
+}

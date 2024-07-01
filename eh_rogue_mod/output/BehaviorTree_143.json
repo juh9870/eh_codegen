@@ -1,0 +1,77 @@
+{
+  "ItemType": 28,
+  "Id": 143,
+  "RootNode": {
+    "Type": 5,
+    "Requirement": {
+      "Type": 0
+    },
+    "Nodes": [
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Provoking1"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Provoking2"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Provoking3"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Provoking4"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Provoking5"
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "ItemType": 15,
+  "Id": 2,
+  "Name": "",
+  "QuestType": 0,
+  "StartCondition": 1,
+  "Weight": 1.0,
+  "Origin": {
+    "Type": 0,
+    "Factions": {
+      "Type": 0,
+      "List": []
+    }
+  },
+  "Requirement": {
+    "Type": 0
+  },
+  "Nodes": [
+    {
+      "Type": 10,
+      "Id": 1,
+      "RequiredView": 0,
+      "Message": "$Beacon_FreeStuff",
+      "Loot": 3,
+      "Actions": [
+        {
+          "TargetNode": 2,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$ACTION_Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 2,
+      "DefaultTransition": 3,
+      "Loot": 3
+    },
+    {
+      "Type": 40,
+      "Id": 3
+    }
+  ]
+}

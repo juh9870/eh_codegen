@@ -1,0 +1,140 @@
+{
+  "ItemType": 15,
+  "Id": 20,
+  "Name": "$Mission_DestroyPirates",
+  "QuestType": 0,
+  "StartCondition": 3,
+  "Weight": 1.0,
+  "Origin": {
+    "Type": 0,
+    "Factions": {
+      "Type": 0,
+      "List": []
+    }
+  },
+  "Requirement": {
+    "Type": 0
+  },
+  "Nodes": [
+    {
+      "Type": 10,
+      "Id": 1,
+      "RequiredView": 0,
+      "Message": "$Mission_DestroyPirates_Intro",
+      "Character": 3,
+      "Actions": [
+        {
+          "TargetNode": 2,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Continue"
+        }
+      ]
+    },
+    {
+      "Type": 17,
+      "Id": 2,
+      "Message": "",
+      "Transitions": [
+        {
+          "TargetNode": 3,
+          "Requirement": {
+            "Type": 7,
+            "MinValue": 3,
+            "MaxValue": 4
+          }
+        }
+      ]
+    },
+    {
+      "Type": 10,
+      "Id": 3,
+      "RequiredView": 0,
+      "Message": "$Mission_DestroyPirates_Attack",
+      "Enemy": 3,
+      "Character": 3,
+      "Actions": [
+        {
+          "TargetNode": 4,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Continue"
+        }
+      ]
+    },
+    {
+      "Type": 20,
+      "Id": 4,
+      "DefaultTransition": 11,
+      "FailureTransition": 6,
+      "Enemy": 3
+    },
+    {
+      "Type": 17,
+      "Id": 11,
+      "Message": "",
+      "Transitions": [
+        {
+          "TargetNode": 5,
+          "Requirement": {
+            "Type": 30
+          }
+        }
+      ]
+    },
+    {
+      "Type": 10,
+      "Id": 5,
+      "RequiredView": 0,
+      "Message": "$Mission_DestroyPirates_Completed",
+      "Character": 3,
+      "Actions": [
+        {
+          "TargetNode": 7,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Continue"
+        }
+      ]
+    },
+    {
+      "Type": 10,
+      "Id": 6,
+      "RequiredView": 0,
+      "Message": "$Mission_DestroyPirates_Failed",
+      "Character": 3,
+      "Actions": [
+        {
+          "TargetNode": 8,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Continue"
+        }
+      ]
+    },
+    {
+      "Type": 56,
+      "Id": 7,
+      "DefaultTransition": 9,
+      "Value": 5
+    },
+    {
+      "Type": 56,
+      "Id": 8,
+      "DefaultTransition": 10,
+      "Value": -2
+    },
+    {
+      "Type": 40,
+      "Id": 9
+    },
+    {
+      "Type": 41,
+      "Id": 10
+    }
+  ]
+}

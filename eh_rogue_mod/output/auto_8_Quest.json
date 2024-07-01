@@ -1,0 +1,137 @@
+{
+  "ItemType": 15,
+  "Id": 8,
+  "Name": "",
+  "QuestType": 0,
+  "StartCondition": 1,
+  "Weight": 0.9,
+  "Origin": {
+    "Type": 0,
+    "Factions": {
+      "Type": 0,
+      "List": []
+    }
+  },
+  "Requirement": {
+    "Type": 0
+  },
+  "Nodes": [
+    {
+      "Type": 10,
+      "Id": 1,
+      "RequiredView": 0,
+      "Message": "$SOS_OUTOFFUEL_Message",
+      "Enemy": 5,
+      "Character": 6,
+      "Actions": [
+        {
+          "TargetNode": 4,
+          "Requirement": {
+            "Type": 26,
+            "Loot": {
+              "Type": 2,
+              "MinAmount": 5,
+              "MaxAmount": 5
+            }
+          },
+          "ButtonText": "$SOS_OUTOFFUEL_ACTION_Give"
+        },
+        {
+          "TargetNode": 7,
+          "Requirement": {
+            "Type": 26,
+            "Loot": {
+              "Type": 2,
+              "MinAmount": 10,
+              "MaxAmount": 10
+            }
+          },
+          "ButtonText": "$SOS_OUTOFFUEL_ACTION_Give"
+        },
+        {
+          "TargetNode": 2,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$SOS_OUTOFFUEL_ACTION_Attack"
+        },
+        {
+          "TargetNode": 3,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$SOS_OUTOFFUEL_ACTION_Decline"
+        }
+      ]
+    },
+    {
+      "Type": 20,
+      "Id": 2,
+      "DefaultTransition": 3,
+      "FailureTransition": 3,
+      "Enemy": 5
+    },
+    {
+      "Type": 40,
+      "Id": 3
+    },
+    {
+      "Type": 36,
+      "Id": 4,
+      "DefaultTransition": 5,
+      "Loot": 4
+    },
+    {
+      "Type": 10,
+      "Id": 5,
+      "RequiredView": 0,
+      "Message": "$SOS_OUTOFFUEL_Reward",
+      "Loot": 11,
+      "Character": 6,
+      "Actions": [
+        {
+          "TargetNode": 6,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 6,
+      "DefaultTransition": 3,
+      "Loot": 11
+    },
+    {
+      "Type": 36,
+      "Id": 7,
+      "DefaultTransition": 8,
+      "Loot": 9
+    },
+    {
+      "Type": 10,
+      "Id": 8,
+      "RequiredView": 0,
+      "Message": "$SOS_OUTOFFUEL_Reward",
+      "Loot": 17,
+      "Character": 6,
+      "Actions": [
+        {
+          "TargetNode": 9,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 9,
+      "DefaultTransition": 3,
+      "Loot": 17
+    }
+  ]
+}

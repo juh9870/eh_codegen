@@ -1,0 +1,9 @@
+{
+  "ItemType": 30,
+  "Id": 1,
+  "TimeOutMode": 0,
+  "LootCondition": 0,
+  "ExpCondition": 0,
+  "ShipSelection": 0,
+  "CustomSoundtrack": []
+}

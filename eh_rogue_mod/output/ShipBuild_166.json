@@ -1,0 +1,141 @@
+{
+  "ItemType": 8,
+  "Id": 166,
+  "ShipId": 30,
+  "AvailableForPlayer": false,
+  "DifficultyClass": 2,
+  "Components": [
+    {
+      "ComponentId": 57,
+      "Quality": 0,
+      "X": 5,
+      "Y": 7
+    },
+    {
+      "ComponentId": 57,
+      "Quality": 0,
+      "X": 4,
+      "Y": 7
+    },
+    {
+      "ComponentId": 57,
+      "Quality": 0,
+      "X": 3,
+      "Y": 7
+    },
+    {
+      "ComponentId": 57,
+      "Quality": 0,
+      "X": 2,
+      "Y": 7
+    },
+    {
+      "ComponentId": 64,
+      "Quality": 0,
+      "X": 6,
+      "Y": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 64,
+      "Quality": 0,
+      "X": 1,
+      "Y": 6,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 64,
+      "Quality": 0,
+      "X": 1,
+      "Y": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 149,
+      "Quality": 0,
+      "X": 3
+    },
+    {
+      "ComponentId": 91,
+      "Quality": 0,
+      "X": 3,
+      "Y": 2,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 4,
+      "Y": 2,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 71,
+      "Quality": 0,
+      "X": 2,
+      "Y": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 74,
+      "Quality": 0,
+      "X": 3,
+      "Y": 3,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 80,
+      "Quality": 0,
+      "X": 3,
+      "Y": 3,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 12,
+      "Quality": 0,
+      "X": 5,
+      "Y": 3,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 12,
+      "Quality": 0,
+      "X": 2,
+      "Y": 3,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 12,
+      "Quality": 0,
+      "X": 2,
+      "Y": 4,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 54,
+      "Quality": 0,
+      "X": 4,
+      "Y": 6,
+      "KeyBinding": 2
+    },
+    {
+      "ComponentId": 64,
+      "Quality": 0,
+      "X": 6,
+      "Y": 6,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 69,
+      "Quality": 0,
+      "X": 5,
+      "Y": 5,
+      "KeyBinding": -1
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "ItemType": 1,
+  "Id": 56,
+  "Name": "$FusionDrive_M",
+  "Description": "",
+  "DisplayCategory": 4,
+  "Availability": 1,
+  "ComponentStatsId": 56,
+  "Faction": -1,
+  "Level": 25,
+  "Icon": "engine2",
+  "Color": "#C0DCFF",
+  "Layout": "1010",
+  "CellType": "5",
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    1,
+    11,
+    2
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "ItemType": 25,
+  "Id": 141,
+  "Body": {
+    "Size": 4.0,
+    "Length": 100.0,
+    "Velocity": 100.0,
+    "Range": 80.0,
+    "Color": "#FF20FF",
+    "BulletPrefab": 19,
+    "EnergyCost": 200.0,
+    "AiBulletBehavior": 0,
+    "Type": 0
+  },
+  "Controller": {
+    "Type": 0
+  },
+  "Triggers": [
+    {
+      "EffectType": 4,
+      "Condition": 3,
+      "VisualEffect": 2,
+      "AudioClip": "",
+      "ColorMode": 2,
+      "Size": 2.5,
+      "Lifetime": 0.5,
+      "OncePerCollision": true
+    }
+  ],
+  "ImpactType": 2,
+  "Effects": [
+    {
+      "Type": 0,
+      "DamageType": 3,
+      "Power": 500.0
+    }
+  ]
+}

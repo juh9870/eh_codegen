@@ -1,0 +1,24 @@
+{
+  "ItemType": 6,
+  "Id": 125,
+  "ShipType": 3,
+  "ShipRarity": 0,
+  "SizeClass": -1,
+  "Name": "Drone",
+  "Description": "",
+  "IconImage": "ecm_drone",
+  "IconScale": 0.5,
+  "ModelImage": "ecm_drone",
+  "ModelScale": 0.75,
+  "Engines": [],
+  "Layout": "5335333333333333",
+  "Barrels": [],
+  "Features": {
+    "BuiltinDevices": [
+      24
+    ]
+  },
+  "CellsExpansions": 0,
+  "EnginePosition": {},
+  "BuiltinDevices": []
+}

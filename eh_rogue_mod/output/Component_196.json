@@ -1,0 +1,24 @@
+{
+  "ItemType": 1,
+  "Id": 196,
+  "Name": "DroneEngine_1",
+  "Description": "",
+  "DisplayCategory": 4,
+  "Availability": 0,
+  "ComponentStatsId": 196,
+  "Faction": -1,
+  "Level": 5,
+  "Icon": "engine0",
+  "Layout": "1",
+  "CellType": "5",
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    1,
+    2,
+    11
+  ]
+}

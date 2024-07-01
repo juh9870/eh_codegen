@@ -1,0 +1,51 @@
+{
+  "ItemType": 6,
+  "Id": 49,
+  "ShipType": 0,
+  "ShipRarity": 0,
+  "SizeClass": 3,
+  "Name": "$f6_Battleship2",
+  "Description": "",
+  "Faction": 6,
+  "IconImage": "f6s5",
+  "IconScale": 1.0,
+  "ModelImage": "f6s5",
+  "ModelScale": 2.0,
+  "EngineColor": "#30FFAE23",
+  "Engines": [
+    {
+      "Position": {
+        "x": -0.7
+      },
+      "Size": 0.4
+    }
+  ],
+  "Layout": "000000121000000000000222000000000000222000000000000222000000000000121000000000000020000000000000121000000000000222000000000000222000000000000222000000444132222231444444132252231444044115555511440000000555000000000000050000000",
+  "Barrels": [
+    {
+      "Position": {
+        "x": -0.4,
+        "y": 0.7
+      },
+      "Rotation": 10.0,
+      "WeaponClass": "S",
+      "Image": ""
+    },
+    {
+      "Position": {
+        "x": -0.4,
+        "y": -0.7
+      },
+      "Rotation": -10.0,
+      "WeaponClass": "S",
+      "Image": ""
+    }
+  ],
+  "Features": {
+    "Regeneration": true,
+    "BuiltinDevices": []
+  },
+  "CellsExpansions": 0,
+  "EnginePosition": {},
+  "BuiltinDevices": []
+}

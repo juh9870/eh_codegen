@@ -1,0 +1,25 @@
+{
+  "ItemType": 1,
+  "Id": 214,
+  "Name": "$Teleporter_Boss",
+  "Description": "",
+  "DisplayCategory": 6,
+  "Availability": 0,
+  "ComponentStatsId": 3,
+  "Faction": 4,
+  "Icon": "teleporter1",
+  "Layout": "010111010",
+  "CellType": "2",
+  "DeviceId": 19,
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    2,
+    7,
+    1,
+    6
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "ItemType": 28,
+  "Id": 10,
+  "RootNode": {
+    "Type": 4,
+    "Requirement": {
+      "Type": 0
+    },
+    "Nodes": [
+      {
+        "Type": 123,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 117,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 3,
+        "Requirement": {
+          "Type": 0
+        },
+        "Nodes": [
+          {
+            "Type": 115,
+            "Requirement": {
+              "Type": 0
+            },
+            "MaxValue": 0.5
+          },
+          {
+            "Type": 104,
+            "Requirement": {
+              "Type": 0
+            }
+          }
+        ]
+      },
+      {
+        "Type": 3,
+        "Requirement": {
+          "Type": 0
+        },
+        "Nodes": [
+          {
+            "Type": 115,
+            "Requirement": {
+              "Type": 0
+            },
+            "MaxValue": 0.5
+          },
+          {
+            "Type": 131,
+            "Requirement": {
+              "Type": 0
+            }
+          }
+        ]
+      },
+      {
+        "Type": 3,
+        "Requirement": {
+          "Type": 0
+        },
+        "Nodes": [
+          {
+            "Type": 51,
+            "Requirement": {
+              "Type": 0
+            },
+            "MinValue": 0.5
+          },
+          {
+            "Type": 1,
+            "Requirement": {
+              "Type": 0
+            },
+            "ItemId": 125
+          }
+        ]
+      },
+      {
+        "Type": 3,
+        "Requirement": {
+          "Type": 0
+        },
+        "Nodes": [
+          {
+            "Type": 115,
+            "Requirement": {
+              "Type": 0
+            },
+            "MaxValue": 0.5
+          },
+          {
+            "Type": 111,
+            "Requirement": {
+              "Type": 0
+            },
+            "Cooldown": 0.1
+          },
+          {
+            "Type": 127,
+            "Requirement": {
+              "Type": 0
+            },
+            "InRange": true
+          }
+        ]
+      },
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 113
+      },
+      {
+        "Type": 114,
+        "Requirement": {
+          "Type": 0
+        },
+        "DeviceClass": 2
+      }
+    ]
+  }
+}
