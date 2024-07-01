@@ -64,7 +64,7 @@ pub fn build_mod(args: Args) {
 
     permadeath(&db);
     cheap_tech(&db);
-    // bonus_loot(&db);
+    bonus_loot(&db);
     // encounter_patches(&db);
     // debug(&db);
 
@@ -313,7 +313,7 @@ fn upgrade_loot(loot: &mut LootContent, multiplier: f32) {
         LootContent::RandomComponents(c) => {
             c.min_amount = times(c.min_amount);
             c.max_amount = times(c.max_amount);
-            c.value_ratio *= multiplier;
+            c.value_ratio *= multiplier * multiplier;
         }
         LootContent::RandomItems(i) => {
             // Only upgrade inner loot, not min/max amounts

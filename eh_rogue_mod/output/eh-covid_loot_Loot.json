@@ -9,24 +9,24 @@
         "Loot": {
           "Type": 25,
           "ItemId": 16,
-          "MinAmount": 5,
-          "MaxAmount": 50
+          "MinAmount": 50,
+          "MaxAmount": 500
         }
       },
       {
         "Weight": 1.0,
         "Loot": {
           "Type": 1,
-          "ValueRatio": 10.0
+          "ValueRatio": 1000.0
         }
       },
       {
         "Weight": 1.0,
         "Loot": {
           "Type": 10,
-          "MinAmount": 2,
-          "MaxAmount": 6,
-          "ValueRatio": 2.0,
+          "MinAmount": 20,
+          "MaxAmount": 60,
+          "ValueRatio": 200.0,
           "Factions": {
             "Type": 2,
             "List": [

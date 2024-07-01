@@ -14,9 +14,9 @@
       {
         "Loot": {
           "Type": 10,
-          "MinAmount": 5,
-          "MaxAmount": 15,
-          "ValueRatio": 1.0,
+          "MinAmount": 50,
+          "MaxAmount": 150,
+          "ValueRatio": 100.0,
           "Factions": {
             "Type": 1,
             "List": [
@@ -63,8 +63,8 @@
               "Loot": {
                 "Type": 25,
                 "ItemId": 11,
-                "MinAmount": 10,
-                "MaxAmount": 50
+                "MinAmount": 100,
+                "MaxAmount": 500
               }
             },
             {
@@ -72,8 +72,8 @@
               "Loot": {
                 "Type": 25,
                 "ItemId": 16,
-                "MinAmount": 5,
-                "MaxAmount": 25
+                "MinAmount": 50,
+                "MaxAmount": 250
               }
             },
             {
@@ -81,8 +81,8 @@
               "Loot": {
                 "Type": 25,
                 "ItemId": 12,
-                "MinAmount": 5,
-                "MaxAmount": 25
+                "MinAmount": 50,
+                "MaxAmount": 250
               }
             },
             {
@@ -90,8 +90,8 @@
               "Loot": {
                 "Type": 25,
                 "ItemId": 14,
-                "MinAmount": 5,
-                "MaxAmount": 25
+                "MinAmount": 50,
+                "MaxAmount": 250
               }
             },
             {
@@ -99,8 +99,8 @@
               "Loot": {
                 "Type": 25,
                 "ItemId": 5,
-                "MinAmount": 200,
-                "MaxAmount": 2000
+                "MinAmount": 2000,
+                "MaxAmount": 20000
               }
             }
           ]
