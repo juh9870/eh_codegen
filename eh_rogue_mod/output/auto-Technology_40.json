@@ -3,7 +3,7 @@
   "Type": 1,
   "Id": 40,
   "ItemId": 10,
-  "Price": 100,
+  "Price": 20,
   "Dependencies": [
     50,
     41

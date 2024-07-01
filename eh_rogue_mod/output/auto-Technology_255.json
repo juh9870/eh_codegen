@@ -3,8 +3,7 @@
   "Type": 1,
   "Id": 255,
   "ItemId": 73,
-  "Price": 10,
-  "Hidden": true,
+  "Price": 5,
   "Dependencies": [
     253
   ]
