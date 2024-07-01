@@ -68,7 +68,7 @@ impl<T: Any + Clone + Into<Item>> StoredDbItem<T> {
 }
 
 fn transmogrify<T: Any>(item: Item) -> T {
-    *item.as_inner_any().downcast::<T>().unwrap()
+    *item.into_inner_any().downcast::<T>().unwrap()
 }
 // fn transmogrify_mut<T:Any>(item: &mut Item) -> &mut T {
 //     item.as_inner_any_mut().downcast_mut().unwrap()

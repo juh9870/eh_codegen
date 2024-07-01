@@ -2998,7 +2998,7 @@ impl<'de> serde::Deserialize<'de> for BehaviorNodeRequirement {
     }
 }
 impl BehaviorNodeRequirement {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Empty(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::Any(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -9569,7 +9569,7 @@ impl<'de> serde::Deserialize<'de> for BehaviorTreeNode {
     }
 }
 impl BehaviorTreeNode {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Success(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::Failure(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -10005,6 +10005,184 @@ impl BehaviorTreeNode {
             Self::HasSavedTarget(x) => &mut x.r#requirement,
             Self::ForgetSavedTarget(x) => &mut x.r#requirement,
         }
+    }
+    pub fn set_requirement(&mut self, value: impl Into<BehaviorNodeRequirement>) -> &mut Self {
+        match self {
+            Self::Success(x) => x.r#requirement = value.into(),
+            Self::Failure(x) => x.r#requirement = value.into(),
+            Self::SubTree(x) => x.r#requirement = value.into(),
+            Self::Selector(x) => x.r#requirement = value.into(),
+            Self::Sequence(x) => x.r#requirement = value.into(),
+            Self::Parallel(x) => x.r#requirement = value.into(),
+            Self::RandomSelector(x) => x.r#requirement = value.into(),
+            Self::Invertor(x) => x.r#requirement = value.into(),
+            Self::Cooldown(x) => x.r#requirement = value.into(),
+            Self::Execute(x) => x.r#requirement = value.into(),
+            Self::ParallelSequence(x) => x.r#requirement = value.into(),
+            Self::PreserveTarget(x) => x.r#requirement = value.into(),
+            Self::IfThenElse(x) => x.r#requirement = value.into(),
+            Self::HasEnoughEnergy(x) => x.r#requirement = value.into(),
+            Self::IsLowOnHp(x) => x.r#requirement = value.into(),
+            Self::IsNotControledByPlayer(x) => x.r#requirement = value.into(),
+            Self::HasIncomingThreat(x) => x.r#requirement = value.into(),
+            Self::HasAdditionalTargets(x) => x.r#requirement = value.into(),
+            Self::IsFasterThanTarget(x) => x.r#requirement = value.into(),
+            Self::HasMainTarget(x) => x.r#requirement = value.into(),
+            Self::MainTargetIsAlly(x) => x.r#requirement = value.into(),
+            Self::MainTargetIsEnemy(x) => x.r#requirement = value.into(),
+            Self::MainTargetLowHp(x) => x.r#requirement = value.into(),
+            Self::MainTargetWithinAttackRange(x) => x.r#requirement = value.into(),
+            Self::HasMothership(x) => x.r#requirement = value.into(),
+            Self::TargetDistance(x) => x.r#requirement = value.into(),
+            Self::HasLongerAttackRange(x) => x.r#requirement = value.into(),
+            Self::FindEnemy(x) => x.r#requirement = value.into(),
+            Self::MoveToAttackRange(x) => x.r#requirement = value.into(),
+            Self::AttackMainTarget(x) => x.r#requirement = value.into(),
+            Self::SelectWeapon(x) => x.r#requirement = value.into(),
+            Self::SpawnDrones(x) => x.r#requirement = value.into(),
+            Self::Ram(x) => x.r#requirement = value.into(),
+            Self::DetonateShip(x) => x.r#requirement = value.into(),
+            Self::Vanish(x) => x.r#requirement = value.into(),
+            Self::MaintainAttackRange(x) => x.r#requirement = value.into(),
+            Self::Wait(x) => x.r#requirement = value.into(),
+            Self::LookAtTarget(x) => x.r#requirement = value.into(),
+            Self::LookForAdditionalTargets(x) => x.r#requirement = value.into(),
+            Self::LookForThreats(x) => x.r#requirement = value.into(),
+            Self::MatchVelocityWithTarget(x) => x.r#requirement = value.into(),
+            Self::ActivateDevice(x) => x.r#requirement = value.into(),
+            Self::RechargeEnergy(x) => x.r#requirement = value.into(),
+            Self::SustainAim(x) => x.r#requirement = value.into(),
+            Self::ChargeWeapons(x) => x.r#requirement = value.into(),
+            Self::Chase(x) => x.r#requirement = value.into(),
+            Self::AvoidThreats(x) => x.r#requirement = value.into(),
+            Self::SlowDown(x) => x.r#requirement = value.into(),
+            Self::UseRecoil(x) => x.r#requirement = value.into(),
+            Self::DefendWithFronalShield(x) => x.r#requirement = value.into(),
+            Self::TrackControllableAmmo(x) => x.r#requirement = value.into(),
+            Self::KeepDistance(x) => x.r#requirement = value.into(),
+            Self::ForgetMainTarget(x) => x.r#requirement = value.into(),
+            Self::EscapeTargetAttackRadius(x) => x.r#requirement = value.into(),
+            Self::AttackAdditionalTargets(x) => x.r#requirement = value.into(),
+            Self::TargetAllyStarbase(x) => x.r#requirement = value.into(),
+            Self::TargetEnemyStarbase(x) => x.r#requirement = value.into(),
+            Self::BypassObstacles(x) => x.r#requirement = value.into(),
+            Self::AttackTurretTargets(x) => x.r#requirement = value.into(),
+            Self::HoldHarpoon(x) => x.r#requirement = value.into(),
+            Self::FindDamagedAlly(x) => x.r#requirement = value.into(),
+            Self::EnginePropulsionForce(x) => x.r#requirement = value.into(),
+            Self::MotherShipRetreated(x) => x.r#requirement = value.into(),
+            Self::MotherShipDestroyed(x) => x.r#requirement = value.into(),
+            Self::FlyAroundMothership(x) => x.r#requirement = value.into(),
+            Self::GoBerserk(x) => x.r#requirement = value.into(),
+            Self::TargetMothership(x) => x.r#requirement = value.into(),
+            Self::MothershipLowHp(x) => x.r#requirement = value.into(),
+            Self::MothershipDistanceExceeded(x) => x.r#requirement = value.into(),
+            Self::MakeTargetMothership(x) => x.r#requirement = value.into(),
+            Self::MothershipLowEnergy(x) => x.r#requirement = value.into(),
+            Self::MothershipLowShield(x) => x.r#requirement = value.into(),
+            Self::ShowMessage(x) => x.r#requirement = value.into(),
+            Self::DebugLog(x) => x.r#requirement = value.into(),
+            Self::SetValue(x) => x.r#requirement = value.into(),
+            Self::GetValue(x) => x.r#requirement = value.into(),
+            Self::SendMessage(x) => x.r#requirement = value.into(),
+            Self::MessageReceived(x) => x.r#requirement = value.into(),
+            Self::TargetMessageSender(x) => x.r#requirement = value.into(),
+            Self::SaveTarget(x) => x.r#requirement = value.into(),
+            Self::LoadTarget(x) => x.r#requirement = value.into(),
+            Self::HasSavedTarget(x) => x.r#requirement = value.into(),
+            Self::ForgetSavedTarget(x) => x.r#requirement = value.into(),
+        }
+        self
+    }
+    pub fn with_requirement(mut self, value: impl Into<BehaviorNodeRequirement>) -> Self {
+        match self {
+            Self::Success(ref mut x) => x.r#requirement = value.into(),
+            Self::Failure(ref mut x) => x.r#requirement = value.into(),
+            Self::SubTree(ref mut x) => x.r#requirement = value.into(),
+            Self::Selector(ref mut x) => x.r#requirement = value.into(),
+            Self::Sequence(ref mut x) => x.r#requirement = value.into(),
+            Self::Parallel(ref mut x) => x.r#requirement = value.into(),
+            Self::RandomSelector(ref mut x) => x.r#requirement = value.into(),
+            Self::Invertor(ref mut x) => x.r#requirement = value.into(),
+            Self::Cooldown(ref mut x) => x.r#requirement = value.into(),
+            Self::Execute(ref mut x) => x.r#requirement = value.into(),
+            Self::ParallelSequence(ref mut x) => x.r#requirement = value.into(),
+            Self::PreserveTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::IfThenElse(ref mut x) => x.r#requirement = value.into(),
+            Self::HasEnoughEnergy(ref mut x) => x.r#requirement = value.into(),
+            Self::IsLowOnHp(ref mut x) => x.r#requirement = value.into(),
+            Self::IsNotControledByPlayer(ref mut x) => x.r#requirement = value.into(),
+            Self::HasIncomingThreat(ref mut x) => x.r#requirement = value.into(),
+            Self::HasAdditionalTargets(ref mut x) => x.r#requirement = value.into(),
+            Self::IsFasterThanTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::HasMainTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::MainTargetIsAlly(ref mut x) => x.r#requirement = value.into(),
+            Self::MainTargetIsEnemy(ref mut x) => x.r#requirement = value.into(),
+            Self::MainTargetLowHp(ref mut x) => x.r#requirement = value.into(),
+            Self::MainTargetWithinAttackRange(ref mut x) => {
+                x.r#requirement = value.into();
+            }
+            Self::HasMothership(ref mut x) => x.r#requirement = value.into(),
+            Self::TargetDistance(ref mut x) => x.r#requirement = value.into(),
+            Self::HasLongerAttackRange(ref mut x) => x.r#requirement = value.into(),
+            Self::FindEnemy(ref mut x) => x.r#requirement = value.into(),
+            Self::MoveToAttackRange(ref mut x) => x.r#requirement = value.into(),
+            Self::AttackMainTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::SelectWeapon(ref mut x) => x.r#requirement = value.into(),
+            Self::SpawnDrones(ref mut x) => x.r#requirement = value.into(),
+            Self::Ram(ref mut x) => x.r#requirement = value.into(),
+            Self::DetonateShip(ref mut x) => x.r#requirement = value.into(),
+            Self::Vanish(ref mut x) => x.r#requirement = value.into(),
+            Self::MaintainAttackRange(ref mut x) => x.r#requirement = value.into(),
+            Self::Wait(ref mut x) => x.r#requirement = value.into(),
+            Self::LookAtTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::LookForAdditionalTargets(ref mut x) => x.r#requirement = value.into(),
+            Self::LookForThreats(ref mut x) => x.r#requirement = value.into(),
+            Self::MatchVelocityWithTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::ActivateDevice(ref mut x) => x.r#requirement = value.into(),
+            Self::RechargeEnergy(ref mut x) => x.r#requirement = value.into(),
+            Self::SustainAim(ref mut x) => x.r#requirement = value.into(),
+            Self::ChargeWeapons(ref mut x) => x.r#requirement = value.into(),
+            Self::Chase(ref mut x) => x.r#requirement = value.into(),
+            Self::AvoidThreats(ref mut x) => x.r#requirement = value.into(),
+            Self::SlowDown(ref mut x) => x.r#requirement = value.into(),
+            Self::UseRecoil(ref mut x) => x.r#requirement = value.into(),
+            Self::DefendWithFronalShield(ref mut x) => x.r#requirement = value.into(),
+            Self::TrackControllableAmmo(ref mut x) => x.r#requirement = value.into(),
+            Self::KeepDistance(ref mut x) => x.r#requirement = value.into(),
+            Self::ForgetMainTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::EscapeTargetAttackRadius(ref mut x) => x.r#requirement = value.into(),
+            Self::AttackAdditionalTargets(ref mut x) => x.r#requirement = value.into(),
+            Self::TargetAllyStarbase(ref mut x) => x.r#requirement = value.into(),
+            Self::TargetEnemyStarbase(ref mut x) => x.r#requirement = value.into(),
+            Self::BypassObstacles(ref mut x) => x.r#requirement = value.into(),
+            Self::AttackTurretTargets(ref mut x) => x.r#requirement = value.into(),
+            Self::HoldHarpoon(ref mut x) => x.r#requirement = value.into(),
+            Self::FindDamagedAlly(ref mut x) => x.r#requirement = value.into(),
+            Self::EnginePropulsionForce(ref mut x) => x.r#requirement = value.into(),
+            Self::MotherShipRetreated(ref mut x) => x.r#requirement = value.into(),
+            Self::MotherShipDestroyed(ref mut x) => x.r#requirement = value.into(),
+            Self::FlyAroundMothership(ref mut x) => x.r#requirement = value.into(),
+            Self::GoBerserk(ref mut x) => x.r#requirement = value.into(),
+            Self::TargetMothership(ref mut x) => x.r#requirement = value.into(),
+            Self::MothershipLowHp(ref mut x) => x.r#requirement = value.into(),
+            Self::MothershipDistanceExceeded(ref mut x) => x.r#requirement = value.into(),
+            Self::MakeTargetMothership(ref mut x) => x.r#requirement = value.into(),
+            Self::MothershipLowEnergy(ref mut x) => x.r#requirement = value.into(),
+            Self::MothershipLowShield(ref mut x) => x.r#requirement = value.into(),
+            Self::ShowMessage(ref mut x) => x.r#requirement = value.into(),
+            Self::DebugLog(ref mut x) => x.r#requirement = value.into(),
+            Self::SetValue(ref mut x) => x.r#requirement = value.into(),
+            Self::GetValue(ref mut x) => x.r#requirement = value.into(),
+            Self::SendMessage(ref mut x) => x.r#requirement = value.into(),
+            Self::MessageReceived(ref mut x) => x.r#requirement = value.into(),
+            Self::TargetMessageSender(ref mut x) => x.r#requirement = value.into(),
+            Self::SaveTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::LoadTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::HasSavedTarget(ref mut x) => x.r#requirement = value.into(),
+            Self::ForgetSavedTarget(ref mut x) => x.r#requirement = value.into(),
+        }
+        self
     }
 }
 impl DatabaseItem for BehaviorTreeNode {
@@ -12353,7 +12531,7 @@ impl<'de> serde::Deserialize<'de> for LootContent {
     }
 }
 impl LootContent {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::None(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::SomeMoney(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -16121,7 +16299,7 @@ impl<'de> serde::Deserialize<'de> for Node {
     }
 }
 impl Node {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Undefined(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::ComingSoon(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -16292,6 +16470,76 @@ impl Node {
             Self::LiberateStarBase(x) => &mut x.r#id,
             Self::ChangeFaction(x) => &mut x.r#id,
         }
+    }
+    pub fn set_id(&mut self, value: impl Into<i32>) -> &mut Self {
+        match self {
+            Self::Undefined(x) => x.r#id = value.into(),
+            Self::ComingSoon(x) => x.r#id = value.into(),
+            Self::ShowDialog(x) => x.r#id = value.into(),
+            Self::OpenShipyard(x) => x.r#id = value.into(),
+            Self::OpenWorkshop(x) => x.r#id = value.into(),
+            Self::Switch(x) => x.r#id = value.into(),
+            Self::Random(x) => x.r#id = value.into(),
+            Self::Condition(x) => x.r#id = value.into(),
+            Self::AttackFleet(x) => x.r#id = value.into(),
+            Self::AttackOccupants(x) => x.r#id = value.into(),
+            Self::AttackStarbase(x) => x.r#id = value.into(),
+            Self::DestroyOccupants(x) => x.r#id = value.into(),
+            Self::SuppressOccupants(x) => x.r#id = value.into(),
+            Self::Retreat(x) => x.r#id = value.into(),
+            Self::ReceiveItem(x) => x.r#id = value.into(),
+            Self::RemoveItem(x) => x.r#id = value.into(),
+            Self::Trade(x) => x.r#id = value.into(),
+            Self::CompleteQuest(x) => x.r#id = value.into(),
+            Self::FailQuest(x) => x.r#id = value.into(),
+            Self::CancelQuest(x) => x.r#id = value.into(),
+            Self::StartQuest(x) => x.r#id = value.into(),
+            Self::SetCharacterRelations(x) => x.r#id = value.into(),
+            Self::SetFactionRelations(x) => x.r#id = value.into(),
+            Self::SetFactionStarbasePower(x) => x.r#id = value.into(),
+            Self::ChangeCharacterRelations(x) => x.r#id = value.into(),
+            Self::ChangeFactionRelations(x) => x.r#id = value.into(),
+            Self::ChangeFactionStarbasePower(x) => x.r#id = value.into(),
+            Self::CaptureStarBase(x) => x.r#id = value.into(),
+            Self::LiberateStarBase(x) => x.r#id = value.into(),
+            Self::ChangeFaction(x) => x.r#id = value.into(),
+        }
+        self
+    }
+    pub fn with_id(mut self, value: impl Into<i32>) -> Self {
+        match self {
+            Self::Undefined(ref mut x) => x.r#id = value.into(),
+            Self::ComingSoon(ref mut x) => x.r#id = value.into(),
+            Self::ShowDialog(ref mut x) => x.r#id = value.into(),
+            Self::OpenShipyard(ref mut x) => x.r#id = value.into(),
+            Self::OpenWorkshop(ref mut x) => x.r#id = value.into(),
+            Self::Switch(ref mut x) => x.r#id = value.into(),
+            Self::Random(ref mut x) => x.r#id = value.into(),
+            Self::Condition(ref mut x) => x.r#id = value.into(),
+            Self::AttackFleet(ref mut x) => x.r#id = value.into(),
+            Self::AttackOccupants(ref mut x) => x.r#id = value.into(),
+            Self::AttackStarbase(ref mut x) => x.r#id = value.into(),
+            Self::DestroyOccupants(ref mut x) => x.r#id = value.into(),
+            Self::SuppressOccupants(ref mut x) => x.r#id = value.into(),
+            Self::Retreat(ref mut x) => x.r#id = value.into(),
+            Self::ReceiveItem(ref mut x) => x.r#id = value.into(),
+            Self::RemoveItem(ref mut x) => x.r#id = value.into(),
+            Self::Trade(ref mut x) => x.r#id = value.into(),
+            Self::CompleteQuest(ref mut x) => x.r#id = value.into(),
+            Self::FailQuest(ref mut x) => x.r#id = value.into(),
+            Self::CancelQuest(ref mut x) => x.r#id = value.into(),
+            Self::StartQuest(ref mut x) => x.r#id = value.into(),
+            Self::SetCharacterRelations(ref mut x) => x.r#id = value.into(),
+            Self::SetFactionRelations(ref mut x) => x.r#id = value.into(),
+            Self::SetFactionStarbasePower(ref mut x) => x.r#id = value.into(),
+            Self::ChangeCharacterRelations(ref mut x) => x.r#id = value.into(),
+            Self::ChangeFactionRelations(ref mut x) => x.r#id = value.into(),
+            Self::ChangeFactionStarbasePower(ref mut x) => x.r#id = value.into(),
+            Self::CaptureStarBase(ref mut x) => x.r#id = value.into(),
+            Self::LiberateStarBase(ref mut x) => x.r#id = value.into(),
+            Self::ChangeFaction(ref mut x) => x.r#id = value.into(),
+        }
+        self
     }
 }
 impl DatabaseItem for Node {
@@ -18305,7 +18553,7 @@ impl<'de> serde::Deserialize<'de> for Requirement {
     }
 }
 impl Requirement {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Empty(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::Any(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -20039,7 +20287,7 @@ impl<'de> serde::Deserialize<'de> for BulletController {
     }
 }
 impl BulletController {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Projectile(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::Homing(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -21229,7 +21477,7 @@ impl<'de> serde::Deserialize<'de> for BulletTrigger {
     }
 }
 impl BulletTrigger {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::None(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::PlaySfx(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -21281,6 +21529,28 @@ impl BulletTrigger {
             Self::GravityField(x) => &mut x.r#condition,
         }
     }
+    pub fn set_condition(&mut self, value: impl Into<BulletTriggerCondition>) -> &mut Self {
+        match self {
+            Self::None(x) => x.r#condition = value.into(),
+            Self::PlaySfx(x) => x.r#condition = value.into(),
+            Self::SpawnBullet(x) => x.r#condition = value.into(),
+            Self::Detonate(x) => x.r#condition = value.into(),
+            Self::SpawnStaticSfx(x) => x.r#condition = value.into(),
+            Self::GravityField(x) => x.r#condition = value.into(),
+        }
+        self
+    }
+    pub fn with_condition(mut self, value: impl Into<BulletTriggerCondition>) -> Self {
+        match self {
+            Self::None(ref mut x) => x.r#condition = value.into(),
+            Self::PlaySfx(ref mut x) => x.r#condition = value.into(),
+            Self::SpawnBullet(ref mut x) => x.r#condition = value.into(),
+            Self::Detonate(ref mut x) => x.r#condition = value.into(),
+            Self::SpawnStaticSfx(ref mut x) => x.r#condition = value.into(),
+            Self::GravityField(ref mut x) => x.r#condition = value.into(),
+        }
+        self
+    }
 }
 impl BulletTrigger {
     pub fn r#cooldown(&self) -> &f32 {
@@ -21302,6 +21572,28 @@ impl BulletTrigger {
             Self::SpawnStaticSfx(x) => &mut x.r#cooldown,
             Self::GravityField(x) => &mut x.r#cooldown,
         }
+    }
+    pub fn set_cooldown(&mut self, value: impl Into<f32>) -> &mut Self {
+        match self {
+            Self::None(x) => x.r#cooldown = value.into(),
+            Self::PlaySfx(x) => x.r#cooldown = value.into(),
+            Self::SpawnBullet(x) => x.r#cooldown = value.into(),
+            Self::Detonate(x) => x.r#cooldown = value.into(),
+            Self::SpawnStaticSfx(x) => x.r#cooldown = value.into(),
+            Self::GravityField(x) => x.r#cooldown = value.into(),
+        }
+        self
+    }
+    pub fn with_cooldown(mut self, value: impl Into<f32>) -> Self {
+        match self {
+            Self::None(ref mut x) => x.r#cooldown = value.into(),
+            Self::PlaySfx(ref mut x) => x.r#cooldown = value.into(),
+            Self::SpawnBullet(ref mut x) => x.r#cooldown = value.into(),
+            Self::Detonate(ref mut x) => x.r#cooldown = value.into(),
+            Self::SpawnStaticSfx(ref mut x) => x.r#cooldown = value.into(),
+            Self::GravityField(ref mut x) => x.r#cooldown = value.into(),
+        }
+        self
     }
 }
 impl DatabaseItem for BulletTrigger {
@@ -28671,7 +28963,7 @@ impl<'de> serde::Deserialize<'de> for GameObjectPrefab {
     }
 }
 impl GameObjectPrefab {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Undefined(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::WormTailSegment(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -28712,6 +29004,24 @@ impl GameObjectPrefab {
             Self::CircularSpriteObject(x) => &mut x.r#id,
             Self::CircularOutlineObject(x) => &mut x.r#id,
         }
+    }
+    pub fn set_id(&mut self, value: impl Into<GameObjectPrefabId>) -> &mut Self {
+        match self {
+            Self::Undefined(x) => x.r#id = value.into(),
+            Self::WormTailSegment(x) => x.r#id = value.into(),
+            Self::CircularSpriteObject(x) => x.r#id = value.into(),
+            Self::CircularOutlineObject(x) => x.r#id = value.into(),
+        }
+        self
+    }
+    pub fn with_id(mut self, value: impl Into<GameObjectPrefabId>) -> Self {
+        match self {
+            Self::Undefined(ref mut x) => x.r#id = value.into(),
+            Self::WormTailSegment(ref mut x) => x.r#id = value.into(),
+            Self::CircularSpriteObject(ref mut x) => x.r#id = value.into(),
+            Self::CircularOutlineObject(ref mut x) => x.r#id = value.into(),
+        }
+        self
     }
 }
 impl DatabaseItem for GameObjectPrefab {
@@ -31198,7 +31508,7 @@ impl<'de> serde::Deserialize<'de> for Technology {
     }
 }
 impl Technology {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Component(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::Ship(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -31235,6 +31545,22 @@ impl Technology {
             Self::Satellite(x) => &mut x.r#id,
         }
     }
+    pub fn set_id(&mut self, value: impl Into<TechnologyId>) -> &mut Self {
+        match self {
+            Self::Component(x) => x.r#id = value.into(),
+            Self::Ship(x) => x.r#id = value.into(),
+            Self::Satellite(x) => x.r#id = value.into(),
+        }
+        self
+    }
+    pub fn with_id(mut self, value: impl Into<TechnologyId>) -> Self {
+        match self {
+            Self::Component(ref mut x) => x.r#id = value.into(),
+            Self::Ship(ref mut x) => x.r#id = value.into(),
+            Self::Satellite(ref mut x) => x.r#id = value.into(),
+        }
+        self
+    }
 }
 impl Technology {
     pub fn r#price(&self) -> &i32 {
@@ -31250,6 +31576,22 @@ impl Technology {
             Self::Ship(x) => &mut x.r#price,
             Self::Satellite(x) => &mut x.r#price,
         }
+    }
+    pub fn set_price(&mut self, value: impl Into<i32>) -> &mut Self {
+        match self {
+            Self::Component(x) => x.r#price = value.into(),
+            Self::Ship(x) => x.r#price = value.into(),
+            Self::Satellite(x) => x.r#price = value.into(),
+        }
+        self
+    }
+    pub fn with_price(mut self, value: impl Into<i32>) -> Self {
+        match self {
+            Self::Component(ref mut x) => x.r#price = value.into(),
+            Self::Ship(ref mut x) => x.r#price = value.into(),
+            Self::Satellite(ref mut x) => x.r#price = value.into(),
+        }
+        self
     }
 }
 impl Technology {
@@ -31267,6 +31609,22 @@ impl Technology {
             Self::Satellite(x) => &mut x.r#hidden,
         }
     }
+    pub fn set_hidden(&mut self, value: impl Into<bool>) -> &mut Self {
+        match self {
+            Self::Component(x) => x.r#hidden = value.into(),
+            Self::Ship(x) => x.r#hidden = value.into(),
+            Self::Satellite(x) => x.r#hidden = value.into(),
+        }
+        self
+    }
+    pub fn with_hidden(mut self, value: impl Into<bool>) -> Self {
+        match self {
+            Self::Component(ref mut x) => x.r#hidden = value.into(),
+            Self::Ship(ref mut x) => x.r#hidden = value.into(),
+            Self::Satellite(ref mut x) => x.r#hidden = value.into(),
+        }
+        self
+    }
 }
 impl Technology {
     pub fn r#special(&self) -> &bool {
@@ -31282,6 +31640,22 @@ impl Technology {
             Self::Ship(x) => &mut x.r#special,
             Self::Satellite(x) => &mut x.r#special,
         }
+    }
+    pub fn set_special(&mut self, value: impl Into<bool>) -> &mut Self {
+        match self {
+            Self::Component(x) => x.r#special = value.into(),
+            Self::Ship(x) => x.r#special = value.into(),
+            Self::Satellite(x) => x.r#special = value.into(),
+        }
+        self
+    }
+    pub fn with_special(mut self, value: impl Into<bool>) -> Self {
+        match self {
+            Self::Component(ref mut x) => x.r#special = value.into(),
+            Self::Ship(ref mut x) => x.r#special = value.into(),
+            Self::Satellite(ref mut x) => x.r#special = value.into(),
+        }
+        self
     }
 }
 impl Technology {
@@ -31299,6 +31673,22 @@ impl Technology {
             Self::Satellite(x) => &mut x.r#dependencies,
         }
     }
+    pub fn set_dependencies(&mut self, value: impl Into<Vec<TechnologyId>>) -> &mut Self {
+        match self {
+            Self::Component(x) => x.r#dependencies = value.into(),
+            Self::Ship(x) => x.r#dependencies = value.into(),
+            Self::Satellite(x) => x.r#dependencies = value.into(),
+        }
+        self
+    }
+    pub fn with_dependencies(mut self, value: impl Into<Vec<TechnologyId>>) -> Self {
+        match self {
+            Self::Component(ref mut x) => x.r#dependencies = value.into(),
+            Self::Ship(ref mut x) => x.r#dependencies = value.into(),
+            Self::Satellite(ref mut x) => x.r#dependencies = value.into(),
+        }
+        self
+    }
 }
 impl Technology {
     pub fn r#custom_crafting_level(&self) -> &i32 {
@@ -31314,6 +31704,22 @@ impl Technology {
             Self::Ship(x) => &mut x.r#custom_crafting_level,
             Self::Satellite(x) => &mut x.r#custom_crafting_level,
         }
+    }
+    pub fn set_custom_crafting_level(&mut self, value: impl Into<i32>) -> &mut Self {
+        match self {
+            Self::Component(x) => x.r#custom_crafting_level = value.into(),
+            Self::Ship(x) => x.r#custom_crafting_level = value.into(),
+            Self::Satellite(x) => x.r#custom_crafting_level = value.into(),
+        }
+        self
+    }
+    pub fn with_custom_crafting_level(mut self, value: impl Into<i32>) -> Self {
+        match self {
+            Self::Component(ref mut x) => x.r#custom_crafting_level = value.into(),
+            Self::Ship(ref mut x) => x.r#custom_crafting_level = value.into(),
+            Self::Satellite(ref mut x) => x.r#custom_crafting_level = value.into(),
+        }
+        self
     }
 }
 impl DatabaseItem for Technology {
@@ -32893,7 +33299,7 @@ impl<'de> serde::Deserialize<'de> for Item {
     }
 }
 impl Item {
-    pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+    pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
         match self {
             Self::Component(x) => Box::new(x) as Box<dyn std::any::Any>,
             Self::Device(x) => Box::new(x) as Box<dyn std::any::Any>,
@@ -33201,310 +33607,156 @@ macro_rules! apply_items {
 
 // Helper functions
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ(x: &String) -> bool {
-    x == "#A0FFFFFF"
-}
-#[allow(non_snake_case)]
-pub fn default_300f32() -> f32 {
-    300f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "1 + credits/500"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ(x: &String) -> bool {
-    x == "#FFF0A0"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ50C0FFඞquoteඞ(x: &String) -> bool {
-    x == "#50C0FF"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ() -> String {
-    "MIN(level*2,500)".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ() -> String {
-    "#20FF8050".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞFF4040ඞquoteඞ() -> String {
-    "#FF4040".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ000000ඞquoteඞ(x: &String) -> bool {
-    x == "#000000"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ() -> String {
-    "#40FFFFC0".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞF09FFFඞquoteඞ(x: &String) -> bool {
-    x == "#F09FFF"
-}
-#[allow(non_snake_case)]
-pub fn default_10i32() -> i32 {
-    10i32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ(
-) -> String {
-    "IF(Quantity <= 1, 0, Size / 2)".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ(x: &String) -> bool {
-    x == "#00000000"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ(x: &String) -> bool {
-    x == "$WeaponDPS"
-}
-#[allow(non_snake_case)]
-pub fn default_0ඞdotඞ01f32() -> f32 {
-    0.01f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ01f32(x: &f32) -> bool {
-    *x == 0.01f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ() -> String {
-    "#FFF0A0".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_300i32(x: &i32) -> bool {
-    *x == 300i32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞFFDF51ඞquoteඞ(x: &String) -> bool {
-    x == "#FFDF51"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "BaseFlightSpeed + 0.4*level"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ() -> String {
-    "1 + credits/500".into()
-}
-#[allow(non_snake_case)]
-pub fn default_1ඞdotඞ5f32() -> f32 {
-    1.5f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ(
-) -> String {
-    "MIN(1000, 300 + 5*distance)".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "MIN(level*2,500)"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "MIN(1000, 300 + 5*distance)"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ8080FFඞquoteඞ(x: &String) -> bool {
-    x == "#8080FF"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞFF8050ඞquoteඞ(x: &String) -> bool {
-    x == "#FF8050"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ() -> String {
-    "$WeaponDamage".into()
-}
-#[allow(non_snake_case)]
-pub fn default_0ඞdotඞ2f32() -> f32 {
-    0.2f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ1f32(x: &f32) -> bool {
-    *x == 0.1f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0(x: &i32) -> bool {
-    *x == 0
-}
-#[allow(non_snake_case)]
-pub fn skip_if_2ඞdotඞ5f32(x: &f32) -> bool {
-    *x == 2.5f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_30f32(x: &f32) -> bool {
-    *x == 30f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞE080FFFFඞquoteඞ() -> String {
-    "#E080FFFF".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ02f32(x: &f32) -> bool {
-    *x == 0.02f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞ1ඞquoteඞ() -> String {
-    "1".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_300f32(x: &f32) -> bool {
-    *x == 300f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ() -> String {
-    "BaseFuelCapacity + 50*level".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞ12ඞquoteඞ(x: &String) -> bool {
-    x == "12"
-}
-#[allow(non_snake_case)]
-pub fn default_1f32() -> f32 {
-    1f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ808080ඞquoteඞ(x: &String) -> bool {
-    x == "#808080"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ(x: &String) -> bool {
-    x == "#80FFFF"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ() -> String {
-    "BaseFlightSpeed + 0.4*level".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "1 - 0.05*level"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ(x: &String) -> bool {
-    x == "0.1*level"
-}
-#[allow(non_snake_case)]
-pub fn default_0ඞdotඞ9f32() -> f32 {
-    0.9f32
-}
-#[allow(non_snake_case)]
-pub fn default_15i32() -> i32 {
-    15i32
-}
-#[allow(non_snake_case)]
-pub fn default_24i32() -> i32 {
-    24i32
-}
-#[allow(non_snake_case)]
 pub fn default_0() -> i32 {
     0
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ() -> String {
-    "#FFFFE0".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞFF4040ඞquoteඞ(x: &String) -> bool {
-    x == "#FF4040"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "IF(Quantity <= 1, 0, Size / 2)"
-}
-#[allow(non_snake_case)]
-pub fn default_2ඞdotඞ5f32() -> f32 {
-    2.5f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞE080FFFFඞquoteඞ(x: &String) -> bool {
-    x == "#E080FFFF"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ00FF00ඞquoteඞ(x: &String) -> bool {
-    x == "#00FF00"
 }
 #[allow(non_snake_case)]
 pub fn default_0ඞdotඞ0() -> f32 {
     0.0
 }
 #[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ00FFFFඞquoteඞ() -> String {
-    "#00FFFF".into()
+pub fn default_0ඞdotඞ01f32() -> f32 {
+    0.01f32
 }
 #[allow(non_snake_case)]
 pub fn default_0ඞdotඞ02f32() -> f32 {
     0.02f32
 }
 #[allow(non_snake_case)]
-pub fn default_50i32() -> i32 {
-    50i32
+pub fn default_0ඞdotඞ1f32() -> f32 {
+    0.1f32
 }
 #[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ50C0FFඞquoteඞ() -> String {
-    "#50C0FF".into()
+pub fn default_0ඞdotඞ2f32() -> f32 {
+    0.2f32
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ(x: &String) -> bool {
-    x == "#C0C0C0"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ8f32(x: &f32) -> bool {
-    *x == 0.8f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ80FF80ඞquoteඞ(x: &String) -> bool {
-    x == "#80FF80"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_1f32(x: &f32) -> bool {
-    *x == 1f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_200i32(x: &i32) -> bool {
-    *x == 200i32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ() -> String {
-    "#80FFFF".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ() -> String {
-    "#FFFFC0".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞFFFFFFඞquoteඞ(x: &String) -> bool {
-    x == "#FFFFFF"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ00FF00ඞquoteඞ() -> String {
-    "#00FF00".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ() -> String {
-    "$WeaponDPS".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ() -> String {
-    "#A0FFFFFF".into()
+pub fn default_0ඞdotඞ5f32() -> f32 {
+    0.5f32
 }
 #[allow(non_snake_case)]
 pub fn default_0ඞdotඞ85f32() -> f32 {
     0.85f32
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ8f32() -> f32 {
+    0.8f32
+}
+#[allow(non_snake_case)]
+pub fn default_0ඞdotඞ9f32() -> f32 {
+    0.9f32
+}
+#[allow(non_snake_case)]
+pub fn default_100i32() -> i32 {
+    100i32
+}
+#[allow(non_snake_case)]
+pub fn default_10i32() -> i32 {
+    10i32
+}
+#[allow(non_snake_case)]
+pub fn default_15i32() -> i32 {
+    15i32
+}
+#[allow(non_snake_case)]
+pub fn default_1f32() -> f32 {
+    1f32
+}
+#[allow(non_snake_case)]
+pub fn default_1i32() -> i32 {
+    1i32
+}
+#[allow(non_snake_case)]
+pub fn default_1ඞdotඞ5f32() -> f32 {
+    1.5f32
+}
+#[allow(non_snake_case)]
+pub fn default_200i32() -> i32 {
+    200i32
+}
+#[allow(non_snake_case)]
+pub fn default_20i32() -> i32 {
+    20i32
+}
+#[allow(non_snake_case)]
+pub fn default_24i32() -> i32 {
+    24i32
+}
+#[allow(non_snake_case)]
+pub fn default_2ඞdotඞ5f32() -> f32 {
+    2.5f32
+}
+#[allow(non_snake_case)]
+pub fn default_300f32() -> f32 {
+    300f32
+}
+#[allow(non_snake_case)]
+pub fn default_300i32() -> i32 {
+    300i32
+}
+#[allow(non_snake_case)]
+pub fn default_30f32() -> f32 {
+    30f32
+}
+#[allow(non_snake_case)]
+pub fn default_3ඞdotඞ5f32() -> f32 {
+    3.5f32
+}
+#[allow(non_snake_case)]
+pub fn default_50i32() -> i32 {
+    50i32
+}
+#[allow(non_snake_case)]
+pub fn default_5f32() -> f32 {
+    5f32
+}
+#[allow(non_snake_case)]
+pub fn default_false() -> bool {
+    false
+}
+#[allow(non_snake_case)]
+pub fn default_true() -> bool {
+    true
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ() -> String {
+    "0.1*level".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ0ඞquoteඞ() -> String {
+    "0".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ12ඞquoteඞ() -> String {
+    "12".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ1ඞquoteඞ() -> String {
+    "1".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ() -> String {
+    "1 - 0.05*level".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ() -> String {
+    "1 + credits/500".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞ5ඞstarඞlevelඞquoteඞ() -> String {
+    "5*level".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ() -> String {
+    "BaseFlightRange + 0.09*level".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ() -> String {
+    "BaseFlightSpeed + 0.4*level".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ() -> String {
+    "BaseFuelCapacity + 50*level".into()
 }
 #[allow(non_snake_case)]
 pub fn default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞRANDOMඞlparenඞ0ඞcommaඞඞspaceඞ360ඞrparenඞඞrparenඞඞquoteඞ(
@@ -33512,38 +33764,9 @@ pub fn default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞsp
     "IF(Quantity <= 1, 0, RANDOM(0, 360))".into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "BaseFlightRange + 0.09*level"
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "MAX(40, 100 - level)"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞ0ඞquoteඞ() -> String {
-    "0".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ85f32(x: &f32) -> bool {
-    *x == 0.85f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ() -> String {
-    "0.1*level".into()
-}
-#[allow(non_snake_case)]
-pub fn default_true() -> bool {
-    true
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "BaseFuelCapacity + 50*level"
+pub fn default_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ(
+) -> String {
+    "IF(Quantity <= 1, 0, Size / 2)".into()
 }
 #[allow(non_snake_case)]
 pub fn default_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞDestroyerඞcommaඞඞspaceඞ5ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞCruiserඞcommaඞඞspaceඞ15ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞBattleshipඞcommaඞඞspaceඞ50ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞTitanඞcommaඞඞspaceඞ100ඞcommaඞඞspaceඞ0ඞrparenඞඞquoteඞ(
@@ -33552,158 +33775,289 @@ pub fn default_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspace�
         .into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_10i32(x: &i32) -> bool {
-    *x == 10i32
+pub fn default_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ(
+) -> String {
+    "MAX(40, 100 - level)".into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ(x: &String) -> bool {
-    x == "#20FF8050"
+pub fn default_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ(
+) -> String {
+    "MIN(1000, 300 + 5*distance)".into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞ1ඞquoteඞ(x: &String) -> bool {
-    x == "1"
+pub fn default_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ(
+) -> String {
+    "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)".into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ(x: &String) -> bool {
-    x == "#FFFFE0"
+pub fn default_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ() -> String {
+    "MIN(level*2,500)".into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ(x: &String) -> bool {
-    x == "#FFFFC0"
+pub fn default_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ() -> String {
+    "$WeaponDPS".into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_5f32(x: &f32) -> bool {
-    *x == 5f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ() -> String {
-    "1 - 0.05*level".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ2f32(x: &f32) -> bool {
-    *x == 0.2f32
-}
-#[allow(non_snake_case)]
-pub fn default_1i32() -> i32 {
-    1i32
-}
-#[allow(non_snake_case)]
-pub fn default_30f32() -> f32 {
-    30f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ(x: &String) -> bool {
-    x == "#40FFFFC0"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ808080ඞquoteඞ() -> String {
-    "#808080".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ() -> String {
-    "#4050C0FF".into()
-}
-#[allow(non_snake_case)]
-pub fn default_0ඞdotඞ5f32() -> f32 {
-    0.5f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_1ඞdotඞ5f32(x: &f32) -> bool {
-    *x == 1.5f32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞFFDF51ඞquoteඞ() -> String {
-    "#FFDF51".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_50i32(x: &i32) -> bool {
-    *x == 50i32
-}
-#[allow(non_snake_case)]
-pub fn default_200i32() -> i32 {
-    200i32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ5f32(x: &f32) -> bool {
-    *x == 0.5f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_15i32(x: &i32) -> bool {
-    *x == 15i32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ(x: &String) -> bool {
-    x == "#4050C0FF"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞFFFFFFඞquoteඞ() -> String {
-    "#FFFFFF".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ() -> String {
-    "BaseFlightRange + 0.09*level".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_false(x: &bool) -> bool {
-    !(*x)
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ0(x: &f32) -> bool {
-    *x == 0.0
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞhashඞ00FFFFඞquoteඞ(x: &String) -> bool {
-    x == "#00FFFF"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ8080FFඞquoteඞ() -> String {
-    "#8080FF".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ() -> String {
-    "#C0C0C0".into()
-}
-#[allow(non_snake_case)]
-pub fn default_300i32() -> i32 {
-    300i32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞC050C0FFඞquoteඞ() -> String {
-    "#C050C0FF".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ000000ඞquoteඞ() -> String {
-    "#000000".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞF09FFFඞquoteඞ() -> String {
-    "#F09FFF".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_true(x: &bool) -> bool {
-    *x
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞ0ඞquoteඞ(x: &String) -> bool {
-    x == "0"
-}
-#[allow(non_snake_case)]
-pub fn default_3ඞdotඞ5f32() -> f32 {
-    3.5f32
+pub fn default_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ() -> String {
+    "$WeaponDamage".into()
 }
 #[allow(non_snake_case)]
 pub fn default_ඞquoteඞඞhashඞ00000000ඞquoteඞ() -> String {
     "#00000000".into()
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ(
-    x: &String,
-) -> bool {
-    x == "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)"
+pub fn default_ඞquoteඞඞhashඞ000000ඞquoteඞ() -> String {
+    "#000000".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ00FF00ඞquoteඞ() -> String {
+    "#00FF00".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ00FFFFඞquoteඞ() -> String {
+    "#00FFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ() -> String {
+    "#20FF8050".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ() -> String {
+    "#4050C0FF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ() -> String {
+    "#40FFFFC0".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ50C0FFඞquoteඞ() -> String {
+    "#50C0FF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ808080ඞquoteඞ() -> String {
+    "#808080".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ8080FFඞquoteඞ() -> String {
+    "#8080FF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ80FF80ඞquoteඞ() -> String {
+    "#80FF80".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞ80FFFFඞquoteඞ() -> String {
+    "#80FFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ() -> String {
+    "#A0FFFFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞC050C0FFඞquoteඞ() -> String {
+    "#C050C0FF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ() -> String {
+    "#C0C0C0".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞE080FFFFඞquoteඞ() -> String {
+    "#E080FFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞF09FFFඞquoteඞ() -> String {
+    "#F09FFF".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFF4040ඞquoteඞ() -> String {
+    "#FF4040".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFF8050ඞquoteඞ() -> String {
+    "#FF8050".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFDF51ඞquoteඞ() -> String {
+    "#FFDF51".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ() -> String {
+    "#FFF0A0".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ() -> String {
+    "#FFFFC0".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ() -> String {
+    "#FFFFE0".into()
+}
+#[allow(non_snake_case)]
+pub fn default_ඞquoteඞඞhashඞFFFFFFඞquoteඞ() -> String {
+    "#FFFFFF".into()
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0(x: &i32) -> bool {
+    *x == 0
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ0(x: &f32) -> bool {
+    *x == 0.0
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ01f32(x: &f32) -> bool {
+    *x == 0.01f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ02f32(x: &f32) -> bool {
+    *x == 0.02f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ1f32(x: &f32) -> bool {
+    *x == 0.1f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ2f32(x: &f32) -> bool {
+    *x == 0.2f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ5f32(x: &f32) -> bool {
+    *x == 0.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ85f32(x: &f32) -> bool {
+    *x == 0.85f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ8f32(x: &f32) -> bool {
+    *x == 0.8f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_0ඞdotඞ9f32(x: &f32) -> bool {
+    *x == 0.9f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_100i32(x: &i32) -> bool {
+    *x == 100i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_10i32(x: &i32) -> bool {
+    *x == 10i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_15i32(x: &i32) -> bool {
+    *x == 15i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_1f32(x: &f32) -> bool {
+    *x == 1f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_1i32(x: &i32) -> bool {
+    *x == 1i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_1ඞdotඞ5f32(x: &f32) -> bool {
+    *x == 1.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_200i32(x: &i32) -> bool {
+    *x == 200i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_20i32(x: &i32) -> bool {
+    *x == 20i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_24i32(x: &i32) -> bool {
+    *x == 24i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_2ඞdotඞ5f32(x: &f32) -> bool {
+    *x == 2.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_300f32(x: &f32) -> bool {
+    *x == 300f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_300i32(x: &i32) -> bool {
+    *x == 300i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_30f32(x: &f32) -> bool {
+    *x == 30f32
 }
 #[allow(non_snake_case)]
 pub fn skip_if_3ඞdotඞ5f32(x: &f32) -> bool {
     *x == 3.5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_50i32(x: &i32) -> bool {
+    *x == 50i32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_5f32(x: &f32) -> bool {
+    *x == 5f32
+}
+#[allow(non_snake_case)]
+pub fn skip_if_false(x: &bool) -> bool {
+    !(*x)
+}
+#[allow(non_snake_case)]
+pub fn skip_if_true(x: &bool) -> bool {
+    *x
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ0ඞdotඞ1ඞstarඞlevelඞquoteඞ(x: &String) -> bool {
+    x == "0.1*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ0ඞquoteඞ(x: &String) -> bool {
+    x == "0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ12ඞquoteඞ(x: &String) -> bool {
+    x == "12"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ1ඞquoteඞ(x: &String) -> bool {
+    x == "1"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ1ඞspaceඞඞdashඞඞspaceඞ0ඞdotඞ05ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "1 - 0.05*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ1ඞspaceඞඞplusඞඞspaceඞcreditsඞslashඞ500ඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "1 + credits/500"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞ5ඞstarඞlevelඞquoteඞ(x: &String) -> bool {
+    x == "5*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞBaseFlightRangeඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ09ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "BaseFlightRange + 0.09*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞBaseFlightSpeedඞspaceඞඞplusඞඞspaceඞ0ඞdotඞ4ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "BaseFlightSpeed + 0.4*level"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞBaseFuelCapacityඞspaceඞඞplusඞඞspaceඞ50ඞstarඞlevelඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "BaseFuelCapacity + 50*level"
 }
 #[allow(non_snake_case)]
 pub fn skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞRANDOMඞlparenඞ0ඞcommaඞඞspaceඞ360ඞrparenඞඞrparenඞඞquoteඞ(
@@ -33712,62 +34066,10 @@ pub fn skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞsp
     x == "IF(Quantity <= 1, 0, RANDOM(0, 360))"
 }
 #[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞFF8050ඞquoteඞ() -> String {
-    "#FF8050".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_1i32(x: &i32) -> bool {
-    *x == 1i32
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ(
-) -> String {
-    "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ(
-) -> String {
-    "MAX(40, 100 - level)".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞඞhashඞ80FF80ඞquoteඞ() -> String {
-    "#80FF80".into()
-}
-#[allow(non_snake_case)]
-pub fn default_0ඞdotඞ8f32() -> f32 {
-    0.8f32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ(x: &String) -> bool {
-    x == "$WeaponDamage"
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞ5ඞstarඞlevelඞquoteඞ() -> String {
-    "5*level".into()
-}
-#[allow(non_snake_case)]
-pub fn default_ඞquoteඞ12ඞquoteඞ() -> String {
-    "12".into()
-}
-#[allow(non_snake_case)]
-pub fn skip_if_100i32(x: &i32) -> bool {
-    *x == 100i32
-}
-#[allow(non_snake_case)]
-pub fn default_20i32() -> i32 {
-    20i32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_20i32(x: &i32) -> bool {
-    *x == 20i32
-}
-#[allow(non_snake_case)]
-pub fn skip_if_0ඞdotඞ9f32(x: &f32) -> bool {
-    *x == 0.9f32
-}
-#[allow(non_snake_case)]
-pub fn default_false() -> bool {
-    false
+pub fn skip_if_ඞquoteඞIFඞlparenඞQuantityඞspaceඞඞltඞඞeqඞඞspaceඞ1ඞcommaඞඞspaceඞ0ඞcommaඞඞspaceඞSizeඞspaceඞඞslashඞඞspaceඞ2ඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "IF(Quantity <= 1, 0, Size / 2)"
 }
 #[allow(non_snake_case)]
 pub fn skip_if_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞDestroyerඞcommaඞඞspaceඞ5ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞCruiserඞcommaඞඞspaceඞ15ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞBattleshipඞcommaඞඞspaceඞ50ඞcommaඞඞspaceඞsizeඞspaceඞඞeqඞඞeqඞඞspaceඞTitanඞcommaඞඞspaceඞ100ඞcommaඞඞspaceඞ0ඞrparenඞඞquoteඞ(
@@ -33777,26 +34079,130 @@ pub fn skip_if_ඞquoteඞIFඞlparenඞsizeඞspaceඞඞeqඞඞeqඞඞspace�
         == "IF(size == Destroyer, 5, size == Cruiser, 15, size == Battleship, 50, size == Titan, 100, 0)"
 }
 #[allow(non_snake_case)]
-pub fn default_100i32() -> i32 {
-    100i32
+pub fn skip_if_ඞquoteඞMAXඞlparenඞ40ඞcommaඞඞspaceඞ100ඞspaceඞඞdashඞඞspaceඞlevelඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MAX(40, 100 - level)"
 }
 #[allow(non_snake_case)]
-pub fn skip_if_24i32(x: &i32) -> bool {
-    *x == 24i32
+pub fn skip_if_ඞquoteඞMINඞlparenඞ1000ඞcommaඞඞspaceඞ300ඞspaceඞඞplusඞඞspaceඞ5ඞstarඞdistanceඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MIN(1000, 300 + 5*distance)"
 }
 #[allow(non_snake_case)]
-pub fn default_0ඞdotඞ1f32() -> f32 {
-    0.1f32
+pub fn skip_if_ඞquoteඞMINඞlparenඞ3ඞstarඞdistanceඞslashඞ5ඞspaceඞඞdashඞඞspaceඞ5ඞcommaඞඞspaceඞMaxEnemyShipsLevelඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MIN(3*distance/5 - 5, MaxEnemyShipsLevel)"
 }
 #[allow(non_snake_case)]
-pub fn skip_if_ඞquoteඞ5ඞstarඞlevelඞquoteඞ(x: &String) -> bool {
-    x == "5*level"
+pub fn skip_if_ඞquoteඞMINඞlparenඞlevelඞstarඞ2ඞcommaඞ500ඞrparenඞඞquoteඞ(
+    x: &String,
+) -> bool {
+    x == "MIN(level*2,500)"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞdollarඞWeaponDPSඞquoteඞ(x: &String) -> bool {
+    x == "$WeaponDPS"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ(x: &String) -> bool {
+    x == "$WeaponDamage"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ00000000ඞquoteඞ(x: &String) -> bool {
+    x == "#00000000"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ000000ඞquoteඞ(x: &String) -> bool {
+    x == "#000000"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ00FF00ඞquoteඞ(x: &String) -> bool {
+    x == "#00FF00"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ00FFFFඞquoteඞ(x: &String) -> bool {
+    x == "#00FFFF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ20FF8050ඞquoteඞ(x: &String) -> bool {
+    x == "#20FF8050"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ4050C0FFඞquoteඞ(x: &String) -> bool {
+    x == "#4050C0FF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ40FFFFC0ඞquoteඞ(x: &String) -> bool {
+    x == "#40FFFFC0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ50C0FFඞquoteඞ(x: &String) -> bool {
+    x == "#50C0FF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ808080ඞquoteඞ(x: &String) -> bool {
+    x == "#808080"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ8080FFඞquoteඞ(x: &String) -> bool {
+    x == "#8080FF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ80FF80ඞquoteඞ(x: &String) -> bool {
+    x == "#80FF80"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞ80FFFFඞquoteඞ(x: &String) -> bool {
+    x == "#80FFFF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞA0FFFFFFඞquoteඞ(x: &String) -> bool {
+    x == "#A0FFFFFF"
 }
 #[allow(non_snake_case)]
 pub fn skip_if_ඞquoteඞඞhashඞC050C0FFඞquoteඞ(x: &String) -> bool {
     x == "#C050C0FF"
 }
 #[allow(non_snake_case)]
-pub fn default_5f32() -> f32 {
-    5f32
+pub fn skip_if_ඞquoteඞඞhashඞC0C0C0ඞquoteඞ(x: &String) -> bool {
+    x == "#C0C0C0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞE080FFFFඞquoteඞ(x: &String) -> bool {
+    x == "#E080FFFF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞF09FFFඞquoteඞ(x: &String) -> bool {
+    x == "#F09FFF"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFF4040ඞquoteඞ(x: &String) -> bool {
+    x == "#FF4040"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFF8050ඞquoteඞ(x: &String) -> bool {
+    x == "#FF8050"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFDF51ඞquoteඞ(x: &String) -> bool {
+    x == "#FFDF51"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFF0A0ඞquoteඞ(x: &String) -> bool {
+    x == "#FFF0A0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFFFC0ඞquoteඞ(x: &String) -> bool {
+    x == "#FFFFC0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFFFE0ඞquoteඞ(x: &String) -> bool {
+    x == "#FFFFE0"
+}
+#[allow(non_snake_case)]
+pub fn skip_if_ඞquoteඞඞhashඞFFFFFFඞquoteඞ(x: &String) -> bool {
+    x == "#FFFFFF"
 }

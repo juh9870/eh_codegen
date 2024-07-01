@@ -218,11 +218,12 @@ impl CodegenState {
             }
         }
 
-        let matcher = |body: TokenStream| {
+        let matcher = |body: TokenStream, is_mut: bool| {
+            let x_pat = if is_mut { quote!(ref mut x) } else { quote!(x) };
             let matches = variants.iter().map(|v| {
                 let name = &v.ident;
                 quote! {
-                    Self::#name(x) => {#body}
+                    Self::#name(#x_pat) => {#body}
                 }
             });
 
@@ -311,7 +312,7 @@ impl CodegenState {
 
         let deref_impl = quote! {
             impl #switch_struct_ident {
-                pub fn as_inner_any(self) -> Box<dyn std::any::Any> {
+                pub fn into_inner_any(self) -> Box<dyn std::any::Any> {
                     match self {
                         #(#deref_box_matchers)*
                     }
@@ -338,8 +339,12 @@ impl CodegenState {
         } in shared_fields
         {
             let field_name_mut = format_ident!("{}_mut", field_name);
-            let access = matcher(quote!(&x.#field_name));
-            let access_mut = matcher(quote!(&mut x.#field_name));
+            let field_name_setter = format_ident!("set_{}", field_name);
+            let field_name_with = format_ident!("with_{}", field_name);
+            let access = matcher(quote!(&x.#field_name), false);
+            let access_mut = matcher(quote!(&mut x.#field_name), false);
+            let setter = matcher(quote!(x.#field_name = value.into()), false);
+            let with_setter = matcher(quote!(x.#field_name = value.into()), true);
             blocks.push(quote! {
                 impl #switch_struct_ident {
                     pub fn #field_name(&self) -> &#ty {
@@ -349,11 +354,21 @@ impl CodegenState {
                     pub fn #field_name_mut(&mut self) -> &mut #ty {
                         #access_mut
                     }
+
+                    pub fn #field_name_setter(&mut self, value: impl Into<#ty>) -> &mut Self {
+                        #setter
+                        self
+                    }
+
+                    pub fn #field_name_with(mut self, value: impl Into<#ty>) -> Self {
+                        #with_setter
+                        self
+                    }
                 }
             });
         }
 
-        let validations = matcher(quote!(x.validate()));
+        let validations = matcher(quote!(x.validate()), false);
 
         blocks.push(quote! {
             impl DatabaseItem for #switch_struct_ident {

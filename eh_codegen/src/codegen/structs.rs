@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::str::FromStr;
 
 use convert_case::{Case, Casing};
@@ -228,7 +228,7 @@ impl Field {
         })
     }
 
-    pub fn add_extra_functions(&self, funcs: &mut HashMap<String, TokenStream>) {
+    pub fn add_extra_functions(&self, funcs: &mut BTreeMap<String, TokenStream>) {
         let ty = &self.ty;
         let Some(default) = &self.default_value else {
             return;

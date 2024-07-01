@@ -7,7 +7,7 @@ use miette::{miette, Diagnostic, IntoDiagnostic, LabeledSpan, Report, SourceCode
 use miette::{Context, Result};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::iter::once;
 use thiserror::Error;
 
@@ -22,7 +22,7 @@ type TokensResult = Result<TokenStream>;
 pub struct CodegenState {
     pub enums: HashMap<String, Vec<String>>,
     pub objects: HashMap<String, StructData>,
-    pub extra_functions: HashMap<String, TokenStream>,
+    pub extra_functions: BTreeMap<String, TokenStream>,
 }
 
 impl CodegenState {
