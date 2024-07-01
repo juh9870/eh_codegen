@@ -29,8 +29,8 @@ pub fn build_mod(args: Args) {
     );
 
     db.get_singleton::<DatabaseSettings>().unwrap().edit(|i| {
-        i.mod_name = "Rogue Mod".to_string();
-        i.mod_id = "roguelike_mod".to_string();
+        i.mod_name = "Rogue Horizon".to_string();
+        i.mod_id = "rogue_horizon_v2".to_string();
         i.mod_version = 1;
     });
 
