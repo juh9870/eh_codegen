@@ -2,7 +2,8 @@ use eh_schema::schema::{DatabaseItem, DatabaseItemId, Item};
 use std::any::Any;
 use std::borrow::Cow;
 
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
+use std::fmt::{Debug, Formatter};
 use std::marker::PhantomData;
 
 use parking_lot::{
@@ -35,12 +36,21 @@ pub struct DatabaseHolder {
     inner: Mutex<DatabaseInner>,
 }
 
+impl Debug for DatabaseHolder {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        let lock = self.inner.lock();
+        f.debug_struct("DatabaseHolder")
+            .field("path", &lock.path)
+            .finish()
+    }
+}
+
 type SharedItem = Arc<RwLock<Item>>;
 type ItemsMap = Arc<RwLock<HashMap<Option<i32>, SharedItem>>>;
 
 pub struct DatabaseInner {
     path: PathBuf,
-    ids: HashMap<Cow<'static, str>, HashMap<String, i32>>,
+    ids: BTreeMap<Cow<'static, str>, BTreeMap<String, i32>>,
     used_ids: HashMap<Cow<'static, str>, HashSet<i32>>,
     available_ids: HashMap<&'static str, Vec<Range<i32>>>,
     default_ids: Vec<Range<i32>>,
@@ -76,7 +86,7 @@ impl DatabaseHolder {
         }
 
         let mappings_path = output_path.join(MAPPINGS_NAME);
-        let mappings: HashMap<Cow<'static, str>, HashMap<String, i32>> = mappings_path
+        let mappings: BTreeMap<Cow<'static, str>, BTreeMap<String, i32>> = mappings_path
             .exists()
             .then(|| {
                 let data = fs_err::read_to_string(output_path.join(MAPPINGS_NAME))
