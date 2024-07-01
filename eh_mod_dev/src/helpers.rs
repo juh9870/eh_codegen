@@ -8,3 +8,7 @@ macro_rules! json {
         }
     };
 }
+
+pub fn from_json_string<'de, T: serde::Deserialize<'de>>(str: &'de str) -> T {
+    serde_json::from_str(str).unwrap()
+}
