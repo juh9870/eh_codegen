@@ -4,10 +4,11 @@ use eh_mod_dev::database::{database, Database, Remember};
 use eh_mod_dev::helpers::from_json_string;
 use eh_mod_dev::json;
 use eh_mod_dev::schema::schema::{
-    Loot, LootContent, LootContentAllItems, LootContentMoney, LootContentQuestItem,
-    LootContentStarMap, LootId, LootItem, Node, NodeAction, NodeCompleteQuest, NodeFailQuest,
-    NodeReceiveItem, NodeShowDialog, Quest, QuestId, QuestItem, QuestType, Requirement,
-    RequirementAll, RequirementHaveQuestItem, RequirementNone, StartCondition, Technology,
+    DatabaseSettings, Loot, LootContent, LootContentAllItems, LootContentMoney,
+    LootContentQuestItem, LootContentStarMap, LootId, LootItem, Node, NodeAction,
+    NodeCompleteQuest, NodeFailQuest, NodeReceiveItem, NodeShowDialog, Quest, QuestId, QuestItem,
+    QuestType, Requirement, RequirementAll, RequirementHaveQuestItem, RequirementNone,
+    StartCondition, Technology,
 };
 use pretty_duration::pretty_duration;
 use std::collections::HashMap;
@@ -18,7 +19,7 @@ pub mod quest_surgeon;
 
 #[instrument]
 pub fn build_mod(args: Args) {
-    let db = database(args.output_dir);
+    let db = database(args.output_dir, args.output_mod);
 
     let start = Instant::now();
     db.load_from_dir(args.vanilla_dir);
@@ -26,6 +27,12 @@ pub fn build_mod(args: Args) {
         time = pretty_duration(&start.elapsed(), None),
         "Loaded in base database"
     );
+
+    db.get_singleton::<DatabaseSettings>().unwrap().edit(|i| {
+        i.mod_name = "Rogue Mod".to_string();
+        i.mod_id = "roguelike_mod".to_string();
+        i.mod_version = 1;
+    });
 
     db.add_id_range(9870000..9999999);
 
@@ -149,25 +156,27 @@ fn permadeath(db: &Database) {
 
     db.quest_iter_mut(|i| {
         for mut quest in i {
-            if quest.id == permadeath_quest.id || quest.id == db.id("eh:tutorial") {
+            if quest.id == permadeath_quest.id {
                 continue;
             }
-            let req_no_marker = RequirementNone {
-                requirements: vec![RequirementHaveQuestItem {
-                    item_id: Some(death_item.id),
-                    min_value: 1,
+            if quest.id != db.id("eh:tutorial") {
+                let req_no_marker = RequirementNone {
+                    requirements: vec![RequirementHaveQuestItem {
+                        item_id: Some(death_item.id),
+                        min_value: 1,
+                    }
+                    .into()],
                 }
-                .into()],
-            }
-            .into();
-            if matches!(quest.requirement, Requirement::Empty(_)) {
-                quest.requirement = req_no_marker;
-            } else {
-                let original_req = std::mem::take(&mut quest.requirement);
-                quest.requirement = RequirementAll {
-                    requirements: vec![original_req, req_no_marker],
+                .into();
+                if matches!(quest.requirement, Requirement::Empty(_)) {
+                    quest.requirement = req_no_marker;
+                } else {
+                    let original_req = std::mem::take(&mut quest.requirement);
+                    quest.requirement = RequirementAll {
+                        requirements: vec![original_req, req_no_marker],
+                    }
+                    .into()
                 }
-                .into()
             }
 
             let mut next_id = next_id(&quest);
@@ -361,7 +370,7 @@ fn bonus_loot(db: &Database) {
         ("eh:covid_loot", 10.0),
         ("eh:merchant_goods", 10.0),
         ("eh:random_resources", 10.0),
-        ("eh:random_stuff", 20.0),
+        // ("eh:random_stuff", 20.0),
         ("eh:scavenger_goods", 10.0),
         ("eh:some_money", 20.0),
         ("eh:some_money_x5", 20.0),
@@ -378,6 +387,10 @@ fn bonus_loot(db: &Database) {
     let merchant_loot = db.get_item::<Loot>("eh:merchant_loot").unwrap();
     let mut merchant_loot = merchant_loot.write();
     merchant_loot.loot = from_json_string(include_str!("merchant_loot.json"));
+
+    let random_stuff = db.get_item::<Loot>("eh:random_stuff").unwrap();
+    let mut random_stuff = random_stuff.write();
+    random_stuff.loot = from_json_string(include_str!("random_stuff.json"));
 }
 
 #[instrument]
@@ -454,7 +467,7 @@ fn encounter_patches(db: &Database) {
                 Node::AttackFleet(attack) => {
                     attack.default_transition = reward_node(attack.default_transition);
                 }
-                Node::AttackOccupants(attack) => {
+                Node::DestroyOccupants(attack) => {
                     attack.default_transition = reward_node(attack.default_transition);
                 }
                 Node::AttackStarbase(attack) => {

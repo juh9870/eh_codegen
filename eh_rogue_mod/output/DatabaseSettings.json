@@ -2,6 +2,7 @@
   "ItemType": 102,
   "DatabaseVersion": 1,
   "DatabaseVersionMinor": 6,
-  "ModName": "",
-  "ModId": ""
+  "ModName": "Rogue Mod",
+  "ModId": "roguelike_mod",
+  "ModVersion": 1
 }

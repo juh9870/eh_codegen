@@ -11,6 +11,7 @@ pub mod test_mod;
 pub struct Args {
     vanilla_dir: PathBuf,
     output_dir: PathBuf,
+    output_mod: Option<PathBuf>,
 }
 
 fn main() {

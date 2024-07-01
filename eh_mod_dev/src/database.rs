@@ -1,4 +1,4 @@
-use eh_schema::schema::{DatabaseItem, DatabaseItemId, Item};
+use eh_schema::schema::{DatabaseItem, DatabaseItemId, DatabaseSettings, Item};
 use std::any::Any;
 use std::borrow::Cow;
 
@@ -13,6 +13,7 @@ use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
+use crate::builder::{ModBuilderData, ModBuilderInfo};
 use tracing::{error, error_span, info};
 
 pub use crate::database::db_item::DbItem;
@@ -23,8 +24,14 @@ pub mod stored_db_item;
 
 mod macro_impls;
 
-pub fn database(output_path: impl AsRef<Path>) -> Database {
-    DatabaseHolder::new(output_path)
+pub fn database(
+    output_path: impl AsRef<Path>,
+    output_mod_file_path: Option<impl AsRef<Path>>,
+) -> Database {
+    DatabaseHolder::new(
+        output_path.as_ref().to_path_buf(),
+        output_mod_file_path.map(|p| p.as_ref().to_path_buf()),
+    )
 }
 
 const MAPPINGS_NAME: &str = "id_mappings.json5";
@@ -40,7 +47,7 @@ impl Debug for DatabaseHolder {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let lock = self.inner.lock();
         f.debug_struct("DatabaseHolder")
-            .field("path", &lock.path)
+            .field("path", &lock.output_path)
             .finish()
     }
 }
@@ -49,7 +56,8 @@ type SharedItem = Arc<RwLock<Item>>;
 type ItemsMap = Arc<RwLock<HashMap<Option<i32>, SharedItem>>>;
 
 pub struct DatabaseInner {
-    path: PathBuf,
+    output_path: PathBuf,
+    output_file_path: Option<PathBuf>,
     ids: BTreeMap<Cow<'static, str>, BTreeMap<String, i32>>,
     used_ids: HashMap<Cow<'static, str>, HashSet<i32>>,
     available_ids: HashMap<&'static str, Vec<Range<i32>>>,
@@ -74,10 +82,12 @@ impl DatabaseHolder {
     /// Will panic if output path contains a mappings file but it can't be read or invalid
     ///
     /// Will panic if mappings backup exists
-    pub fn new(output_path: impl AsRef<Path>) -> Database {
-        let output_path = std::env::current_dir()
-            .expect("Should be able to get current directory info from process env")
-            .join(output_path);
+    pub fn new(output_path: PathBuf, output_mod_file_path: Option<PathBuf>) -> Database {
+        let cur_dir = std::env::current_dir()
+            .expect("Should be able to get current directory info from process env");
+        let output_path = cur_dir.join(output_path);
+
+        let output_mod_file_path = output_mod_file_path.map(|data| cur_dir.join(data));
 
         let _guard =
             error_span!("Creating a new database", output_path=%output_path.display()).entered();
@@ -104,7 +114,8 @@ impl DatabaseHolder {
 
         let db = Self {
             inner: Mutex::new(DatabaseInner {
-                path: output_path.to_path_buf(),
+                output_path,
+                output_file_path: output_mod_file_path,
                 used_ids,
                 ids: mappings,
                 available_ids: Default::default(),
@@ -226,6 +237,21 @@ impl DatabaseHolder {
         item
     }
 
+    pub fn get_singleton<T: Into<Item> + DatabaseItem + Any>(
+        self: &Arc<Self>,
+    ) -> Option<StoredDbItem<T>> {
+        let mut db = self.inner.lock();
+        let db = db.deref_mut();
+
+        let item = db
+            .items
+            .get_mut(T::type_name())
+            .and_then(|i| i.read().get(&None).cloned())
+            .map(|i| StoredDbItem::new(i, self.clone()));
+
+        item
+    }
+
     /// Adds an item to the database immediately
     ///
     /// It is not possible to get back an item added this way, if you want to
@@ -257,10 +283,14 @@ impl DatabaseHolder {
         const ERR_DANGLING_COLLECTION: &str = "Should not have dangling references to the database collections before saving. Check your iterator usage for leaking";
         const ERR_DANGLING_ITEM: &str = "Should not have dangling references to the database item before saving. Check your item handles for leakage";
 
+        let settings = self
+            .get_singleton::<DatabaseSettings>()
+            .map(|s| s.new_clone().forget());
+
         let guard_a = error_span!("Saving database").entered();
         let db = Arc::into_inner(self).expect(ERR_DANGLING_DATABASE);
         let db = db.inner.into_inner();
-        let path = db.path;
+        let path = db.output_path;
         drop(guard_a);
         let _guard = error_span!("Saving database", path=%path.display()).entered();
 
@@ -303,6 +333,16 @@ impl DatabaseHolder {
             })
             .collect();
 
+        let (mut build_data, info) = if let Some(path) = db.output_file_path {
+            let info = ModBuilderInfo::from_settings(
+                path,
+                &settings.expect("Building a mod file requires DatabaseSettings"),
+            );
+            (ModBuilderData::new(), Some(info))
+        } else {
+            (ModBuilderData::dummy(), None)
+        };
+
         for item in db.items.into_values().flat_map(|m| {
             Arc::into_inner(m)
                 .expect(ERR_DANGLING_COLLECTION)
@@ -341,6 +381,8 @@ impl DatabaseHolder {
 
             let json = serde_json::ser::to_string_pretty(&item)
                 .expect("Should be able to serialize the item");
+
+            build_data.add_file(path.clone(), json.as_bytes());
             fs_err::write(&path, json).expect("Should be able to write the file");
 
             saved_files.insert(path);
@@ -364,6 +406,13 @@ impl DatabaseHolder {
         }
 
         fs_err::remove_file(mappings_bk_path).expect("Should remove mappings backup file");
+
+        if let Some(info) = info {
+            build_data
+                .build(&info)
+                .expect("Should be able to build mod file");
+        }
+
         info!("Database saved successfully!")
     }
 

@@ -19,8 +19,8 @@ impl<T: Into<Item>> DbItem<T> {
 
 impl<T: Into<Item>> DbItem<T> {
     /// Prevents item from getting written into the database
-    pub fn forget(mut self) {
-        self.item = None
+    pub fn forget(mut self) -> T {
+        std::mem::take(&mut self.item).unwrap()
     }
 
     /// Saves the item to the database

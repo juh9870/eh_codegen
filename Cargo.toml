@@ -30,3 +30,4 @@ tracing-panic = { version = "0.1.2", default-features = false }
 tracing-subscriber = "0.3.18"
 walkdir = "2.5.0"
 pretty-duration = "0.1.1"
+flate2 = "1"

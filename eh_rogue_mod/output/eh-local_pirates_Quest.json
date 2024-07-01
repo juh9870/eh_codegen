@@ -84,13 +84,13 @@
     {
       "Type": 21,
       "Id": 2,
-      "DefaultTransition": 13,
+      "DefaultTransition": 6,
       "FailureTransition": 8
     },
     {
       "Type": 21,
       "Id": 7,
-      "DefaultTransition": 13,
+      "DefaultTransition": 6,
       "FailureTransition": 8
     },
     {
@@ -101,7 +101,7 @@
     {
       "Type": 25,
       "Id": 6,
-      "DefaultTransition": 4
+      "DefaultTransition": 13
     },
     {
       "Type": 40,
@@ -156,7 +156,7 @@
     {
       "Type": 35,
       "Id": 14,
-      "DefaultTransition": 6,
+      "DefaultTransition": 4,
       "Loot": 3
     }
   ]

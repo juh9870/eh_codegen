@@ -8,7 +8,7 @@ use eh_schema::schema::{
 use std::path::PathBuf;
 
 pub fn build_mod(mod_dir: PathBuf) {
-    let db = database(mod_dir);
+    let db = database(mod_dir, None::<PathBuf>);
 
     db.add_id_range(9870000..9999999);
     db.set_id::<BulletPrefab>("eh:mine", 9);

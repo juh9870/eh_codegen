@@ -1,0 +1,51 @@
+{
+  "Type": 20,
+  "MinAmount": 2,
+  "MaxAmount": 4,
+  "Items": [
+    {
+      "Weight": 1.0,
+      "Loot": {
+        "Type": 25,
+        "ItemId": 6,
+        "MinAmount": 100,
+        "MaxAmount": 1000
+      }
+    },
+    {
+      "Weight": 0.3,
+      "Loot": {
+        "Type": 2,
+        "MinAmount": 40,
+        "MaxAmount": 200
+      }
+    },
+    {
+      "Weight": 0.3,
+      "Loot": {
+        "Type": 10,
+        "MinAmount": 10,
+        "MaxAmount": 20,
+        "ValueRatio": 20.0,
+        "Factions": {
+          "Type": 3
+        }
+      }
+    },
+    {
+      "Weight": 0.1,
+      "Loot": {
+        "Type": 1,
+        "ValueRatio": 10.0
+      }
+    },
+    {
+      "Weight": 0.3,
+      "Loot": {
+        "Type": 4,
+        "MinAmount": 15,
+        "MaxAmount": 20
+      }
+    }
+  ]
+}

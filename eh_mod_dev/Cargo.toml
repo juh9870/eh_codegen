@@ -8,6 +8,7 @@ repository = "https://github.com/juh9870/random_cli"
 
 [dependencies]
 eh_schema = { path = "../eh_schema" }
+flate2 = { workspace = true }
 fs-err = { workspace = true }
 parking_lot = { workspace = true }
 paste = { workspace = true }

@@ -74,7 +74,7 @@
       "Type": 20,
       "Id": 4,
       "DefaultTransition": 5,
-      "FailureTransition": 3,
+      "FailureTransition": 7,
       "Enemy": 1
     },
     {
@@ -96,6 +96,32 @@
     {
       "Type": 40,
       "Id": 6
+    },
+    {
+      "Type": 10,
+      "Id": 7,
+      "RequiredView": 0,
+      "Message": "You Died",
+      "Loot": 9870000,
+      "Actions": [
+        {
+          "TargetNode": 8,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$ACTION_Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 8,
+      "DefaultTransition": 9,
+      "Loot": 9870000
+    },
+    {
+      "Type": 41,
+      "Id": 9
     }
   ]
 }
