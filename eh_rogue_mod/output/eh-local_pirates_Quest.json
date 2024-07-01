@@ -84,13 +84,13 @@
     {
       "Type": 21,
       "Id": 2,
-      "DefaultTransition": 6,
+      "DefaultTransition": 13,
       "FailureTransition": 8
     },
     {
       "Type": 21,
       "Id": 7,
-      "DefaultTransition": 6,
+      "DefaultTransition": 13,
       "FailureTransition": 8
     },
     {
@@ -136,6 +136,28 @@
     {
       "Type": 41,
       "Id": 12
+    },
+    {
+      "Type": 10,
+      "Id": 13,
+      "RequiredView": 0,
+      "Message": "$MessageCombatReward",
+      "Loot": 3,
+      "Actions": [
+        {
+          "TargetNode": 14,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$ACTION_Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 14,
+      "DefaultTransition": 6,
+      "Loot": 3
     }
   ]
 }

@@ -10,6 +10,7 @@ use eh_mod_dev::schema::schema::{
     RequirementAll, RequirementHaveQuestItem, RequirementNone, StartCondition, Technology,
 };
 use pretty_duration::pretty_duration;
+use std::collections::HashMap;
 use std::time::Instant;
 use tracing::{debug, error_span, instrument};
 
@@ -65,7 +66,7 @@ pub fn build_mod(args: Args) {
     permadeath(&db);
     cheap_tech(&db);
     bonus_loot(&db);
-    // encounter_patches(&db);
+    encounter_patches(&db);
     // debug(&db);
 
     debug!(
@@ -411,7 +412,13 @@ fn encounter_patches(db: &Database) {
 
         let mut extra_nodes: Vec<Node> = vec![];
 
+        let mut transitions = HashMap::<i32, i32>::default();
+
         let mut reward_node = |transition: i32| {
+            if let Some(&node_id) = transitions.get(&transition) {
+                return node_id;
+            }
+
             let dialog_node_id = next_id();
             let reward_node_id = next_id();
             extra_nodes.push(
@@ -438,6 +445,7 @@ fn encounter_patches(db: &Database) {
                 }
                 .into(),
             );
+            transitions.insert(transition, dialog_node_id);
             dialog_node_id
         };
 
@@ -458,6 +466,7 @@ fn encounter_patches(db: &Database) {
 
         quest.nodes.extend(extra_nodes);
     };
+
     patch_combat_encounters(db.id("eh:scavenger_trade"), scavenger_loot.id);
-    patch_combat_encounters(db.id("eh:local_pirates"), scavenger_loot.id);
+    patch_combat_encounters(db.id("eh:local_pirates"), db.id("eh:random_stuff"));
 }

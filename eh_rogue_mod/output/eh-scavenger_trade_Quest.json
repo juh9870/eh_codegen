@@ -82,7 +82,7 @@
     {
       "Type": 20,
       "Id": 3,
-      "DefaultTransition": 4,
+      "DefaultTransition": 10,
       "FailureTransition": 7,
       "Enemy": 10
     },
@@ -145,6 +145,28 @@
     {
       "Type": 41,
       "Id": 9
+    },
+    {
+      "Type": 10,
+      "Id": 10,
+      "RequiredView": 0,
+      "Message": "$MessageCombatReward",
+      "Loot": 9870002,
+      "Actions": [
+        {
+          "TargetNode": 11,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$ACTION_Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 11,
+      "DefaultTransition": 4,
+      "Loot": 9870002
     }
   ]
 }
