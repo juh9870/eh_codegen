@@ -13,7 +13,14 @@
     }
   },
   "Requirement": {
-    "Type": 0
+    "Type": 3,
+    "Requirements": [
+      {
+        "Type": 25,
+        "ItemId": 9870000,
+        "MinValue": 1
+      }
+    ]
   },
   "Level": 60,
   "Nodes": [

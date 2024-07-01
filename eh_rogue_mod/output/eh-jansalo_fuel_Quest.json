@@ -16,16 +16,31 @@
     "Type": 2,
     "Requirements": [
       {
-        "Type": 10,
-        "ItemId": 100
+        "Type": 2,
+        "Requirements": [
+          {
+            "Type": 10,
+            "ItemId": 100
+          },
+          {
+            "Type": 26,
+            "Loot": {
+              "Type": 2,
+              "MinAmount": 30,
+              "MaxAmount": 30
+            }
+          }
+        ]
       },
       {
-        "Type": 26,
-        "Loot": {
-          "Type": 2,
-          "MinAmount": 30,
-          "MaxAmount": 30
-        }
+        "Type": 3,
+        "Requirements": [
+          {
+            "Type": 25,
+            "ItemId": 9870000,
+            "MinValue": 1
+          }
+        ]
       }
     ]
   },

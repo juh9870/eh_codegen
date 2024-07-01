@@ -1,9 +1,9 @@
 {
   "ItemType": 15,
-  "Id": 2,
-  "Name": "",
-  "QuestType": 0,
-  "StartCondition": 1,
+  "Id": 9870000,
+  "Name": "Death",
+  "QuestType": 3,
+  "StartCondition": 2,
   "Weight": 1.0,
   "Origin": {
     "Type": 0,
@@ -13,22 +13,16 @@
     }
   },
   "Requirement": {
-    "Type": 3,
-    "Requirements": [
-      {
-        "Type": 25,
-        "ItemId": 9870000,
-        "MinValue": 1
-      }
-    ]
+    "Type": 25,
+    "ItemId": 9870000,
+    "MinValue": 1
   },
   "Nodes": [
     {
       "Type": 10,
       "Id": 1,
       "RequiredView": 0,
-      "Message": "$Beacon_FreeStuff",
-      "Loot": 3,
+      "Message": "You are dead.\nStart new game",
       "Actions": [
         {
           "TargetNode": 2,
@@ -40,13 +34,12 @@
       ]
     },
     {
-      "Type": 35,
+      "Type": 30,
       "Id": 2,
-      "DefaultTransition": 3,
-      "Loot": 3
+      "DefaultTransition": 3
     },
     {
-      "Type": 40,
+      "Type": 41,
       "Id": 3
     }
   ]

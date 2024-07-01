@@ -62,7 +62,7 @@ pub fn build_mod(args: Args) {
 
     let start = Instant::now();
 
-    // permadeath(&db);
+    permadeath(&db);
     // cheap_tech(&db);
     // bonus_loot(&db);
     // encounter_patches(&db);

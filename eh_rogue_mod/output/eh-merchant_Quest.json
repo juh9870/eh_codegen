@@ -13,7 +13,14 @@
     }
   },
   "Requirement": {
-    "Type": 0
+    "Type": 3,
+    "Requirements": [
+      {
+        "Type": 25,
+        "ItemId": 9870000,
+        "MinValue": 1
+      }
+    ]
   },
   "Nodes": [
     {
@@ -57,7 +64,7 @@
       "Type": 20,
       "Id": 3,
       "DefaultTransition": 4,
-      "FailureTransition": 7,
+      "FailureTransition": 8,
       "Enemy": 2
     },
     {
@@ -89,6 +96,32 @@
     {
       "Type": 41,
       "Id": 7
+    },
+    {
+      "Type": 10,
+      "Id": 8,
+      "RequiredView": 0,
+      "Message": "You Died",
+      "Loot": 9870000,
+      "Actions": [
+        {
+          "TargetNode": 9,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$ACTION_Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 9,
+      "DefaultTransition": 10,
+      "Loot": 9870000
+    },
+    {
+      "Type": 41,
+      "Id": 10
     }
   ]
 }
