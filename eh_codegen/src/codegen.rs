@@ -3,6 +3,7 @@ use crate::codegen::switch::Variant;
 use crate::schema::{SchemaDataType, SchemaItem};
 use convert_case::{Case, Casing};
 
+use itertools::Itertools;
 use miette::{miette, Diagnostic, IntoDiagnostic, LabeledSpan, Report, SourceCode};
 use miette::{Context, Result};
 use proc_macro2::TokenStream;
@@ -119,33 +120,70 @@ impl CodegenState {
             }
         });
 
-        let macro_invocations = variants.iter().filter_map(|Variant { ident, data }| {
-            if !data.has_default && data.ctor_params.is_none() {
-                return None;
-            }
+        let lower_idents = variants
+            .iter()
+            .map(|v| {
+                let ident_lower = format_ident!(
+                    "{}",
+                    v.ident
+                        .to_string()
+                        .from_case(Case::Pascal)
+                        .to_case(Case::Snake)
+                );
+                (ident_lower, v)
+            })
+            .collect_vec();
 
-            let ident_lower = format_ident!(
-                "{}",
-                ident
-                    .to_string()
-                    .from_case(Case::Pascal)
-                    .to_case(Case::Snake)
-            );
-
-            let args = data.ctor_params.as_ref().map(|params| {
-                let args = params.iter().map(|Field { ident, ty, .. }| {
-                    let ty_str = ty.to_string();
-                    if ty_str.ends_with("Id") {
-                        let ty = format_ident!("{}", &ty_str[..(ty_str.len() - 2)]);
-                        quote!(#ident: (DatabaseItemId<#ty>),)
-                    } else {
-                        quote!(#ident: (#ty),)
+        let contructor_macro_invocations =
+            lower_idents
+                .iter()
+                .filter_map(|(ident_lower, Variant { ident, data })| {
+                    if !data.has_default && data.ctor_params.is_none() {
+                        return None;
                     }
+
+                    let args = data.ctor_params.as_ref().map(|params| {
+                        let args = params.iter().map(|Field { ident, ty, .. }| {
+                            let ty_str = ty.to_string();
+                            if ty_str.ends_with("Id") {
+                                let ty = format_ident!("{}", &ty_str[..(ty_str.len() - 2)]);
+                                quote!(#ident: (DatabaseItemId<#ty>))
+                            } else {
+                                quote!(#ident: (#ty))
+                            }
+                        });
+                        quote!(#(#args),*)
+                    });
+                    Some(quote!(#ident_lower(#args) -> #ident))
                 });
-                quote!(#(#args)*)
+
+        let all_items_macro = lower_idents
+            .iter()
+            .map(|(lower_ident, Variant { ident, .. })| {
+                quote! {
+                    #lower_ident: #ident
+                }
             });
-            Some(quote!(#ident_lower(#args) -> #ident,))
-        });
+        let all_settings_macro =
+            lower_idents
+                .iter()
+                .filter_map(|(lower_ident, Variant { ident, data })| {
+                    if data.id_access.is_some() {
+                        return None;
+                    }
+                    Some(quote! {
+                        #lower_ident: #ident
+                    })
+                });
+        let all_collections_macro =
+            lower_idents
+                .iter()
+                .filter_map(|(lower_ident, Variant { ident, data })| {
+                    data.id_access.as_ref()?;
+                    Some(quote! {
+                        #lower_ident: #ident
+                    })
+                });
 
         let ident = format_ident!("Item");
         let code = self.codegen_custom_switch(
@@ -171,10 +209,37 @@ impl CodegenState {
             }
 
             #[macro_export]
-            macro_rules! apply_items {
+            macro_rules! apply_constructors {
                 ($macro_name:ident) => {
                     $macro_name! {
-                        #(#macro_invocations)*
+                        #(#contructor_macro_invocations),*
+                    }
+                }
+            }
+
+            #[macro_export]
+            macro_rules! apply_all_items {
+                ($macro_name:ident) => {
+                    $macro_name! {
+                        #(#all_items_macro),*
+                    }
+                }
+            }
+
+            #[macro_export]
+            macro_rules! apply_all_settings {
+                ($macro_name:ident) => {
+                    $macro_name! {
+                        #(#all_settings_macro),*
+                    }
+                }
+            }
+
+            #[macro_export]
+            macro_rules! apply_all_collections {
+                ($macro_name:ident) => {
+                    $macro_name! {
+                        #(#all_collections_macro),*
                     }
                 }
             }

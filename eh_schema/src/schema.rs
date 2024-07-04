@@ -33661,39 +33661,87 @@ impl Item {
     }
 }
 #[macro_export]
-macro_rules! apply_items {
+macro_rules! apply_constructors {
     ($macro_name:ident) => {
         $macro_name! { component(r#id : (DatabaseItemId < Component >),
-        r#component_stats_id : (DatabaseItemId < ComponentStats >),) -> Component,
-        device(r#id : (DatabaseItemId < Device >),) -> Device, weapon(r#id :
-        (DatabaseItemId < Weapon >),) -> Weapon, ammunition_obsolete(r#id :
-        (DatabaseItemId < AmmunitionObsolete >),) -> AmmunitionObsolete, drone_bay(r#id :
-        (DatabaseItemId < DroneBay >),) -> DroneBay, ship(r#id : (DatabaseItemId < Ship
-        >),) -> Ship, satellite(r#id : (DatabaseItemId < Satellite >),) -> Satellite,
+        r#component_stats_id : (DatabaseItemId < ComponentStats >)) -> Component,
+        device(r#id : (DatabaseItemId < Device >)) -> Device, weapon(r#id :
+        (DatabaseItemId < Weapon >)) -> Weapon, ammunition_obsolete(r#id :
+        (DatabaseItemId < AmmunitionObsolete >)) -> AmmunitionObsolete, drone_bay(r#id :
+        (DatabaseItemId < DroneBay >)) -> DroneBay, ship(r#id : (DatabaseItemId < Ship
+        >)) -> Ship, satellite(r#id : (DatabaseItemId < Satellite >)) -> Satellite,
         ship_build(r#id : (DatabaseItemId < ShipBuild >), r#ship_id : (DatabaseItemId <
-        Ship >),) -> ShipBuild, satellite_build(r#id : (DatabaseItemId < SatelliteBuild
-        >), r#satellite_id : (DatabaseItemId < Satellite >),) -> SatelliteBuild,
-        component_stats(r#id : (DatabaseItemId < ComponentStats >),) -> ComponentStats,
-        component_mod(r#id : (DatabaseItemId < ComponentMod >),) -> ComponentMod,
-        faction(r#id : (DatabaseItemId < Faction >),) -> Faction, quest(r#id :
-        (DatabaseItemId < Quest >),) -> Quest, loot(r#id : (DatabaseItemId < Loot >),) ->
-        Loot, fleet(r#id : (DatabaseItemId < Fleet >),) -> Fleet, character(r#id :
-        (DatabaseItemId < Character >),) -> Character, quest_item(r#id : (DatabaseItemId
-        < QuestItem >),) -> QuestItem, ammunition(r#id : (DatabaseItemId < Ammunition
-        >),) -> Ammunition, visual_effect(r#id : (DatabaseItemId < VisualEffect >),) ->
-        VisualEffect, bullet_prefab(r#id : (DatabaseItemId < BulletPrefab >),) ->
-        BulletPrefab, behavior_tree(r#id : (DatabaseItemId < BehaviorTree >),) ->
-        BehaviorTree, combat_rules(r#id : (DatabaseItemId < CombatRules >),) ->
+        Ship >)) -> ShipBuild, satellite_build(r#id : (DatabaseItemId < SatelliteBuild
+        >), r#satellite_id : (DatabaseItemId < Satellite >)) -> SatelliteBuild,
+        component_stats(r#id : (DatabaseItemId < ComponentStats >)) -> ComponentStats,
+        component_mod(r#id : (DatabaseItemId < ComponentMod >)) -> ComponentMod,
+        faction(r#id : (DatabaseItemId < Faction >)) -> Faction, quest(r#id :
+        (DatabaseItemId < Quest >)) -> Quest, loot(r#id : (DatabaseItemId < Loot >)) ->
+        Loot, fleet(r#id : (DatabaseItemId < Fleet >)) -> Fleet, character(r#id :
+        (DatabaseItemId < Character >)) -> Character, quest_item(r#id : (DatabaseItemId <
+        QuestItem >)) -> QuestItem, ammunition(r#id : (DatabaseItemId < Ammunition >)) ->
+        Ammunition, visual_effect(r#id : (DatabaseItemId < VisualEffect >)) ->
+        VisualEffect, bullet_prefab(r#id : (DatabaseItemId < BulletPrefab >)) ->
+        BulletPrefab, behavior_tree(r#id : (DatabaseItemId < BehaviorTree >)) ->
+        BehaviorTree, combat_rules(r#id : (DatabaseItemId < CombatRules >)) ->
         CombatRules, component_stat_upgrade(r#id : (DatabaseItemId < ComponentStatUpgrade
-        >),) -> ComponentStatUpgrade, stat_upgrade_template(r#id : (DatabaseItemId <
-        StatUpgradeTemplate >),) -> StatUpgradeTemplate, ship_settings() -> ShipSettings,
+        >)) -> ComponentStatUpgrade, stat_upgrade_template(r#id : (DatabaseItemId <
+        StatUpgradeTemplate >)) -> StatUpgradeTemplate, ship_settings() -> ShipSettings,
         galaxy_settings() -> GalaxySettings, database_settings() -> DatabaseSettings,
         exploration_settings() -> ExplorationSettings, ship_mod_settings() ->
         ShipModSettings, special_event_settings() -> SpecialEventSettings,
         skill_settings() -> SkillSettings, debug_settings() -> DebugSettings,
         combat_settings() -> CombatSettings, ui_settings() -> UiSettings,
         factions_settings() -> FactionsSettings, music_playlist() -> MusicPlaylist,
-        localization_settings() -> LocalizationSettings, }
+        localization_settings() -> LocalizationSettings }
+    };
+}
+#[macro_export]
+macro_rules! apply_all_items {
+    ($macro_name:ident) => {
+        $macro_name! { component : Component, device : Device, weapon : Weapon,
+        ammunition_obsolete : AmmunitionObsolete, drone_bay : DroneBay, ship : Ship,
+        satellite : Satellite, ship_build : ShipBuild, satellite_build : SatelliteBuild,
+        technology : Technology, component_stats : ComponentStats, component_mod :
+        ComponentMod, faction : Faction, quest : Quest, loot : Loot, fleet : Fleet,
+        character : Character, quest_item : QuestItem, ammunition : Ammunition,
+        visual_effect : VisualEffect, bullet_prefab : BulletPrefab, behavior_tree :
+        BehaviorTree, game_object_prefab : GameObjectPrefab, combat_rules : CombatRules,
+        component_stat_upgrade : ComponentStatUpgrade, stat_upgrade_template :
+        StatUpgradeTemplate, ship_settings : ShipSettings, galaxy_settings :
+        GalaxySettings, database_settings : DatabaseSettings, exploration_settings :
+        ExplorationSettings, ship_mod_settings : ShipModSettings, special_event_settings
+        : SpecialEventSettings, skill_settings : SkillSettings, debug_settings :
+        DebugSettings, combat_settings : CombatSettings, ui_settings : UiSettings,
+        factions_settings : FactionsSettings, music_playlist : MusicPlaylist,
+        localization_settings : LocalizationSettings }
+    };
+}
+#[macro_export]
+macro_rules! apply_all_settings {
+    ($macro_name:ident) => {
+        $macro_name! { ship_settings : ShipSettings, galaxy_settings : GalaxySettings,
+        database_settings : DatabaseSettings, exploration_settings : ExplorationSettings,
+        ship_mod_settings : ShipModSettings, special_event_settings :
+        SpecialEventSettings, skill_settings : SkillSettings, debug_settings :
+        DebugSettings, combat_settings : CombatSettings, ui_settings : UiSettings,
+        factions_settings : FactionsSettings, music_playlist : MusicPlaylist,
+        localization_settings : LocalizationSettings }
+    };
+}
+#[macro_export]
+macro_rules! apply_all_collections {
+    ($macro_name:ident) => {
+        $macro_name! { component : Component, device : Device, weapon : Weapon,
+        ammunition_obsolete : AmmunitionObsolete, drone_bay : DroneBay, ship : Ship,
+        satellite : Satellite, ship_build : ShipBuild, satellite_build : SatelliteBuild,
+        technology : Technology, component_stats : ComponentStats, component_mod :
+        ComponentMod, faction : Faction, quest : Quest, loot : Loot, fleet : Fleet,
+        character : Character, quest_item : QuestItem, ammunition : Ammunition,
+        visual_effect : VisualEffect, bullet_prefab : BulletPrefab, behavior_tree :
+        BehaviorTree, game_object_prefab : GameObjectPrefab, combat_rules : CombatRules,
+        component_stat_upgrade : ComponentStatUpgrade, stat_upgrade_template :
+        StatUpgradeTemplate }
     };
 }
 
