@@ -16,7 +16,8 @@ pub struct Args {
 
 fn main() {
     let subscriber = tracing_subscriber::Registry::default()
-        .with(tracing_subscriber::fmt::Layer::default())
+        .with(tracing_subscriber::fmt::Layer::default().pretty())
+        // .with(Filter)
         .with(EnvFilter::from_default_env());
 
     tracing::subscriber::set_global_default(subscriber).unwrap();

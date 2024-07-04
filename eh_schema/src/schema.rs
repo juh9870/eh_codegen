@@ -1,9 +1,11 @@
 #![allow(clippy::large_enum_variant)]
 #![allow(dead_code)]
+#![allow(unused_variables)]
 #![allow(unreachable_patterns)]
 
 // versions.xml
 pub use crate::helpers::*;
+use diagnostic::prelude::*;
 
 // v1/Enums/ActivationType.xml
 #[repr(i32)]
@@ -27,7 +29,7 @@ pub enum ActivationType {
     Mixed,
 }
 impl DatabaseItem for ActivationType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ActivationType"
     }
@@ -58,7 +60,7 @@ pub enum AiDifficultyLevel {
     Hard = 2i32,
 }
 impl DatabaseItem for AiDifficultyLevel {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "AiDifficultyLevel"
     }
@@ -88,7 +90,7 @@ pub enum AiWeaponCategory {
     Recharge = 4i32,
 }
 impl DatabaseItem for AiWeaponCategory {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "AiWeaponCategory"
     }
@@ -263,7 +265,7 @@ pub enum BehaviorNodeType {
     ForgetSavedTarget = 310i32,
 }
 impl DatabaseItem for BehaviorNodeType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeType"
     }
@@ -313,7 +315,7 @@ pub enum BehaviorRequirementType {
     HasHighRammingDamage = 102i32,
 }
 impl DatabaseItem for BehaviorRequirementType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorRequirementType"
     }
@@ -343,7 +345,7 @@ pub enum NodeExecutionMode {
     OneTime = 4i32,
 }
 impl DatabaseItem for NodeExecutionMode {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "NodeExecutionMode"
     }
@@ -400,7 +402,7 @@ pub enum AmmunitionClassObsolete {
     HomingCarrier,
 }
 impl DatabaseItem for AmmunitionClassObsolete {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "AmmunitionClassObsolete"
     }
@@ -431,7 +433,7 @@ pub enum Availability {
     LootOnly = 5i32,
 }
 impl DatabaseItem for Availability {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "Availability"
     }
@@ -456,7 +458,7 @@ pub enum CellType {
     Engine = 53u32,
 }
 impl DatabaseItem for CellType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "CellType"
     }
@@ -526,7 +528,7 @@ pub enum ComponentCategory {
     Special,
 }
 impl DatabaseItem for ComponentCategory {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ComponentCategory"
     }
@@ -553,7 +555,7 @@ pub enum ComponentStatsType {
     PerOneCell = 1i32,
 }
 impl DatabaseItem for ComponentStatsType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ComponentStatsType"
     }
@@ -601,7 +603,7 @@ pub enum DeviceClass {
     WormTailV2,
 }
 impl DatabaseItem for DeviceClass {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "DeviceClass"
     }
@@ -630,7 +632,7 @@ pub enum DifficultyClass {
     Class3 = 3i32,
 }
 impl DatabaseItem for DifficultyClass {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "DifficultyClass"
     }
@@ -703,7 +705,7 @@ pub enum ItemType {
     LocalizationSettings = 117i32,
 }
 impl DatabaseItem for ItemType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ItemType"
     }
@@ -734,7 +736,7 @@ pub enum ModificationQuality {
     P3 = 5i32,
 }
 impl DatabaseItem for ModificationQuality {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ModificationQuality"
     }
@@ -763,7 +765,7 @@ pub enum ObjectPrefabType {
     CircularOutlineObject = 3i32,
 }
 impl DatabaseItem for ObjectPrefabType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ObjectPrefabType"
     }
@@ -792,7 +794,7 @@ pub enum FactionFilterType {
     AllAvailable = 3i32,
 }
 impl DatabaseItem for FactionFilterType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "FactionFilterType"
     }
@@ -834,7 +836,7 @@ pub enum LootItemType {
     Satellite = 45i32,
 }
 impl DatabaseItem for LootItemType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "LootItemType"
     }
@@ -889,7 +891,7 @@ pub enum NodeType {
     ChangeFaction = 62i32,
 }
 impl DatabaseItem for NodeType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "NodeType"
     }
@@ -921,7 +923,7 @@ pub enum PlayerShipSelectionMode {
     NoRetreats = 3i32,
 }
 impl DatabaseItem for PlayerShipSelectionMode {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "PlayerShipSelectionMode"
     }
@@ -951,7 +953,7 @@ pub enum QuestOriginType {
     RandomStar,
 }
 impl DatabaseItem for QuestOriginType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "QuestOriginType"
     }
@@ -981,7 +983,7 @@ pub enum QuestType {
     Urgent = 4i32,
 }
 impl DatabaseItem for QuestType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "QuestType"
     }
@@ -1010,7 +1012,7 @@ pub enum RequiredViewMode {
     GalaxyMap = 3i32,
 }
 impl DatabaseItem for RequiredViewMode {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequiredViewMode"
     }
@@ -1056,7 +1058,7 @@ pub enum RequirementType {
     TimeSinceLastCompletion = 41i32,
 }
 impl DatabaseItem for RequirementType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementType"
     }
@@ -1084,7 +1086,7 @@ pub enum RewardCondition {
     Never = 2i32,
 }
 impl DatabaseItem for RewardCondition {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RewardCondition"
     }
@@ -1117,7 +1119,7 @@ pub enum StartCondition {
     Daily = 7i32,
 }
 impl DatabaseItem for StartCondition {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "StartCondition"
     }
@@ -1146,7 +1148,7 @@ pub enum TimeOutMode {
     CallNextEnemyOrDraw = 2i32,
 }
 impl DatabaseItem for TimeOutMode {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "TimeOutMode"
     }
@@ -1183,7 +1185,7 @@ pub enum ShipPerkType {
     ShieldRechargeCooldown = 11i32,
 }
 impl DatabaseItem for ShipPerkType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ShipPerkType"
     }
@@ -1212,7 +1214,7 @@ pub enum ShipRarity {
     Unique,
 }
 impl DatabaseItem for ShipRarity {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ShipRarity"
     }
@@ -1242,7 +1244,7 @@ pub enum ShipType {
     Flagship = 4i32,
 }
 impl DatabaseItem for ShipType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ShipType"
     }
@@ -1274,7 +1276,7 @@ pub enum SizeClass {
     Starbase = 5i32,
 }
 impl DatabaseItem for SizeClass {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "SizeClass"
     }
@@ -1310,7 +1312,7 @@ pub enum SkillType {
     Engineer = 10i32,
 }
 impl DatabaseItem for SkillType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "SkillType"
     }
@@ -1361,7 +1363,7 @@ pub enum StatModificationType {
     ExtraHitPoints = 62i32,
 }
 impl DatabaseItem for StatModificationType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "StatModificationType"
     }
@@ -1389,7 +1391,7 @@ pub enum TechType {
     Satellite,
 }
 impl DatabaseItem for TechType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "TechType"
     }
@@ -1417,7 +1419,7 @@ pub enum ToggleState {
     Disabled = 2i32,
 }
 impl DatabaseItem for ToggleState {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ToggleState"
     }
@@ -1448,7 +1450,7 @@ pub enum AiBulletBehavior {
     Harpoon,
 }
 impl DatabaseItem for AiBulletBehavior {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "AiBulletBehavior"
     }
@@ -1479,7 +1481,7 @@ pub enum BulletControllerType {
     AuraEmitter,
 }
 impl DatabaseItem for BulletControllerType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletControllerType"
     }
@@ -1510,7 +1512,7 @@ pub enum BulletEffectType {
     GravityField,
 }
 impl DatabaseItem for BulletEffectType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletEffectType"
     }
@@ -1538,7 +1540,7 @@ pub enum BulletImpactType {
     DamageOverTime,
 }
 impl DatabaseItem for BulletImpactType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletImpactType"
     }
@@ -1575,7 +1577,7 @@ pub enum BulletShape {
     PiercingLaser,
 }
 impl DatabaseItem for BulletShape {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletShape"
     }
@@ -1609,7 +1611,7 @@ pub enum BulletTriggerCondition {
     Cooldown,
 }
 impl DatabaseItem for BulletTriggerCondition {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletTriggerCondition"
     }
@@ -1639,7 +1641,7 @@ pub enum BulletTypeObsolete {
     Magnetic,
 }
 impl DatabaseItem for BulletTypeObsolete {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletTypeObsolete"
     }
@@ -1668,7 +1670,7 @@ pub enum ColorMode {
     Multiply,
 }
 impl DatabaseItem for ColorMode {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ColorMode"
     }
@@ -1697,7 +1699,7 @@ pub enum DamageType {
     Corrosive,
 }
 impl DatabaseItem for DamageType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "DamageType"
     }
@@ -1741,7 +1743,7 @@ pub enum ImpactEffectType {
     PullToCenter,
 }
 impl DatabaseItem for ImpactEffectType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ImpactEffectType"
     }
@@ -1776,7 +1778,7 @@ pub enum VisualEffectType {
     Sprite,
 }
 impl DatabaseItem for VisualEffectType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "VisualEffectType"
     }
@@ -1807,7 +1809,7 @@ pub enum WeaponClass {
     RequiredCharging,
 }
 impl DatabaseItem for WeaponClass {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "WeaponClass"
     }
@@ -1831,7 +1833,7 @@ pub enum WeaponSlotType {
     Special = 83u32,
 }
 impl DatabaseItem for WeaponSlotType {
-    fn validate(&mut self) {}
+    fn validate(&self, _ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "WeaponSlotType"
     }
@@ -1922,7 +1924,7 @@ impl BehaviorNodeRequirementEmpty {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementEmpty {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementEmpty"
     }
@@ -1975,13 +1977,12 @@ impl BehaviorNodeRequirementAny {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementAny {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirements").entered();
-            for (i, x) in self.r#requirements.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("requirements");
+            for (i, x) in self.r#requirements.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -2037,13 +2038,12 @@ impl BehaviorNodeRequirementAll {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementAll {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirements").entered();
-            for (i, x) in self.r#requirements.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("requirements");
+            for (i, x) in self.r#requirements.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -2099,13 +2099,12 @@ impl BehaviorNodeRequirementNone {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementNone {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirements").entered();
-            for (i, x) in self.r#requirements.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("requirements");
+            for (i, x) in self.r#requirements.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -2162,7 +2161,7 @@ impl BehaviorNodeRequirementAiLevel {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementAiLevel {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementAiLevel"
     }
@@ -2216,7 +2215,7 @@ impl BehaviorNodeRequirementMinAiLevel {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementMinAiLevel {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementMinAiLevel"
     }
@@ -2263,7 +2262,7 @@ impl BehaviorNodeRequirementSizeClass {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementSizeClass {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementSizeClass"
     }
@@ -2310,7 +2309,7 @@ impl BehaviorNodeRequirementHasDevice {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasDevice {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasDevice"
     }
@@ -2344,7 +2343,7 @@ impl BehaviorNodeRequirementHasDrones {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasDrones {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasDrones"
     }
@@ -2378,7 +2377,7 @@ impl BehaviorNodeRequirementHasAnyWeapon {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasAnyWeapon {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasAnyWeapon"
     }
@@ -2412,7 +2411,7 @@ impl BehaviorNodeRequirementCanRepairAllies {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementCanRepairAllies {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementCanRepairAllies"
     }
@@ -2446,7 +2445,7 @@ impl BehaviorNodeRequirementHasHighRecoilWeapon {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasHighRecoilWeapon {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasHighRecoilWeapon"
     }
@@ -2480,7 +2479,7 @@ impl BehaviorNodeRequirementHasChargeableWeapon {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasChargeableWeapon {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasChargeableWeapon"
     }
@@ -2514,7 +2513,7 @@ impl BehaviorNodeRequirementHasRemotelyControlledWeapon {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasRemotelyControlledWeapon {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasRemotelyControlledWeapon"
     }
@@ -2560,17 +2559,11 @@ impl BehaviorNodeRequirementHasLongRangeWeapon {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasLongRangeWeapon {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < 0_f32 {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
         }
     }
@@ -2607,7 +2600,7 @@ impl BehaviorNodeRequirementHasEngine {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasEngine {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasEngine"
     }
@@ -2641,7 +2634,7 @@ impl BehaviorNodeRequirementHasHarpoon {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasHarpoon {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasHarpoon"
     }
@@ -2675,7 +2668,7 @@ impl BehaviorNodeRequirementCanRechargeAllies {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementCanRechargeAllies {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementCanRechargeAllies"
     }
@@ -2709,7 +2702,7 @@ impl BehaviorNodeRequirementIsDrone {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementIsDrone {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementIsDrone"
     }
@@ -2755,17 +2748,11 @@ impl BehaviorNodeRequirementHasKineticResistance {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasKineticResistance {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < 0_f32 {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
         }
     }
@@ -2814,17 +2801,11 @@ impl BehaviorNodeRequirementHasHighManeuverability {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasHighManeuverability {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < 0_f32 {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
         }
     }
@@ -2873,17 +2854,11 @@ impl BehaviorNodeRequirementHasHighRammingDamage {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirementHasHighRammingDamage {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < 0_f32 {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
         }
     }
@@ -3209,30 +3184,96 @@ impl BehaviorNodeRequirement {
     }
 }
 impl DatabaseItem for BehaviorNodeRequirement {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Empty(x) => x.validate(),
-            Self::Any(x) => x.validate(),
-            Self::All(x) => x.validate(),
-            Self::None(x) => x.validate(),
-            Self::AiLevel(x) => x.validate(),
-            Self::MinAiLevel(x) => x.validate(),
-            Self::SizeClass(x) => x.validate(),
-            Self::HasDevice(x) => x.validate(),
-            Self::HasDrones(x) => x.validate(),
-            Self::HasAnyWeapon(x) => x.validate(),
-            Self::CanRepairAllies(x) => x.validate(),
-            Self::HasHighRecoilWeapon(x) => x.validate(),
-            Self::HasChargeableWeapon(x) => x.validate(),
-            Self::HasRemotelyControlledWeapon(x) => x.validate(),
-            Self::HasLongRangeWeapon(x) => x.validate(),
-            Self::HasEngine(x) => x.validate(),
-            Self::HasHarpoon(x) => x.validate(),
-            Self::CanRechargeAllies(x) => x.validate(),
-            Self::IsDrone(x) => x.validate(),
-            Self::HasKineticResistance(x) => x.validate(),
-            Self::HasHighManeuverability(x) => x.validate(),
-            Self::HasHighRammingDamage(x) => x.validate(),
+            Self::Empty(x) => {
+                let ctx = ctx.enter_variant(stringify!(Empty));
+                x.validate(ctx);
+            }
+            Self::Any(x) => {
+                let ctx = ctx.enter_variant(stringify!(Any));
+                x.validate(ctx);
+            }
+            Self::All(x) => {
+                let ctx = ctx.enter_variant(stringify!(All));
+                x.validate(ctx);
+            }
+            Self::None(x) => {
+                let ctx = ctx.enter_variant(stringify!(None));
+                x.validate(ctx);
+            }
+            Self::AiLevel(x) => {
+                let ctx = ctx.enter_variant(stringify!(AiLevel));
+                x.validate(ctx);
+            }
+            Self::MinAiLevel(x) => {
+                let ctx = ctx.enter_variant(stringify!(MinAiLevel));
+                x.validate(ctx);
+            }
+            Self::SizeClass(x) => {
+                let ctx = ctx.enter_variant(stringify!(SizeClass));
+                x.validate(ctx);
+            }
+            Self::HasDevice(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasDevice));
+                x.validate(ctx);
+            }
+            Self::HasDrones(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasDrones));
+                x.validate(ctx);
+            }
+            Self::HasAnyWeapon(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasAnyWeapon));
+                x.validate(ctx);
+            }
+            Self::CanRepairAllies(x) => {
+                let ctx = ctx.enter_variant(stringify!(CanRepairAllies));
+                x.validate(ctx);
+            }
+            Self::HasHighRecoilWeapon(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasHighRecoilWeapon));
+                x.validate(ctx);
+            }
+            Self::HasChargeableWeapon(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasChargeableWeapon));
+                x.validate(ctx);
+            }
+            Self::HasRemotelyControlledWeapon(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasRemotelyControlledWeapon));
+                x.validate(ctx);
+            }
+            Self::HasLongRangeWeapon(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasLongRangeWeapon));
+                x.validate(ctx);
+            }
+            Self::HasEngine(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasEngine));
+                x.validate(ctx);
+            }
+            Self::HasHarpoon(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasHarpoon));
+                x.validate(ctx);
+            }
+            Self::CanRechargeAllies(x) => {
+                let ctx = ctx.enter_variant(stringify!(CanRechargeAllies));
+                x.validate(ctx);
+            }
+            Self::IsDrone(x) => {
+                let ctx = ctx.enter_variant(stringify!(IsDrone));
+                x.validate(ctx);
+            }
+            Self::HasKineticResistance(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasKineticResistance));
+                x.validate(ctx);
+            }
+            Self::HasHighManeuverability(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasHighManeuverability));
+                x.validate(ctx);
+            }
+            Self::HasHighRammingDamage(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasHighRammingDamage));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -3394,11 +3435,10 @@ impl BehaviorTreeNodeSuccess {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSuccess {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -3451,11 +3491,10 @@ impl BehaviorTreeNodeFailure {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeFailure {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -3520,11 +3559,10 @@ impl BehaviorTreeNodeSubTree {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSubTree {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -3588,17 +3626,16 @@ impl BehaviorTreeNodeSelector {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSelector {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#nodes").entered();
-            for (i, x) in self.r#nodes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("nodes");
+            for (i, x) in self.r#nodes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -3663,17 +3700,16 @@ impl BehaviorTreeNodeSequence {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSequence {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#nodes").entered();
-            for (i, x) in self.r#nodes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("nodes");
+            for (i, x) in self.r#nodes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -3738,17 +3774,16 @@ impl BehaviorTreeNodeParallel {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeParallel {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#nodes").entered();
-            for (i, x) in self.r#nodes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("nodes");
+            for (i, x) in self.r#nodes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -3825,29 +3860,22 @@ impl BehaviorTreeNodeRandomSelector {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeRandomSelector {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#nodes").entered();
-            for (i, x) in self.r#nodes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("nodes");
+            for (i, x) in self.r#nodes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
         }
     }
@@ -3912,15 +3940,14 @@ impl BehaviorTreeNodeInvertor {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeInvertor {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#node").entered();
-            self.r#node.validate();
+            let ctx = ctx.enter("node");
+            self.r#node.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -4022,26 +4049,19 @@ impl BehaviorTreeNodeCooldown {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeCooldown {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#node").entered();
-            self.r#node.validate();
+            let ctx = ctx.enter("node");
+            self.r#node.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
         }
     }
@@ -4132,15 +4152,14 @@ impl BehaviorTreeNodeExecute {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeExecute {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#node").entered();
-            self.r#node.validate();
+            let ctx = ctx.enter("node");
+            self.r#node.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -4204,17 +4223,16 @@ impl BehaviorTreeNodeParallelSequence {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeParallelSequence {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#nodes").entered();
-            for (i, x) in self.r#nodes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("nodes");
+            for (i, x) in self.r#nodes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -4279,15 +4297,14 @@ impl BehaviorTreeNodePreserveTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodePreserveTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#node").entered();
-            self.r#node.validate();
+            let ctx = ctx.enter("node");
+            self.r#node.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -4351,17 +4368,16 @@ impl BehaviorTreeNodeIfThenElse {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeIfThenElse {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#nodes").entered();
-            for (i, x) in self.r#nodes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("nodes");
+            for (i, x) in self.r#nodes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -4427,31 +4443,18 @@ impl BehaviorTreeNodeHasEnoughEnergy {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHasEnoughEnergy {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -4517,31 +4520,18 @@ impl BehaviorTreeNodeIsLowOnHp {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeIsLowOnHp {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -4607,22 +4597,15 @@ impl BehaviorTreeNodeIsNotControledByPlayer {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeIsNotControledByPlayer {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0.1f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.1f32, self.r#cooldown));
             }
         }
     }
@@ -4688,22 +4671,15 @@ impl BehaviorTreeNodeHasIncomingThreat {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHasIncomingThreat {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
         }
     }
@@ -4757,11 +4733,10 @@ impl BehaviorTreeNodeHasAdditionalTargets {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHasAdditionalTargets {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -4826,31 +4801,18 @@ impl BehaviorTreeNodeIsFasterThanTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeIsFasterThanTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#min_value));
             }
             if self.r#min_value > 10_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#min_value));
             }
         }
     }
@@ -4904,11 +4866,10 @@ impl BehaviorTreeNodeHasMainTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHasMainTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -4961,11 +4922,10 @@ impl BehaviorTreeNodeMainTargetIsAlly {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMainTargetIsAlly {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -5018,11 +4978,10 @@ impl BehaviorTreeNodeMainTargetIsEnemy {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMainTargetIsEnemy {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -5087,31 +5046,18 @@ impl BehaviorTreeNodeMainTargetLowHp {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMainTargetLowHp {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -5178,31 +5124,18 @@ impl BehaviorTreeNodeMainTargetWithinAttackRange {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMainTargetWithinAttackRange {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -5256,11 +5189,10 @@ impl BehaviorTreeNodeHasMothership {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHasMothership {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -5326,22 +5258,15 @@ impl BehaviorTreeNodeTargetDistance {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeTargetDistance {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
         }
     }
@@ -5407,31 +5332,18 @@ impl BehaviorTreeNodeHasLongerAttackRange {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHasLongerAttackRange {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#min_value));
             }
             if self.r#min_value > 10_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#min_value));
             }
         }
     }
@@ -5533,34 +5445,21 @@ impl BehaviorTreeNodeFindEnemy {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeFindEnemy {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0.5f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.5f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
         }
     }
@@ -5639,52 +5538,27 @@ impl BehaviorTreeNodeMoveToAttackRange {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMoveToAttackRange {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#max_value));
             }
         }
     }
@@ -5750,11 +5624,10 @@ impl BehaviorTreeNodeAttackMainTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeAttackMainTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -5818,11 +5691,10 @@ impl BehaviorTreeNodeSelectWeapon {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSelectWeapon {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -5875,11 +5747,10 @@ impl BehaviorTreeNodeSpawnDrones {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSpawnDrones {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -5944,11 +5815,10 @@ impl BehaviorTreeNodeRam {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeRam {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -6013,11 +5883,10 @@ impl BehaviorTreeNodeDetonateShip {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeDetonateShip {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -6070,11 +5939,10 @@ impl BehaviorTreeNodeVanish {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeVanish {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -6153,52 +6021,27 @@ impl BehaviorTreeNodeMaintainAttackRange {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMaintainAttackRange {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#max_value));
             }
         }
     }
@@ -6276,22 +6119,15 @@ impl BehaviorTreeNodeWait {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeWait {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
         }
     }
@@ -6345,11 +6181,10 @@ impl BehaviorTreeNodeLookAtTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeLookAtTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -6414,22 +6249,15 @@ impl BehaviorTreeNodeLookForAdditionalTargets {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeLookForAdditionalTargets {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0.1f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.1f32, self.r#cooldown));
             }
         }
     }
@@ -6495,22 +6323,15 @@ impl BehaviorTreeNodeLookForThreats {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeLookForThreats {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0.1f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.1f32, self.r#cooldown));
             }
         }
     }
@@ -6577,31 +6398,18 @@ impl BehaviorTreeNodeMatchVelocityWithTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMatchVelocityWithTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#max_value));
             }
         }
     }
@@ -6666,11 +6474,10 @@ impl BehaviorTreeNodeActivateDevice {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeActivateDevice {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -6747,52 +6554,27 @@ impl BehaviorTreeNodeRechargeEnergy {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeRechargeEnergy {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#max_value));
             }
         }
     }
@@ -6846,11 +6628,10 @@ impl BehaviorTreeNodeSustainAim {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSustainAim {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -6903,11 +6684,10 @@ impl BehaviorTreeNodeChargeWeapons {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeChargeWeapons {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -6960,11 +6740,10 @@ impl BehaviorTreeNodeChase {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeChase {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7017,11 +6796,10 @@ impl BehaviorTreeNodeAvoidThreats {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeAvoidThreats {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7087,31 +6865,18 @@ impl BehaviorTreeNodeSlowDown {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSlowDown {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#max_value));
             }
         }
     }
@@ -7165,11 +6930,10 @@ impl BehaviorTreeNodeUseRecoil {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeUseRecoil {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7222,11 +6986,10 @@ impl BehaviorTreeNodeDefendWithFronalShield {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeDefendWithFronalShield {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7279,11 +7042,10 @@ impl BehaviorTreeNodeTrackControllableAmmo {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeTrackControllableAmmo {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7360,52 +7122,27 @@ impl BehaviorTreeNodeKeepDistance {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeKeepDistance {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1000_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > 1000_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#max_value));
             }
         }
     }
@@ -7459,11 +7196,10 @@ impl BehaviorTreeNodeForgetMainTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeForgetMainTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7516,11 +7252,10 @@ impl BehaviorTreeNodeEscapeTargetAttackRadius {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeEscapeTargetAttackRadius {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7585,11 +7320,10 @@ impl BehaviorTreeNodeAttackAdditionalTargets {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeAttackAdditionalTargets {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7642,11 +7376,10 @@ impl BehaviorTreeNodeTargetAllyStarbase {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeTargetAllyStarbase {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7699,11 +7432,10 @@ impl BehaviorTreeNodeTargetEnemyStarbase {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeTargetEnemyStarbase {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7756,11 +7488,10 @@ impl BehaviorTreeNodeBypassObstacles {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeBypassObstacles {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7813,11 +7544,10 @@ impl BehaviorTreeNodeAttackTurretTargets {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeAttackTurretTargets {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7870,11 +7600,10 @@ impl BehaviorTreeNodeHoldHarpoon {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHoldHarpoon {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -7963,34 +7692,21 @@ impl BehaviorTreeNodeFindDamagedAlly {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeFindDamagedAlly {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0.5f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.5f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
         }
     }
@@ -8056,31 +7772,18 @@ impl BehaviorTreeNodeEnginePropulsionForce {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeEnginePropulsionForce {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -8134,11 +7837,10 @@ impl BehaviorTreeNodeMotherShipRetreated {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMotherShipRetreated {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -8191,11 +7893,10 @@ impl BehaviorTreeNodeMotherShipDestroyed {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMotherShipDestroyed {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -8272,52 +7973,27 @@ impl BehaviorTreeNodeFlyAroundMothership {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeFlyAroundMothership {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1000_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > 1000_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#max_value));
             }
         }
     }
@@ -8371,11 +8047,10 @@ impl BehaviorTreeNodeGoBerserk {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeGoBerserk {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -8428,11 +8103,10 @@ impl BehaviorTreeNodeTargetMothership {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeTargetMothership {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -8497,31 +8171,18 @@ impl BehaviorTreeNodeMothershipLowHp {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMothershipLowHp {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -8588,22 +8249,15 @@ impl BehaviorTreeNodeMothershipDistanceExceeded {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMothershipDistanceExceeded {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
         }
     }
@@ -8657,11 +8311,10 @@ impl BehaviorTreeNodeMakeTargetMothership {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMakeTargetMothership {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -8726,31 +8379,18 @@ impl BehaviorTreeNodeMothershipLowEnergy {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMothershipLowEnergy {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -8816,31 +8456,18 @@ impl BehaviorTreeNodeMothershipLowShield {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMothershipLowShield {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#min_value));
             }
         }
     }
@@ -8917,11 +8544,10 @@ impl BehaviorTreeNodeShowMessage {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeShowMessage {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -8985,11 +8611,10 @@ impl BehaviorTreeNodeDebugLog {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeDebugLog {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9065,11 +8690,10 @@ impl BehaviorTreeNodeSetValue {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSetValue {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9133,11 +8757,10 @@ impl BehaviorTreeNodeGetValue {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeGetValue {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9201,11 +8824,10 @@ impl BehaviorTreeNodeSendMessage {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSendMessage {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9269,11 +8891,10 @@ impl BehaviorTreeNodeMessageReceived {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeMessageReceived {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9326,11 +8947,10 @@ impl BehaviorTreeNodeTargetMessageSender {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeTargetMessageSender {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9394,11 +9014,10 @@ impl BehaviorTreeNodeSaveTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeSaveTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9462,11 +9081,10 @@ impl BehaviorTreeNodeLoadTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeLoadTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9530,11 +9148,10 @@ impl BehaviorTreeNodeHasSavedTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeHasSavedTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -9598,11 +9215,10 @@ impl BehaviorTreeNodeForgetSavedTarget {
     }
 }
 impl DatabaseItem for BehaviorTreeNodeForgetSavedTarget {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -10950,91 +10566,340 @@ impl BehaviorTreeNode {
     }
 }
 impl DatabaseItem for BehaviorTreeNode {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Success(x) => x.validate(),
-            Self::Failure(x) => x.validate(),
-            Self::SubTree(x) => x.validate(),
-            Self::Selector(x) => x.validate(),
-            Self::Sequence(x) => x.validate(),
-            Self::Parallel(x) => x.validate(),
-            Self::RandomSelector(x) => x.validate(),
-            Self::Invertor(x) => x.validate(),
-            Self::Cooldown(x) => x.validate(),
-            Self::Execute(x) => x.validate(),
-            Self::ParallelSequence(x) => x.validate(),
-            Self::PreserveTarget(x) => x.validate(),
-            Self::IfThenElse(x) => x.validate(),
-            Self::HasEnoughEnergy(x) => x.validate(),
-            Self::IsLowOnHp(x) => x.validate(),
-            Self::IsNotControledByPlayer(x) => x.validate(),
-            Self::HasIncomingThreat(x) => x.validate(),
-            Self::HasAdditionalTargets(x) => x.validate(),
-            Self::IsFasterThanTarget(x) => x.validate(),
-            Self::HasMainTarget(x) => x.validate(),
-            Self::MainTargetIsAlly(x) => x.validate(),
-            Self::MainTargetIsEnemy(x) => x.validate(),
-            Self::MainTargetLowHp(x) => x.validate(),
-            Self::MainTargetWithinAttackRange(x) => x.validate(),
-            Self::HasMothership(x) => x.validate(),
-            Self::TargetDistance(x) => x.validate(),
-            Self::HasLongerAttackRange(x) => x.validate(),
-            Self::FindEnemy(x) => x.validate(),
-            Self::MoveToAttackRange(x) => x.validate(),
-            Self::AttackMainTarget(x) => x.validate(),
-            Self::SelectWeapon(x) => x.validate(),
-            Self::SpawnDrones(x) => x.validate(),
-            Self::Ram(x) => x.validate(),
-            Self::DetonateShip(x) => x.validate(),
-            Self::Vanish(x) => x.validate(),
-            Self::MaintainAttackRange(x) => x.validate(),
-            Self::Wait(x) => x.validate(),
-            Self::LookAtTarget(x) => x.validate(),
-            Self::LookForAdditionalTargets(x) => x.validate(),
-            Self::LookForThreats(x) => x.validate(),
-            Self::MatchVelocityWithTarget(x) => x.validate(),
-            Self::ActivateDevice(x) => x.validate(),
-            Self::RechargeEnergy(x) => x.validate(),
-            Self::SustainAim(x) => x.validate(),
-            Self::ChargeWeapons(x) => x.validate(),
-            Self::Chase(x) => x.validate(),
-            Self::AvoidThreats(x) => x.validate(),
-            Self::SlowDown(x) => x.validate(),
-            Self::UseRecoil(x) => x.validate(),
-            Self::DefendWithFronalShield(x) => x.validate(),
-            Self::TrackControllableAmmo(x) => x.validate(),
-            Self::KeepDistance(x) => x.validate(),
-            Self::ForgetMainTarget(x) => x.validate(),
-            Self::EscapeTargetAttackRadius(x) => x.validate(),
-            Self::AttackAdditionalTargets(x) => x.validate(),
-            Self::TargetAllyStarbase(x) => x.validate(),
-            Self::TargetEnemyStarbase(x) => x.validate(),
-            Self::BypassObstacles(x) => x.validate(),
-            Self::AttackTurretTargets(x) => x.validate(),
-            Self::HoldHarpoon(x) => x.validate(),
-            Self::FindDamagedAlly(x) => x.validate(),
-            Self::EnginePropulsionForce(x) => x.validate(),
-            Self::MotherShipRetreated(x) => x.validate(),
-            Self::MotherShipDestroyed(x) => x.validate(),
-            Self::FlyAroundMothership(x) => x.validate(),
-            Self::GoBerserk(x) => x.validate(),
-            Self::TargetMothership(x) => x.validate(),
-            Self::MothershipLowHp(x) => x.validate(),
-            Self::MothershipDistanceExceeded(x) => x.validate(),
-            Self::MakeTargetMothership(x) => x.validate(),
-            Self::MothershipLowEnergy(x) => x.validate(),
-            Self::MothershipLowShield(x) => x.validate(),
-            Self::ShowMessage(x) => x.validate(),
-            Self::DebugLog(x) => x.validate(),
-            Self::SetValue(x) => x.validate(),
-            Self::GetValue(x) => x.validate(),
-            Self::SendMessage(x) => x.validate(),
-            Self::MessageReceived(x) => x.validate(),
-            Self::TargetMessageSender(x) => x.validate(),
-            Self::SaveTarget(x) => x.validate(),
-            Self::LoadTarget(x) => x.validate(),
-            Self::HasSavedTarget(x) => x.validate(),
-            Self::ForgetSavedTarget(x) => x.validate(),
+            Self::Success(x) => {
+                let ctx = ctx.enter_variant(stringify!(Success));
+                x.validate(ctx);
+            }
+            Self::Failure(x) => {
+                let ctx = ctx.enter_variant(stringify!(Failure));
+                x.validate(ctx);
+            }
+            Self::SubTree(x) => {
+                let ctx = ctx.enter_variant(stringify!(SubTree));
+                x.validate(ctx);
+            }
+            Self::Selector(x) => {
+                let ctx = ctx.enter_variant(stringify!(Selector));
+                x.validate(ctx);
+            }
+            Self::Sequence(x) => {
+                let ctx = ctx.enter_variant(stringify!(Sequence));
+                x.validate(ctx);
+            }
+            Self::Parallel(x) => {
+                let ctx = ctx.enter_variant(stringify!(Parallel));
+                x.validate(ctx);
+            }
+            Self::RandomSelector(x) => {
+                let ctx = ctx.enter_variant(stringify!(RandomSelector));
+                x.validate(ctx);
+            }
+            Self::Invertor(x) => {
+                let ctx = ctx.enter_variant(stringify!(Invertor));
+                x.validate(ctx);
+            }
+            Self::Cooldown(x) => {
+                let ctx = ctx.enter_variant(stringify!(Cooldown));
+                x.validate(ctx);
+            }
+            Self::Execute(x) => {
+                let ctx = ctx.enter_variant(stringify!(Execute));
+                x.validate(ctx);
+            }
+            Self::ParallelSequence(x) => {
+                let ctx = ctx.enter_variant(stringify!(ParallelSequence));
+                x.validate(ctx);
+            }
+            Self::PreserveTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(PreserveTarget));
+                x.validate(ctx);
+            }
+            Self::IfThenElse(x) => {
+                let ctx = ctx.enter_variant(stringify!(IfThenElse));
+                x.validate(ctx);
+            }
+            Self::HasEnoughEnergy(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasEnoughEnergy));
+                x.validate(ctx);
+            }
+            Self::IsLowOnHp(x) => {
+                let ctx = ctx.enter_variant(stringify!(IsLowOnHp));
+                x.validate(ctx);
+            }
+            Self::IsNotControledByPlayer(x) => {
+                let ctx = ctx.enter_variant(stringify!(IsNotControledByPlayer));
+                x.validate(ctx);
+            }
+            Self::HasIncomingThreat(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasIncomingThreat));
+                x.validate(ctx);
+            }
+            Self::HasAdditionalTargets(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasAdditionalTargets));
+                x.validate(ctx);
+            }
+            Self::IsFasterThanTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(IsFasterThanTarget));
+                x.validate(ctx);
+            }
+            Self::HasMainTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasMainTarget));
+                x.validate(ctx);
+            }
+            Self::MainTargetIsAlly(x) => {
+                let ctx = ctx.enter_variant(stringify!(MainTargetIsAlly));
+                x.validate(ctx);
+            }
+            Self::MainTargetIsEnemy(x) => {
+                let ctx = ctx.enter_variant(stringify!(MainTargetIsEnemy));
+                x.validate(ctx);
+            }
+            Self::MainTargetLowHp(x) => {
+                let ctx = ctx.enter_variant(stringify!(MainTargetLowHp));
+                x.validate(ctx);
+            }
+            Self::MainTargetWithinAttackRange(x) => {
+                let ctx = ctx.enter_variant(stringify!(MainTargetWithinAttackRange));
+                x.validate(ctx);
+            }
+            Self::HasMothership(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasMothership));
+                x.validate(ctx);
+            }
+            Self::TargetDistance(x) => {
+                let ctx = ctx.enter_variant(stringify!(TargetDistance));
+                x.validate(ctx);
+            }
+            Self::HasLongerAttackRange(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasLongerAttackRange));
+                x.validate(ctx);
+            }
+            Self::FindEnemy(x) => {
+                let ctx = ctx.enter_variant(stringify!(FindEnemy));
+                x.validate(ctx);
+            }
+            Self::MoveToAttackRange(x) => {
+                let ctx = ctx.enter_variant(stringify!(MoveToAttackRange));
+                x.validate(ctx);
+            }
+            Self::AttackMainTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(AttackMainTarget));
+                x.validate(ctx);
+            }
+            Self::SelectWeapon(x) => {
+                let ctx = ctx.enter_variant(stringify!(SelectWeapon));
+                x.validate(ctx);
+            }
+            Self::SpawnDrones(x) => {
+                let ctx = ctx.enter_variant(stringify!(SpawnDrones));
+                x.validate(ctx);
+            }
+            Self::Ram(x) => {
+                let ctx = ctx.enter_variant(stringify!(Ram));
+                x.validate(ctx);
+            }
+            Self::DetonateShip(x) => {
+                let ctx = ctx.enter_variant(stringify!(DetonateShip));
+                x.validate(ctx);
+            }
+            Self::Vanish(x) => {
+                let ctx = ctx.enter_variant(stringify!(Vanish));
+                x.validate(ctx);
+            }
+            Self::MaintainAttackRange(x) => {
+                let ctx = ctx.enter_variant(stringify!(MaintainAttackRange));
+                x.validate(ctx);
+            }
+            Self::Wait(x) => {
+                let ctx = ctx.enter_variant(stringify!(Wait));
+                x.validate(ctx);
+            }
+            Self::LookAtTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(LookAtTarget));
+                x.validate(ctx);
+            }
+            Self::LookForAdditionalTargets(x) => {
+                let ctx = ctx.enter_variant(stringify!(LookForAdditionalTargets));
+                x.validate(ctx);
+            }
+            Self::LookForThreats(x) => {
+                let ctx = ctx.enter_variant(stringify!(LookForThreats));
+                x.validate(ctx);
+            }
+            Self::MatchVelocityWithTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(MatchVelocityWithTarget));
+                x.validate(ctx);
+            }
+            Self::ActivateDevice(x) => {
+                let ctx = ctx.enter_variant(stringify!(ActivateDevice));
+                x.validate(ctx);
+            }
+            Self::RechargeEnergy(x) => {
+                let ctx = ctx.enter_variant(stringify!(RechargeEnergy));
+                x.validate(ctx);
+            }
+            Self::SustainAim(x) => {
+                let ctx = ctx.enter_variant(stringify!(SustainAim));
+                x.validate(ctx);
+            }
+            Self::ChargeWeapons(x) => {
+                let ctx = ctx.enter_variant(stringify!(ChargeWeapons));
+                x.validate(ctx);
+            }
+            Self::Chase(x) => {
+                let ctx = ctx.enter_variant(stringify!(Chase));
+                x.validate(ctx);
+            }
+            Self::AvoidThreats(x) => {
+                let ctx = ctx.enter_variant(stringify!(AvoidThreats));
+                x.validate(ctx);
+            }
+            Self::SlowDown(x) => {
+                let ctx = ctx.enter_variant(stringify!(SlowDown));
+                x.validate(ctx);
+            }
+            Self::UseRecoil(x) => {
+                let ctx = ctx.enter_variant(stringify!(UseRecoil));
+                x.validate(ctx);
+            }
+            Self::DefendWithFronalShield(x) => {
+                let ctx = ctx.enter_variant(stringify!(DefendWithFronalShield));
+                x.validate(ctx);
+            }
+            Self::TrackControllableAmmo(x) => {
+                let ctx = ctx.enter_variant(stringify!(TrackControllableAmmo));
+                x.validate(ctx);
+            }
+            Self::KeepDistance(x) => {
+                let ctx = ctx.enter_variant(stringify!(KeepDistance));
+                x.validate(ctx);
+            }
+            Self::ForgetMainTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(ForgetMainTarget));
+                x.validate(ctx);
+            }
+            Self::EscapeTargetAttackRadius(x) => {
+                let ctx = ctx.enter_variant(stringify!(EscapeTargetAttackRadius));
+                x.validate(ctx);
+            }
+            Self::AttackAdditionalTargets(x) => {
+                let ctx = ctx.enter_variant(stringify!(AttackAdditionalTargets));
+                x.validate(ctx);
+            }
+            Self::TargetAllyStarbase(x) => {
+                let ctx = ctx.enter_variant(stringify!(TargetAllyStarbase));
+                x.validate(ctx);
+            }
+            Self::TargetEnemyStarbase(x) => {
+                let ctx = ctx.enter_variant(stringify!(TargetEnemyStarbase));
+                x.validate(ctx);
+            }
+            Self::BypassObstacles(x) => {
+                let ctx = ctx.enter_variant(stringify!(BypassObstacles));
+                x.validate(ctx);
+            }
+            Self::AttackTurretTargets(x) => {
+                let ctx = ctx.enter_variant(stringify!(AttackTurretTargets));
+                x.validate(ctx);
+            }
+            Self::HoldHarpoon(x) => {
+                let ctx = ctx.enter_variant(stringify!(HoldHarpoon));
+                x.validate(ctx);
+            }
+            Self::FindDamagedAlly(x) => {
+                let ctx = ctx.enter_variant(stringify!(FindDamagedAlly));
+                x.validate(ctx);
+            }
+            Self::EnginePropulsionForce(x) => {
+                let ctx = ctx.enter_variant(stringify!(EnginePropulsionForce));
+                x.validate(ctx);
+            }
+            Self::MotherShipRetreated(x) => {
+                let ctx = ctx.enter_variant(stringify!(MotherShipRetreated));
+                x.validate(ctx);
+            }
+            Self::MotherShipDestroyed(x) => {
+                let ctx = ctx.enter_variant(stringify!(MotherShipDestroyed));
+                x.validate(ctx);
+            }
+            Self::FlyAroundMothership(x) => {
+                let ctx = ctx.enter_variant(stringify!(FlyAroundMothership));
+                x.validate(ctx);
+            }
+            Self::GoBerserk(x) => {
+                let ctx = ctx.enter_variant(stringify!(GoBerserk));
+                x.validate(ctx);
+            }
+            Self::TargetMothership(x) => {
+                let ctx = ctx.enter_variant(stringify!(TargetMothership));
+                x.validate(ctx);
+            }
+            Self::MothershipLowHp(x) => {
+                let ctx = ctx.enter_variant(stringify!(MothershipLowHp));
+                x.validate(ctx);
+            }
+            Self::MothershipDistanceExceeded(x) => {
+                let ctx = ctx.enter_variant(stringify!(MothershipDistanceExceeded));
+                x.validate(ctx);
+            }
+            Self::MakeTargetMothership(x) => {
+                let ctx = ctx.enter_variant(stringify!(MakeTargetMothership));
+                x.validate(ctx);
+            }
+            Self::MothershipLowEnergy(x) => {
+                let ctx = ctx.enter_variant(stringify!(MothershipLowEnergy));
+                x.validate(ctx);
+            }
+            Self::MothershipLowShield(x) => {
+                let ctx = ctx.enter_variant(stringify!(MothershipLowShield));
+                x.validate(ctx);
+            }
+            Self::ShowMessage(x) => {
+                let ctx = ctx.enter_variant(stringify!(ShowMessage));
+                x.validate(ctx);
+            }
+            Self::DebugLog(x) => {
+                let ctx = ctx.enter_variant(stringify!(DebugLog));
+                x.validate(ctx);
+            }
+            Self::SetValue(x) => {
+                let ctx = ctx.enter_variant(stringify!(SetValue));
+                x.validate(ctx);
+            }
+            Self::GetValue(x) => {
+                let ctx = ctx.enter_variant(stringify!(GetValue));
+                x.validate(ctx);
+            }
+            Self::SendMessage(x) => {
+                let ctx = ctx.enter_variant(stringify!(SendMessage));
+                x.validate(ctx);
+            }
+            Self::MessageReceived(x) => {
+                let ctx = ctx.enter_variant(stringify!(MessageReceived));
+                x.validate(ctx);
+            }
+            Self::TargetMessageSender(x) => {
+                let ctx = ctx.enter_variant(stringify!(TargetMessageSender));
+                x.validate(ctx);
+            }
+            Self::SaveTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(SaveTarget));
+                x.validate(ctx);
+            }
+            Self::LoadTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(LoadTarget));
+                x.validate(ctx);
+            }
+            Self::HasSavedTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(HasSavedTarget));
+                x.validate(ctx);
+            }
+            Self::ForgetSavedTarget(x) => {
+                let ctx = ctx.enter_variant(stringify!(ForgetSavedTarget));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -11261,123 +11126,57 @@ impl Barrel {
     }
 }
 impl DatabaseItem for Barrel {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#rotation").entered();
+            let mut ctx = ctx.enter("rotation");
             if self.r#rotation < -360_f32 {
-                tracing::warn!(
-                    field = "r#rotation",
-                    value = self.r#rotation,
-                    min = -360f32,
-                    "Field got truncated"
-                );
-                self.r#rotation = -360_f32;
+                ctx.emit(DiagnosticKind::too_small(-360f32, self.r#rotation));
             }
             if self.r#rotation > 360_f32 {
-                tracing::warn!(
-                    field = "r#rotation",
-                    value = self.r#rotation,
-                    max = 360f32,
-                    "Field got truncated"
-                );
-                self.r#rotation = 360_f32;
+                ctx.emit(DiagnosticKind::too_large(360f32, self.r#rotation));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#offset").entered();
+            let mut ctx = ctx.enter("offset");
             if self.r#offset < 0_f32 {
-                tracing::warn!(
-                    field = "r#offset",
-                    value = self.r#offset,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#offset = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#offset));
             }
             if self.r#offset > 1_f32 {
-                tracing::warn!(
-                    field = "r#offset",
-                    value = self.r#offset,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#offset = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#offset));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#platform_type").entered();
+            let mut ctx = ctx.enter("platform_type");
             let dw: i32 = 0;
             if self.r#platform_type != dw {
-                tracing::error!(
-                    ield = "r#platform_type",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#auto_aiming_arc").entered();
+            let mut ctx = ctx.enter("auto_aiming_arc");
             if self.r#auto_aiming_arc < 0_f32 {
-                tracing::warn!(
-                    field = "r#auto_aiming_arc",
-                    value = self.r#auto_aiming_arc,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#auto_aiming_arc = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#auto_aiming_arc));
             }
             if self.r#auto_aiming_arc > 360_f32 {
-                tracing::warn!(
-                    field = "r#auto_aiming_arc",
-                    value = self.r#auto_aiming_arc,
-                    max = 360f32,
-                    "Field got truncated"
-                );
-                self.r#auto_aiming_arc = 360_f32;
+                ctx.emit(DiagnosticKind::too_large(360f32, self.r#auto_aiming_arc));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#rotation_speed").entered();
+            let mut ctx = ctx.enter("rotation_speed");
             if self.r#rotation_speed < 0_f32 {
-                tracing::warn!(
-                    field = "r#rotation_speed",
-                    value = self.r#rotation_speed,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#rotation_speed = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#rotation_speed));
             }
             if self.r#rotation_speed > 1000_f32 {
-                tracing::warn!(
-                    field = "r#rotation_speed",
-                    value = self.r#rotation_speed,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#rotation_speed = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#rotation_speed));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 100_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#size));
             }
         }
     }
@@ -11482,18 +11281,11 @@ impl ComponentRestrictions {
     }
 }
 impl DatabaseItem for ComponentRestrictions {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_component_amount")
-                .entered();
+            let mut ctx = ctx.enter("max_component_amount");
             if self.r#max_component_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_component_amount",
-                    value = self.r#max_component_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_component_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_component_amount));
             }
         }
     }
@@ -11543,26 +11335,14 @@ impl Engine {
     }
 }
 impl DatabaseItem for Engine {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 1_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#size = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#size));
             }
         }
     }
@@ -11684,111 +11464,50 @@ impl InstalledComponent {
     }
 }
 impl DatabaseItem for InstalledComponent {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#x").entered();
+            let mut ctx = ctx.enter("x");
             if self.r#x < (-32768f32 as i32) {
-                tracing::warn!(
-                    field = "r#x",
-                    value = self.r#x,
-                    min = -32768f32,
-                    "Field got truncated"
-                );
-                self.r#x = -32768f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-32768f32, self.r#x));
             }
             if self.r#x > (32767f32 as i32) {
-                tracing::warn!(
-                    field = "r#x",
-                    value = self.r#x,
-                    max = 32767f32,
-                    "Field got truncated"
-                );
-                self.r#x = 32767f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(32767f32, self.r#x));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#y").entered();
+            let mut ctx = ctx.enter("y");
             if self.r#y < (-32768f32 as i32) {
-                tracing::warn!(
-                    field = "r#y",
-                    value = self.r#y,
-                    min = -32768f32,
-                    "Field got truncated"
-                );
-                self.r#y = -32768f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-32768f32, self.r#y));
             }
             if self.r#y > (32767f32 as i32) {
-                tracing::warn!(
-                    field = "r#y",
-                    value = self.r#y,
-                    max = 32767f32,
-                    "Field got truncated"
-                );
-                self.r#y = 32767f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(32767f32, self.r#y));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#barrel_id").entered();
+            let mut ctx = ctx.enter("barrel_id");
             if self.r#barrel_id < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#barrel_id",
-                    value = self.r#barrel_id,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#barrel_id = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#barrel_id));
             }
             if self.r#barrel_id > (255f32 as i32) {
-                tracing::warn!(
-                    field = "r#barrel_id",
-                    value = self.r#barrel_id,
-                    max = 255f32,
-                    "Field got truncated"
-                );
-                self.r#barrel_id = 255f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(255f32, self.r#barrel_id));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#behaviour").entered();
+            let mut ctx = ctx.enter("behaviour");
             if self.r#behaviour < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#behaviour",
-                    value = self.r#behaviour,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#behaviour = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#behaviour));
             }
             if self.r#behaviour > (10f32 as i32) {
-                tracing::warn!(
-                    field = "r#behaviour",
-                    value = self.r#behaviour,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#behaviour = 10f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#behaviour));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#key_binding").entered();
+            let mut ctx = ctx.enter("key_binding");
             if self.r#key_binding < (-10f32 as i32) {
-                tracing::warn!(
-                    field = "r#key_binding",
-                    value = self.r#key_binding,
-                    min = -10f32,
-                    "Field got truncated"
-                );
-                self.r#key_binding = -10f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-10f32, self.r#key_binding));
             }
             if self.r#key_binding > (10f32 as i32) {
-                tracing::warn!(
-                    field = "r#key_binding",
-                    value = self.r#key_binding,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#key_binding = 10f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#key_binding));
             }
         }
     }
@@ -11831,7 +11550,7 @@ impl FactionFilter {
     }
 }
 impl DatabaseItem for FactionFilter {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "FactionFilter"
     }
@@ -11877,7 +11596,7 @@ impl LootContentNone {
     }
 }
 impl DatabaseItem for LootContentNone {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "LootContentNone"
     }
@@ -11923,27 +11642,14 @@ impl LootContentSomeMoney {
     }
 }
 impl DatabaseItem for LootContentSomeMoney {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#value_ratio").entered();
+            let mut ctx = ctx.enter("value_ratio");
             if self.r#value_ratio < 0_f32 {
-                tracing::warn!(
-                    field = "r#value_ratio",
-                    value = self.r#value_ratio,
-                    min = 0.001f32,
-                    "Field got truncated"
-                );
-                self.r#value_ratio = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.001f32, self.r#value_ratio));
             }
             if self.r#value_ratio > 1000_f32 {
-                tracing::warn!(
-                    field = "r#value_ratio",
-                    value = self.r#value_ratio,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#value_ratio = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#value_ratio));
             }
         }
     }
@@ -12006,47 +11712,23 @@ impl LootContentFuel {
     }
 }
 impl DatabaseItem for LootContentFuel {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
     }
@@ -12109,47 +11791,23 @@ impl LootContentMoney {
     }
 }
 impl DatabaseItem for LootContentMoney {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
     }
@@ -12212,47 +11870,23 @@ impl LootContentStars {
     }
 }
 impl DatabaseItem for LootContentStars {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
     }
@@ -12289,7 +11923,7 @@ impl LootContentStarMap {
     }
 }
 impl DatabaseItem for LootContentStarMap {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "LootContentStarMap"
     }
@@ -12372,74 +12006,37 @@ impl LootContentRandomComponents {
     }
 }
 impl DatabaseItem for LootContentRandomComponents {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#value_ratio").entered();
+            let mut ctx = ctx.enter("value_ratio");
             if self.r#value_ratio < 0_f32 {
-                tracing::warn!(
-                    field = "r#value_ratio",
-                    value = self.r#value_ratio,
-                    min = 0.001f32,
-                    "Field got truncated"
-                );
-                self.r#value_ratio = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.001f32, self.r#value_ratio));
             }
             if self.r#value_ratio > 1000_f32 {
-                tracing::warn!(
-                    field = "r#value_ratio",
-                    value = self.r#value_ratio,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#value_ratio = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#value_ratio));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#factions").entered();
-            self.r#factions.validate();
+            let ctx = ctx.enter("factions");
+            self.r#factions.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -12512,54 +12109,30 @@ impl LootContentRandomItems {
     }
 }
 impl DatabaseItem for LootContentRandomItems {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#items").entered();
-            for (i, x) in self.r#items.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("items");
+            for (i, x) in self.r#items.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -12609,12 +12182,12 @@ impl LootContentAllItems {
     }
 }
 impl DatabaseItem for LootContentAllItems {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#items").entered();
-            for (i, x) in self.r#items.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("items");
+            for (i, x) in self.r#items.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -12664,12 +12237,12 @@ impl LootContentItemsWithChance {
     }
 }
 impl DatabaseItem for LootContentItemsWithChance {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#items").entered();
-            for (i, x) in self.r#items.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("items");
+            for (i, x) in self.r#items.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -12742,47 +12315,23 @@ impl LootContentQuestItem {
     }
 }
 impl DatabaseItem for LootContentQuestItem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
     }
@@ -12824,7 +12373,7 @@ impl LootContentShip {
     }
 }
 impl DatabaseItem for LootContentShip {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "LootContentShip"
     }
@@ -12863,7 +12412,7 @@ impl LootContentEmptyShip {
     }
 }
 impl DatabaseItem for LootContentEmptyShip {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "LootContentEmptyShip"
     }
@@ -12928,47 +12477,23 @@ impl LootContentComponent {
     }
 }
 impl DatabaseItem for LootContentComponent {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
     }
@@ -13010,7 +12535,7 @@ impl LootContentBlueprint {
     }
 }
 impl DatabaseItem for LootContentBlueprint {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "LootContentBlueprint"
     }
@@ -13076,52 +12601,28 @@ impl LootContentResearchPoints {
     }
 }
 impl DatabaseItem for LootContentResearchPoints {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#factions").entered();
-            self.r#factions.validate();
+            let ctx = ctx.enter("factions");
+            self.r#factions.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -13193,47 +12694,23 @@ impl LootContentSatellite {
     }
 }
 impl DatabaseItem for LootContentSatellite {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_amount").entered();
+            let mut ctx = ctx.enter("min_amount");
             if self.r#min_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_amount));
             }
             if self.r#min_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_amount",
-                    value = self.r#min_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#min_amount));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_amount").entered();
+            let mut ctx = ctx.enter("max_amount");
             if self.r#max_amount < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_amount));
             }
             if self.r#max_amount > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_amount",
-                    value = self.r#max_amount,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#max_amount = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#max_amount));
             }
         }
     }
@@ -13497,25 +12974,76 @@ impl LootContent {
     }
 }
 impl DatabaseItem for LootContent {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::None(x) => x.validate(),
-            Self::SomeMoney(x) => x.validate(),
-            Self::Fuel(x) => x.validate(),
-            Self::Money(x) => x.validate(),
-            Self::Stars(x) => x.validate(),
-            Self::StarMap(x) => x.validate(),
-            Self::RandomComponents(x) => x.validate(),
-            Self::RandomItems(x) => x.validate(),
-            Self::AllItems(x) => x.validate(),
-            Self::ItemsWithChance(x) => x.validate(),
-            Self::QuestItem(x) => x.validate(),
-            Self::Ship(x) => x.validate(),
-            Self::EmptyShip(x) => x.validate(),
-            Self::Component(x) => x.validate(),
-            Self::Blueprint(x) => x.validate(),
-            Self::ResearchPoints(x) => x.validate(),
-            Self::Satellite(x) => x.validate(),
+            Self::None(x) => {
+                let ctx = ctx.enter_variant(stringify!(None));
+                x.validate(ctx);
+            }
+            Self::SomeMoney(x) => {
+                let ctx = ctx.enter_variant(stringify!(SomeMoney));
+                x.validate(ctx);
+            }
+            Self::Fuel(x) => {
+                let ctx = ctx.enter_variant(stringify!(Fuel));
+                x.validate(ctx);
+            }
+            Self::Money(x) => {
+                let ctx = ctx.enter_variant(stringify!(Money));
+                x.validate(ctx);
+            }
+            Self::Stars(x) => {
+                let ctx = ctx.enter_variant(stringify!(Stars));
+                x.validate(ctx);
+            }
+            Self::StarMap(x) => {
+                let ctx = ctx.enter_variant(stringify!(StarMap));
+                x.validate(ctx);
+            }
+            Self::RandomComponents(x) => {
+                let ctx = ctx.enter_variant(stringify!(RandomComponents));
+                x.validate(ctx);
+            }
+            Self::RandomItems(x) => {
+                let ctx = ctx.enter_variant(stringify!(RandomItems));
+                x.validate(ctx);
+            }
+            Self::AllItems(x) => {
+                let ctx = ctx.enter_variant(stringify!(AllItems));
+                x.validate(ctx);
+            }
+            Self::ItemsWithChance(x) => {
+                let ctx = ctx.enter_variant(stringify!(ItemsWithChance));
+                x.validate(ctx);
+            }
+            Self::QuestItem(x) => {
+                let ctx = ctx.enter_variant(stringify!(QuestItem));
+                x.validate(ctx);
+            }
+            Self::Ship(x) => {
+                let ctx = ctx.enter_variant(stringify!(Ship));
+                x.validate(ctx);
+            }
+            Self::EmptyShip(x) => {
+                let ctx = ctx.enter_variant(stringify!(EmptyShip));
+                x.validate(ctx);
+            }
+            Self::Component(x) => {
+                let ctx = ctx.enter_variant(stringify!(Component));
+                x.validate(ctx);
+            }
+            Self::Blueprint(x) => {
+                let ctx = ctx.enter_variant(stringify!(Blueprint));
+                x.validate(ctx);
+            }
+            Self::ResearchPoints(x) => {
+                let ctx = ctx.enter_variant(stringify!(ResearchPoints));
+                x.validate(ctx);
+            }
+            Self::Satellite(x) => {
+                let ctx = ctx.enter_variant(stringify!(Satellite));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -13581,10 +13109,10 @@ impl LootItem {
     }
 }
 impl DatabaseItem for LootItem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#loot").entered();
-            self.r#loot.validate();
+            let ctx = ctx.enter("loot");
+            self.r#loot.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -13657,26 +13185,14 @@ impl NodeUndefined {
     }
 }
 impl DatabaseItem for NodeUndefined {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
     }
@@ -13725,26 +13241,14 @@ impl NodeComingSoon {
     }
 }
 impl DatabaseItem for NodeComingSoon {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
     }
@@ -13864,33 +13368,21 @@ impl NodeShowDialog {
     }
 }
 impl DatabaseItem for NodeShowDialog {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#actions").entered();
-            for (i, x) in self.r#actions.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("actions");
+            for (i, x) in self.r#actions.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -13977,69 +13469,35 @@ impl NodeOpenShipyard {
     }
 }
 impl DatabaseItem for NodeOpenShipyard {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
             if self.r#value > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#value = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#value));
             }
         }
     }
@@ -14126,69 +13584,35 @@ impl NodeOpenWorkshop {
     }
 }
 impl DatabaseItem for NodeOpenWorkshop {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
             if self.r#value > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#value = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#value));
             }
         }
     }
@@ -14273,56 +13697,33 @@ impl NodeSwitch {
     }
 }
 impl DatabaseItem for NodeSwitch {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#transitions").entered();
-            for (i, x) in self.r#transitions.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("transitions");
+            for (i, x) in self.r#transitions.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -14407,56 +13808,33 @@ impl NodeRandom {
     }
 }
 impl DatabaseItem for NodeRandom {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#transitions").entered();
-            for (i, x) in self.r#transitions.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("transitions");
+            for (i, x) in self.r#transitions.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -14529,34 +13907,21 @@ impl NodeCondition {
     }
 }
 impl DatabaseItem for NodeCondition {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#transitions").entered();
-            for (i, x) in self.r#transitions.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("transitions");
+            for (i, x) in self.r#transitions.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -14655,70 +14020,38 @@ impl NodeAttackFleet {
     }
 }
 impl DatabaseItem for NodeAttackFleet {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#failure_transition").entered();
+            let mut ctx = ctx.enter("failure_transition");
             if self.r#failure_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#failure_transition",
-                    value = self.r#failure_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#failure_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#failure_transition));
             }
             if self.r#failure_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#failure_transition",
-                    value = self.r#failure_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#failure_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#failure_transition,
+                ));
             }
         }
     }
@@ -14793,70 +14126,38 @@ impl NodeAttackOccupants {
     }
 }
 impl DatabaseItem for NodeAttackOccupants {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#failure_transition").entered();
+            let mut ctx = ctx.enter("failure_transition");
             if self.r#failure_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#failure_transition",
-                    value = self.r#failure_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#failure_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#failure_transition));
             }
             if self.r#failure_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#failure_transition",
-                    value = self.r#failure_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#failure_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#failure_transition,
+                ));
             }
         }
     }
@@ -14931,70 +14232,38 @@ impl NodeAttackStarbase {
     }
 }
 impl DatabaseItem for NodeAttackStarbase {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#failure_transition").entered();
+            let mut ctx = ctx.enter("failure_transition");
             if self.r#failure_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#failure_transition",
-                    value = self.r#failure_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#failure_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#failure_transition));
             }
             if self.r#failure_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#failure_transition",
-                    value = self.r#failure_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#failure_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#failure_transition,
+                ));
             }
         }
     }
@@ -15057,48 +14326,26 @@ impl NodeDestroyOccupants {
     }
 }
 impl DatabaseItem for NodeDestroyOccupants {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -15161,48 +14408,26 @@ impl NodeSuppressOccupants {
     }
 }
 impl DatabaseItem for NodeSuppressOccupants {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -15265,48 +14490,26 @@ impl NodeRetreat {
     }
 }
 impl DatabaseItem for NodeRetreat {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -15381,48 +14584,26 @@ impl NodeReceiveItem {
     }
 }
 impl DatabaseItem for NodeReceiveItem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -15497,48 +14678,26 @@ impl NodeRemoveItem {
     }
 }
 impl DatabaseItem for NodeRemoveItem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -15613,48 +14772,26 @@ impl NodeTrade {
     }
 }
 impl DatabaseItem for NodeTrade {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -15703,26 +14840,14 @@ impl NodeCompleteQuest {
     }
 }
 impl DatabaseItem for NodeCompleteQuest {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
     }
@@ -15771,26 +14896,14 @@ impl NodeFailQuest {
     }
 }
 impl DatabaseItem for NodeFailQuest {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
     }
@@ -15839,26 +14952,14 @@ impl NodeCancelQuest {
     }
 }
 impl DatabaseItem for NodeCancelQuest {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
     }
@@ -15933,48 +15034,26 @@ impl NodeStartQuest {
     }
 }
 impl DatabaseItem for NodeStartQuest {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -16061,69 +15140,35 @@ impl NodeSetCharacterRelations {
     }
 }
 impl DatabaseItem for NodeSetCharacterRelations {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#value));
             }
             if self.r#value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#value));
             }
         }
     }
@@ -16198,69 +15243,35 @@ impl NodeSetFactionRelations {
     }
 }
 impl DatabaseItem for NodeSetFactionRelations {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#value));
             }
             if self.r#value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#value));
             }
         }
     }
@@ -16336,69 +15347,35 @@ impl NodeSetFactionStarbasePower {
     }
 }
 impl DatabaseItem for NodeSetFactionStarbasePower {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
             if self.r#value > (100000f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 100000f32,
-                    "Field got truncated"
-                );
-                self.r#value = 100000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100000f32, self.r#value));
             }
         }
     }
@@ -16485,69 +15462,35 @@ impl NodeChangeCharacterRelations {
     }
 }
 impl DatabaseItem for NodeChangeCharacterRelations {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#value));
             }
             if self.r#value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#value));
             }
         }
     }
@@ -16622,69 +15565,35 @@ impl NodeChangeFactionRelations {
     }
 }
 impl DatabaseItem for NodeChangeFactionRelations {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#value));
             }
             if self.r#value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#value));
             }
         }
     }
@@ -16760,69 +15669,35 @@ impl NodeChangeFactionStarbasePower {
     }
 }
 impl DatabaseItem for NodeChangeFactionStarbasePower {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (-100000f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = -100000f32,
-                    "Field got truncated"
-                );
-                self.r#value = -100000f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100000f32, self.r#value));
             }
             if self.r#value > (100000f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    max = 100000f32,
-                    "Field got truncated"
-                );
-                self.r#value = 100000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100000f32, self.r#value));
             }
         }
     }
@@ -16885,48 +15760,26 @@ impl NodeCaptureStarBase {
     }
 }
 impl DatabaseItem for NodeCaptureStarBase {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -16989,48 +15842,26 @@ impl NodeLiberateStarBase {
     }
 }
 impl DatabaseItem for NodeLiberateStarBase {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -17105,48 +15936,26 @@ impl NodeChangeFaction {
     }
 }
 impl DatabaseItem for NodeChangeFaction {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#id").entered();
+            let mut ctx = ctx.enter("id");
             if self.r#id < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#id = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#id));
             }
             if self.r#id > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#id",
-                    value = self.r#id,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#id = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#id));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_transition").entered();
+            let mut ctx = ctx.enter("default_transition");
             if self.r#default_transition < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#default_transition));
             }
             if self.r#default_transition > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#default_transition",
-                    value = self.r#default_transition,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#default_transition = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    999999f32,
+                    self.r#default_transition,
+                ));
             }
         }
     }
@@ -17698,38 +16507,128 @@ impl Node {
     }
 }
 impl DatabaseItem for Node {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Undefined(x) => x.validate(),
-            Self::ComingSoon(x) => x.validate(),
-            Self::ShowDialog(x) => x.validate(),
-            Self::OpenShipyard(x) => x.validate(),
-            Self::OpenWorkshop(x) => x.validate(),
-            Self::Switch(x) => x.validate(),
-            Self::Random(x) => x.validate(),
-            Self::Condition(x) => x.validate(),
-            Self::AttackFleet(x) => x.validate(),
-            Self::AttackOccupants(x) => x.validate(),
-            Self::AttackStarbase(x) => x.validate(),
-            Self::DestroyOccupants(x) => x.validate(),
-            Self::SuppressOccupants(x) => x.validate(),
-            Self::Retreat(x) => x.validate(),
-            Self::ReceiveItem(x) => x.validate(),
-            Self::RemoveItem(x) => x.validate(),
-            Self::Trade(x) => x.validate(),
-            Self::CompleteQuest(x) => x.validate(),
-            Self::FailQuest(x) => x.validate(),
-            Self::CancelQuest(x) => x.validate(),
-            Self::StartQuest(x) => x.validate(),
-            Self::SetCharacterRelations(x) => x.validate(),
-            Self::SetFactionRelations(x) => x.validate(),
-            Self::SetFactionStarbasePower(x) => x.validate(),
-            Self::ChangeCharacterRelations(x) => x.validate(),
-            Self::ChangeFactionRelations(x) => x.validate(),
-            Self::ChangeFactionStarbasePower(x) => x.validate(),
-            Self::CaptureStarBase(x) => x.validate(),
-            Self::LiberateStarBase(x) => x.validate(),
-            Self::ChangeFaction(x) => x.validate(),
+            Self::Undefined(x) => {
+                let ctx = ctx.enter_variant(stringify!(Undefined));
+                x.validate(ctx);
+            }
+            Self::ComingSoon(x) => {
+                let ctx = ctx.enter_variant(stringify!(ComingSoon));
+                x.validate(ctx);
+            }
+            Self::ShowDialog(x) => {
+                let ctx = ctx.enter_variant(stringify!(ShowDialog));
+                x.validate(ctx);
+            }
+            Self::OpenShipyard(x) => {
+                let ctx = ctx.enter_variant(stringify!(OpenShipyard));
+                x.validate(ctx);
+            }
+            Self::OpenWorkshop(x) => {
+                let ctx = ctx.enter_variant(stringify!(OpenWorkshop));
+                x.validate(ctx);
+            }
+            Self::Switch(x) => {
+                let ctx = ctx.enter_variant(stringify!(Switch));
+                x.validate(ctx);
+            }
+            Self::Random(x) => {
+                let ctx = ctx.enter_variant(stringify!(Random));
+                x.validate(ctx);
+            }
+            Self::Condition(x) => {
+                let ctx = ctx.enter_variant(stringify!(Condition));
+                x.validate(ctx);
+            }
+            Self::AttackFleet(x) => {
+                let ctx = ctx.enter_variant(stringify!(AttackFleet));
+                x.validate(ctx);
+            }
+            Self::AttackOccupants(x) => {
+                let ctx = ctx.enter_variant(stringify!(AttackOccupants));
+                x.validate(ctx);
+            }
+            Self::AttackStarbase(x) => {
+                let ctx = ctx.enter_variant(stringify!(AttackStarbase));
+                x.validate(ctx);
+            }
+            Self::DestroyOccupants(x) => {
+                let ctx = ctx.enter_variant(stringify!(DestroyOccupants));
+                x.validate(ctx);
+            }
+            Self::SuppressOccupants(x) => {
+                let ctx = ctx.enter_variant(stringify!(SuppressOccupants));
+                x.validate(ctx);
+            }
+            Self::Retreat(x) => {
+                let ctx = ctx.enter_variant(stringify!(Retreat));
+                x.validate(ctx);
+            }
+            Self::ReceiveItem(x) => {
+                let ctx = ctx.enter_variant(stringify!(ReceiveItem));
+                x.validate(ctx);
+            }
+            Self::RemoveItem(x) => {
+                let ctx = ctx.enter_variant(stringify!(RemoveItem));
+                x.validate(ctx);
+            }
+            Self::Trade(x) => {
+                let ctx = ctx.enter_variant(stringify!(Trade));
+                x.validate(ctx);
+            }
+            Self::CompleteQuest(x) => {
+                let ctx = ctx.enter_variant(stringify!(CompleteQuest));
+                x.validate(ctx);
+            }
+            Self::FailQuest(x) => {
+                let ctx = ctx.enter_variant(stringify!(FailQuest));
+                x.validate(ctx);
+            }
+            Self::CancelQuest(x) => {
+                let ctx = ctx.enter_variant(stringify!(CancelQuest));
+                x.validate(ctx);
+            }
+            Self::StartQuest(x) => {
+                let ctx = ctx.enter_variant(stringify!(StartQuest));
+                x.validate(ctx);
+            }
+            Self::SetCharacterRelations(x) => {
+                let ctx = ctx.enter_variant(stringify!(SetCharacterRelations));
+                x.validate(ctx);
+            }
+            Self::SetFactionRelations(x) => {
+                let ctx = ctx.enter_variant(stringify!(SetFactionRelations));
+                x.validate(ctx);
+            }
+            Self::SetFactionStarbasePower(x) => {
+                let ctx = ctx.enter_variant(stringify!(SetFactionStarbasePower));
+                x.validate(ctx);
+            }
+            Self::ChangeCharacterRelations(x) => {
+                let ctx = ctx.enter_variant(stringify!(ChangeCharacterRelations));
+                x.validate(ctx);
+            }
+            Self::ChangeFactionRelations(x) => {
+                let ctx = ctx.enter_variant(stringify!(ChangeFactionRelations));
+                x.validate(ctx);
+            }
+            Self::ChangeFactionStarbasePower(x) => {
+                let ctx = ctx.enter_variant(stringify!(ChangeFactionStarbasePower));
+                x.validate(ctx);
+            }
+            Self::CaptureStarBase(x) => {
+                let ctx = ctx.enter_variant(stringify!(CaptureStarBase));
+                x.validate(ctx);
+            }
+            Self::LiberateStarBase(x) => {
+                let ctx = ctx.enter_variant(stringify!(LiberateStarBase));
+                x.validate(ctx);
+            }
+            Self::ChangeFaction(x) => {
+                let ctx = ctx.enter_variant(stringify!(ChangeFaction));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -17819,33 +16718,19 @@ impl NodeAction {
     }
 }
 impl DatabaseItem for NodeAction {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#target_node").entered();
+            let mut ctx = ctx.enter("target_node");
             if self.r#target_node < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#target_node",
-                    value = self.r#target_node,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#target_node = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#target_node));
             }
             if self.r#target_node > (1000f32 as i32) {
-                tracing::warn!(
-                    field = "r#target_node",
-                    value = self.r#target_node,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#target_node = 1000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#target_node));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -17905,53 +16790,27 @@ impl NodeTransition {
     }
 }
 impl DatabaseItem for NodeTransition {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#target_node").entered();
+            let mut ctx = ctx.enter("target_node");
             if self.r#target_node < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#target_node",
-                    value = self.r#target_node,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#target_node = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#target_node));
             }
             if self.r#target_node > (1000f32 as i32) {
-                tracing::warn!(
-                    field = "r#target_node",
-                    value = self.r#target_node,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#target_node = 1000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#target_node));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#weight").entered();
+            let mut ctx = ctx.enter("weight");
             if self.r#weight < 0_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#weight = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#weight));
             }
             if self.r#weight > 1000_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#weight = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#weight));
             }
         }
     }
@@ -18047,97 +16906,45 @@ impl QuestOrigin {
     }
 }
 impl DatabaseItem for QuestOrigin {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#factions").entered();
-            self.r#factions.validate();
+            let ctx = ctx.enter("factions");
+            self.r#factions.validate(ctx);
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#min_distance").entered();
+            let mut ctx = ctx.enter("min_distance");
             if self.r#min_distance < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_distance",
-                    value = self.r#min_distance,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_distance = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_distance));
             }
             if self.r#min_distance > (9999f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_distance",
-                    value = self.r#min_distance,
-                    max = 9999f32,
-                    "Field got truncated"
-                );
-                self.r#min_distance = 9999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(9999f32, self.r#min_distance));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_distance").entered();
+            let mut ctx = ctx.enter("max_distance");
             if self.r#max_distance < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_distance",
-                    value = self.r#max_distance,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_distance = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_distance));
             }
             if self.r#max_distance > (9999f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_distance",
-                    value = self.r#max_distance,
-                    max = 9999f32,
-                    "Field got truncated"
-                );
-                self.r#max_distance = 9999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(9999f32, self.r#max_distance));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#min_relations").entered();
+            let mut ctx = ctx.enter("min_relations");
             if self.r#min_relations < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_relations",
-                    value = self.r#min_relations,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#min_relations = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#min_relations));
             }
             if self.r#min_relations > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_relations",
-                    value = self.r#min_relations,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#min_relations = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#min_relations));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_relations").entered();
+            let mut ctx = ctx.enter("max_relations");
             if self.r#max_relations < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_relations",
-                    value = self.r#max_relations,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#max_relations = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#max_relations));
             }
             if self.r#max_relations > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_relations",
-                    value = self.r#max_relations,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#max_relations = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#max_relations));
             }
         }
     }
@@ -18190,7 +16997,7 @@ impl RequirementEmpty {
     }
 }
 impl DatabaseItem for RequirementEmpty {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementEmpty"
     }
@@ -18237,13 +17044,12 @@ impl RequirementAny {
     }
 }
 impl DatabaseItem for RequirementAny {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirements").entered();
-            for (i, x) in self.r#requirements.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("requirements");
+            for (i, x) in self.r#requirements.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -18293,13 +17099,12 @@ impl RequirementAll {
     }
 }
 impl DatabaseItem for RequirementAll {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirements").entered();
-            for (i, x) in self.r#requirements.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("requirements");
+            for (i, x) in self.r#requirements.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -18349,13 +17154,12 @@ impl RequirementNone {
     }
 }
 impl DatabaseItem for RequirementNone {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirements").entered();
-            for (i, x) in self.r#requirements.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("requirements");
+            for (i, x) in self.r#requirements.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -18430,47 +17234,23 @@ impl RequirementPlayerPosition {
     }
 }
 impl DatabaseItem for RequirementPlayerPosition {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#max_value));
             }
         }
     }
@@ -18545,47 +17325,23 @@ impl RequirementRandomStarSystem {
     }
 }
 impl DatabaseItem for RequirementRandomStarSystem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#max_value));
             }
         }
     }
@@ -18622,7 +17378,7 @@ impl RequirementAggressiveOccupants {
     }
 }
 impl DatabaseItem for RequirementAggressiveOccupants {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementAggressiveOccupants"
     }
@@ -18670,7 +17426,7 @@ impl RequirementQuestCompleted {
     }
 }
 impl DatabaseItem for RequirementQuestCompleted {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementQuestCompleted"
     }
@@ -18718,7 +17474,7 @@ impl RequirementQuestActive {
     }
 }
 impl DatabaseItem for RequirementQuestActive {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementQuestActive"
     }
@@ -18790,47 +17546,23 @@ impl RequirementCharacterRelations {
     }
 }
 impl DatabaseItem for RequirementCharacterRelations {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#min_value));
             }
             if self.r#min_value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#max_value));
             }
             if self.r#max_value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#max_value));
             }
         }
     }
@@ -18893,47 +17625,23 @@ impl RequirementFactionRelations {
     }
 }
 impl DatabaseItem for RequirementFactionRelations {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#min_value));
             }
             if self.r#min_value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#max_value));
             }
             if self.r#max_value > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#max_value));
             }
         }
     }
@@ -18970,7 +17678,7 @@ impl RequirementStarbaseCaptured {
     }
 }
 impl DatabaseItem for RequirementStarbaseCaptured {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementStarbaseCaptured"
     }
@@ -19032,47 +17740,23 @@ impl RequirementFactionStarbasePower {
     }
 }
 impl DatabaseItem for RequirementFactionStarbasePower {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > (100000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 100000f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 100000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100000f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > (100000f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 100000f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 100000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100000f32, self.r#max_value));
             }
         }
     }
@@ -19109,7 +17793,7 @@ impl RequirementIsHostileFaction {
     }
 }
 impl DatabaseItem for RequirementIsHostileFaction {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementIsHostileFaction"
     }
@@ -19157,7 +17841,7 @@ impl RequirementFaction {
     }
 }
 impl DatabaseItem for RequirementFaction {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementFaction"
     }
@@ -19217,26 +17901,14 @@ impl RequirementHaveQuestItem {
     }
 }
 impl DatabaseItem for RequirementHaveQuestItem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#min_value));
             }
             if self.r#min_value > (1000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 1000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000f32, self.r#min_value));
             }
         }
     }
@@ -19286,10 +17958,10 @@ impl RequirementHaveItem {
     }
 }
 impl DatabaseItem for RequirementHaveItem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#loot").entered();
-            self.r#loot.validate();
+            let ctx = ctx.enter("loot");
+            self.r#loot.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -19339,7 +18011,7 @@ impl RequirementHaveItemById {
     }
 }
 impl DatabaseItem for RequirementHaveItemById {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementHaveItemById"
     }
@@ -19387,7 +18059,7 @@ impl RequirementComeToOrigin {
     }
 }
 impl DatabaseItem for RequirementComeToOrigin {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "RequirementComeToOrigin"
     }
@@ -19447,47 +18119,23 @@ impl RequirementTimeSinceQuestStart {
     }
 }
 impl DatabaseItem for RequirementTimeSinceQuestStart {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#max_value));
             }
         }
     }
@@ -19550,47 +18198,23 @@ impl RequirementTimeSinceLastCompletion {
     }
 }
 impl DatabaseItem for RequirementTimeSinceLastCompletion {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#min_value").entered();
+            let mut ctx = ctx.enter("min_value");
             if self.r#min_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#min_value));
             }
             if self.r#min_value > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#min_value",
-                    value = self.r#min_value,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#min_value = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#min_value));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_value").entered();
+            let mut ctx = ctx.enter("max_value");
             if self.r#max_value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_value));
             }
             if self.r#max_value > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_value",
-                    value = self.r#max_value,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#max_value = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#max_value));
             }
         }
     }
@@ -19903,29 +18527,92 @@ impl Requirement {
     }
 }
 impl DatabaseItem for Requirement {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Empty(x) => x.validate(),
-            Self::Any(x) => x.validate(),
-            Self::All(x) => x.validate(),
-            Self::None(x) => x.validate(),
-            Self::PlayerPosition(x) => x.validate(),
-            Self::RandomStarSystem(x) => x.validate(),
-            Self::AggressiveOccupants(x) => x.validate(),
-            Self::QuestCompleted(x) => x.validate(),
-            Self::QuestActive(x) => x.validate(),
-            Self::CharacterRelations(x) => x.validate(),
-            Self::FactionRelations(x) => x.validate(),
-            Self::StarbaseCaptured(x) => x.validate(),
-            Self::FactionStarbasePower(x) => x.validate(),
-            Self::IsHostileFaction(x) => x.validate(),
-            Self::Faction(x) => x.validate(),
-            Self::HaveQuestItem(x) => x.validate(),
-            Self::HaveItem(x) => x.validate(),
-            Self::HaveItemById(x) => x.validate(),
-            Self::ComeToOrigin(x) => x.validate(),
-            Self::TimeSinceQuestStart(x) => x.validate(),
-            Self::TimeSinceLastCompletion(x) => x.validate(),
+            Self::Empty(x) => {
+                let ctx = ctx.enter_variant(stringify!(Empty));
+                x.validate(ctx);
+            }
+            Self::Any(x) => {
+                let ctx = ctx.enter_variant(stringify!(Any));
+                x.validate(ctx);
+            }
+            Self::All(x) => {
+                let ctx = ctx.enter_variant(stringify!(All));
+                x.validate(ctx);
+            }
+            Self::None(x) => {
+                let ctx = ctx.enter_variant(stringify!(None));
+                x.validate(ctx);
+            }
+            Self::PlayerPosition(x) => {
+                let ctx = ctx.enter_variant(stringify!(PlayerPosition));
+                x.validate(ctx);
+            }
+            Self::RandomStarSystem(x) => {
+                let ctx = ctx.enter_variant(stringify!(RandomStarSystem));
+                x.validate(ctx);
+            }
+            Self::AggressiveOccupants(x) => {
+                let ctx = ctx.enter_variant(stringify!(AggressiveOccupants));
+                x.validate(ctx);
+            }
+            Self::QuestCompleted(x) => {
+                let ctx = ctx.enter_variant(stringify!(QuestCompleted));
+                x.validate(ctx);
+            }
+            Self::QuestActive(x) => {
+                let ctx = ctx.enter_variant(stringify!(QuestActive));
+                x.validate(ctx);
+            }
+            Self::CharacterRelations(x) => {
+                let ctx = ctx.enter_variant(stringify!(CharacterRelations));
+                x.validate(ctx);
+            }
+            Self::FactionRelations(x) => {
+                let ctx = ctx.enter_variant(stringify!(FactionRelations));
+                x.validate(ctx);
+            }
+            Self::StarbaseCaptured(x) => {
+                let ctx = ctx.enter_variant(stringify!(StarbaseCaptured));
+                x.validate(ctx);
+            }
+            Self::FactionStarbasePower(x) => {
+                let ctx = ctx.enter_variant(stringify!(FactionStarbasePower));
+                x.validate(ctx);
+            }
+            Self::IsHostileFaction(x) => {
+                let ctx = ctx.enter_variant(stringify!(IsHostileFaction));
+                x.validate(ctx);
+            }
+            Self::Faction(x) => {
+                let ctx = ctx.enter_variant(stringify!(Faction));
+                x.validate(ctx);
+            }
+            Self::HaveQuestItem(x) => {
+                let ctx = ctx.enter_variant(stringify!(HaveQuestItem));
+                x.validate(ctx);
+            }
+            Self::HaveItem(x) => {
+                let ctx = ctx.enter_variant(stringify!(HaveItem));
+                x.validate(ctx);
+            }
+            Self::HaveItemById(x) => {
+                let ctx = ctx.enter_variant(stringify!(HaveItemById));
+                x.validate(ctx);
+            }
+            Self::ComeToOrigin(x) => {
+                let ctx = ctx.enter_variant(stringify!(ComeToOrigin));
+                x.validate(ctx);
+            }
+            Self::TimeSinceQuestStart(x) => {
+                let ctx = ctx.enter_variant(stringify!(TimeSinceQuestStart));
+                x.validate(ctx);
+            }
+            Self::TimeSinceLastCompletion(x) => {
+                let ctx = ctx.enter_variant(stringify!(TimeSinceLastCompletion));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -19995,31 +18682,19 @@ impl DebugCode {
     }
 }
 impl DatabaseItem for DebugCode {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#code").entered();
+            let mut ctx = ctx.enter("code");
             if self.r#code < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#code",
-                    value = self.r#code,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#code = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#code));
             }
             if self.r#code > (999999f32 as i32) {
-                tracing::warn!(
-                    field = "r#code",
-                    value = self.r#code,
-                    max = 999999f32,
-                    "Field got truncated"
-                );
-                self.r#code = 999999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999999f32, self.r#code));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#loot").entered();
-            self.r#loot.validate();
+            let ctx = ctx.enter("loot");
+            self.r#loot.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -20068,17 +18743,11 @@ impl ShipToValue {
     }
 }
 impl DatabaseItem for ShipToValue {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#value").entered();
+            let mut ctx = ctx.enter("value");
             if self.r#value < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#value",
-                    value = self.r#value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#value = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#value));
             }
         }
     }
@@ -20115,7 +18784,7 @@ impl SoundTrack {
     }
 }
 impl DatabaseItem for SoundTrack {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "SoundTrack"
     }
@@ -20171,7 +18840,7 @@ impl ShipBuildPerks {
     }
 }
 impl DatabaseItem for ShipBuildPerks {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ShipBuildPerks"
     }
@@ -20385,293 +19054,137 @@ impl ShipFeatures {
     }
 }
 impl DatabaseItem for ShipFeatures {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_resistance").entered();
+            let mut ctx = ctx.enter("energy_resistance");
             if self.r#energy_resistance < -100_f32 {
-                tracing::warn!(
-                    field = "r#energy_resistance",
-                    value = self.r#energy_resistance,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#energy_resistance = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#energy_resistance));
             }
             if self.r#energy_resistance > 100_f32 {
-                tracing::warn!(
-                    field = "r#energy_resistance",
-                    value = self.r#energy_resistance,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#energy_resistance = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#energy_resistance));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#kinetic_resistance").entered();
+            let mut ctx = ctx.enter("kinetic_resistance");
             if self.r#kinetic_resistance < -100_f32 {
-                tracing::warn!(
-                    field = "r#kinetic_resistance",
-                    value = self.r#kinetic_resistance,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#kinetic_resistance = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -100f32,
+                    self.r#kinetic_resistance,
+                ));
             }
             if self.r#kinetic_resistance > 100_f32 {
-                tracing::warn!(
-                    field = "r#kinetic_resistance",
-                    value = self.r#kinetic_resistance,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#kinetic_resistance = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#kinetic_resistance));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#heat_resistance").entered();
+            let mut ctx = ctx.enter("heat_resistance");
             if self.r#heat_resistance < -100_f32 {
-                tracing::warn!(
-                    field = "r#heat_resistance",
-                    value = self.r#heat_resistance,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#heat_resistance = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#heat_resistance));
             }
             if self.r#heat_resistance > 100_f32 {
-                tracing::warn!(
-                    field = "r#heat_resistance",
-                    value = self.r#heat_resistance,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#heat_resistance = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#heat_resistance));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#ship_weight_bonus").entered();
+            let mut ctx = ctx.enter("ship_weight_bonus");
             if self.r#ship_weight_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#ship_weight_bonus",
-                    value = self.r#ship_weight_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#ship_weight_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#ship_weight_bonus));
             }
             if self.r#ship_weight_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#ship_weight_bonus",
-                    value = self.r#ship_weight_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#ship_weight_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#ship_weight_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#equipment_weight_bonus")
-                    .entered();
+            let mut ctx = ctx.enter("equipment_weight_bonus");
             if self.r#equipment_weight_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#equipment_weight_bonus",
-                    value = self.r#equipment_weight_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#equipment_weight_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1f32,
+                    self.r#equipment_weight_bonus,
+                ));
             }
             if self.r#equipment_weight_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#equipment_weight_bonus",
-                    value = self.r#equipment_weight_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#equipment_weight_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    10f32,
+                    self.r#equipment_weight_bonus,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#velocity_bonus").entered();
+            let mut ctx = ctx.enter("velocity_bonus");
             if self.r#velocity_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#velocity_bonus",
-                    value = self.r#velocity_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#velocity_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#velocity_bonus));
             }
             if self.r#velocity_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#velocity_bonus",
-                    value = self.r#velocity_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#velocity_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#velocity_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#turn_rate_bonus").entered();
+            let mut ctx = ctx.enter("turn_rate_bonus");
             if self.r#turn_rate_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#turn_rate_bonus",
-                    value = self.r#turn_rate_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#turn_rate_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#turn_rate_bonus));
             }
             if self.r#turn_rate_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#turn_rate_bonus",
-                    value = self.r#turn_rate_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#turn_rate_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#turn_rate_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#armor_bonus").entered();
+            let mut ctx = ctx.enter("armor_bonus");
             if self.r#armor_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#armor_bonus",
-                    value = self.r#armor_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#armor_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#armor_bonus));
             }
             if self.r#armor_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#armor_bonus",
-                    value = self.r#armor_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#armor_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#armor_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#shield_bonus").entered();
+            let mut ctx = ctx.enter("shield_bonus");
             if self.r#shield_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#shield_bonus",
-                    value = self.r#shield_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#shield_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#shield_bonus));
             }
             if self.r#shield_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#shield_bonus",
-                    value = self.r#shield_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#shield_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#shield_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_bonus").entered();
+            let mut ctx = ctx.enter("energy_bonus");
             if self.r#energy_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#energy_bonus",
-                    value = self.r#energy_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#energy_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#energy_bonus));
             }
             if self.r#energy_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#energy_bonus",
-                    value = self.r#energy_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#energy_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#energy_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#drone_build_speed_bonus")
-                    .entered();
+            let mut ctx = ctx.enter("drone_build_speed_bonus");
             if self.r#drone_build_speed_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#drone_build_speed_bonus",
-                    value = self.r#drone_build_speed_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#drone_build_speed_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1f32,
+                    self.r#drone_build_speed_bonus,
+                ));
             }
             if self.r#drone_build_speed_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#drone_build_speed_bonus",
-                    value = self.r#drone_build_speed_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#drone_build_speed_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    10f32,
+                    self.r#drone_build_speed_bonus,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#drone_attack_bonus").entered();
+            let mut ctx = ctx.enter("drone_attack_bonus");
             if self.r#drone_attack_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#drone_attack_bonus",
-                    value = self.r#drone_attack_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#drone_attack_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#drone_attack_bonus));
             }
             if self.r#drone_attack_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#drone_attack_bonus",
-                    value = self.r#drone_attack_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#drone_attack_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#drone_attack_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#drone_defense_bonus").entered();
+            let mut ctx = ctx.enter("drone_defense_bonus");
             if self.r#drone_defense_bonus < -1_f32 {
-                tracing::warn!(
-                    field = "r#drone_defense_bonus",
-                    value = self.r#drone_defense_bonus,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#drone_defense_bonus = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#drone_defense_bonus));
             }
             if self.r#drone_defense_bonus > 10_f32 {
-                tracing::warn!(
-                    field = "r#drone_defense_bonus",
-                    value = self.r#drone_defense_bonus,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#drone_defense_bonus = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#drone_defense_bonus));
             }
         }
     }
@@ -20780,7 +19293,7 @@ impl StatModification {
     }
 }
 impl DatabaseItem for StatModification {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "StatModification"
     }
@@ -21011,207 +19524,99 @@ impl BulletBody {
     }
 }
 impl DatabaseItem for BulletBody {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 1000_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#size = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#length").entered();
+            let mut ctx = ctx.enter("length");
             if self.r#length < 0_f32 {
-                tracing::warn!(
-                    field = "r#length",
-                    value = self.r#length,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#length = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#length));
             }
             if self.r#length > 1000_f32 {
-                tracing::warn!(
-                    field = "r#length",
-                    value = self.r#length,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#length = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#length));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#velocity").entered();
+            let mut ctx = ctx.enter("velocity");
             if self.r#velocity < 0_f32 {
-                tracing::warn!(
-                    field = "r#velocity",
-                    value = self.r#velocity,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#velocity = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#velocity));
             }
             if self.r#velocity > 1000_f32 {
-                tracing::warn!(
-                    field = "r#velocity",
-                    value = self.r#velocity,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#velocity = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#velocity));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#parent_velocity_effect")
-                    .entered();
+            let mut ctx = ctx.enter("parent_velocity_effect");
             if self.r#parent_velocity_effect < -1000_f32 {
-                tracing::warn!(
-                    field = "r#parent_velocity_effect",
-                    value = self.r#parent_velocity_effect,
-                    min = -1000f32,
-                    "Field got truncated"
-                );
-                self.r#parent_velocity_effect = -1000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000f32,
+                    self.r#parent_velocity_effect,
+                ));
             }
             if self.r#parent_velocity_effect > 1000_f32 {
-                tracing::warn!(
-                    field = "r#parent_velocity_effect",
-                    value = self.r#parent_velocity_effect,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#parent_velocity_effect = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000f32,
+                    self.r#parent_velocity_effect,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#range").entered();
+            let mut ctx = ctx.enter("range");
             if self.r#range < 0_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#range = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#range));
             }
             if self.r#range > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#range = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#range));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#lifetime").entered();
+            let mut ctx = ctx.enter("lifetime");
             if self.r#lifetime < 0_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#lifetime));
             }
             if self.r#lifetime > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#lifetime));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#weight").entered();
+            let mut ctx = ctx.enter("weight");
             if self.r#weight < 0_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#weight = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#weight));
             }
             if self.r#weight > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#weight = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#weight));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#hit_points").entered();
+            let mut ctx = ctx.enter("hit_points");
             if self.r#hit_points < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#hit_points",
-                    value = self.r#hit_points,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#hit_points = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#hit_points));
             }
             if self.r#hit_points > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#hit_points",
-                    value = self.r#hit_points,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#hit_points = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#hit_points));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_cost").entered();
+            let mut ctx = ctx.enter("energy_cost");
             if self.r#energy_cost < 0_f32 {
-                tracing::warn!(
-                    field = "r#energy_cost",
-                    value = self.r#energy_cost,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#energy_cost = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#energy_cost));
             }
             if self.r#energy_cost > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_cost",
-                    value = self.r#energy_cost,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_cost = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#energy_cost));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#type").entered();
+            let mut ctx = ctx.enter("type");
             let dw: BulletTypeObsolete = Default::default();
             if self.r#type != dw {
-                tracing::error!(
-                    ield = "r#type",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
     }
@@ -21249,7 +19654,7 @@ impl BulletControllerProjectile {
     }
 }
 impl DatabaseItem for BulletControllerProjectile {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletControllerProjectile"
     }
@@ -21327,28 +19732,20 @@ impl BulletControllerHoming {
     }
 }
 impl DatabaseItem for BulletControllerHoming {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#starting_velocity_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("starting_velocity_modifier");
             if self.r#starting_velocity_modifier < 0_f32 {
-                tracing::warn!(
-                    field = "r#starting_velocity_modifier",
-                    value = self.r#starting_velocity_modifier,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#starting_velocity_modifier = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#starting_velocity_modifier,
+                ));
             }
             if self.r#starting_velocity_modifier > 1000_f32 {
-                tracing::warn!(
-                    field = "r#starting_velocity_modifier",
-                    value = self.r#starting_velocity_modifier,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#starting_velocity_modifier = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000f32,
+                    self.r#starting_velocity_modifier,
+                ));
             }
         }
     }
@@ -21385,7 +19782,7 @@ impl BulletControllerBeam {
     }
 }
 impl DatabaseItem for BulletControllerBeam {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletControllerBeam"
     }
@@ -21481,7 +19878,7 @@ impl BulletControllerParametric {
     }
 }
 impl DatabaseItem for BulletControllerParametric {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletControllerParametric"
     }
@@ -21515,7 +19912,7 @@ impl BulletControllerHarpoon {
     }
 }
 impl DatabaseItem for BulletControllerHarpoon {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletControllerHarpoon"
     }
@@ -21549,7 +19946,7 @@ impl BulletControllerAuraEmitter {
     }
 }
 impl DatabaseItem for BulletControllerAuraEmitter {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "BulletControllerAuraEmitter"
     }
@@ -21694,14 +20091,32 @@ impl BulletController {
     }
 }
 impl DatabaseItem for BulletController {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Projectile(x) => x.validate(),
-            Self::Homing(x) => x.validate(),
-            Self::Beam(x) => x.validate(),
-            Self::Parametric(x) => x.validate(),
-            Self::Harpoon(x) => x.validate(),
-            Self::AuraEmitter(x) => x.validate(),
+            Self::Projectile(x) => {
+                let ctx = ctx.enter_variant(stringify!(Projectile));
+                x.validate(ctx);
+            }
+            Self::Homing(x) => {
+                let ctx = ctx.enter_variant(stringify!(Homing));
+                x.validate(ctx);
+            }
+            Self::Beam(x) => {
+                let ctx = ctx.enter_variant(stringify!(Beam));
+                x.validate(ctx);
+            }
+            Self::Parametric(x) => {
+                let ctx = ctx.enter_variant(stringify!(Parametric));
+                x.validate(ctx);
+            }
+            Self::Harpoon(x) => {
+                let ctx = ctx.enter_variant(stringify!(Harpoon));
+                x.validate(ctx);
+            }
+            Self::AuraEmitter(x) => {
+                let ctx = ctx.enter_variant(stringify!(AuraEmitter));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -21770,26 +20185,14 @@ impl BulletTriggerNone {
     }
 }
 impl DatabaseItem for BulletTriggerNone {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
             if self.r#cooldown > 1000_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#cooldown));
             }
         }
     }
@@ -21969,68 +20372,32 @@ impl BulletTriggerPlaySfx {
     }
 }
 impl DatabaseItem for BulletTriggerPlaySfx {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 100_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#lifetime").entered();
+            let mut ctx = ctx.enter("lifetime");
             if self.r#lifetime < 0_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#lifetime));
             }
             if self.r#lifetime > 1000_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#lifetime));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
             if self.r#cooldown > 1000_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#cooldown));
             }
         }
     }
@@ -22242,125 +20609,56 @@ impl BulletTriggerSpawnBullet {
     }
 }
 impl DatabaseItem for BulletTriggerSpawnBullet {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#quantity").entered();
+            let mut ctx = ctx.enter("quantity");
             if self.r#quantity < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#quantity",
-                    value = self.r#quantity,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#quantity = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#quantity));
             }
             if self.r#quantity > (1000f32 as i32) {
-                tracing::warn!(
-                    field = "r#quantity",
-                    value = self.r#quantity,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#quantity = 1000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#quantity));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 100_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
             if self.r#cooldown > 1000_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#cooldown));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#random_factor").entered();
+            let mut ctx = ctx.enter("random_factor");
             if self.r#random_factor < 0_f32 {
-                tracing::warn!(
-                    field = "r#random_factor",
-                    value = self.r#random_factor,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#random_factor = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#random_factor));
             }
             if self.r#random_factor > 1_f32 {
-                tracing::warn!(
-                    field = "r#random_factor",
-                    value = self.r#random_factor,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#random_factor = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#random_factor));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#power_multiplier").entered();
+            let mut ctx = ctx.enter("power_multiplier");
             if self.r#power_multiplier < 0_f32 {
-                tracing::warn!(
-                    field = "r#power_multiplier",
-                    value = self.r#power_multiplier,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#power_multiplier = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#power_multiplier));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_nesting_level").entered();
+            let mut ctx = ctx.enter("max_nesting_level");
             if self.r#max_nesting_level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_nesting_level",
-                    value = self.r#max_nesting_level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_nesting_level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_nesting_level));
             }
             if self.r#max_nesting_level > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_nesting_level",
-                    value = self.r#max_nesting_level,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#max_nesting_level = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#max_nesting_level));
             }
         }
     }
@@ -22422,26 +20720,14 @@ impl BulletTriggerDetonate {
     }
 }
 impl DatabaseItem for BulletTriggerDetonate {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
             if self.r#cooldown > 1000_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#cooldown));
             }
         }
     }
@@ -22591,68 +20877,32 @@ impl BulletTriggerSpawnStaticSfx {
     }
 }
 impl DatabaseItem for BulletTriggerSpawnStaticSfx {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 100_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#lifetime").entered();
+            let mut ctx = ctx.enter("lifetime");
             if self.r#lifetime < 0_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#lifetime));
             }
             if self.r#lifetime > 1000_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#lifetime));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
             if self.r#cooldown > 1000_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#cooldown));
             }
         }
     }
@@ -22738,60 +20988,29 @@ impl BulletTriggerGravityField {
     }
 }
 impl DatabaseItem for BulletTriggerGravityField {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 100_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
             if self.r#cooldown > 1000_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#cooldown));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#power_multiplier").entered();
+            let mut ctx = ctx.enter("power_multiplier");
             if self.r#power_multiplier < 0_f32 {
-                tracing::warn!(
-                    field = "r#power_multiplier",
-                    value = self.r#power_multiplier,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#power_multiplier = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#power_multiplier));
             }
         }
     }
@@ -23027,14 +21246,32 @@ impl BulletTrigger {
     }
 }
 impl DatabaseItem for BulletTrigger {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::None(x) => x.validate(),
-            Self::PlaySfx(x) => x.validate(),
-            Self::SpawnBullet(x) => x.validate(),
-            Self::Detonate(x) => x.validate(),
-            Self::SpawnStaticSfx(x) => x.validate(),
-            Self::GravityField(x) => x.validate(),
+            Self::None(x) => {
+                let ctx = ctx.enter_variant(stringify!(None));
+                x.validate(ctx);
+            }
+            Self::PlaySfx(x) => {
+                let ctx = ctx.enter_variant(stringify!(PlaySfx));
+                x.validate(ctx);
+            }
+            Self::SpawnBullet(x) => {
+                let ctx = ctx.enter_variant(stringify!(SpawnBullet));
+                x.validate(ctx);
+            }
+            Self::Detonate(x) => {
+                let ctx = ctx.enter_variant(stringify!(Detonate));
+                x.validate(ctx);
+            }
+            Self::SpawnStaticSfx(x) => {
+                let ctx = ctx.enter_variant(stringify!(SpawnStaticSfx));
+                x.validate(ctx);
+            }
+            Self::GravityField(x) => {
+                let ctx = ctx.enter_variant(stringify!(GravityField));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -23112,47 +21349,23 @@ impl ImpactEffect {
     }
 }
 impl DatabaseItem for ImpactEffect {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#power").entered();
+            let mut ctx = ctx.enter("power");
             if self.r#power < 0_f32 {
-                tracing::warn!(
-                    field = "r#power",
-                    value = self.r#power,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#power = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#power));
             }
             if self.r#power > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#power",
-                    value = self.r#power,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#power = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#power));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#factor").entered();
+            let mut ctx = ctx.enter("factor");
             if self.r#factor < 0_f32 {
-                tracing::warn!(
-                    field = "r#factor",
-                    value = self.r#factor,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#factor = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#factor));
             }
             if self.r#factor > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#factor",
-                    value = self.r#factor,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#factor = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#factor));
             }
         }
     }
@@ -23367,175 +21580,77 @@ impl VisualEffectElement {
     }
 }
 impl DatabaseItem for VisualEffectElement {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#quantity").entered();
+            let mut ctx = ctx.enter("quantity");
             if self.r#quantity < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#quantity",
-                    value = self.r#quantity,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#quantity = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#quantity));
             }
             if self.r#quantity > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#quantity",
-                    value = self.r#quantity,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#quantity = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#quantity));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0.001f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.001f32, self.r#size));
             }
             if self.r#size > 100_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#size));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#growth_rate").entered();
+            let mut ctx = ctx.enter("growth_rate");
             if self.r#growth_rate < -1_f32 {
-                tracing::warn!(
-                    field = "r#growth_rate",
-                    value = self.r#growth_rate,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#growth_rate = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#growth_rate));
             }
             if self.r#growth_rate > 100_f32 {
-                tracing::warn!(
-                    field = "r#growth_rate",
-                    value = self.r#growth_rate,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#growth_rate = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#growth_rate));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#turn_rate").entered();
+            let mut ctx = ctx.enter("turn_rate");
             if self.r#turn_rate < -1000_f32 {
-                tracing::warn!(
-                    field = "r#turn_rate",
-                    value = self.r#turn_rate,
-                    min = -1000f32,
-                    "Field got truncated"
-                );
-                self.r#turn_rate = -1000_f32;
+                ctx.emit(DiagnosticKind::too_small(-1000f32, self.r#turn_rate));
             }
             if self.r#turn_rate > 1000_f32 {
-                tracing::warn!(
-                    field = "r#turn_rate",
-                    value = self.r#turn_rate,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#turn_rate = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#turn_rate));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#start_time").entered();
+            let mut ctx = ctx.enter("start_time");
             if self.r#start_time < 0_f32 {
-                tracing::warn!(
-                    field = "r#start_time",
-                    value = self.r#start_time,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#start_time = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#start_time));
             }
             if self.r#start_time > 1000_f32 {
-                tracing::warn!(
-                    field = "r#start_time",
-                    value = self.r#start_time,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#start_time = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#start_time));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#lifetime").entered();
+            let mut ctx = ctx.enter("lifetime");
             if self.r#lifetime < 0_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#lifetime));
             }
             if self.r#lifetime > 1000_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#lifetime));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#particle_size").entered();
+            let mut ctx = ctx.enter("particle_size");
             if self.r#particle_size < 0_f32 {
-                tracing::warn!(
-                    field = "r#particle_size",
-                    value = self.r#particle_size,
-                    min = 0.001f32,
-                    "Field got truncated"
-                );
-                self.r#particle_size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.001f32, self.r#particle_size));
             }
             if self.r#particle_size > 100_f32 {
-                tracing::warn!(
-                    field = "r#particle_size",
-                    value = self.r#particle_size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#particle_size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#particle_size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#rotation").entered();
+            let mut ctx = ctx.enter("rotation");
             if self.r#rotation < 0_f32 {
-                tracing::warn!(
-                    field = "r#rotation",
-                    value = self.r#rotation,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#rotation = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#rotation));
             }
             if self.r#rotation > 360_f32 {
-                tracing::warn!(
-                    field = "r#rotation",
-                    value = self.r#rotation,
-                    max = 360f32,
-                    "Field got truncated"
-                );
-                self.r#rotation = 360_f32;
+                ctx.emit(DiagnosticKind::too_large(360f32, self.r#rotation));
             }
         }
     }
@@ -23669,7 +21784,7 @@ impl CombatSettings {
     }
 }
 impl DatabaseItem for CombatSettings {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "CombatSettings"
     }
@@ -23771,32 +21886,20 @@ impl DatabaseSettings {
     }
 }
 impl DatabaseItem for DatabaseSettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#database_version").entered();
+            let mut ctx = ctx.enter("database_version");
             if self.r#database_version < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#database_version",
-                    value = self.r#database_version,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#database_version = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#database_version));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#database_version_minor")
-                    .entered();
+            let mut ctx = ctx.enter("database_version_minor");
             if self.r#database_version_minor < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#database_version_minor",
-                    value = self.r#database_version_minor,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#database_version_minor = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#database_version_minor,
+                ));
             }
         }
     }
@@ -23848,12 +21951,12 @@ impl DebugSettings {
     }
 }
 impl DatabaseItem for DebugSettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#codes").entered();
-            for (i, x) in self.r#codes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("codes");
+            for (i, x) in self.r#codes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -23953,7 +22056,7 @@ impl ExplorationSettings {
     }
 }
 impl DatabaseItem for ExplorationSettings {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ExplorationSettings"
     }
@@ -24031,34 +22134,20 @@ impl FactionsSettings {
     }
 }
 impl DatabaseItem for FactionsSettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#starbase_min_defense")
-                .entered();
+            let mut ctx = ctx.enter("starbase_min_defense");
             if self.r#starbase_min_defense < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#starbase_min_defense",
-                    value = self.r#starbase_min_defense,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#starbase_min_defense = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#starbase_min_defense));
             }
         }
         {
-            let _guard = tracing::error_span!(
-                "Validating field",
-                field = "r#defense_loss_per_enemy_defeated"
-            )
-            .entered();
+            let mut ctx = ctx.enter("defense_loss_per_enemy_defeated");
             if self.r#defense_loss_per_enemy_defeated < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#defense_loss_per_enemy_defeated",
-                    value = self.r#defense_loss_per_enemy_defeated,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#defense_loss_per_enemy_defeated = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#defense_loss_per_enemy_defeated,
+                ));
             }
         }
     }
@@ -24371,39 +22460,27 @@ impl GalaxySettings {
     }
 }
 impl DatabaseItem for GalaxySettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_enemy_ships_level")
-                    .entered();
+            let mut ctx = ctx.enter("max_enemy_ships_level");
             if self.r#max_enemy_ships_level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_enemy_ships_level",
-                    value = self.r#max_enemy_ships_level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_enemy_ships_level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#max_enemy_ships_level,
+                ));
             }
             if self.r#max_enemy_ships_level > (500f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_enemy_ships_level",
-                    value = self.r#max_enemy_ships_level,
-                    max = 500f32,
-                    "Field got truncated"
-                );
-                self.r#max_enemy_ships_level = 500f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    500f32,
+                    self.r#max_enemy_ships_level,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#starting_invenory").entered();
+            let mut ctx = ctx.enter("starting_invenory");
             let dw: Option<LootId> = Default::default();
             if self.r#starting_invenory != dw {
-                tracing::error!(
-                    ield = "r#starting_invenory",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
     }
@@ -24459,7 +22536,7 @@ impl LocalizationSettings {
     }
 }
 impl DatabaseItem for LocalizationSettings {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "LocalizationSettings"
     }
@@ -24538,37 +22615,33 @@ impl MusicPlaylist {
     }
 }
 impl DatabaseItem for MusicPlaylist {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#main_menu_music").entered();
-            for (i, x) in self.r#main_menu_music.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("main_menu_music");
+            for (i, x) in self.r#main_menu_music.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#galaxy_map_music").entered();
-            for (i, x) in self.r#galaxy_map_music.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("galaxy_map_music");
+            for (i, x) in self.r#galaxy_map_music.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#combat_music").entered();
-            for (i, x) in self.r#combat_music.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("combat_music");
+            for (i, x) in self.r#combat_music.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#exploration_music").entered();
-            for (i, x) in self.r#exploration_music.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("exploration_music");
+            for (i, x) in self.r#exploration_music.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -24798,204 +22871,95 @@ impl ShipModSettings {
     }
 }
 impl DatabaseItem for ShipModSettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#heat_defense_value").entered();
+            let mut ctx = ctx.enter("heat_defense_value");
             if self.r#heat_defense_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#heat_defense_value",
-                    value = self.r#heat_defense_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#heat_defense_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#heat_defense_value));
             }
             if self.r#heat_defense_value > 10_f32 {
-                tracing::warn!(
-                    field = "r#heat_defense_value",
-                    value = self.r#heat_defense_value,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#heat_defense_value = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#heat_defense_value));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#kinetic_defense_value")
-                    .entered();
+            let mut ctx = ctx.enter("kinetic_defense_value");
             if self.r#kinetic_defense_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#kinetic_defense_value",
-                    value = self.r#kinetic_defense_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#kinetic_defense_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#kinetic_defense_value,
+                ));
             }
             if self.r#kinetic_defense_value > 10_f32 {
-                tracing::warn!(
-                    field = "r#kinetic_defense_value",
-                    value = self.r#kinetic_defense_value,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#kinetic_defense_value = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    10f32,
+                    self.r#kinetic_defense_value,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#energy_defense_value")
-                .entered();
+            let mut ctx = ctx.enter("energy_defense_value");
             if self.r#energy_defense_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#energy_defense_value",
-                    value = self.r#energy_defense_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#energy_defense_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#energy_defense_value));
             }
             if self.r#energy_defense_value > 10_f32 {
-                tracing::warn!(
-                    field = "r#energy_defense_value",
-                    value = self.r#energy_defense_value,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#energy_defense_value = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    10f32,
+                    self.r#energy_defense_value,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#regeneration_value").entered();
+            let mut ctx = ctx.enter("regeneration_value");
             if self.r#regeneration_value < 0_f32 {
-                tracing::warn!(
-                    field = "r#regeneration_value",
-                    value = self.r#regeneration_value,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#regeneration_value = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#regeneration_value));
             }
             if self.r#regeneration_value > 1_f32 {
-                tracing::warn!(
-                    field = "r#regeneration_value",
-                    value = self.r#regeneration_value,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#regeneration_value = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#regeneration_value));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#regeneration_armor").entered();
+            let mut ctx = ctx.enter("regeneration_armor");
             if self.r#regeneration_armor < 0_f32 {
-                tracing::warn!(
-                    field = "r#regeneration_armor",
-                    value = self.r#regeneration_armor,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#regeneration_armor = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#regeneration_armor));
             }
             if self.r#regeneration_armor > 1_f32 {
-                tracing::warn!(
-                    field = "r#regeneration_armor",
-                    value = self.r#regeneration_armor,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#regeneration_armor = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#regeneration_armor));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#weight_reduction").entered();
+            let mut ctx = ctx.enter("weight_reduction");
             if self.r#weight_reduction < 0_f32 {
-                tracing::warn!(
-                    field = "r#weight_reduction",
-                    value = self.r#weight_reduction,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#weight_reduction = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#weight_reduction));
             }
             if self.r#weight_reduction > 1_f32 {
-                tracing::warn!(
-                    field = "r#weight_reduction",
-                    value = self.r#weight_reduction,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#weight_reduction = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#weight_reduction));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#attack_reduction").entered();
+            let mut ctx = ctx.enter("attack_reduction");
             if self.r#attack_reduction < 0_f32 {
-                tracing::warn!(
-                    field = "r#attack_reduction",
-                    value = self.r#attack_reduction,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#attack_reduction = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#attack_reduction));
             }
             if self.r#attack_reduction > 1_f32 {
-                tracing::warn!(
-                    field = "r#attack_reduction",
-                    value = self.r#attack_reduction,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#attack_reduction = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#attack_reduction));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_reduction").entered();
+            let mut ctx = ctx.enter("energy_reduction");
             if self.r#energy_reduction < 0_f32 {
-                tracing::warn!(
-                    field = "r#energy_reduction",
-                    value = self.r#energy_reduction,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#energy_reduction = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#energy_reduction));
             }
             if self.r#energy_reduction > 1_f32 {
-                tracing::warn!(
-                    field = "r#energy_reduction",
-                    value = self.r#energy_reduction,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#energy_reduction = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#energy_reduction));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#shield_reduction").entered();
+            let mut ctx = ctx.enter("shield_reduction");
             if self.r#shield_reduction < 0_f32 {
-                tracing::warn!(
-                    field = "r#shield_reduction",
-                    value = self.r#shield_reduction,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#shield_reduction = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#shield_reduction));
             }
             if self.r#shield_reduction > 1_f32 {
-                tracing::warn!(
-                    field = "r#shield_reduction",
-                    value = self.r#shield_reduction,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#shield_reduction = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#shield_reduction));
             }
         }
     }
@@ -25294,370 +23258,224 @@ impl ShipSettings {
     }
 }
 impl DatabaseItem for ShipSettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#default_weight_per_cell")
-                    .entered();
+            let mut ctx = ctx.enter("default_weight_per_cell");
             if self.r#default_weight_per_cell < 1_f32 {
-                tracing::warn!(
-                    field = "r#default_weight_per_cell",
-                    value = self.r#default_weight_per_cell,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#default_weight_per_cell = 1_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    1f32,
+                    self.r#default_weight_per_cell,
+                ));
             }
             if self.r#default_weight_per_cell > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#default_weight_per_cell",
-                    value = self.r#default_weight_per_cell,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#default_weight_per_cell = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#default_weight_per_cell,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#minimum_weight_per_cell")
-                    .entered();
+            let mut ctx = ctx.enter("minimum_weight_per_cell");
             if self.r#minimum_weight_per_cell < 1_f32 {
-                tracing::warn!(
-                    field = "r#minimum_weight_per_cell",
-                    value = self.r#minimum_weight_per_cell,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#minimum_weight_per_cell = 1_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    1f32,
+                    self.r#minimum_weight_per_cell,
+                ));
             }
             if self.r#minimum_weight_per_cell > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#minimum_weight_per_cell",
-                    value = self.r#minimum_weight_per_cell,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#minimum_weight_per_cell = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#minimum_weight_per_cell,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#base_armor_points").entered();
+            let mut ctx = ctx.enter("base_armor_points");
             if self.r#base_armor_points < 0_f32 {
-                tracing::warn!(
-                    field = "r#base_armor_points",
-                    value = self.r#base_armor_points,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#base_armor_points = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#base_armor_points));
             }
             if self.r#base_armor_points > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#base_armor_points",
-                    value = self.r#base_armor_points,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#base_armor_points = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#base_armor_points,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#armor_points_per_cell")
-                    .entered();
+            let mut ctx = ctx.enter("armor_points_per_cell");
             if self.r#armor_points_per_cell < 0_f32 {
-                tracing::warn!(
-                    field = "r#armor_points_per_cell",
-                    value = self.r#armor_points_per_cell,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#armor_points_per_cell = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#armor_points_per_cell,
+                ));
             }
             if self.r#armor_points_per_cell > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#armor_points_per_cell",
-                    value = self.r#armor_points_per_cell,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#armor_points_per_cell = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#armor_points_per_cell,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#armor_repair_cooldown")
-                    .entered();
+            let mut ctx = ctx.enter("armor_repair_cooldown");
             if self.r#armor_repair_cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#armor_repair_cooldown",
-                    value = self.r#armor_repair_cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#armor_repair_cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#armor_repair_cooldown,
+                ));
             }
             if self.r#armor_repair_cooldown > 60_f32 {
-                tracing::warn!(
-                    field = "r#armor_repair_cooldown",
-                    value = self.r#armor_repair_cooldown,
-                    max = 60f32,
-                    "Field got truncated"
-                );
-                self.r#armor_repair_cooldown = 60_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    60f32,
+                    self.r#armor_repair_cooldown,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#base_energy_points").entered();
+            let mut ctx = ctx.enter("base_energy_points");
             if self.r#base_energy_points < 0_f32 {
-                tracing::warn!(
-                    field = "r#base_energy_points",
-                    value = self.r#base_energy_points,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#base_energy_points = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#base_energy_points));
             }
             if self.r#base_energy_points > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#base_energy_points",
-                    value = self.r#base_energy_points,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#base_energy_points = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#base_energy_points,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#base_energy_recharge_rate")
-                    .entered();
+            let mut ctx = ctx.enter("base_energy_recharge_rate");
             if self.r#base_energy_recharge_rate < 0_f32 {
-                tracing::warn!(
-                    field = "r#base_energy_recharge_rate",
-                    value = self.r#base_energy_recharge_rate,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#base_energy_recharge_rate = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#base_energy_recharge_rate,
+                ));
             }
             if self.r#base_energy_recharge_rate > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#base_energy_recharge_rate",
-                    value = self.r#base_energy_recharge_rate,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#base_energy_recharge_rate = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#base_energy_recharge_rate,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_recharge_cooldown")
-                    .entered();
+            let mut ctx = ctx.enter("energy_recharge_cooldown");
             if self.r#energy_recharge_cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#energy_recharge_cooldown",
-                    value = self.r#energy_recharge_cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#energy_recharge_cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#energy_recharge_cooldown,
+                ));
             }
             if self.r#energy_recharge_cooldown > 60_f32 {
-                tracing::warn!(
-                    field = "r#energy_recharge_cooldown",
-                    value = self.r#energy_recharge_cooldown,
-                    max = 60f32,
-                    "Field got truncated"
-                );
-                self.r#energy_recharge_cooldown = 60_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    60f32,
+                    self.r#energy_recharge_cooldown,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#base_shield_recharge_rate")
-                    .entered();
+            let mut ctx = ctx.enter("base_shield_recharge_rate");
             if self.r#base_shield_recharge_rate < 0_f32 {
-                tracing::warn!(
-                    field = "r#base_shield_recharge_rate",
-                    value = self.r#base_shield_recharge_rate,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#base_shield_recharge_rate = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#base_shield_recharge_rate,
+                ));
             }
             if self.r#base_shield_recharge_rate > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#base_shield_recharge_rate",
-                    value = self.r#base_shield_recharge_rate,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#base_shield_recharge_rate = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#base_shield_recharge_rate,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#shield_recharge_cooldown")
-                    .entered();
+            let mut ctx = ctx.enter("shield_recharge_cooldown");
             if self.r#shield_recharge_cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#shield_recharge_cooldown",
-                    value = self.r#shield_recharge_cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#shield_recharge_cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#shield_recharge_cooldown,
+                ));
             }
             if self.r#shield_recharge_cooldown > 60_f32 {
-                tracing::warn!(
-                    field = "r#shield_recharge_cooldown",
-                    value = self.r#shield_recharge_cooldown,
-                    max = 60f32,
-                    "Field got truncated"
-                );
-                self.r#shield_recharge_cooldown = 60_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    60f32,
+                    self.r#shield_recharge_cooldown,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!(
-                "Validating field",
-                field = "r#base_drone_reconstruction_speed"
-            )
-            .entered();
+            let mut ctx = ctx.enter("base_drone_reconstruction_speed");
             if self.r#base_drone_reconstruction_speed < 0_f32 {
-                tracing::warn!(
-                    field = "r#base_drone_reconstruction_speed",
-                    value = self.r#base_drone_reconstruction_speed,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#base_drone_reconstruction_speed = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#base_drone_reconstruction_speed,
+                ));
             }
             if self.r#base_drone_reconstruction_speed > 100_f32 {
-                tracing::warn!(
-                    field = "r#base_drone_reconstruction_speed",
-                    value = self.r#base_drone_reconstruction_speed,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#base_drone_reconstruction_speed = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#base_drone_reconstruction_speed,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#shield_corrosive_resistance")
-                    .entered();
+            let mut ctx = ctx.enter("shield_corrosive_resistance");
             if self.r#shield_corrosive_resistance < 0_f32 {
-                tracing::warn!(
-                    field = "r#shield_corrosive_resistance",
-                    value = self.r#shield_corrosive_resistance,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#shield_corrosive_resistance = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#shield_corrosive_resistance,
+                ));
             }
             if self.r#shield_corrosive_resistance > 1_f32 {
-                tracing::warn!(
-                    field = "r#shield_corrosive_resistance",
-                    value = self.r#shield_corrosive_resistance,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#shield_corrosive_resistance = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1f32,
+                    self.r#shield_corrosive_resistance,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_velocity").entered();
+            let mut ctx = ctx.enter("max_velocity");
             if self.r#max_velocity < 5_f32 {
-                tracing::warn!(
-                    field = "r#max_velocity",
-                    value = self.r#max_velocity,
-                    min = 5f32,
-                    "Field got truncated"
-                );
-                self.r#max_velocity = 5_f32;
+                ctx.emit(DiagnosticKind::too_small(5f32, self.r#max_velocity));
             }
             if self.r#max_velocity > 100_f32 {
-                tracing::warn!(
-                    field = "r#max_velocity",
-                    value = self.r#max_velocity,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#max_velocity = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#max_velocity));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_angular_velocity")
-                .entered();
+            let mut ctx = ctx.enter("max_angular_velocity");
             if self.r#max_angular_velocity < 5_f32 {
-                tracing::warn!(
-                    field = "r#max_angular_velocity",
-                    value = self.r#max_angular_velocity,
-                    min = 5f32,
-                    "Field got truncated"
-                );
-                self.r#max_angular_velocity = 5_f32;
+                ctx.emit(DiagnosticKind::too_small(5f32, self.r#max_angular_velocity));
             }
             if self.r#max_angular_velocity > 100_f32 {
-                tracing::warn!(
-                    field = "r#max_angular_velocity",
-                    value = self.r#max_angular_velocity,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#max_angular_velocity = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#max_angular_velocity,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_acceleration").entered();
+            let mut ctx = ctx.enter("max_acceleration");
             if self.r#max_acceleration < 5_f32 {
-                tracing::warn!(
-                    field = "r#max_acceleration",
-                    value = self.r#max_acceleration,
-                    min = 5f32,
-                    "Field got truncated"
-                );
-                self.r#max_acceleration = 5_f32;
+                ctx.emit(DiagnosticKind::too_small(5f32, self.r#max_acceleration));
             }
             if self.r#max_acceleration > 1000_f32 {
-                tracing::warn!(
-                    field = "r#max_acceleration",
-                    value = self.r#max_acceleration,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#max_acceleration = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#max_acceleration));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_angular_acceleration")
-                    .entered();
+            let mut ctx = ctx.enter("max_angular_acceleration");
             if self.r#max_angular_acceleration < 5_f32 {
-                tracing::warn!(
-                    field = "r#max_angular_acceleration",
-                    value = self.r#max_angular_acceleration,
-                    min = 5f32,
-                    "Field got truncated"
-                );
-                self.r#max_angular_acceleration = 5_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    5f32,
+                    self.r#max_angular_acceleration,
+                ));
             }
             if self.r#max_angular_acceleration > 1000_f32 {
-                tracing::warn!(
-                    field = "r#max_angular_acceleration",
-                    value = self.r#max_angular_acceleration,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#max_angular_acceleration = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000f32,
+                    self.r#max_angular_acceleration,
+                ));
             }
         }
     }
@@ -26014,90 +23832,53 @@ impl SkillSettings {
     }
 }
 impl DatabaseItem for SkillSettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#max_player_ships_level")
-                    .entered();
+            let mut ctx = ctx.enter("max_player_ships_level");
             if self.r#max_player_ships_level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_player_ships_level",
-                    value = self.r#max_player_ships_level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_player_ships_level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#max_player_ships_level,
+                ));
             }
             if self.r#max_player_ships_level > (500f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_player_ships_level",
-                    value = self.r#max_player_ships_level,
-                    max = 500f32,
-                    "Field got truncated"
-                );
-                self.r#max_player_ships_level = 500f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    500f32,
+                    self.r#max_player_ships_level,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#increased_level_limit")
-                    .entered();
+            let mut ctx = ctx.enter("increased_level_limit");
             if self.r#increased_level_limit < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#increased_level_limit",
-                    value = self.r#increased_level_limit,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#increased_level_limit = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#increased_level_limit,
+                ));
             }
             if self.r#increased_level_limit > (1000f32 as i32) {
-                tracing::warn!(
-                    field = "r#increased_level_limit",
-                    value = self.r#increased_level_limit,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#increased_level_limit = 1000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000f32,
+                    self.r#increased_level_limit,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#base_fuel_capacity").entered();
+            let mut ctx = ctx.enter("base_fuel_capacity");
             if self.r#base_fuel_capacity < (10f32 as i32) {
-                tracing::warn!(
-                    field = "r#base_fuel_capacity",
-                    value = self.r#base_fuel_capacity,
-                    min = 10f32,
-                    "Field got truncated"
-                );
-                self.r#base_fuel_capacity = 10f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(10f32, self.r#base_fuel_capacity));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#base_flight_range").entered();
+            let mut ctx = ctx.enter("base_flight_range");
             if self.r#base_flight_range < 1_f32 {
-                tracing::warn!(
-                    field = "r#base_flight_range",
-                    value = self.r#base_flight_range,
-                    min = 1.5f32,
-                    "Field got truncated"
-                );
-                self.r#base_flight_range = 1_f32;
+                ctx.emit(DiagnosticKind::too_small(1.5f32, self.r#base_flight_range));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#base_flight_speed").entered();
+            let mut ctx = ctx.enter("base_flight_speed");
             if self.r#base_flight_speed < 1_f32 {
-                tracing::warn!(
-                    field = "r#base_flight_speed",
-                    value = self.r#base_flight_speed,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#base_flight_speed = 1_f32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#base_flight_speed));
             }
         }
     }
@@ -26318,138 +24099,68 @@ impl SpecialEventSettings {
     }
 }
 impl DatabaseItem for SpecialEventSettings {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#xmas_days_before").entered();
+            let mut ctx = ctx.enter("xmas_days_before");
             if self.r#xmas_days_before < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#xmas_days_before",
-                    value = self.r#xmas_days_before,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#xmas_days_before = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#xmas_days_before));
             }
             if self.r#xmas_days_before > (30f32 as i32) {
-                tracing::warn!(
-                    field = "r#xmas_days_before",
-                    value = self.r#xmas_days_before,
-                    max = 30f32,
-                    "Field got truncated"
-                );
-                self.r#xmas_days_before = 30f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(30f32, self.r#xmas_days_before));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#xmas_days_after").entered();
+            let mut ctx = ctx.enter("xmas_days_after");
             if self.r#xmas_days_after < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#xmas_days_after",
-                    value = self.r#xmas_days_after,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#xmas_days_after = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#xmas_days_after));
             }
             if self.r#xmas_days_after > (30f32 as i32) {
-                tracing::warn!(
-                    field = "r#xmas_days_after",
-                    value = self.r#xmas_days_after,
-                    max = 30f32,
-                    "Field got truncated"
-                );
-                self.r#xmas_days_after = 30f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(30f32, self.r#xmas_days_after));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#easter_days_before").entered();
+            let mut ctx = ctx.enter("easter_days_before");
             if self.r#easter_days_before < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#easter_days_before",
-                    value = self.r#easter_days_before,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#easter_days_before = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#easter_days_before));
             }
             if self.r#easter_days_before > (30f32 as i32) {
-                tracing::warn!(
-                    field = "r#easter_days_before",
-                    value = self.r#easter_days_before,
-                    max = 30f32,
-                    "Field got truncated"
-                );
-                self.r#easter_days_before = 30f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(30f32, self.r#easter_days_before));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#easter_days_after").entered();
+            let mut ctx = ctx.enter("easter_days_after");
             if self.r#easter_days_after < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#easter_days_after",
-                    value = self.r#easter_days_after,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#easter_days_after = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#easter_days_after));
             }
             if self.r#easter_days_after > (30f32 as i32) {
-                tracing::warn!(
-                    field = "r#easter_days_after",
-                    value = self.r#easter_days_after,
-                    max = 30f32,
-                    "Field got truncated"
-                );
-                self.r#easter_days_after = 30f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(30f32, self.r#easter_days_after));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#halloween_days_before")
-                    .entered();
+            let mut ctx = ctx.enter("halloween_days_before");
             if self.r#halloween_days_before < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#halloween_days_before",
-                    value = self.r#halloween_days_before,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#halloween_days_before = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#halloween_days_before,
+                ));
             }
             if self.r#halloween_days_before > (30f32 as i32) {
-                tracing::warn!(
-                    field = "r#halloween_days_before",
-                    value = self.r#halloween_days_before,
-                    max = 30f32,
-                    "Field got truncated"
-                );
-                self.r#halloween_days_before = 30f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    30f32,
+                    self.r#halloween_days_before,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#halloween_days_after")
-                .entered();
+            let mut ctx = ctx.enter("halloween_days_after");
             if self.r#halloween_days_after < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#halloween_days_after",
-                    value = self.r#halloween_days_after,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#halloween_days_after = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#halloween_days_after));
             }
             if self.r#halloween_days_after > (30f32 as i32) {
-                tracing::warn!(
-                    field = "r#halloween_days_after",
-                    value = self.r#halloween_days_after,
-                    max = 30f32,
-                    "Field got truncated"
-                );
-                self.r#halloween_days_after = 30f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    30f32,
+                    self.r#halloween_days_after,
+                ));
             }
         }
     }
@@ -27020,7 +24731,7 @@ impl UiSettings {
     }
 }
 impl DatabaseItem for UiSettings {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "UiSettings"
     }
@@ -27065,10 +24776,10 @@ impl BehaviorTree {
     }
 }
 impl DatabaseItem for BehaviorTree {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#root_node").entered();
-            self.r#root_node.validate();
+            let ctx = ctx.enter("root_node");
+            self.r#root_node.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -27357,217 +25068,95 @@ impl AmmunitionObsolete {
     }
 }
 impl DatabaseItem for AmmunitionObsolete {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#impulse").entered();
+            let mut ctx = ctx.enter("impulse");
             if self.r#impulse < 0_f32 {
-                tracing::warn!(
-                    field = "r#impulse",
-                    value = self.r#impulse,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#impulse = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#impulse));
             }
             if self.r#impulse > 10_f32 {
-                tracing::warn!(
-                    field = "r#impulse",
-                    value = self.r#impulse,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#impulse = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#impulse));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#recoil").entered();
+            let mut ctx = ctx.enter("recoil");
             if self.r#recoil < 0_f32 {
-                tracing::warn!(
-                    field = "r#recoil",
-                    value = self.r#recoil,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#recoil = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#recoil));
             }
             if self.r#recoil > 10_f32 {
-                tracing::warn!(
-                    field = "r#recoil",
-                    value = self.r#recoil,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#recoil = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#recoil));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 1000_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#size = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#size));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#area_of_effect").entered();
+            let mut ctx = ctx.enter("area_of_effect");
             if self.r#area_of_effect < 0_f32 {
-                tracing::warn!(
-                    field = "r#area_of_effect",
-                    value = self.r#area_of_effect,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#area_of_effect = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#area_of_effect));
             }
             if self.r#area_of_effect > 1000_f32 {
-                tracing::warn!(
-                    field = "r#area_of_effect",
-                    value = self.r#area_of_effect,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#area_of_effect = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#area_of_effect));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#damage").entered();
+            let mut ctx = ctx.enter("damage");
             if self.r#damage < 0_f32 {
-                tracing::warn!(
-                    field = "r#damage",
-                    value = self.r#damage,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#damage = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#damage));
             }
             if self.r#damage > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#damage",
-                    value = self.r#damage,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#damage = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#damage));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#range").entered();
+            let mut ctx = ctx.enter("range");
             if self.r#range < 0_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#range = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#range));
             }
             if self.r#range > 1000_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#range = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#range));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#velocity").entered();
+            let mut ctx = ctx.enter("velocity");
             if self.r#velocity < 0_f32 {
-                tracing::warn!(
-                    field = "r#velocity",
-                    value = self.r#velocity,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#velocity = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#velocity));
             }
             if self.r#velocity > 1000_f32 {
-                tracing::warn!(
-                    field = "r#velocity",
-                    value = self.r#velocity,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#velocity = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#velocity));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#life_time").entered();
+            let mut ctx = ctx.enter("life_time");
             if self.r#life_time < 0_f32 {
-                tracing::warn!(
-                    field = "r#life_time",
-                    value = self.r#life_time,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#life_time = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#life_time));
             }
             if self.r#life_time > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#life_time",
-                    value = self.r#life_time,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#life_time = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#life_time));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#hit_points").entered();
+            let mut ctx = ctx.enter("hit_points");
             if self.r#hit_points < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#hit_points",
-                    value = self.r#hit_points,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#hit_points = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#hit_points));
             }
             if self.r#hit_points > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#hit_points",
-                    value = self.r#hit_points,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#hit_points = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#hit_points));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_cost").entered();
+            let mut ctx = ctx.enter("energy_cost");
             if self.r#energy_cost < 0_f32 {
-                tracing::warn!(
-                    field = "r#energy_cost",
-                    value = self.r#energy_cost,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#energy_cost = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#energy_cost));
             }
             if self.r#energy_cost > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_cost",
-                    value = self.r#energy_cost,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_cost = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#energy_cost));
             }
         }
     }
@@ -27845,50 +25434,36 @@ impl Component {
     }
 }
 impl DatabaseItem for Component {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#level").entered();
+            let mut ctx = ctx.enter("level");
             if self.r#level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#level",
-                    value = self.r#level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#level));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#layout").entered();
+            let mut ctx = ctx.enter("layout");
             if (self.r#layout.len() as f32).sqrt().floor().powi(2) != (self.r#layout.len() as f32) {
-                tracing::warn!(field = "r#layout", "Layout must be a perfect square");
+                ctx.emit(DiagnosticKind::layout_not_square(self.r#layout.len()));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cell_type").entered();
+            let mut ctx = ctx.enter("cell_type");
             let dw: String = Default::default();
             if self.r#cell_type != dw {
-                tracing::error!(
-                    ield = "r#cell_type",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#weapon_slot_type").entered();
+            let mut ctx = ctx.enter("weapon_slot_type");
             let dw: String = Default::default();
             if self.r#weapon_slot_type != dw {
-                tracing::error!(
-                    ield = "r#weapon_slot_type",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#restrictions").entered();
-            self.r#restrictions.validate();
+            let ctx = ctx.enter("restrictions");
+            self.r#restrictions.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -27950,13 +25525,12 @@ impl ComponentMod {
     }
 }
 impl DatabaseItem for ComponentMod {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#modifications").entered();
-            for (i, x) in self.r#modifications.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("modifications");
+            for (i, x) in self.r#modifications.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -27992,7 +25566,7 @@ impl ComponentStatUpgrade {
     }
 }
 impl DatabaseItem for ComponentStatUpgrade {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "ComponentStatUpgrade"
     }
@@ -28479,670 +26053,399 @@ impl ComponentStats {
     }
 }
 impl DatabaseItem for ComponentStats {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#armor_points").entered();
+            let mut ctx = ctx.enter("armor_points");
             if self.r#armor_points < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#armor_points",
-                    value = self.r#armor_points,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#armor_points = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(-1000000f32, self.r#armor_points));
             }
             if self.r#armor_points > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#armor_points",
-                    value = self.r#armor_points,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#armor_points = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000f32, self.r#armor_points));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#armor_repair_rate").entered();
+            let mut ctx = ctx.enter("armor_repair_rate");
             if self.r#armor_repair_rate < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#armor_repair_rate",
-                    value = self.r#armor_repair_rate,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#armor_repair_rate = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#armor_repair_rate,
+                ));
             }
             if self.r#armor_repair_rate > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#armor_repair_rate",
-                    value = self.r#armor_repair_rate,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#armor_repair_rate = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#armor_repair_rate,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!(
-                "Validating field",
-                field = "r#armor_repair_cooldown_modifier"
-            )
-            .entered();
+            let mut ctx = ctx.enter("armor_repair_cooldown_modifier");
             if self.r#armor_repair_cooldown_modifier < -1_f32 {
-                tracing::warn!(
-                    field = "r#armor_repair_cooldown_modifier",
-                    value = self.r#armor_repair_cooldown_modifier,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#armor_repair_cooldown_modifier = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1f32,
+                    self.r#armor_repair_cooldown_modifier,
+                ));
             }
             if self.r#armor_repair_cooldown_modifier > 1_f32 {
-                tracing::warn!(
-                    field = "r#armor_repair_cooldown_modifier",
-                    value = self.r#armor_repair_cooldown_modifier,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#armor_repair_cooldown_modifier = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1f32,
+                    self.r#armor_repair_cooldown_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_points").entered();
+            let mut ctx = ctx.enter("energy_points");
             if self.r#energy_points < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_points",
-                    value = self.r#energy_points,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_points = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(-1000000f32, self.r#energy_points));
             }
             if self.r#energy_points > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_points",
-                    value = self.r#energy_points,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_points = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000f32, self.r#energy_points));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#energy_recharge_rate")
-                .entered();
+            let mut ctx = ctx.enter("energy_recharge_rate");
             if self.r#energy_recharge_rate < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_recharge_rate",
-                    value = self.r#energy_recharge_rate,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_recharge_rate = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#energy_recharge_rate,
+                ));
             }
             if self.r#energy_recharge_rate > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_recharge_rate",
-                    value = self.r#energy_recharge_rate,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_recharge_rate = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#energy_recharge_rate,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!(
-                "Validating field",
-                field = "r#energy_recharge_cooldown_modifier"
-            )
-            .entered();
+            let mut ctx = ctx.enter("energy_recharge_cooldown_modifier");
             if self.r#energy_recharge_cooldown_modifier < -5_f32 {
-                tracing::warn!(
-                    field = "r#energy_recharge_cooldown_modifier",
-                    value = self.r#energy_recharge_cooldown_modifier,
-                    min = -5f32,
-                    "Field got truncated"
-                );
-                self.r#energy_recharge_cooldown_modifier = -5_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -5f32,
+                    self.r#energy_recharge_cooldown_modifier,
+                ));
             }
             if self.r#energy_recharge_cooldown_modifier > 5_f32 {
-                tracing::warn!(
-                    field = "r#energy_recharge_cooldown_modifier",
-                    value = self.r#energy_recharge_cooldown_modifier,
-                    max = 5f32,
-                    "Field got truncated"
-                );
-                self.r#energy_recharge_cooldown_modifier = 5_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    5f32,
+                    self.r#energy_recharge_cooldown_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#shield_points").entered();
+            let mut ctx = ctx.enter("shield_points");
             if self.r#shield_points < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#shield_points",
-                    value = self.r#shield_points,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#shield_points = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(-1000000f32, self.r#shield_points));
             }
             if self.r#shield_points > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#shield_points",
-                    value = self.r#shield_points,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#shield_points = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000f32, self.r#shield_points));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#shield_recharge_rate")
-                .entered();
+            let mut ctx = ctx.enter("shield_recharge_rate");
             if self.r#shield_recharge_rate < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#shield_recharge_rate",
-                    value = self.r#shield_recharge_rate,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#shield_recharge_rate = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#shield_recharge_rate,
+                ));
             }
             if self.r#shield_recharge_rate > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#shield_recharge_rate",
-                    value = self.r#shield_recharge_rate,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#shield_recharge_rate = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#shield_recharge_rate,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!(
-                "Validating field",
-                field = "r#shield_recharge_cooldown_modifier"
-            )
-            .entered();
+            let mut ctx = ctx.enter("shield_recharge_cooldown_modifier");
             if self.r#shield_recharge_cooldown_modifier < -5_f32 {
-                tracing::warn!(
-                    field = "r#shield_recharge_cooldown_modifier",
-                    value = self.r#shield_recharge_cooldown_modifier,
-                    min = -5f32,
-                    "Field got truncated"
-                );
-                self.r#shield_recharge_cooldown_modifier = -5_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -5f32,
+                    self.r#shield_recharge_cooldown_modifier,
+                ));
             }
             if self.r#shield_recharge_cooldown_modifier > 5_f32 {
-                tracing::warn!(
-                    field = "r#shield_recharge_cooldown_modifier",
-                    value = self.r#shield_recharge_cooldown_modifier,
-                    max = 5f32,
-                    "Field got truncated"
-                );
-                self.r#shield_recharge_cooldown_modifier = 5_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    5f32,
+                    self.r#shield_recharge_cooldown_modifier,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#weight").entered();
+            let mut ctx = ctx.enter("weight");
             if self.r#weight < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#weight = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(-1000000f32, self.r#weight));
             }
             if self.r#weight > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#weight = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000f32, self.r#weight));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#ramming_damage").entered();
+            let mut ctx = ctx.enter("ramming_damage");
             if self.r#ramming_damage < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#ramming_damage",
-                    value = self.r#ramming_damage,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#ramming_damage = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#ramming_damage,
+                ));
             }
             if self.r#ramming_damage > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#ramming_damage",
-                    value = self.r#ramming_damage,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#ramming_damage = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000000f32, self.r#ramming_damage));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_absorption").entered();
+            let mut ctx = ctx.enter("energy_absorption");
             if self.r#energy_absorption < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_absorption",
-                    value = self.r#energy_absorption,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_absorption = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#energy_absorption,
+                ));
             }
             if self.r#energy_absorption > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_absorption",
-                    value = self.r#energy_absorption,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_absorption = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#energy_absorption,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#kinetic_resistance").entered();
+            let mut ctx = ctx.enter("kinetic_resistance");
             if self.r#kinetic_resistance < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#kinetic_resistance",
-                    value = self.r#kinetic_resistance,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#kinetic_resistance = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#kinetic_resistance,
+                ));
             }
             if self.r#kinetic_resistance > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#kinetic_resistance",
-                    value = self.r#kinetic_resistance,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#kinetic_resistance = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#kinetic_resistance,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_resistance").entered();
+            let mut ctx = ctx.enter("energy_resistance");
             if self.r#energy_resistance < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_resistance",
-                    value = self.r#energy_resistance,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_resistance = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#energy_resistance,
+                ));
             }
             if self.r#energy_resistance > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_resistance",
-                    value = self.r#energy_resistance,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_resistance = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#energy_resistance,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#thermal_resistance").entered();
+            let mut ctx = ctx.enter("thermal_resistance");
             if self.r#thermal_resistance < -1000000_f32 {
-                tracing::warn!(
-                    field = "r#thermal_resistance",
-                    value = self.r#thermal_resistance,
-                    min = -1000000f32,
-                    "Field got truncated"
-                );
-                self.r#thermal_resistance = -1000000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000000f32,
+                    self.r#thermal_resistance,
+                ));
             }
             if self.r#thermal_resistance > 1000000_f32 {
-                tracing::warn!(
-                    field = "r#thermal_resistance",
-                    value = self.r#thermal_resistance,
-                    max = 1000000f32,
-                    "Field got truncated"
-                );
-                self.r#thermal_resistance = 1000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000f32,
+                    self.r#thermal_resistance,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#engine_power").entered();
+            let mut ctx = ctx.enter("engine_power");
             if self.r#engine_power < 0_f32 {
-                tracing::warn!(
-                    field = "r#engine_power",
-                    value = self.r#engine_power,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#engine_power = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#engine_power));
             }
             if self.r#engine_power > 2000_f32 {
-                tracing::warn!(
-                    field = "r#engine_power",
-                    value = self.r#engine_power,
-                    max = 2000f32,
-                    "Field got truncated"
-                );
-                self.r#engine_power = 2000_f32;
+                ctx.emit(DiagnosticKind::too_large(2000f32, self.r#engine_power));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#turn_rate").entered();
+            let mut ctx = ctx.enter("turn_rate");
             if self.r#turn_rate < 0_f32 {
-                tracing::warn!(
-                    field = "r#turn_rate",
-                    value = self.r#turn_rate,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#turn_rate = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#turn_rate));
             }
             if self.r#turn_rate > 2000_f32 {
-                tracing::warn!(
-                    field = "r#turn_rate",
-                    value = self.r#turn_rate,
-                    max = 2000f32,
-                    "Field got truncated"
-                );
-                self.r#turn_rate = 2000_f32;
+                ctx.emit(DiagnosticKind::too_large(2000f32, self.r#turn_rate));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#drone_range_modifier")
-                .entered();
+            let mut ctx = ctx.enter("drone_range_modifier");
             if self.r#drone_range_modifier < -50_f32 {
-                tracing::warn!(
-                    field = "r#drone_range_modifier",
-                    value = self.r#drone_range_modifier,
-                    min = -50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_range_modifier = -50_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -50f32,
+                    self.r#drone_range_modifier,
+                ));
             }
             if self.r#drone_range_modifier > 50_f32 {
-                tracing::warn!(
-                    field = "r#drone_range_modifier",
-                    value = self.r#drone_range_modifier,
-                    max = 50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_range_modifier = 50_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    50f32,
+                    self.r#drone_range_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#drone_damage_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("drone_damage_modifier");
             if self.r#drone_damage_modifier < -50_f32 {
-                tracing::warn!(
-                    field = "r#drone_damage_modifier",
-                    value = self.r#drone_damage_modifier,
-                    min = -50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_damage_modifier = -50_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -50f32,
+                    self.r#drone_damage_modifier,
+                ));
             }
             if self.r#drone_damage_modifier > 50_f32 {
-                tracing::warn!(
-                    field = "r#drone_damage_modifier",
-                    value = self.r#drone_damage_modifier,
-                    max = 50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_damage_modifier = 50_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    50f32,
+                    self.r#drone_damage_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#drone_defense_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("drone_defense_modifier");
             if self.r#drone_defense_modifier < -50_f32 {
-                tracing::warn!(
-                    field = "r#drone_defense_modifier",
-                    value = self.r#drone_defense_modifier,
-                    min = -50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_defense_modifier = -50_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -50f32,
+                    self.r#drone_defense_modifier,
+                ));
             }
             if self.r#drone_defense_modifier > 50_f32 {
-                tracing::warn!(
-                    field = "r#drone_defense_modifier",
-                    value = self.r#drone_defense_modifier,
-                    max = 50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_defense_modifier = 50_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    50f32,
+                    self.r#drone_defense_modifier,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#drone_speed_modifier")
-                .entered();
+            let mut ctx = ctx.enter("drone_speed_modifier");
             if self.r#drone_speed_modifier < -50_f32 {
-                tracing::warn!(
-                    field = "r#drone_speed_modifier",
-                    value = self.r#drone_speed_modifier,
-                    min = -50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_speed_modifier = -50_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -50f32,
+                    self.r#drone_speed_modifier,
+                ));
             }
             if self.r#drone_speed_modifier > 50_f32 {
-                tracing::warn!(
-                    field = "r#drone_speed_modifier",
-                    value = self.r#drone_speed_modifier,
-                    max = 50f32,
-                    "Field got truncated"
-                );
-                self.r#drone_speed_modifier = 50_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    50f32,
+                    self.r#drone_speed_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#drones_built_per_second")
-                    .entered();
+            let mut ctx = ctx.enter("drones_built_per_second");
             if self.r#drones_built_per_second < 0_f32 {
-                tracing::warn!(
-                    field = "r#drones_built_per_second",
-                    value = self.r#drones_built_per_second,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#drones_built_per_second = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#drones_built_per_second,
+                ));
             }
             if self.r#drones_built_per_second > 100_f32 {
-                tracing::warn!(
-                    field = "r#drones_built_per_second",
-                    value = self.r#drones_built_per_second,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#drones_built_per_second = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#drones_built_per_second,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#drone_build_time_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("drone_build_time_modifier");
             if self.r#drone_build_time_modifier < 0_f32 {
-                tracing::warn!(
-                    field = "r#drone_build_time_modifier",
-                    value = self.r#drone_build_time_modifier,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#drone_build_time_modifier = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#drone_build_time_modifier,
+                ));
             }
             if self.r#drone_build_time_modifier > 100_f32 {
-                tracing::warn!(
-                    field = "r#drone_build_time_modifier",
-                    value = self.r#drone_build_time_modifier,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#drone_build_time_modifier = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#drone_build_time_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#weapon_fire_rate_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("weapon_fire_rate_modifier");
             if self.r#weapon_fire_rate_modifier < -100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_fire_rate_modifier",
-                    value = self.r#weapon_fire_rate_modifier,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_fire_rate_modifier = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -100f32,
+                    self.r#weapon_fire_rate_modifier,
+                ));
             }
             if self.r#weapon_fire_rate_modifier > 100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_fire_rate_modifier",
-                    value = self.r#weapon_fire_rate_modifier,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_fire_rate_modifier = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#weapon_fire_rate_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#weapon_damage_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("weapon_damage_modifier");
             if self.r#weapon_damage_modifier < -100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_damage_modifier",
-                    value = self.r#weapon_damage_modifier,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_damage_modifier = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -100f32,
+                    self.r#weapon_damage_modifier,
+                ));
             }
             if self.r#weapon_damage_modifier > 100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_damage_modifier",
-                    value = self.r#weapon_damage_modifier,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_damage_modifier = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#weapon_damage_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#weapon_range_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("weapon_range_modifier");
             if self.r#weapon_range_modifier < -100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_range_modifier",
-                    value = self.r#weapon_range_modifier,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_range_modifier = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -100f32,
+                    self.r#weapon_range_modifier,
+                ));
             }
             if self.r#weapon_range_modifier > 100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_range_modifier",
-                    value = self.r#weapon_range_modifier,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_range_modifier = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#weapon_range_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#weapon_energy_cost_modifier")
-                    .entered();
+            let mut ctx = ctx.enter("weapon_energy_cost_modifier");
             if self.r#weapon_energy_cost_modifier < -100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_energy_cost_modifier",
-                    value = self.r#weapon_energy_cost_modifier,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_energy_cost_modifier = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -100f32,
+                    self.r#weapon_energy_cost_modifier,
+                ));
             }
             if self.r#weapon_energy_cost_modifier > 100_f32 {
-                tracing::warn!(
-                    field = "r#weapon_energy_cost_modifier",
-                    value = self.r#weapon_energy_cost_modifier,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#weapon_energy_cost_modifier = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    100f32,
+                    self.r#weapon_energy_cost_modifier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#alter_weapon_platform")
-                    .entered();
+            let mut ctx = ctx.enter("alter_weapon_platform");
             let dw: i32 = 0;
             if self.r#alter_weapon_platform != dw {
-                tracing::error!(
-                    ield = "r#alter_weapon_platform",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#auto_aiming_arc").entered();
+            let mut ctx = ctx.enter("auto_aiming_arc");
             if self.r#auto_aiming_arc < 0_f32 {
-                tracing::warn!(
-                    field = "r#auto_aiming_arc",
-                    value = self.r#auto_aiming_arc,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#auto_aiming_arc = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#auto_aiming_arc));
             }
             if self.r#auto_aiming_arc > 360_f32 {
-                tracing::warn!(
-                    field = "r#auto_aiming_arc",
-                    value = self.r#auto_aiming_arc,
-                    max = 360f32,
-                    "Field got truncated"
-                );
-                self.r#auto_aiming_arc = 360_f32;
+                ctx.emit(DiagnosticKind::too_large(360f32, self.r#auto_aiming_arc));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#turret_turn_speed").entered();
+            let mut ctx = ctx.enter("turret_turn_speed");
             if self.r#turret_turn_speed < -1000_f32 {
-                tracing::warn!(
-                    field = "r#turret_turn_speed",
-                    value = self.r#turret_turn_speed,
-                    min = -1000f32,
-                    "Field got truncated"
-                );
-                self.r#turret_turn_speed = -1000_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    -1000f32,
+                    self.r#turret_turn_speed,
+                ));
             }
             if self.r#turret_turn_speed > 1000_f32 {
-                tracing::warn!(
-                    field = "r#turret_turn_speed",
-                    value = self.r#turret_turn_speed,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#turret_turn_speed = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#turret_turn_speed));
             }
         }
     }
@@ -29414,155 +26717,77 @@ impl Device {
     }
 }
 impl DatabaseItem for Device {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_consumption").entered();
+            let mut ctx = ctx.enter("energy_consumption");
             if self.r#energy_consumption < 0_f32 {
-                tracing::warn!(
-                    field = "r#energy_consumption",
-                    value = self.r#energy_consumption,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#energy_consumption = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#energy_consumption));
             }
             if self.r#energy_consumption > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_consumption",
-                    value = self.r#energy_consumption,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_consumption = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000000f32,
+                    self.r#energy_consumption,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#passive_energy_consumption")
-                    .entered();
+            let mut ctx = ctx.enter("passive_energy_consumption");
             if self.r#passive_energy_consumption < 0_f32 {
-                tracing::warn!(
-                    field = "r#passive_energy_consumption",
-                    value = self.r#passive_energy_consumption,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#passive_energy_consumption = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#passive_energy_consumption,
+                ));
             }
             if self.r#passive_energy_consumption > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#passive_energy_consumption",
-                    value = self.r#passive_energy_consumption,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#passive_energy_consumption = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000000f32,
+                    self.r#passive_energy_consumption,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#power").entered();
+            let mut ctx = ctx.enter("power");
             if self.r#power < 0_f32 {
-                tracing::warn!(
-                    field = "r#power",
-                    value = self.r#power,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#power = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#power));
             }
             if self.r#power > 1000_f32 {
-                tracing::warn!(
-                    field = "r#power",
-                    value = self.r#power,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#power = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#power));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#range").entered();
+            let mut ctx = ctx.enter("range");
             if self.r#range < 0_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#range = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#range));
             }
             if self.r#range > 1000_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#range = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#range));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#size));
             }
             if self.r#size > 1000_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#size = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#cooldown").entered();
+            let mut ctx = ctx.enter("cooldown");
             if self.r#cooldown < 0_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#cooldown));
             }
             if self.r#cooldown > 1000_f32 {
-                tracing::warn!(
-                    field = "r#cooldown",
-                    value = self.r#cooldown,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#cooldown = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#cooldown));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#lifetime").entered();
+            let mut ctx = ctx.enter("lifetime");
             if self.r#lifetime < 0_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#lifetime));
             }
             if self.r#lifetime > 1000_f32 {
-                tracing::warn!(
-                    field = "r#lifetime",
-                    value = self.r#lifetime,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#lifetime = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#lifetime));
             }
         }
     }
@@ -29803,191 +27028,99 @@ impl DroneBay {
     }
 }
 impl DatabaseItem for DroneBay {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_consumption").entered();
+            let mut ctx = ctx.enter("energy_consumption");
             if self.r#energy_consumption < 0_f32 {
-                tracing::warn!(
-                    field = "r#energy_consumption",
-                    value = self.r#energy_consumption,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#energy_consumption = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#energy_consumption));
             }
             if self.r#energy_consumption > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#energy_consumption",
-                    value = self.r#energy_consumption,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#energy_consumption = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000000f32,
+                    self.r#energy_consumption,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#passive_energy_consumption")
-                    .entered();
+            let mut ctx = ctx.enter("passive_energy_consumption");
             if self.r#passive_energy_consumption < 0_f32 {
-                tracing::warn!(
-                    field = "r#passive_energy_consumption",
-                    value = self.r#passive_energy_consumption,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#passive_energy_consumption = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#passive_energy_consumption,
+                ));
             }
             if self.r#passive_energy_consumption > 1000000000_f32 {
-                tracing::warn!(
-                    field = "r#passive_energy_consumption",
-                    value = self.r#passive_energy_consumption,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#passive_energy_consumption = 1000000000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000000000f32,
+                    self.r#passive_energy_consumption,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#range").entered();
+            let mut ctx = ctx.enter("range");
             if self.r#range < 1_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#range = 1_f32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#range));
             }
             if self.r#range > 1000_f32 {
-                tracing::warn!(
-                    field = "r#range",
-                    value = self.r#range,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#range = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#range));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#damage_multiplier").entered();
+            let mut ctx = ctx.enter("damage_multiplier");
             if self.r#damage_multiplier < 0_f32 {
-                tracing::warn!(
-                    field = "r#damage_multiplier",
-                    value = self.r#damage_multiplier,
-                    min = 0.01f32,
-                    "Field got truncated"
-                );
-                self.r#damage_multiplier = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.01f32, self.r#damage_multiplier));
             }
             if self.r#damage_multiplier > 1000_f32 {
-                tracing::warn!(
-                    field = "r#damage_multiplier",
-                    value = self.r#damage_multiplier,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#damage_multiplier = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#damage_multiplier));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#defense_multiplier").entered();
+            let mut ctx = ctx.enter("defense_multiplier");
             if self.r#defense_multiplier < 0_f32 {
-                tracing::warn!(
-                    field = "r#defense_multiplier",
-                    value = self.r#defense_multiplier,
-                    min = 0.01f32,
-                    "Field got truncated"
-                );
-                self.r#defense_multiplier = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0.01f32,
+                    self.r#defense_multiplier,
+                ));
             }
             if self.r#defense_multiplier > 1000_f32 {
-                tracing::warn!(
-                    field = "r#defense_multiplier",
-                    value = self.r#defense_multiplier,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#defense_multiplier = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(
+                    1000f32,
+                    self.r#defense_multiplier,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#speed_multiplier").entered();
+            let mut ctx = ctx.enter("speed_multiplier");
             if self.r#speed_multiplier < 0_f32 {
-                tracing::warn!(
-                    field = "r#speed_multiplier",
-                    value = self.r#speed_multiplier,
-                    min = 0.01f32,
-                    "Field got truncated"
-                );
-                self.r#speed_multiplier = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.01f32, self.r#speed_multiplier));
             }
             if self.r#speed_multiplier > 1000_f32 {
-                tracing::warn!(
-                    field = "r#speed_multiplier",
-                    value = self.r#speed_multiplier,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#speed_multiplier = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#speed_multiplier));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#build_extra_cycles").entered();
+            let mut ctx = ctx.enter("build_extra_cycles");
             if self.r#build_extra_cycles < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#build_extra_cycles",
-                    value = self.r#build_extra_cycles,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#build_extra_cycles = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#build_extra_cycles));
             }
             if self.r#build_extra_cycles > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#build_extra_cycles",
-                    value = self.r#build_extra_cycles,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#build_extra_cycles = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#build_extra_cycles));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#improved_ai").entered();
+            let mut ctx = ctx.enter("improved_ai");
             let dw: bool = false;
             if self.r#improved_ai != dw {
-                tracing::error!(
-                    ield = "r#improved_ai",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#capacity").entered();
+            let mut ctx = ctx.enter("capacity");
             if self.r#capacity < (1f32 as i32) {
-                tracing::warn!(
-                    field = "r#capacity",
-                    value = self.r#capacity,
-                    min = 1f32,
-                    "Field got truncated"
-                );
-                self.r#capacity = 1f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(1f32, self.r#capacity));
             }
             if self.r#capacity > (1000f32 as i32) {
-                tracing::warn!(
-                    field = "r#capacity",
-                    value = self.r#capacity,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#capacity = 1000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#capacity));
             }
         }
     }
@@ -30195,116 +27328,76 @@ impl Faction {
     }
 }
 impl DatabaseItem for Faction {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#home_star_distance").entered();
+            let mut ctx = ctx.enter("home_star_distance");
             if self.r#home_star_distance < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#home_star_distance",
-                    value = self.r#home_star_distance,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#home_star_distance = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#home_star_distance));
             }
             if self.r#home_star_distance > (5000f32 as i32) {
-                tracing::warn!(
-                    field = "r#home_star_distance",
-                    value = self.r#home_star_distance,
-                    max = 5000f32,
-                    "Field got truncated"
-                );
-                self.r#home_star_distance = 5000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    5000f32,
+                    self.r#home_star_distance,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#home_star_distance_max")
-                    .entered();
+            let mut ctx = ctx.enter("home_star_distance_max");
             if self.r#home_star_distance_max < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#home_star_distance_max",
-                    value = self.r#home_star_distance_max,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#home_star_distance_max = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#home_star_distance_max,
+                ));
             }
             if self.r#home_star_distance_max > (5000f32 as i32) {
-                tracing::warn!(
-                    field = "r#home_star_distance_max",
-                    value = self.r#home_star_distance_max,
-                    max = 5000f32,
-                    "Field got truncated"
-                );
-                self.r#home_star_distance_max = 5000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    5000f32,
+                    self.r#home_star_distance_max,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#wandering_ships_distance")
-                    .entered();
+            let mut ctx = ctx.enter("wandering_ships_distance");
             if self.r#wandering_ships_distance < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#wandering_ships_distance",
-                    value = self.r#wandering_ships_distance,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#wandering_ships_distance = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#wandering_ships_distance,
+                ));
             }
             if self.r#wandering_ships_distance > (5000f32 as i32) {
-                tracing::warn!(
-                    field = "r#wandering_ships_distance",
-                    value = self.r#wandering_ships_distance,
-                    max = 5000f32,
-                    "Field got truncated"
-                );
-                self.r#wandering_ships_distance = 5000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    5000f32,
+                    self.r#wandering_ships_distance,
+                ));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#wandering_ships_distance_max")
-                    .entered();
+            let mut ctx = ctx.enter("wandering_ships_distance_max");
             if self.r#wandering_ships_distance_max < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#wandering_ships_distance_max",
-                    value = self.r#wandering_ships_distance_max,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#wandering_ships_distance_max = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#wandering_ships_distance_max,
+                ));
             }
             if self.r#wandering_ships_distance_max > (5000f32 as i32) {
-                tracing::warn!(
-                    field = "r#wandering_ships_distance_max",
-                    value = self.r#wandering_ships_distance_max,
-                    max = 5000f32,
-                    "Field got truncated"
-                );
-                self.r#wandering_ships_distance_max = 5000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(
+                    5000f32,
+                    self.r#wandering_ships_distance_max,
+                ));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#hidden").entered();
+            let mut ctx = ctx.enter("hidden");
             let dw: bool = false;
             if self.r#hidden != dw {
-                tracing::error!(
-                    ield = "r#hidden",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#hostile").entered();
+            let mut ctx = ctx.enter("hostile");
             let dw: bool = false;
             if self.r#hostile != dw {
-                tracing::error!(
-                    ield = "r#hostile",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
     }
@@ -30347,7 +27440,7 @@ impl GameObjectPrefabUndefined {
     }
 }
 impl DatabaseItem for GameObjectPrefabUndefined {
-    fn validate(&mut self) {}
+    fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "GameObjectPrefabUndefined"
     }
@@ -30494,154 +27587,68 @@ impl GameObjectPrefabWormTailSegment {
     }
 }
 impl DatabaseItem for GameObjectPrefabWormTailSegment {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#image_scale").entered();
+            let mut ctx = ctx.enter("image_scale");
             if self.r#image_scale < 0_f32 {
-                tracing::warn!(
-                    field = "r#image_scale",
-                    value = self.r#image_scale,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#image_scale = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#image_scale));
             }
             if self.r#image_scale > 10_f32 {
-                tracing::warn!(
-                    field = "r#image_scale",
-                    value = self.r#image_scale,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#image_scale = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#image_scale));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#image_offset").entered();
+            let mut ctx = ctx.enter("image_offset");
             if self.r#image_offset < -1_f32 {
-                tracing::warn!(
-                    field = "r#image_offset",
-                    value = self.r#image_offset,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#image_offset = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#image_offset));
             }
             if self.r#image_offset > 1_f32 {
-                tracing::warn!(
-                    field = "r#image_offset",
-                    value = self.r#image_offset,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#image_offset = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#image_offset));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#length").entered();
+            let mut ctx = ctx.enter("length");
             if self.r#length < 0_f32 {
-                tracing::warn!(
-                    field = "r#length",
-                    value = self.r#length,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#length = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#length));
             }
             if self.r#length > 1_f32 {
-                tracing::warn!(
-                    field = "r#length",
-                    value = self.r#length,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#length = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#length));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#offset_1").entered();
+            let mut ctx = ctx.enter("offset_1");
             if self.r#offset_1 < 0_f32 {
-                tracing::warn!(
-                    field = "r#offset_1",
-                    value = self.r#offset_1,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#offset_1 = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#offset_1));
             }
             if self.r#offset_1 > 1_f32 {
-                tracing::warn!(
-                    field = "r#offset_1",
-                    value = self.r#offset_1,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#offset_1 = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#offset_1));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#offset_2").entered();
+            let mut ctx = ctx.enter("offset_2");
             if self.r#offset_2 < -1_f32 {
-                tracing::warn!(
-                    field = "r#offset_2",
-                    value = self.r#offset_2,
-                    min = -1f32,
-                    "Field got truncated"
-                );
-                self.r#offset_2 = -1_f32;
+                ctx.emit(DiagnosticKind::too_small(-1f32, self.r#offset_2));
             }
             if self.r#offset_2 > 1_f32 {
-                tracing::warn!(
-                    field = "r#offset_2",
-                    value = self.r#offset_2,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#offset_2 = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#offset_2));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#angle_1").entered();
+            let mut ctx = ctx.enter("angle_1");
             if self.r#angle_1 < 0_f32 {
-                tracing::warn!(
-                    field = "r#angle_1",
-                    value = self.r#angle_1,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#angle_1 = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#angle_1));
             }
             if self.r#angle_1 > 180_f32 {
-                tracing::warn!(
-                    field = "r#angle_1",
-                    value = self.r#angle_1,
-                    max = 180f32,
-                    "Field got truncated"
-                );
-                self.r#angle_1 = 180_f32;
+                ctx.emit(DiagnosticKind::too_large(180f32, self.r#angle_1));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#angle_2").entered();
+            let mut ctx = ctx.enter("angle_2");
             if self.r#angle_2 < 0_f32 {
-                tracing::warn!(
-                    field = "r#angle_2",
-                    value = self.r#angle_2,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#angle_2 = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#angle_2));
             }
             if self.r#angle_2 > 180_f32 {
-                tracing::warn!(
-                    field = "r#angle_2",
-                    value = self.r#angle_2,
-                    max = 180f32,
-                    "Field got truncated"
-                );
-                self.r#angle_2 = 180_f32;
+                ctx.emit(DiagnosticKind::too_large(180f32, self.r#angle_2));
             }
         }
     }
@@ -30708,27 +27715,14 @@ impl GameObjectPrefabCircularSpriteObject {
     }
 }
 impl DatabaseItem for GameObjectPrefabCircularSpriteObject {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#image_scale").entered();
+            let mut ctx = ctx.enter("image_scale");
             if self.r#image_scale < 0_f32 {
-                tracing::warn!(
-                    field = "r#image_scale",
-                    value = self.r#image_scale,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#image_scale = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#image_scale));
             }
             if self.r#image_scale > 10_f32 {
-                tracing::warn!(
-                    field = "r#image_scale",
-                    value = self.r#image_scale,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#image_scale = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#image_scale));
             }
         }
     }
@@ -30821,70 +27815,32 @@ impl GameObjectPrefabCircularOutlineObject {
     }
 }
 impl DatabaseItem for GameObjectPrefabCircularOutlineObject {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#image_scale").entered();
+            let mut ctx = ctx.enter("image_scale");
             if self.r#image_scale < 0_f32 {
-                tracing::warn!(
-                    field = "r#image_scale",
-                    value = self.r#image_scale,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#image_scale = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#image_scale));
             }
             if self.r#image_scale > 10_f32 {
-                tracing::warn!(
-                    field = "r#image_scale",
-                    value = self.r#image_scale,
-                    max = 10f32,
-                    "Field got truncated"
-                );
-                self.r#image_scale = 10_f32;
+                ctx.emit(DiagnosticKind::too_large(10f32, self.r#image_scale));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#thickness").entered();
+            let mut ctx = ctx.enter("thickness");
             if self.r#thickness < 0_f32 {
-                tracing::warn!(
-                    field = "r#thickness",
-                    value = self.r#thickness,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#thickness = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#thickness));
             }
             if self.r#thickness > 1_f32 {
-                tracing::warn!(
-                    field = "r#thickness",
-                    value = self.r#thickness,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#thickness = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#thickness));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#aspect_ratio").entered();
+            let mut ctx = ctx.enter("aspect_ratio");
             if self.r#aspect_ratio < 0_f32 {
-                tracing::warn!(
-                    field = "r#aspect_ratio",
-                    value = self.r#aspect_ratio,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#aspect_ratio = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#aspect_ratio));
             }
             if self.r#aspect_ratio > 100_f32 {
-                tracing::warn!(
-                    field = "r#aspect_ratio",
-                    value = self.r#aspect_ratio,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#aspect_ratio = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#aspect_ratio));
             }
         }
     }
@@ -31043,12 +27999,24 @@ impl GameObjectPrefab {
     }
 }
 impl DatabaseItem for GameObjectPrefab {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Undefined(x) => x.validate(),
-            Self::WormTailSegment(x) => x.validate(),
-            Self::CircularSpriteObject(x) => x.validate(),
-            Self::CircularOutlineObject(x) => x.validate(),
+            Self::Undefined(x) => {
+                let ctx = ctx.enter_variant(stringify!(Undefined));
+                x.validate(ctx);
+            }
+            Self::WormTailSegment(x) => {
+                let ctx = ctx.enter_variant(stringify!(WormTailSegment));
+                x.validate(ctx);
+            }
+            Self::CircularSpriteObject(x) => {
+                let ctx = ctx.enter_variant(stringify!(CircularSpriteObject));
+                x.validate(ctx);
+            }
+            Self::CircularOutlineObject(x) => {
+                let ctx = ctx.enter_variant(stringify!(CircularOutlineObject));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -31177,26 +28145,14 @@ impl Character {
     }
 }
 impl DatabaseItem for Character {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#relations").entered();
+            let mut ctx = ctx.enter("relations");
             if self.r#relations < (-100f32 as i32) {
-                tracing::warn!(
-                    field = "r#relations",
-                    value = self.r#relations,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#relations = -100f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#relations));
             }
             if self.r#relations > (100f32 as i32) {
-                tracing::warn!(
-                    field = "r#relations",
-                    value = self.r#relations,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#relations = 100f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#relations));
             }
         }
     }
@@ -31438,26 +28394,18 @@ impl CombatRules {
     }
 }
 impl DatabaseItem for CombatRules {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#battle_map_size").entered();
+            let mut ctx = ctx.enter("battle_map_size");
             if self.r#battle_map_size < (50f32 as i32) {
-                tracing::warn!(
-                    field = "r#battle_map_size",
-                    value = self.r#battle_map_size,
-                    min = 50f32,
-                    "Field got truncated"
-                );
-                self.r#battle_map_size = 50f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(50f32, self.r#battle_map_size));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#custom_soundtrack").entered();
-            for (i, x) in self.r#custom_soundtrack.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("custom_soundtrack");
+            for (i, x) in self.r#custom_soundtrack.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -31620,104 +28568,59 @@ impl Fleet {
     }
 }
 impl DatabaseItem for Fleet {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#factions").entered();
-            self.r#factions.validate();
+            let ctx = ctx.enter("factions");
+            self.r#factions.validate(ctx);
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#level_bonus").entered();
+            let mut ctx = ctx.enter("level_bonus");
             if self.r#level_bonus < (-10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#level_bonus",
-                    value = self.r#level_bonus,
-                    min = -10000f32,
-                    "Field got truncated"
-                );
-                self.r#level_bonus = -10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(-10000f32, self.r#level_bonus));
             }
             if self.r#level_bonus > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#level_bonus",
-                    value = self.r#level_bonus,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#level_bonus = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#level_bonus));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#combat_time_limit").entered();
+            let mut ctx = ctx.enter("combat_time_limit");
             if self.r#combat_time_limit < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#combat_time_limit",
-                    value = self.r#combat_time_limit,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#combat_time_limit = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#combat_time_limit));
             }
             if self.r#combat_time_limit > (999f32 as i32) {
-                tracing::warn!(
-                    field = "r#combat_time_limit",
-                    value = self.r#combat_time_limit,
-                    max = 999f32,
-                    "Field got truncated"
-                );
-                self.r#combat_time_limit = 999f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(999f32, self.r#combat_time_limit));
             }
             let dw: i32 = 0;
             if self.r#combat_time_limit != dw {
-                tracing::error!(
-                    ield = "r#combat_time_limit",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#loot_condition").entered();
+            let mut ctx = ctx.enter("loot_condition");
             let dw: RewardCondition = Default::default();
             if self.r#loot_condition != dw {
-                tracing::error!(
-                    ield = "r#loot_condition",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#exp_condition").entered();
+            let mut ctx = ctx.enter("exp_condition");
             let dw: RewardCondition = Default::default();
             if self.r#exp_condition != dw {
-                tracing::error!(
-                    ield = "r#exp_condition",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#no_ship_changing").entered();
+            let mut ctx = ctx.enter("no_ship_changing");
             let dw: bool = false;
             if self.r#no_ship_changing != dw {
-                tracing::error!(
-                    ield = "r#no_ship_changing",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#player_has_one_ship").entered();
+            let mut ctx = ctx.enter("player_has_one_ship");
             let dw: bool = false;
             if self.r#player_has_one_ship != dw {
-                tracing::error!(
-                    ield = "r#player_has_one_ship",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
     }
@@ -31766,10 +28669,10 @@ impl Loot {
     }
 }
 impl DatabaseItem for Loot {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#loot").entered();
-            self.r#loot.validate();
+            let ctx = ctx.enter("loot");
+            self.r#loot.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -31911,63 +28814,38 @@ impl Quest {
     }
 }
 impl DatabaseItem for Quest {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#weight").entered();
+            let mut ctx = ctx.enter("weight");
             if self.r#weight < 0_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#weight = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#weight));
             }
             if self.r#weight > 1000_f32 {
-                tracing::warn!(
-                    field = "r#weight",
-                    value = self.r#weight,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#weight = 1000_f32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#weight));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#origin").entered();
-            self.r#origin.validate();
+            let ctx = ctx.enter("origin");
+            self.r#origin.validate(ctx);
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#requirement").entered();
-            self.r#requirement.validate();
+            let ctx = ctx.enter("requirement");
+            self.r#requirement.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#level").entered();
+            let mut ctx = ctx.enter("level");
             if self.r#level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#level",
-                    value = self.r#level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#level));
             }
             if self.r#level > (1000f32 as i32) {
-                tracing::warn!(
-                    field = "r#level",
-                    value = self.r#level,
-                    max = 1000f32,
-                    "Field got truncated"
-                );
-                self.r#level = 1000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000f32, self.r#level));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#nodes").entered();
-            for (i, x) in self.r#nodes.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("nodes");
+            for (i, x) in self.r#nodes.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -32062,26 +28940,14 @@ impl QuestItem {
     }
 }
 impl DatabaseItem for QuestItem {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#price").entered();
+            let mut ctx = ctx.enter("price");
             if self.r#price < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#price = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#price));
             }
             if self.r#price > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#price = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#price));
             }
         }
     }
@@ -32186,40 +29052,27 @@ impl Satellite {
     }
 }
 impl DatabaseItem for Satellite {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#model_scale").entered();
+            let mut ctx = ctx.enter("model_scale");
             if self.r#model_scale < 0_f32 {
-                tracing::warn!(
-                    field = "r#model_scale",
-                    value = self.r#model_scale,
-                    min = 0.1f32,
-                    "Field got truncated"
-                );
-                self.r#model_scale = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.1f32, self.r#model_scale));
             }
             if self.r#model_scale > 100_f32 {
-                tracing::warn!(
-                    field = "r#model_scale",
-                    value = self.r#model_scale,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#model_scale = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#model_scale));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#layout").entered();
+            let mut ctx = ctx.enter("layout");
             if (self.r#layout.len() as f32).sqrt().floor().powi(2) != (self.r#layout.len() as f32) {
-                tracing::warn!(field = "r#layout", "Layout must be a perfect square");
+                ctx.emit(DiagnosticKind::layout_not_square(self.r#layout.len()));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#barrels").entered();
-            for (i, x) in self.r#barrels.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("barrels");
+            for (i, x) in self.r#barrels.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -32310,12 +29163,12 @@ impl SatelliteBuild {
     }
 }
 impl DatabaseItem for SatelliteBuild {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#components").entered();
-            for (i, x) in self.r#components.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("components");
+            for (i, x) in self.r#components.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -32664,193 +29517,119 @@ impl Ship {
     }
 }
 impl DatabaseItem for Ship {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#icon_scale").entered();
+            let mut ctx = ctx.enter("icon_scale");
             if self.r#icon_scale < 0_f32 {
-                tracing::warn!(
-                    field = "r#icon_scale",
-                    value = self.r#icon_scale,
-                    min = 0.1f32,
-                    "Field got truncated"
-                );
-                self.r#icon_scale = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.1f32, self.r#icon_scale));
             }
             if self.r#icon_scale > 100_f32 {
-                tracing::warn!(
-                    field = "r#icon_scale",
-                    value = self.r#icon_scale,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#icon_scale = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#icon_scale));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#model_scale").entered();
+            let mut ctx = ctx.enter("model_scale");
             if self.r#model_scale < 0_f32 {
-                tracing::warn!(
-                    field = "r#model_scale",
-                    value = self.r#model_scale,
-                    min = 0.1f32,
-                    "Field got truncated"
-                );
-                self.r#model_scale = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.1f32, self.r#model_scale));
             }
             if self.r#model_scale > 100_f32 {
-                tracing::warn!(
-                    field = "r#model_scale",
-                    value = self.r#model_scale,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#model_scale = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#model_scale));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#engines").entered();
-            for (i, x) in self.r#engines.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("engines");
+            for (i, x) in self.r#engines.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#layout").entered();
+            let mut ctx = ctx.enter("layout");
             if (self.r#layout.len() as f32).sqrt().floor().powi(2) != (self.r#layout.len() as f32) {
-                tracing::warn!(field = "r#layout", "Layout must be a perfect square");
+                ctx.emit(DiagnosticKind::layout_not_square(self.r#layout.len()));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#barrels").entered();
-            for (i, x) in self.r#barrels.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("barrels");
+            for (i, x) in self.r#barrels.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#features").entered();
-            self.r#features.validate();
+            let ctx = ctx.enter("features");
+            self.r#features.validate(ctx);
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#collider_tolerance").entered();
+            let mut ctx = ctx.enter("collider_tolerance");
             if self.r#collider_tolerance < 0_f32 {
-                tracing::warn!(
-                    field = "r#collider_tolerance",
-                    value = self.r#collider_tolerance,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#collider_tolerance = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#collider_tolerance));
             }
             if self.r#collider_tolerance > 1_f32 {
-                tracing::warn!(
-                    field = "r#collider_tolerance",
-                    value = self.r#collider_tolerance,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#collider_tolerance = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#collider_tolerance));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#engine_position").entered();
+            let mut ctx = ctx.enter("engine_position");
             let dw: glam::f32::Vec2 = Default::default();
             if self.r#engine_position != dw {
-                tracing::error!(
-                    ield = "r#engine_position",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#engine_size").entered();
+            let mut ctx = ctx.enter("engine_size");
             let dw: f32 = 0.0;
             if self.r#engine_size != dw {
-                tracing::error!(
-                    ield = "r#engine_size",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#ship_category").entered();
+            let mut ctx = ctx.enter("ship_category");
             let dw: i32 = 0;
             if self.r#ship_category != dw {
-                tracing::error!(
-                    ield = "r#ship_category",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#energy_resistance").entered();
+            let mut ctx = ctx.enter("energy_resistance");
             let dw: f32 = 0.0;
             if self.r#energy_resistance != dw {
-                tracing::error!(
-                    ield = "r#energy_resistance",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#kinetic_resistance").entered();
+            let mut ctx = ctx.enter("kinetic_resistance");
             let dw: f32 = 0.0;
             if self.r#kinetic_resistance != dw {
-                tracing::error!(
-                    ield = "r#kinetic_resistance",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#heat_resistance").entered();
+            let mut ctx = ctx.enter("heat_resistance");
             let dw: f32 = 0.0;
             if self.r#heat_resistance != dw {
-                tracing::error!(
-                    ield = "r#heat_resistance",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#regeneration").entered();
+            let mut ctx = ctx.enter("regeneration");
             let dw: bool = false;
             if self.r#regeneration != dw {
-                tracing::error!(
-                    ield = "r#regeneration",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#builtin_devices").entered();
+            let mut ctx = ctx.enter("builtin_devices");
             let dw: Vec<DeviceId> = Default::default();
             if self.r#builtin_devices != dw {
-                tracing::error!(
-                    ield = "r#builtin_devices",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#base_weight_modifier")
-                .entered();
+            let mut ctx = ctx.enter("base_weight_modifier");
             let dw: f32 = 0.0;
             if self.r#base_weight_modifier != dw {
-                tracing::error!(
-                    ield = "r#base_weight_modifier",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
     }
@@ -33066,29 +29845,24 @@ impl ShipBuild {
     }
 }
 impl DatabaseItem for ShipBuild {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#components").entered();
-            for (i, x) in self.r#components.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("components");
+            for (i, x) in self.r#components.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#not_available_in_game")
-                    .entered();
+            let mut ctx = ctx.enter("not_available_in_game");
             let dw: bool = false;
             if self.r#not_available_in_game != dw {
-                tracing::error!(
-                    ield = "r#not_available_in_game",
-                    "Obsolete field usage detected, generated code may not work",
-                );
+                ctx.emit(DiagnosticKind::obsolete_field());
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#perks").entered();
-            self.r#perks.validate();
+            let ctx = ctx.enter("perks");
+            self.r#perks.validate(ctx);
         }
     }
     fn type_name() -> &'static str {
@@ -33170,17 +29944,11 @@ impl StatUpgradeTemplate {
     }
 }
 impl DatabaseItem for StatUpgradeTemplate {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#max_level").entered();
+            let mut ctx = ctx.enter("max_level");
             if self.r#max_level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#max_level",
-                    value = self.r#max_level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#max_level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#max_level));
             }
         }
     }
@@ -33308,40 +30076,23 @@ impl TechnologyComponent {
     }
 }
 impl DatabaseItem for TechnologyComponent {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#price").entered();
+            let mut ctx = ctx.enter("price");
             if self.r#price < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#price = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#price));
             }
             if self.r#price > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#price = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#price));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#custom_crafting_level")
-                    .entered();
+            let mut ctx = ctx.enter("custom_crafting_level");
             if self.r#custom_crafting_level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#custom_crafting_level",
-                    value = self.r#custom_crafting_level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#custom_crafting_level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#custom_crafting_level,
+                ));
             }
         }
     }
@@ -33457,40 +30208,23 @@ impl TechnologyShip {
     }
 }
 impl DatabaseItem for TechnologyShip {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#price").entered();
+            let mut ctx = ctx.enter("price");
             if self.r#price < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#price = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#price));
             }
             if self.r#price > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#price = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#price));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#custom_crafting_level")
-                    .entered();
+            let mut ctx = ctx.enter("custom_crafting_level");
             if self.r#custom_crafting_level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#custom_crafting_level",
-                    value = self.r#custom_crafting_level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#custom_crafting_level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#custom_crafting_level,
+                ));
             }
         }
     }
@@ -33618,40 +30352,23 @@ impl TechnologySatellite {
     }
 }
 impl DatabaseItem for TechnologySatellite {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#price").entered();
+            let mut ctx = ctx.enter("price");
             if self.r#price < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#price = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#price));
             }
             if self.r#price > (10000f32 as i32) {
-                tracing::warn!(
-                    field = "r#price",
-                    value = self.r#price,
-                    max = 10000f32,
-                    "Field got truncated"
-                );
-                self.r#price = 10000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(10000f32, self.r#price));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#custom_crafting_level")
-                    .entered();
+            let mut ctx = ctx.enter("custom_crafting_level");
             if self.r#custom_crafting_level < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#custom_crafting_level",
-                    value = self.r#custom_crafting_level,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#custom_crafting_level = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(
+                    0f32,
+                    self.r#custom_crafting_level,
+                ));
             }
         }
     }
@@ -33953,11 +30670,20 @@ impl Technology {
     }
 }
 impl DatabaseItem for Technology {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Component(x) => x.validate(),
-            Self::Ship(x) => x.validate(),
-            Self::Satellite(x) => x.validate(),
+            Self::Component(x) => {
+                let ctx = ctx.enter_variant(stringify!(Component));
+                x.validate(ctx);
+            }
+            Self::Ship(x) => {
+                let ctx = ctx.enter_variant(stringify!(Ship));
+                x.validate(ctx);
+            }
+            Self::Satellite(x) => {
+                let ctx = ctx.enter_variant(stringify!(Satellite));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {
@@ -34058,27 +30784,27 @@ impl Ammunition {
     }
 }
 impl DatabaseItem for Ammunition {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#body").entered();
-            self.r#body.validate();
+            let ctx = ctx.enter("body");
+            self.r#body.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#controller").entered();
-            self.r#controller.validate();
+            let ctx = ctx.enter("controller");
+            self.r#controller.validate(ctx);
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#triggers").entered();
-            for (i, x) in self.r#triggers.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("triggers");
+            for (i, x) in self.r#triggers.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#effects").entered();
-            for (i, x) in self.r#effects.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("effects");
+            for (i, x) in self.r#effects.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -34223,69 +30949,32 @@ impl BulletPrefab {
     }
 }
 impl DatabaseItem for BulletPrefab {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#size").entered();
+            let mut ctx = ctx.enter("size");
             if self.r#size < 0_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    min = 0.01f32,
-                    "Field got truncated"
-                );
-                self.r#size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0.01f32, self.r#size));
             }
             if self.r#size > 100_f32 {
-                tracing::warn!(
-                    field = "r#size",
-                    value = self.r#size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#size));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#margins").entered();
+            let mut ctx = ctx.enter("margins");
             if self.r#margins < 0_f32 {
-                tracing::warn!(
-                    field = "r#margins",
-                    value = self.r#margins,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#margins = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#margins));
             }
             if self.r#margins > 1_f32 {
-                tracing::warn!(
-                    field = "r#margins",
-                    value = self.r#margins,
-                    max = 1f32,
-                    "Field got truncated"
-                );
-                self.r#margins = 1_f32;
+                ctx.emit(DiagnosticKind::too_large(1f32, self.r#margins));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#deformation").entered();
+            let mut ctx = ctx.enter("deformation");
             if self.r#deformation < -100_f32 {
-                tracing::warn!(
-                    field = "r#deformation",
-                    value = self.r#deformation,
-                    min = -100f32,
-                    "Field got truncated"
-                );
-                self.r#deformation = -100_f32;
+                ctx.emit(DiagnosticKind::too_small(-100f32, self.r#deformation));
             }
             if self.r#deformation > 100_f32 {
-                tracing::warn!(
-                    field = "r#deformation",
-                    value = self.r#deformation,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#deformation = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#deformation));
             }
         }
     }
@@ -34334,12 +31023,12 @@ impl VisualEffect {
     }
 }
 impl DatabaseItem for VisualEffect {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#elements").entered();
-            for (i, x) in self.r#elements.iter_mut().enumerate() {
-                let _guard = tracing::error_span!("Validating array element", index = i).entered();
-                x.validate();
+            let mut ctx = ctx.enter("elements");
+            for (i, x) in self.r#elements.iter().enumerate() {
+                let ctx = ctx.enter(i);
+                x.validate(ctx);
             }
         }
     }
@@ -34515,90 +31204,41 @@ impl Weapon {
     }
 }
 impl DatabaseItem for Weapon {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#fire_rate").entered();
+            let mut ctx = ctx.enter("fire_rate");
             if self.r#fire_rate < 0_f32 {
-                tracing::warn!(
-                    field = "r#fire_rate",
-                    value = self.r#fire_rate,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#fire_rate = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#fire_rate));
             }
             if self.r#fire_rate > 100_f32 {
-                tracing::warn!(
-                    field = "r#fire_rate",
-                    value = self.r#fire_rate,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#fire_rate = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#fire_rate));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#spread").entered();
+            let mut ctx = ctx.enter("spread");
             if self.r#spread < 0_f32 {
-                tracing::warn!(
-                    field = "r#spread",
-                    value = self.r#spread,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#spread = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#spread));
             }
             if self.r#spread > 360_f32 {
-                tracing::warn!(
-                    field = "r#spread",
-                    value = self.r#spread,
-                    max = 360f32,
-                    "Field got truncated"
-                );
-                self.r#spread = 360_f32;
+                ctx.emit(DiagnosticKind::too_large(360f32, self.r#spread));
             }
         }
         {
-            let _guard = tracing::error_span!("Validating field", field = "r#magazine").entered();
+            let mut ctx = ctx.enter("magazine");
             if self.r#magazine < (0f32 as i32) {
-                tracing::warn!(
-                    field = "r#magazine",
-                    value = self.r#magazine,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#magazine = 0f32 as i32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#magazine));
             }
             if self.r#magazine > (1000000000f32 as i32) {
-                tracing::warn!(
-                    field = "r#magazine",
-                    value = self.r#magazine,
-                    max = 1000000000f32,
-                    "Field got truncated"
-                );
-                self.r#magazine = 1000000000f32 as i32;
+                ctx.emit(DiagnosticKind::too_large(1000000000f32, self.r#magazine));
             }
         }
         {
-            let _guard =
-                tracing::error_span!("Validating field", field = "r#effect_size").entered();
+            let mut ctx = ctx.enter("effect_size");
             if self.r#effect_size < 0_f32 {
-                tracing::warn!(
-                    field = "r#effect_size",
-                    value = self.r#effect_size,
-                    min = 0f32,
-                    "Field got truncated"
-                );
-                self.r#effect_size = 0_f32;
+                ctx.emit(DiagnosticKind::too_small(0f32, self.r#effect_size));
             }
             if self.r#effect_size > 100_f32 {
-                tracing::warn!(
-                    field = "r#effect_size",
-                    value = self.r#effect_size,
-                    max = 100f32,
-                    "Field got truncated"
-                );
-                self.r#effect_size = 100_f32;
+                ctx.emit(DiagnosticKind::too_large(100f32, self.r#effect_size));
             }
         }
     }
@@ -35714,47 +32354,164 @@ impl Item {
     }
 }
 impl DatabaseItem for Item {
-    fn validate(&mut self) {
+    fn validate(&self, mut ctx: DiagnosticContextRef) {
         match self {
-            Self::Component(x) => x.validate(),
-            Self::Device(x) => x.validate(),
-            Self::Weapon(x) => x.validate(),
-            Self::AmmunitionObsolete(x) => x.validate(),
-            Self::DroneBay(x) => x.validate(),
-            Self::Ship(x) => x.validate(),
-            Self::Satellite(x) => x.validate(),
-            Self::ShipBuild(x) => x.validate(),
-            Self::SatelliteBuild(x) => x.validate(),
-            Self::Technology(x) => x.validate(),
-            Self::ComponentStats(x) => x.validate(),
-            Self::ComponentMod(x) => x.validate(),
-            Self::Faction(x) => x.validate(),
-            Self::Quest(x) => x.validate(),
-            Self::Loot(x) => x.validate(),
-            Self::Fleet(x) => x.validate(),
-            Self::Character(x) => x.validate(),
-            Self::QuestItem(x) => x.validate(),
-            Self::Ammunition(x) => x.validate(),
-            Self::VisualEffect(x) => x.validate(),
-            Self::BulletPrefab(x) => x.validate(),
-            Self::BehaviorTree(x) => x.validate(),
-            Self::GameObjectPrefab(x) => x.validate(),
-            Self::CombatRules(x) => x.validate(),
-            Self::ComponentStatUpgrade(x) => x.validate(),
-            Self::StatUpgradeTemplate(x) => x.validate(),
-            Self::ShipSettings(x) => x.validate(),
-            Self::GalaxySettings(x) => x.validate(),
-            Self::DatabaseSettings(x) => x.validate(),
-            Self::ExplorationSettings(x) => x.validate(),
-            Self::ShipModSettings(x) => x.validate(),
-            Self::SpecialEventSettings(x) => x.validate(),
-            Self::SkillSettings(x) => x.validate(),
-            Self::DebugSettings(x) => x.validate(),
-            Self::CombatSettings(x) => x.validate(),
-            Self::UiSettings(x) => x.validate(),
-            Self::FactionsSettings(x) => x.validate(),
-            Self::MusicPlaylist(x) => x.validate(),
-            Self::LocalizationSettings(x) => x.validate(),
+            Self::Component(x) => {
+                let ctx = ctx.enter_variant(stringify!(Component));
+                x.validate(ctx);
+            }
+            Self::Device(x) => {
+                let ctx = ctx.enter_variant(stringify!(Device));
+                x.validate(ctx);
+            }
+            Self::Weapon(x) => {
+                let ctx = ctx.enter_variant(stringify!(Weapon));
+                x.validate(ctx);
+            }
+            Self::AmmunitionObsolete(x) => {
+                let ctx = ctx.enter_variant(stringify!(AmmunitionObsolete));
+                x.validate(ctx);
+            }
+            Self::DroneBay(x) => {
+                let ctx = ctx.enter_variant(stringify!(DroneBay));
+                x.validate(ctx);
+            }
+            Self::Ship(x) => {
+                let ctx = ctx.enter_variant(stringify!(Ship));
+                x.validate(ctx);
+            }
+            Self::Satellite(x) => {
+                let ctx = ctx.enter_variant(stringify!(Satellite));
+                x.validate(ctx);
+            }
+            Self::ShipBuild(x) => {
+                let ctx = ctx.enter_variant(stringify!(ShipBuild));
+                x.validate(ctx);
+            }
+            Self::SatelliteBuild(x) => {
+                let ctx = ctx.enter_variant(stringify!(SatelliteBuild));
+                x.validate(ctx);
+            }
+            Self::Technology(x) => {
+                let ctx = ctx.enter_variant(stringify!(Technology));
+                x.validate(ctx);
+            }
+            Self::ComponentStats(x) => {
+                let ctx = ctx.enter_variant(stringify!(ComponentStats));
+                x.validate(ctx);
+            }
+            Self::ComponentMod(x) => {
+                let ctx = ctx.enter_variant(stringify!(ComponentMod));
+                x.validate(ctx);
+            }
+            Self::Faction(x) => {
+                let ctx = ctx.enter_variant(stringify!(Faction));
+                x.validate(ctx);
+            }
+            Self::Quest(x) => {
+                let ctx = ctx.enter_variant(stringify!(Quest));
+                x.validate(ctx);
+            }
+            Self::Loot(x) => {
+                let ctx = ctx.enter_variant(stringify!(Loot));
+                x.validate(ctx);
+            }
+            Self::Fleet(x) => {
+                let ctx = ctx.enter_variant(stringify!(Fleet));
+                x.validate(ctx);
+            }
+            Self::Character(x) => {
+                let ctx = ctx.enter_variant(stringify!(Character));
+                x.validate(ctx);
+            }
+            Self::QuestItem(x) => {
+                let ctx = ctx.enter_variant(stringify!(QuestItem));
+                x.validate(ctx);
+            }
+            Self::Ammunition(x) => {
+                let ctx = ctx.enter_variant(stringify!(Ammunition));
+                x.validate(ctx);
+            }
+            Self::VisualEffect(x) => {
+                let ctx = ctx.enter_variant(stringify!(VisualEffect));
+                x.validate(ctx);
+            }
+            Self::BulletPrefab(x) => {
+                let ctx = ctx.enter_variant(stringify!(BulletPrefab));
+                x.validate(ctx);
+            }
+            Self::BehaviorTree(x) => {
+                let ctx = ctx.enter_variant(stringify!(BehaviorTree));
+                x.validate(ctx);
+            }
+            Self::GameObjectPrefab(x) => {
+                let ctx = ctx.enter_variant(stringify!(GameObjectPrefab));
+                x.validate(ctx);
+            }
+            Self::CombatRules(x) => {
+                let ctx = ctx.enter_variant(stringify!(CombatRules));
+                x.validate(ctx);
+            }
+            Self::ComponentStatUpgrade(x) => {
+                let ctx = ctx.enter_variant(stringify!(ComponentStatUpgrade));
+                x.validate(ctx);
+            }
+            Self::StatUpgradeTemplate(x) => {
+                let ctx = ctx.enter_variant(stringify!(StatUpgradeTemplate));
+                x.validate(ctx);
+            }
+            Self::ShipSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(ShipSettings));
+                x.validate(ctx);
+            }
+            Self::GalaxySettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(GalaxySettings));
+                x.validate(ctx);
+            }
+            Self::DatabaseSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(DatabaseSettings));
+                x.validate(ctx);
+            }
+            Self::ExplorationSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(ExplorationSettings));
+                x.validate(ctx);
+            }
+            Self::ShipModSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(ShipModSettings));
+                x.validate(ctx);
+            }
+            Self::SpecialEventSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(SpecialEventSettings));
+                x.validate(ctx);
+            }
+            Self::SkillSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(SkillSettings));
+                x.validate(ctx);
+            }
+            Self::DebugSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(DebugSettings));
+                x.validate(ctx);
+            }
+            Self::CombatSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(CombatSettings));
+                x.validate(ctx);
+            }
+            Self::UiSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(UiSettings));
+                x.validate(ctx);
+            }
+            Self::FactionsSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(FactionsSettings));
+                x.validate(ctx);
+            }
+            Self::MusicPlaylist(x) => {
+                let ctx = ctx.enter_variant(stringify!(MusicPlaylist));
+                x.validate(ctx);
+            }
+            Self::LocalizationSettings(x) => {
+                let ctx = ctx.enter_variant(stringify!(LocalizationSettings));
+                x.validate(ctx);
+            }
         }
     }
     fn type_name() -> &'static str {

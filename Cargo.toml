@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = ["eh_codegen", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_schema"]
+members = ["diagnostic", "eh_codegen", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_schema"]
 
 [workspace.dependencies]
 clap = "4.5.7"
@@ -31,3 +31,9 @@ tracing-subscriber = "0.3.18"
 walkdir = "2.5.0"
 pretty-duration = "0.1.1"
 flate2 = "1"
+lockfree-object-pool = "0.1.5"
+owo-colors = "4"
+# Local dependencies
+diagnostic = { path = "diagnostic" }
+eh_mod_dev = { path = "eh_mod_dev" }
+eh_schema = { path = "eh_schema" }

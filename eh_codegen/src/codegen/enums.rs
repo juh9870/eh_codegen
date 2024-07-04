@@ -123,7 +123,7 @@ impl CodegenState {
             }
 
             impl DatabaseItem for #name {
-                fn validate(&mut self) {}
+                fn validate(&self, _ctx: DiagnosticContextRef) {}
 
                 fn type_name() -> &'static str {
                     #name_str

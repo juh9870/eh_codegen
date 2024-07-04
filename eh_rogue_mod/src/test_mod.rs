@@ -3,6 +3,7 @@ use crate::Args;
 use eh_mod_dev::database::{database, Database, Remember};
 use eh_mod_dev::helpers::from_json_string;
 use eh_mod_dev::json;
+use eh_mod_dev::reporting::report_diagnostics;
 use eh_mod_dev::schema::schema::{
     DatabaseSettings, Loot, LootContent, LootContentAllItems, LootContentMoney,
     LootContentQuestItem, LootContentStarMap, LootId, LootItem, Node, NodeAction,
@@ -53,7 +54,7 @@ pub fn build_mod(args: Args) {
     );
 
     let start = Instant::now();
-    db.save();
+    report_diagnostics(db.save());
     debug!(
         time = pretty_duration(&start.elapsed(), None),
         "Saved the resulting mod"
@@ -280,6 +281,7 @@ fn upgrade_loot(loot: &mut LootContent, multiplier: f32) {
         LootContent::None(_) => {}
         LootContent::SomeMoney(m) => {
             m.value_ratio *= multiplier * multiplier;
+            m.value_ratio = m.value_ratio.min(1000.0);
         }
         LootContent::Fuel(_) => {}
         LootContent::Money(m) => {

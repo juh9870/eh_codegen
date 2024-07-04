@@ -368,11 +368,27 @@ impl CodegenState {
             });
         }
 
-        let validations = matcher(quote!(x.validate()), false);
+        let validations = {
+            let matches = variants.iter().map(|v| {
+                let name = &v.ident;
+                quote! {
+                    Self::#name(x) => {
+                        let mut ctx = ctx.enter_variant(stringify!(#name));
+                        x.validate(ctx);
+                    }
+                }
+            });
+
+            quote! {
+                match self {
+                    #(#matches)*
+                }
+            }
+        };
 
         blocks.push(quote! {
             impl DatabaseItem for #switch_struct_ident {
-                fn validate(&mut self) {
+                fn validate(&self, mut ctx: DiagnosticContextRef) {
                     #validations
                 }
 

@@ -82,6 +82,7 @@ fn main() -> miette::Result<()> {
         let mut code_builder = "\
             #![allow(clippy::large_enum_variant)]\n\
             #![allow(dead_code)]\n\
+            #![allow(unused_variables)]\n\
             #![allow(unreachable_patterns)]\n\n"
             .to_string();
 

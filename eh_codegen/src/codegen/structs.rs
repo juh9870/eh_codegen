@@ -178,21 +178,20 @@ impl Field {
 
         let mut validation = vec![];
         let name_str = ident.to_string();
+        let name_str = name_str.strip_prefix("r#").unwrap_or(&name_str);
 
         if !matches!(field.ty, SchemaStructMemberType::Expression) {
             if let Some(min) = &field.minvalue {
                 validation.push(quote! {
                     if self.#ident < (#min as #ty) {
-                        tracing::warn!(field=#name_str, value=self.#ident, min=#min, "Field got truncated");
-                        self.#ident = #min as #ty;
+                        ctx.emit(DiagnosticKind::too_small(#min, self.#ident));
                     }
                 })
             }
             if let Some(max) = &field.maxvalue {
                 validation.push(quote! {
                     if self.#ident > (#max as #ty) {
-                        tracing::warn!(field=#name_str, value=self.#ident, max=#max, "Field got truncated");
-                        self.#ident = #max as #ty;
+                        ctx.emit(DiagnosticKind::too_large(#max, self.#ident));
                     }
                 })
             }
@@ -214,7 +213,7 @@ impl Field {
                         validation.push(quote! {
                             let dw: #ty = #default_val;
                             if self.#ident != dw {
-                                tracing::error!(ield=#name_str, "Obsolete field usage detected, generated code may not work",);
+                                ctx.emit(DiagnosticKind::obsolete_field());
                             }
                         })
                     }
@@ -225,13 +224,15 @@ impl Field {
 
         match field.ty {
             SchemaStructMemberType::Struct => {
-                validation.push(quote! { self.#ident.validate(); });
+                validation.push(quote! {
+                    self.#ident.validate(ctx);
+                });
             }
             SchemaStructMemberType::StructList => {
                 validation.push(quote! {
-                    for (i, x) in self.#ident.iter_mut().enumerate() {
-                        let _guard = tracing::error_span!("Validating array element", index=i).entered();
-                        x.validate();
+                    for (i, x) in self.#ident.iter().enumerate() {
+                        let mut ctx = ctx.enter(i);
+                        x.validate(ctx);
                     }
                 });
             }
@@ -251,7 +252,7 @@ impl Field {
             SchemaStructMemberType::Prefab => {}
             SchemaStructMemberType::Layout => validation.push(quote! {
                 if (self.#ident.len() as f32).sqrt().floor().powi(2) != (self.#ident.len() as f32) {
-                    tracing::warn!(field=#name_str, "Layout must be a perfect square");
+                    ctx.emit(DiagnosticKind::layout_not_square(self.#ident.len()));
                 }
             }),
         };
@@ -259,7 +260,7 @@ impl Field {
         if !validation.is_empty() {
             Ok(quote! {
                 {
-                    let _guard = tracing::error_span!("Validating field", field=#name_str).entered();
+                    let mut ctx = ctx.enter(#name_str);
                     #(#validation)*
                 }
             })
@@ -391,7 +392,7 @@ impl CodegenState {
             }
 
             impl DatabaseItem for #name {
-                fn validate(&mut self) {
+                fn validate(&self, mut ctx: DiagnosticContextRef) {
                     #(#validations)*
                 }
 

@@ -14,6 +14,7 @@ use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
 use crate::builder::{ModBuilderData, ModBuilderInfo};
+use diagnostic::context::DiagnosticContext;
 use tracing::{error, error_span, info};
 
 pub use crate::database::db_item::DbItem;
@@ -278,7 +279,7 @@ impl DatabaseHolder {
     }
 
     /// Saves database to the file system, overriding old files
-    pub fn save(self: Arc<Self>) {
+    pub fn save(self: Arc<Self>) -> DiagnosticContext {
         const ERR_DANGLING_DATABASE: &str = "Should not have dangling references to the database before saving. Check your item handles for leakage";
         const ERR_DANGLING_COLLECTION: &str = "Should not have dangling references to the database collections before saving. Check your iterator usage for leaking";
         const ERR_DANGLING_ITEM: &str = "Should not have dangling references to the database item before saving. Check your item handles for leakage";
@@ -343,6 +344,8 @@ impl DatabaseHolder {
             (ModBuilderData::dummy(), None)
         };
 
+        let mut ctx = DiagnosticContext::default();
+
         for item in db.items.into_values().flat_map(|m| {
             Arc::into_inner(m)
                 .expect(ERR_DANGLING_COLLECTION)
@@ -354,7 +357,7 @@ impl DatabaseHolder {
             let id = item_handle.id();
             drop(item_handle);
 
-            let _guard = error_span!("Saving item", ty = type_name, id).entered();
+            let guard_early = error_span!("Saving item", ty = type_name, id).entered();
             let item = Arc::into_inner(item).expect(ERR_DANGLING_ITEM).into_inner();
             let type_name = item.inner_type_name();
             let file_name = item
@@ -371,7 +374,12 @@ impl DatabaseHolder {
                 })
                 .unwrap_or_else(|| format!("{type_name}.json"));
 
-            let path = path.join(file_name);
+            let path = path.join(&file_name);
+
+            drop(guard_early);
+            let _guard = error_span!("Saving item", ty = type_name, id, file_name).entered();
+
+            item.validate(ctx.enter_new(file_name));
 
             let _save_file_guard = error_span!("Writing file", path=%path.display()).entered();
 
@@ -413,7 +421,9 @@ impl DatabaseHolder {
                 .expect("Should be able to build mod file");
         }
 
-        info!("Database saved successfully!")
+        info!("Database saved successfully!");
+
+        ctx
     }
 
     fn next_id_raw<T: 'static + DatabaseItem>(db: &mut DatabaseInner) -> i32 {

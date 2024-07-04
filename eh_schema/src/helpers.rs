@@ -1,7 +1,8 @@
+use diagnostic::context::DiagnosticContextRef;
 use serde::Deserializer;
 
 pub trait DatabaseItem: serde::Serialize + for<'a> serde::Deserialize<'a> {
-    fn validate(&mut self);
+    fn validate(&self, ctx: DiagnosticContextRef);
     fn type_name() -> &'static str;
 }
 

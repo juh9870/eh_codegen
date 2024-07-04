@@ -7,9 +7,11 @@ repository = "https://github.com/juh9870/random_cli"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+diagnostic = { workspace = true }
 eh_schema = { path = "../eh_schema" }
 flate2 = { workspace = true }
 fs-err = { workspace = true }
+owo-colors = { workspace = true }
 parking_lot = { workspace = true }
 paste = { workspace = true }
 replace_with = { workspace = true }

@@ -32,6 +32,7 @@ impl CodegenState {
             SchemaItem::Schema { .. } => {
                 quote! {
                     pub use crate::helpers::*;
+                    use diagnostic::prelude::*;
                 }
             }
             SchemaItem::Data(data) => {
