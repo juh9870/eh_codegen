@@ -223,9 +223,49 @@ impl Field {
             }
         }
 
-        Ok(quote! {
-            #(#validation)*
-        })
+        match field.ty {
+            SchemaStructMemberType::Struct => {
+                validation.push(quote! { self.#ident.validate(); });
+            }
+            SchemaStructMemberType::StructList => {
+                validation.push(quote! {
+                    for (i, x) in self.#ident.iter_mut().enumerate() {
+                        let _guard = tracing::error_span!("Validating array element", index=i).entered();
+                        x.validate();
+                    }
+                });
+            }
+            SchemaStructMemberType::Object => {}
+            SchemaStructMemberType::ObjectList => {}
+            SchemaStructMemberType::Enum => {}
+            SchemaStructMemberType::EnumFlags => {}
+            SchemaStructMemberType::Expression => {}
+            SchemaStructMemberType::Vector => {}
+            SchemaStructMemberType::Float => {}
+            SchemaStructMemberType::Int => {}
+            SchemaStructMemberType::Color => {}
+            SchemaStructMemberType::Bool => {}
+            SchemaStructMemberType::String => {}
+            SchemaStructMemberType::Image => {}
+            SchemaStructMemberType::AudioClip => {}
+            SchemaStructMemberType::Prefab => {}
+            SchemaStructMemberType::Layout => validation.push(quote! {
+                if (self.#ident.len() as f32).sqrt().floor().powi(2) != (self.#ident.len() as f32) {
+                    tracing::warn!(field=#name_str, "Layout must be a perfect square");
+                }
+            }),
+        };
+
+        if !validation.is_empty() {
+            Ok(quote! {
+                {
+                    let _guard = tracing::error_span!("Validating field", field=#name_str).entered();
+                    #(#validation)*
+                }
+            })
+        } else {
+            Ok(quote! {})
+        }
     }
 
     pub fn add_extra_functions(&self, funcs: &mut BTreeMap<String, TokenStream>) {
