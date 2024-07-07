@@ -62,7 +62,6 @@ pub struct DatabaseInner {
     output_path: PathBuf,
     output_file_path: Option<PathBuf>,
     ids: IdMapping,
-    default_ids: Vec<Range<i32>>,
     items: HashMap<&'static str, ItemsMap>,
     // items: Vec<Item>,
 }
@@ -120,7 +119,6 @@ impl DatabaseHolder {
                 output_path,
                 output_file_path: output_mod_file_path,
                 ids: IdMapping::new(mappings.ids),
-                default_ids: Default::default(),
                 items: Default::default(),
             }),
         };
