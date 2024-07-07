@@ -1,3 +1,4 @@
+use flate2::Compression;
 use std::any::Any;
 use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
@@ -5,12 +6,13 @@ use std::fmt::{Debug, Formatter};
 use std::marker::PhantomData;
 use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 
 use parking_lot::{
     MappedRwLockReadGuard, MappedRwLockWriteGuard, Mutex, RwLock, RwLockReadGuard, RwLockWriteGuard,
 };
-use rayon::prelude::*;
+use rayon::prelude::{IntoParallelIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
 use tracing::{error, error_span, info};
 
@@ -21,6 +23,7 @@ use crate::builder::{ModBuilderData, ModBuilderInfo};
 pub use crate::database::db_item::DbItem;
 pub use crate::database::stored_db_item::StoredDbItem;
 use crate::mapping::{IdMapping, IdMappingSerialized};
+use crate::utils::{compress, decompress, sha256};
 
 pub mod db_item;
 pub mod stored_db_item;
@@ -39,6 +42,7 @@ pub fn database(
 
 const MAPPINGS_NAME: &str = "id_mappings.json5";
 const MAPPINGS_BACKUP_NAME: &str = "id_mappings.json5.backup";
+const HASHES_NAME: &str = ".hashes";
 
 pub type Database = Arc<DatabaseHolder>;
 
@@ -279,6 +283,7 @@ impl DatabaseHolder {
 
         let mappings_path = path.join(MAPPINGS_NAME);
         let mappings_bk_path = path.join(MAPPINGS_BACKUP_NAME);
+        let hashes_path = path.join(HASHES_NAME);
         check_no_backup(&mappings_bk_path);
 
         let mappings = MappingsSerde {
@@ -299,8 +304,17 @@ impl DatabaseHolder {
                 .expect("Should be able to create mappings backup");
         }
 
+        let hashes = if hashes_path.exists() {
+            let data = fs_err::read(&hashes_path).expect("Should be able to read hashes file");
+            let data = decompress(&data);
+            bitcode::decode(&data).expect("Should be able to decode hashes file")
+        } else {
+            BTreeMap::<String, Vec<u8>>::default()
+        };
+
         saved_files.insert(mappings_path);
         saved_files.insert(mappings_bk_path.clone());
+        saved_files.insert(hashes_path.clone());
 
         let inverse_ids = db.ids.get_inverse_ids();
 
@@ -365,24 +379,56 @@ impl DatabaseHolder {
                 .expect("Should be able to serialize the item");
 
             build_data.add_file(path.clone(), json.as_bytes());
-            files_to_write.push((path.clone(), json));
 
             saved_files.insert(path.clone());
             let mut p: &Path = &path;
-            parent_dirs.insert(p.parent().unwrap().to_path_buf());
             while let Some(parent) = p.parent() {
                 saved_files.insert(parent.to_path_buf());
                 p = parent;
             }
+
+            parent_dirs.insert(path.parent().unwrap().to_path_buf());
+            files_to_write.push((path, json));
         }
 
         parent_dirs.into_par_iter().for_each(|p| {
             fs_err::create_dir_all(p).expect("Should be able to create parent dir for a file");
         });
 
-        files_to_write.into_par_iter().for_each(|(path, json)| {
-            fs_err::write(path, json).expect("Should be able to write the file");
-        });
+        let updated_count = Arc::new(AtomicUsize::new(0));
+        let total_to_write = files_to_write.len();
+
+        let new_hashes = files_to_write
+            .into_par_iter()
+            .filter_map(|(path, json)| {
+                if let Some(path) = path.as_os_str().to_str() {
+                    let hash = sha256(json.as_bytes());
+
+                    let old_hash = hashes.get(path).cloned();
+
+                    if !old_hash.is_some_and(|old_hash| old_hash == hash) {
+                        fs_err::write(path, json).expect("Should be able to write the file");
+                        updated_count.fetch_add(1, Ordering::Release);
+                    }
+
+                    Some((path.to_string(), hash))
+                } else {
+                    fs_err::write(path, json).expect("Should be able to write the file");
+                    updated_count.fetch_add(1, Ordering::Release);
+                    None
+                }
+            })
+            .collect::<HashMap<String, Vec<u8>>>();
+
+        fs_err::write(
+            hashes_path,
+            compress(&bitcode::encode(&new_hashes), Compression::best()),
+        )
+        .expect("Should be able to write hashes file");
+
+        let updated_count = updated_count.load(Ordering::Acquire);
+
+        let mut cleaned = 0;
 
         let files = walkdir::WalkDir::new(path);
         // let files = fs_err::read_dir(path).expect("Should be able to read output directory");
@@ -400,6 +446,7 @@ impl DatabaseHolder {
             let _guard = error_span!("Cleaning up old file", path=%file.path().display()).entered();
 
             fs_err::remove_file(file.path()).expect("Should be able to delete old file");
+            cleaned += 1;
         }
 
         fs_err::remove_file(mappings_bk_path).expect("Should remove mappings backup file");
@@ -410,7 +457,12 @@ impl DatabaseHolder {
                 .expect("Should be able to build mod file");
         }
 
-        info!("Database saved successfully!");
+        info!(
+            updated_files = updated_count,
+            skipped_files = total_to_write - updated_count,
+            cleaned_files = cleaned,
+            "Database saved successfully!"
+        );
 
         ctx
     }

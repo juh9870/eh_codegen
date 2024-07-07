@@ -1,3 +1,4 @@
+use crate::utils::compress;
 use eh_schema::schema::DatabaseSettings;
 use flate2::Compression;
 use std::collections::BTreeMap;
@@ -66,14 +67,6 @@ fn build(
     serialize_data(&mut raw_data, data, info)?;
 
     encrypt(stream, raw_data)
-}
-
-fn compress(data: &[u8], compression: Compression) -> Vec<u8> {
-    let mut flate2_data = vec![];
-    let mut writer = flate2::write::ZlibEncoder::new(&mut flate2_data, compression);
-    writer.write_all(data).unwrap();
-    writer.flush_finish().unwrap();
-    flate2_data
 }
 
 fn encrypt(stream: &mut impl Write, raw_data: Vec<u8>) -> std::io::Result<()> {

@@ -4,6 +4,7 @@ resolver = "2"
 members = ["diagnostic", "eh_codegen", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_schema"]
 
 [workspace.dependencies]
+bitcode = "0.6.0"
 clap = "4.5.7"
 color-backtrace = "0.6.1"
 convert_case = "0.6.0"
@@ -14,6 +15,7 @@ glam = "0.28"
 itertools = "0.13.0"
 lockfree-object-pool = "0.1.5"
 miette = "7.2.0"
+num_cpus = "1.16.0"
 owo-colors = "4"
 parking_lot = "0.12.3"
 paste = "1.0.15"
@@ -28,6 +30,7 @@ serde = "1.0.203"
 serde_json = "1.0.117"
 serde_json5 = "0.1.0"
 serde_repr = "0.1.19"
+sha2 = "0.10.8"
 syn = "2.0.66"
 thiserror = "1.0.61"
 tracing = "0.1.40"
@@ -38,3 +41,19 @@ walkdir = "2.5.0"
 diagnostic = { path = "diagnostic" }
 eh_mod_dev = { path = "eh_mod_dev" }
 eh_schema = { path = "eh_schema" }
+
+[profile.release]
+opt-level = 3
+codegen-units = 1
+lto = true
+strip = true
+
+# Enable a small amount of optimization in debug mode
+[profile.dev]
+lto = "off"
+strip = false
+opt-level = 1
+
+# Enable high optimizations for dependencies, but not for our code:
+[profile.dev.package."*"]
+opt-level = 3

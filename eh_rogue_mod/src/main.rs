@@ -22,6 +22,11 @@ fn main() {
 
     tracing::subscriber::set_global_default(subscriber).unwrap();
 
+    rayon::ThreadPoolBuilder::new()
+        .num_threads(num_cpus::get())
+        .build_global()
+        .unwrap();
+
     let args = Args::parse();
 
     color_backtrace::install();
