@@ -1,10 +1,11 @@
+use owo_colors::{AnsiColors, OwoColorize};
+
 use diagnostic::context::DiagnosticContext;
 use diagnostic::diagnostic::DiagnosticKind;
-use owo_colors::{AnsiColors, OwoColorize};
 
 pub fn report_diagnostics(ctx: DiagnosticContext) {
     for (entry, diagnostics) in ctx.diagnostics {
-        let is_builtin = entry.starts_with("auto-") || entry.starts_with("eh-");
+        let is_builtin = entry.starts_with("auto/") || entry.starts_with("eh/");
         let filtered: Vec<_> = diagnostics
             .iter()
             .filter(|d| {

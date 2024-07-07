@@ -1,6 +1,6 @@
 use std::any::Any;
 use std::borrow::Cow;
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::fmt::{Debug, Formatter};
 use std::marker::PhantomData;
 use std::ops::{DerefMut, Range};
@@ -10,6 +10,7 @@ use std::sync::Arc;
 use parking_lot::{
     MappedRwLockReadGuard, MappedRwLockWriteGuard, Mutex, RwLock, RwLockReadGuard, RwLockWriteGuard,
 };
+use rayon::prelude::*;
 use serde::{Deserialize, Serialize};
 use tracing::{error, error_span, info};
 
@@ -317,6 +318,10 @@ impl DatabaseHolder {
 
         let mut ctx = DiagnosticContext::default();
 
+        let mut files_to_write = vec![];
+
+        let mut parent_dirs = BTreeSet::default();
+
         for item in db.items.into_values().flat_map(|m| {
             Arc::into_inner(m)
                 .expect(ERR_DANGLING_COLLECTION)
@@ -338,12 +343,12 @@ impl DatabaseHolder {
                         .get(type_name)
                         .and_then(|ids| ids.get(&id).cloned())
                         .map(|id| {
-                            let id = id.replace(':', "-");
+                            let id = id.replace(':', "/");
                             format!("{id}_{type_name}.json")
                         })
-                        .unwrap_or_else(|| format!("auto-{type_name}_{id}.json"))
+                        .unwrap_or_else(|| format!("auto/{type_name}_{id}.json"))
                 })
-                .unwrap_or_else(|| format!("{type_name}.json"));
+                .unwrap_or_else(|| format!("settings/{type_name}.json"));
 
             let path = path.join(&file_name);
 
@@ -362,20 +367,35 @@ impl DatabaseHolder {
                 .expect("Should be able to serialize the item");
 
             build_data.add_file(path.clone(), json.as_bytes());
-            fs_err::write(&path, json).expect("Should be able to write the file");
+            files_to_write.push((path.clone(), json));
 
-            saved_files.insert(path);
+            saved_files.insert(path.clone());
+            let mut p: &Path = &path;
+            parent_dirs.insert(p.parent().unwrap().to_path_buf());
+            while let Some(parent) = p.parent() {
+                saved_files.insert(parent.to_path_buf());
+                p = parent;
+            }
         }
 
-        let files = fs_err::read_dir(path).expect("Should be able to read output directory");
+        parent_dirs.into_par_iter().for_each(|p| {
+            fs_err::create_dir_all(p).expect("Should be able to create parent dir for a file");
+        });
+
+        files_to_write.into_par_iter().for_each(|(path, json)| {
+            fs_err::write(path, json).expect("Should be able to write the file");
+        });
+
+        let files = walkdir::WalkDir::new(path);
+        // let files = fs_err::read_dir(path).expect("Should be able to read output directory");
         for file in files {
             let file = file.expect("Should be able to read a dir entry");
             let _guard = error_span!("Checking entry", path=%file.path().display()).entered();
-            if !file.path().is_file() {
-                panic!("Output directory contains a non-file entry");
-            }
+            // if !file.path().is_file() {
+            //     panic!("Output directory contains a non-file entry");
+            // }
 
-            if saved_files.contains(&file.path()) {
+            if saved_files.contains(file.path()) {
                 continue;
             }
 

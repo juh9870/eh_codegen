@@ -33,6 +33,7 @@ pretty-duration = "0.1.1"
 flate2 = "1"
 lockfree-object-pool = "0.1.5"
 owo-colors = "4"
+rayon = "1.10.0"
 # Local dependencies
 diagnostic = { path = "diagnostic" }
 eh_mod_dev = { path = "eh_mod_dev" }
