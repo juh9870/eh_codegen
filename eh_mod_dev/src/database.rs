@@ -527,19 +527,31 @@ impl DatabaseHolder {
     pub fn load_from_dir(&self, dir: impl AsRef<Path>) {
         let path = dir.as_ref();
         let _guard = error_span!("Loading existing database files", path=%path.display()).entered();
-        for entry in walkdir::WalkDir::new(dir) {
-            let entry = entry.expect("Should be able to read a file");
-            if !entry.file_type().is_file() {
-                continue;
-            }
+        let walk: Vec<_> = walkdir::WalkDir::new(dir)
+            .into_iter()
+            .collect::<Result<_, _>>()
+            .expect("Should be able to read all files in the directory");
+        let items: Vec<_> = walk
+            .into_par_iter()
+            .filter_map(|entry| {
+                if !entry.file_type().is_file() {
+                    return None;
+                }
 
-            let path = entry.path();
+                let path = entry.path();
 
-            let _guard = error_span!("Loading file", path=%path.display()).entered();
+                let _guard = error_span!("Loading file", path=%path.display()).entered();
 
-            let data = fs_err::read(path).expect("Should be able to read a file");
+                let data = fs_err::read(path).expect("Should be able to read a file");
 
-            let data: Item = serde_json5::from_slice(&data).expect("Should be a valid json");
+                let data: Item = serde_json5::from_slice(&data).expect("Should be a valid json");
+
+                Some((path.to_path_buf(), data))
+            })
+            .collect();
+
+        for (path, data) in items {
+            let _guard = error_span!("Registering file", path=%path.display()).entered();
 
             self.consume_item(data);
         }
