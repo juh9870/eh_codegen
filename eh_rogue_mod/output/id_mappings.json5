@@ -1,44 +1,46 @@
 {
-  "Loot": {
-    "debug:starting_loot": 9870001,
-    "eh:civilian_ship_reward": 17,
-    "eh:covid_loot": 21,
-    "eh:merchant_goods": 6,
-    "eh:merchant_loot": 5,
-    "eh:random_resources": 8,
-    "eh:random_stuff": 3,
-    "eh:scavenger_goods": 16,
-    "eh:some_money": 1,
-    "eh:some_money_x5": 10,
-    "eh:worm_boss_loot": 7,
-    "roguelike:loot": 9870000,
-    "roguelike:scavenger_loot": 9870002
-  },
-  "Quest": {
-    "debug:starting_boost": 9870001,
-    "eh:capture_starbase": 9,
-    "eh:easter": 10,
-    "eh:escapepod": 4,
-    "eh:fac_delivery": 22,
-    "eh:fac_pirates": 20,
-    "eh:fac_resources": 21,
-    "eh:freestuff": 2,
-    "eh:jansalo_combat": 102,
-    "eh:jansalo_fuel": 101,
-    "eh:jansalo_into": 100,
-    "eh:local_pirates": 5,
-    "eh:merchant": 6,
-    "eh:pandemic": 200,
-    "eh:pirates": 3,
-    "eh:scavenger_distress": 106,
-    "eh:scavenger_harbor": 107,
-    "eh:scavenger_trade": 105,
-    "eh:ship_out_of_fuel": 8,
-    "eh:tutorial": 1,
-    "eh:wormship": 7,
-    "roguelike:lock_quest": 9870000
-  },
-  "QuestItem": {
-    "roguelike:marker": 9870000
+  "ids": {
+    "Loot": {
+      "debug:starting_loot": 9870001,
+      "eh:civilian_ship_reward": 17,
+      "eh:covid_loot": 21,
+      "eh:merchant_goods": 6,
+      "eh:merchant_loot": 5,
+      "eh:random_resources": 8,
+      "eh:random_stuff": 3,
+      "eh:scavenger_goods": 16,
+      "eh:some_money": 1,
+      "eh:some_money_x5": 10,
+      "eh:worm_boss_loot": 7,
+      "roguelike:loot": 9870000,
+      "roguelike:scavenger_loot": 9870002
+    },
+    "Quest": {
+      "debug:starting_boost": 9870001,
+      "eh:capture_starbase": 9,
+      "eh:easter": 10,
+      "eh:escapepod": 4,
+      "eh:fac_delivery": 22,
+      "eh:fac_pirates": 20,
+      "eh:fac_resources": 21,
+      "eh:freestuff": 2,
+      "eh:jansalo_combat": 102,
+      "eh:jansalo_fuel": 101,
+      "eh:jansalo_into": 100,
+      "eh:local_pirates": 5,
+      "eh:merchant": 6,
+      "eh:pandemic": 200,
+      "eh:pirates": 3,
+      "eh:scavenger_distress": 106,
+      "eh:scavenger_harbor": 107,
+      "eh:scavenger_trade": 105,
+      "eh:ship_out_of_fuel": 8,
+      "eh:tutorial": 1,
+      "eh:wormship": 7,
+      "roguelike:lock_quest": 9870000
+    },
+    "QuestItem": {
+      "roguelike:marker": 9870000
+    }
   }
 }

@@ -1,5 +1,9 @@
-use crate::test_mod::quest_surgeon::next_id;
-use crate::Args;
+use std::collections::HashMap;
+use std::time::Instant;
+
+use pretty_duration::pretty_duration;
+use tracing::{debug, error_span, instrument};
+
 use eh_mod_dev::database::{database, Database, Remember};
 use eh_mod_dev::helpers::from_json_string;
 use eh_mod_dev::json;
@@ -12,10 +16,9 @@ use eh_mod_dev::schema::schema::{
     StartCondition, Technology,
 };
 use eh_mod_dev::vanilla_mappings::add_vanilla_mappings;
-use pretty_duration::pretty_duration;
-use std::collections::HashMap;
-use std::time::Instant;
-use tracing::{debug, error_span, instrument};
+
+use crate::test_mod::quest_surgeon::next_id;
+use crate::Args;
 
 pub mod quest_surgeon;
 
@@ -64,7 +67,7 @@ pub fn build_mod(args: Args) {
 #[instrument]
 fn permadeath(db: &Database) {
     let death_item = QuestItem {
-        id: db.id("roguelike:marker"),
+        id: db.new_id("roguelike:marker"),
         name: "Death mark".to_string(),
         description: "Game over".to_string(),
         icon: "scull".to_string(),
@@ -74,7 +77,7 @@ fn permadeath(db: &Database) {
     .remember(db);
 
     let death_loot = Loot {
-        id: db.id("roguelike:loot"),
+        id: db.new_id("roguelike:loot"),
         loot: LootContentQuestItem {
             item_id: death_item.id,
             min_amount: 1,
@@ -85,7 +88,7 @@ fn permadeath(db: &Database) {
     .remember(db);
 
     let permadeath_quest = Quest {
-        id: db.id("roguelike:lock_quest"),
+        id: db.new_id("roguelike:lock_quest"),
         name: "Death".to_string(),
         quest_type: QuestType::Temporary,
         start_condition: StartCondition::LocalEncounter,
@@ -217,7 +220,7 @@ fn permadeath(db: &Database) {
 #[instrument]
 fn debug(db: &Database) {
     let debug_loot = Loot {
-        id: db.id("debug:starting_loot"),
+        id: db.new_id("debug:starting_loot"),
         loot: LootContentAllItems {
             items: vec![
                 LootItem {
@@ -238,7 +241,7 @@ fn debug(db: &Database) {
     }
     .remember(db);
     let _ = Quest {
-        id: db.id("debug:starting_boost"),
+        id: db.new_id("debug:starting_boost"),
         name: "Debug".to_string(),
         quest_type: QuestType::Storyline,
         start_condition: StartCondition::GameStart,

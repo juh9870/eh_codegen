@@ -12,7 +12,7 @@ macro_rules! process_arg_type {
 }
 macro_rules! process_arg_conversion {
     (DatabaseItemId<$ty:ty>, $arg:ident, $target:ident) => {
-        $arg.into_id(&$target)
+        $arg.into_new_id(&$target)
     };
     ($ty:ty, $arg:ident, $target:ident) => {
         $arg.into()

@@ -1,24 +1,25 @@
-use eh_schema::schema::{DatabaseItem, DatabaseItemId, DatabaseSettings, Item};
 use std::any::Any;
 use std::borrow::Cow;
-
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fmt::{Debug, Formatter};
 use std::marker::PhantomData;
-
-use parking_lot::{
-    MappedRwLockReadGuard, MappedRwLockWriteGuard, Mutex, RwLock, RwLockReadGuard, RwLockWriteGuard,
-};
 use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
 
-use crate::builder::{ModBuilderData, ModBuilderInfo};
-use diagnostic::context::DiagnosticContext;
+use parking_lot::{
+    MappedRwLockReadGuard, MappedRwLockWriteGuard, Mutex, RwLock, RwLockReadGuard, RwLockWriteGuard,
+};
+use serde::{Deserialize, Serialize};
 use tracing::{error, error_span, info};
 
+use diagnostic::context::DiagnosticContext;
+use eh_schema::schema::{DatabaseItem, DatabaseItemId, DatabaseSettings, Item};
+
+use crate::builder::{ModBuilderData, ModBuilderInfo};
 pub use crate::database::db_item::DbItem;
 pub use crate::database::stored_db_item::StoredDbItem;
+use crate::mapping::{IdMapping, IdMappingSerialized};
 
 pub mod db_item;
 pub mod stored_db_item;
@@ -59,12 +60,17 @@ type ItemsMap = Arc<RwLock<HashMap<Option<i32>, SharedItem>>>;
 pub struct DatabaseInner {
     output_path: PathBuf,
     output_file_path: Option<PathBuf>,
-    ids: BTreeMap<Cow<'static, str>, BTreeMap<String, i32>>,
-    used_ids: HashMap<Cow<'static, str>, HashSet<i32>>,
-    available_ids: HashMap<&'static str, Vec<Range<i32>>>,
+    ids: IdMapping,
     default_ids: Vec<Range<i32>>,
     items: HashMap<&'static str, ItemsMap>,
     // items: Vec<Item>,
+}
+
+#[derive(Debug, Serialize, Deserialize, Default)]
+struct MappingsSerde {
+    ids: IdMappingSerialized,
+    #[serde(flatten)]
+    others: BTreeMap<Cow<'static, str>, IdMappingSerialized>,
 }
 
 fn check_no_backup(path: &Path) {
@@ -97,7 +103,7 @@ impl DatabaseHolder {
         }
 
         let mappings_path = output_path.join(MAPPINGS_NAME);
-        let mappings: BTreeMap<Cow<'static, str>, BTreeMap<String, i32>> = mappings_path
+        let mappings: MappingsSerde = mappings_path
             .exists()
             .then(|| {
                 let data = fs_err::read_to_string(output_path.join(MAPPINGS_NAME))
@@ -108,18 +114,11 @@ impl DatabaseHolder {
 
         check_no_backup(&output_path.join(MAPPINGS_BACKUP_NAME));
 
-        let used_ids = mappings
-            .iter()
-            .map(|(k, v)| (k.clone(), v.values().copied().collect::<HashSet<i32>>()))
-            .collect();
-
         let db = Self {
             inner: Mutex::new(DatabaseInner {
                 output_path,
                 output_file_path: output_mod_file_path,
-                used_ids,
-                ids: mappings,
-                available_ids: Default::default(),
+                ids: IdMapping::new(mappings.ids),
                 default_ids: Default::default(),
                 items: Default::default(),
             }),
@@ -129,59 +128,40 @@ impl DatabaseHolder {
 
     /// Adds another ID range to use for all types
     pub fn add_id_range(&self, range: Range<i32>) {
-        let mut db = self.inner.lock();
-        let db = db.deref_mut();
-        for ids in db.available_ids.values_mut() {
-            ids.push(range.clone());
-        }
-        db.default_ids.push(range);
+        self.lock(|db| db.ids.add_id_range(range));
     }
 
     /// Adds another ID range to use for one specified type
     pub fn add_id_range_for<T: 'static + DatabaseItem>(&self, range: Range<i32>) {
-        let mut db = self.inner.lock();
-        let db = db.deref_mut();
-        db.available_ids
-            .entry(T::type_name())
-            .or_insert_with(|| db.default_ids.clone())
-            .push(range)
+        self.lock(|db| db.ids.add_id_range_for(T::type_name(), range));
     }
 
     /// Clears allocated ID ranges for the specified type, preventing obtaining
     /// of new IDs until [add_id_range] or [add_id_range_for] are used to
     /// allocate new ID space for this type
     pub fn clear_id_ranges_for<T: 'static + DatabaseItem>(&mut self) {
-        let mut db = self.inner.lock();
-        let db = db.deref_mut();
-        db.available_ids
-            .entry(T::type_name())
-            .or_insert_with(|| db.default_ids.clone())
-            .clear()
+        self.lock(|db| db.ids.clear_id_ranges_for(T::type_name()));
     }
 
     /// Converts string ID into database item ID
     ///
     /// Aborts the execution if generating ID is not possible
-    pub fn id<T: 'static + DatabaseItem>(&self, id: impl Into<String>) -> DatabaseItemId<T> {
-        let mut db = self.inner.lock();
-        let db = db.deref_mut();
-        let id_str = id.into();
-        let _guard = error_span!("Getting item ID", id = id_str, ty = T::type_name()).entered();
+    pub fn id<T: 'static + DatabaseItem>(&self, id: &str) -> DatabaseItemId<T> {
+        DatabaseItemId::new(self.lock(|db| db.ids.existing_id(T::type_name(), id)))
+    }
 
-        let type_name = T::type_name();
-        let mapping = db.ids.entry(Cow::Borrowed(type_name)).or_default();
+    /// Converts string ID into new database item ID
+    ///
+    /// Aborts the execution if generating ID is not possible
+    pub fn new_id<T: 'static + DatabaseItem>(&self, id: impl Into<String>) -> DatabaseItemId<T> {
+        DatabaseItemId::new(self.lock(|db| db.ids.new_id(T::type_name(), id)))
+    }
 
-        match mapping.get(&id_str) {
-            None => {
-                let id = Self::next_id_raw::<T>(db);
-                db.ids
-                    .get_mut(type_name)
-                    .expect("ID entry should be present at this point")
-                    .insert(id_str, id);
-                id.into()
-            }
-            Some(id) => (*id).into(),
-        }
+    pub fn get_id_raw<T: 'static + DatabaseItem>(
+        &self,
+        id: impl Into<String>,
+    ) -> DatabaseItemId<T> {
+        DatabaseItemId::new(self.lock(|db| db.ids.get_id_raw(T::type_name(), id)))
     }
 
     /// Forcefully assigns numeric ID to a string
@@ -190,18 +170,11 @@ impl DatabaseHolder {
         string_id: impl Into<String>,
         numeric_id: i32,
     ) -> DatabaseItemId<T> {
-        let mut db = self.inner.lock();
-        let db = db.deref_mut();
-        let type_name = T::type_name();
-        db.ids
-            .entry(Cow::Borrowed(type_name))
-            .or_default()
-            .insert(string_id.into(), numeric_id);
-        db.used_ids
-            .entry(Cow::Borrowed(type_name))
-            .or_default()
-            .insert(numeric_id);
-        DatabaseItemId::new(numeric_id)
+        DatabaseItemId::new(self.lock(|db| db.ids.set_id(T::type_name(), string_id, numeric_id)))
+    }
+
+    pub fn get_id_name<T: 'static + DatabaseItem>(&self, id: DatabaseItemId<T>) -> Option<String> {
+        self.lock(|db| db.ids.get_inverse_id(T::type_name(), id))
     }
 
     /// Adds an item to the database, returns a mutable handle to the inserted item
@@ -309,8 +282,13 @@ impl DatabaseHolder {
         let mappings_bk_path = path.join(MAPPINGS_BACKUP_NAME);
         check_no_backup(&mappings_bk_path);
 
+        let mappings = MappingsSerde {
+            ids: db.ids.as_serializable().clone(),
+            others: Default::default(),
+        };
+
         let code =
-            serde_json::to_string_pretty(&db.ids).expect("Should be able to serialize mappings");
+            serde_json::to_string_pretty(&mappings).expect("Should be able to serialize mappings");
 
         if mappings_path.exists() {
             fs_err::copy(&mappings_path, &mappings_bk_path)
@@ -325,14 +303,7 @@ impl DatabaseHolder {
         saved_files.insert(mappings_path);
         saved_files.insert(mappings_bk_path.clone());
 
-        let inverse_ids: HashMap<_, _> = db
-            .ids
-            .iter()
-            .map(|(ty, ids)| {
-                let ids: HashMap<_, _> = ids.iter().map(|(k, v)| (*v, k.clone())).collect();
-                (ty.clone(), ids)
-            })
-            .collect();
+        let inverse_ids = db.ids.get_inverse_ids();
 
         let (mut build_data, info) = if let Some(path) = db.output_file_path {
             let info = ModBuilderInfo::from_settings(
@@ -426,39 +397,22 @@ impl DatabaseHolder {
         ctx
     }
 
-    fn next_id_raw<T: 'static + DatabaseItem>(db: &mut DatabaseInner) -> i32 {
-        if db.default_ids.is_empty() {
-            panic!(
-                "No ID range were given for Database to assign, please use `add_id_range` method"
-            )
-        }
-
-        let type_name = T::type_name();
-        let ids = db
-            .available_ids
-            .entry(T::type_name())
-            .or_insert_with(|| db.default_ids.clone());
-
-        let mappings = db.used_ids.entry(Cow::Borrowed(type_name)).or_default();
-
-        while let Some(id) = ids.iter_mut().find_map(|range| range.next()) {
-            // Check that ID is not already in use
-            if !mappings.contains(&id) {
-                mappings.insert(id);
-                return id;
-            }
-        }
-
-        panic!("No free IDs are left for this type");
+    fn lock<T>(&self, actions: impl FnOnce(&mut DatabaseInner) -> T) -> T {
+        let mut db = self.inner.lock();
+        actions(db.deref_mut())
     }
 }
 
 pub trait DatabaseIdLike<T: 'static + DatabaseItem> {
     fn into_id(self, database: &DatabaseHolder) -> DatabaseItemId<T>;
+    fn into_new_id(self, database: &DatabaseHolder) -> DatabaseItemId<T>;
 }
 
 impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for DatabaseItemId<T> {
     fn into_id(self, _database: &DatabaseHolder) -> DatabaseItemId<T> {
+        self
+    }
+    fn into_new_id(self, _database: &DatabaseHolder) -> DatabaseItemId<T> {
         self
     }
 }
@@ -467,11 +421,17 @@ impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for &str {
     fn into_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
         database.id(self)
     }
+    fn into_new_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
+        database.new_id(self)
+    }
 }
 
 impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for String {
     fn into_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
-        database.id(self)
+        database.id(&self)
+    }
+    fn into_new_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
+        database.new_id(self)
     }
 }
 

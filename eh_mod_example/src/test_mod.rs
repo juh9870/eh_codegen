@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use eh_mod_dev::database::{database, Database, DatabaseIdLike, DbItem};
 use eh_schema::schema::{
     ActivationType, Ammunition, BulletBody, BulletController, BulletControllerParametric,
@@ -5,7 +7,6 @@ use eh_schema::schema::{
     CellType, ColorMode, ComponentStats, DamageType, ImpactEffect, ImpactEffectType, Weapon,
     WeaponClass, WeaponSlotType,
 };
-use std::path::PathBuf;
 
 pub fn build_mod(mod_dir: PathBuf) {
     let db = database(mod_dir, None::<PathBuf>);
