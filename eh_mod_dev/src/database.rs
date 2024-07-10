@@ -1,17 +1,14 @@
-use flate2::Compression;
 use std::any::Any;
 use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::fmt::{Debug, Formatter};
-use std::marker::PhantomData;
 use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 
-use parking_lot::{
-    MappedRwLockReadGuard, MappedRwLockWriteGuard, Mutex, RwLock, RwLockReadGuard, RwLockWriteGuard,
-};
+use flate2::Compression;
+use parking_lot::{Mutex, RwLock};
 use rayon::prelude::{IntoParallelIterator, ParallelIterator};
 use serde::{Deserialize, Serialize};
 use tracing::{error, error_span, info};
@@ -21,11 +18,14 @@ use eh_schema::schema::{DatabaseItem, DatabaseItemId, DatabaseSettings, Item};
 
 use crate::builder::{ModBuilderData, ModBuilderInfo};
 pub use crate::database::db_item::DbItem;
+pub use crate::database::iters::{DatabaseItemIter, DatabaseItemIterMut};
 pub use crate::database::stored_db_item::StoredDbItem;
-use crate::mapping::{IdMapping, IdMappingSerialized};
+pub use crate::mapping::DatabaseIdLike;
+use crate::mapping::{IdMapping, IdMappingSerialized, KindProvider};
 use crate::utils::{compress, decompress, sha256};
 
 pub mod db_item;
+pub mod iters;
 pub mod stored_db_item;
 
 mod macro_impls;
@@ -66,6 +66,7 @@ pub struct DatabaseInner {
     output_path: PathBuf,
     output_file_path: Option<PathBuf>,
     ids: IdMapping,
+    other_ids: HashMap<Cow<'static, str>, Arc<RwLock<IdMapping>>>,
     items: HashMap<&'static str, ItemsMap>,
     // items: Vec<Item>,
 }
@@ -117,12 +118,18 @@ impl DatabaseHolder {
             .unwrap_or_default();
 
         check_no_backup(&output_path.join(MAPPINGS_BACKUP_NAME));
+        let other_ids = mappings
+            .others
+            .into_iter()
+            .map(|(kind, ids)| (kind, Arc::new(RwLock::new(IdMapping::new(ids)))))
+            .collect();
 
         let db = Self {
             inner: Mutex::new(DatabaseInner {
                 output_path,
                 output_file_path: output_mod_file_path,
                 ids: IdMapping::new(mappings.ids),
+                other_ids,
                 items: Default::default(),
             }),
         };
@@ -149,15 +156,18 @@ impl DatabaseHolder {
     /// Converts string ID into database item ID
     ///
     /// Aborts the execution if generating ID is not possible
-    pub fn id<T: 'static + DatabaseItem>(&self, id: &str) -> DatabaseItemId<T> {
-        DatabaseItemId::new(self.lock(|db| db.ids.existing_id(T::type_name(), id)))
+    pub fn id<T: 'static + DatabaseItem>(&self, id: impl DatabaseIdLike<T>) -> DatabaseItemId<T> {
+        DatabaseItemId::new(self.lock(|db| id.into_id(&db.ids)))
     }
 
     /// Converts string ID into new database item ID
     ///
     /// Aborts the execution if generating ID is not possible
-    pub fn new_id<T: 'static + DatabaseItem>(&self, id: impl Into<String>) -> DatabaseItemId<T> {
-        DatabaseItemId::new(self.lock(|db| db.ids.new_id(T::type_name(), id)))
+    pub fn new_id<T: 'static + DatabaseItem>(
+        &self,
+        id: impl DatabaseIdLike<T>,
+    ) -> DatabaseItemId<T> {
+        DatabaseItemId::new(self.lock(|db| id.into_new_id(&mut db.ids)))
     }
 
     pub fn get_id_raw<T: 'static + DatabaseItem>(
@@ -177,7 +187,7 @@ impl DatabaseHolder {
     }
 
     pub fn get_id_name<T: 'static + DatabaseItem>(&self, id: DatabaseItemId<T>) -> Option<String> {
-        self.lock(|db| db.ids.get_inverse_id(T::type_name(), id))
+        self.lock(|db| db.ids.get_inverse_id(T::type_name(), id.0))
     }
 
     /// Adds an item to the database, returns a mutable handle to the inserted item
@@ -190,6 +200,10 @@ impl DatabaseHolder {
         DbItem::new(item, self.clone())
     }
 
+    pub fn get_mappings<T: KindProvider>(&self) -> Arc<RwLock<IdMapping>> {
+        self.lock(|db| db.other_ids.entry(T::kind()).or_default().clone())
+    }
+
     /// Gets the item that was saved to the database previously
     ///
     /// All returned handles **must** be dropped before saving the database, otherwise a panic will occur.
@@ -200,15 +214,14 @@ impl DatabaseHolder {
         self: &Arc<Self>,
         id: impl DatabaseIdLike<T>,
     ) -> Option<StoredDbItem<T>> {
-        let id = id.into_id(self);
-
         let mut db = self.inner.lock();
         let db = db.deref_mut();
+        let id = id.into_id(&db.ids);
 
         let item = db
             .items
             .get_mut(T::type_name())
-            .and_then(|i| i.read().get(&Some(id.0)).cloned())
+            .and_then(|i| i.read().get(&Some(id)).cloned())
             .map(|i| StoredDbItem::new(i, self.clone()));
 
         item
@@ -259,6 +272,7 @@ impl DatabaseHolder {
         const ERR_DANGLING_DATABASE: &str = "Should not have dangling references to the database before saving. Check your item handles for leakage";
         const ERR_DANGLING_COLLECTION: &str = "Should not have dangling references to the database collections before saving. Check your iterator usage for leaking";
         const ERR_DANGLING_ITEM: &str = "Should not have dangling references to the database item before saving. Check your item handles for leakage";
+        const ERR_DANGLING_MAPPINGS: &str = "Should not have dangling references to the database mappings before saving. Check your contexts handles for leakage";
 
         let settings = self
             .get_singleton::<DatabaseSettings>()
@@ -288,7 +302,19 @@ impl DatabaseHolder {
 
         let mappings = MappingsSerde {
             ids: db.ids.as_serializable().clone(),
-            others: Default::default(),
+            others: db
+                .other_ids
+                .into_iter()
+                .map(|(k, v)| {
+                    (
+                        k,
+                        Arc::into_inner(v)
+                            .expect(ERR_DANGLING_MAPPINGS)
+                            .into_inner()
+                            .into_serializable(),
+                    )
+                })
+                .collect(),
         };
 
         let code =
@@ -470,106 +496,6 @@ impl DatabaseHolder {
     fn lock<T>(&self, actions: impl FnOnce(&mut DatabaseInner) -> T) -> T {
         let mut db = self.inner.lock();
         actions(db.deref_mut())
-    }
-}
-
-pub trait DatabaseIdLike<T: 'static + DatabaseItem> {
-    fn into_id(self, database: &DatabaseHolder) -> DatabaseItemId<T>;
-    fn into_new_id(self, database: &DatabaseHolder) -> DatabaseItemId<T>;
-}
-
-impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for DatabaseItemId<T> {
-    fn into_id(self, _database: &DatabaseHolder) -> DatabaseItemId<T> {
-        self
-    }
-    fn into_new_id(self, _database: &DatabaseHolder) -> DatabaseItemId<T> {
-        self
-    }
-}
-
-impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for &str {
-    fn into_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
-        database.id(self)
-    }
-    fn into_new_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
-        database.new_id(self)
-    }
-}
-
-impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for String {
-    fn into_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
-        database.id(&self)
-    }
-    fn into_new_id(self, database: &DatabaseHolder) -> DatabaseItemId<T> {
-        database.new_id(self)
-    }
-}
-
-impl DatabaseHolder {
-    pub fn iter<T: Into<Item> + DatabaseItem + Any, U>(
-        &self,
-        func: impl Fn(DatabaseItemIter<'_, T>) -> U,
-    ) -> U {
-        let mut db_lock = self.inner.lock();
-        let items = db_lock.items.entry(T::type_name()).or_default().clone();
-        drop(db_lock);
-        let items = items.read();
-        let values = DatabaseItemIter {
-            values: items.values(),
-            _type: Default::default(),
-        };
-
-        func(values)
-    }
-
-    pub fn iter_mut<T: Into<Item> + DatabaseItem + Any, U>(
-        &self,
-        func: impl Fn(DatabaseItemIterMut<'_, T>) -> U,
-    ) -> U {
-        let mut db_lock = self.inner.lock();
-        let items = db_lock.items.entry(T::type_name()).or_default().clone();
-        drop(db_lock);
-        let mut items = items.write();
-        let values = DatabaseItemIterMut {
-            values: items.values_mut(),
-            _type: Default::default(),
-        };
-
-        func(values)
-    }
-}
-
-pub struct DatabaseItemIter<'a, T: Into<Item> + DatabaseItem + Any> {
-    values: std::collections::hash_map::Values<'a, Option<i32>, SharedItem>,
-    _type: PhantomData<T>,
-}
-
-impl<'a, T: Into<Item> + DatabaseItem + Any> Iterator for DatabaseItemIter<'a, T> {
-    type Item = MappedRwLockReadGuard<'a, T>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let next_value = self.values.next()?;
-
-        return Some(RwLockReadGuard::map(next_value.read(), |lock| {
-            lock.as_inner_any_ref().downcast_ref::<T>().unwrap()
-        }));
-    }
-}
-
-pub struct DatabaseItemIterMut<'a, T: Into<Item> + DatabaseItem + Any> {
-    values: std::collections::hash_map::ValuesMut<'a, Option<i32>, SharedItem>,
-    _type: PhantomData<T>,
-}
-
-impl<'a, T: Into<Item> + DatabaseItem + Any> Iterator for DatabaseItemIterMut<'a, T> {
-    type Item = MappedRwLockWriteGuard<'a, T>;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        let next_value = self.values.next()?;
-
-        return Some(RwLockWriteGuard::map(next_value.write(), |lock| {
-            lock.as_inner_any_mut().downcast_mut::<T>().unwrap()
-        }));
     }
 }
 

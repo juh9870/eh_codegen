@@ -1,15 +1,14 @@
-use std::path::PathBuf;
-
-use eh_mod_dev::database::{database, Database, DatabaseIdLike, DbItem};
-use eh_schema::schema::{
+use eh_mod_cli::dev::database::{database, Database, DatabaseIdLike, DbItem};
+use eh_mod_cli::dev::schema::schema::{
     ActivationType, Ammunition, BulletBody, BulletController, BulletControllerParametric,
     BulletImpactType, BulletPrefab, BulletPrefabId, BulletTrigger, BulletTriggerCondition,
     CellType, ColorMode, ComponentStats, DamageType, ImpactEffect, ImpactEffectType, Weapon,
     WeaponClass, WeaponSlotType,
 };
+use eh_mod_cli::Args;
 
-pub fn build_mod(mod_dir: PathBuf) {
-    let db = database(mod_dir, None::<PathBuf>);
+pub fn build_mod(args: Args) {
+    let db = database(args.output_dir, args.output_mod);
 
     db.add_id_range(9870000..9999999);
     db.set_id::<BulletPrefab>("eh:mine", 9);
@@ -184,7 +183,7 @@ fn simple_body(prefab: impl Into<Option<BulletPrefabId>>, lifetime: impl Into<f3
 
 fn weapon(db: &Database, id: impl DatabaseIdLike<Weapon>, interval: f32) -> DbItem<Weapon> {
     let w = Weapon {
-        id: id.into_id(db),
+        id: db.new_id(id),
         weapon_class: WeaponClass::Common,
         fire_rate: 1.0 / interval,
         spread: 0.0,

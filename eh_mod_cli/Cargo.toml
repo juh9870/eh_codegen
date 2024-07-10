@@ -1,0 +1,14 @@
+[package]
+name = "eh_mod_cli"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { workspace = true, features = ["derive"] }
+color-backtrace = { workspace = true }
+eh_mod_dev = { workspace = true }
+num_cpus = { workspace = true }
+rayon = { workspace = true }
+tracing = { workspace = true }
+tracing-panic = { workspace = true, default-features = false }
+tracing-subscriber = { workspace = true, features = ["env-filter", "fmt"] }

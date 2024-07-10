@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = ["diagnostic", "eh_codegen", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_schema"]
+members = ["diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
 
 [workspace.dependencies]
 bitcode = "0.6.0"
@@ -37,10 +37,13 @@ tracing = "0.1.40"
 tracing-panic = { version = "0.1.2", default-features = false }
 tracing-subscriber = "0.3.18"
 walkdir = "2.5.0"
+duplicate = "1.0.0"
 # Local dependencies
 diagnostic = { path = "diagnostic" }
 eh_mod_dev = { path = "eh_mod_dev" }
 eh_schema = { path = "eh_schema" }
+eh_mod_cli = { path = "eh_mod_cli" }
+quests = { path = "quests" }
 
 [profile.release]
 opt-level = 3

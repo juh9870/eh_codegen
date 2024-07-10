@@ -1,11 +1,12 @@
 [package]
-name = "eh_mod_example"
+name = "eh_roguelite"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 eh_mod_cli = { workspace = true }
 serde = { workspace = true }
+tracing = { workspace = true }
 
 [package.metadata.cargo-machete]
 ignored = ["serde"]

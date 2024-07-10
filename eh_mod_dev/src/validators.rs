@@ -6,7 +6,7 @@ macro_rules! all_settings_impls {
         pub fn validate_settings(db: &crate::database::Database) {
             use eh_schema::schema::*;
             $(
-                db.get_singleton::<$ty>().expect(concat!("Setting ", stringify!($name), " should be present in the database"));
+                db.get_singleton::<$ty>().expect(concat!("Setting ", stringify!($ty), " should be present in the database"));
             )*
         }
 

@@ -1,24 +1,24 @@
 use std::collections::HashMap;
 use std::time::Instant;
 
+use eh_mod_cli::Args;
 use pretty_duration::pretty_duration;
 use tracing::{debug, error_span, instrument};
 
-use eh_mod_dev::database::{database, Database, Remember};
-use eh_mod_dev::helpers::from_json_string;
-use eh_mod_dev::json;
-use eh_mod_dev::reporting::report_diagnostics;
-use eh_mod_dev::schema::schema::{
+use eh_mod_cli::dev::database::{database, Database, Remember};
+use eh_mod_cli::dev::helpers::from_json_string;
+use eh_mod_cli::dev::json;
+use eh_mod_cli::dev::reporting::report_diagnostics;
+use eh_mod_cli::dev::schema::schema::{
     DatabaseSettings, Loot, LootContent, LootContentAllItems, LootContentMoney,
     LootContentQuestItem, LootContentStarMap, LootId, LootItem, Node, NodeAction,
     NodeCompleteQuest, NodeFailQuest, NodeReceiveItem, NodeShowDialog, Quest, QuestId, QuestItem,
     QuestType, Requirement, RequirementAll, RequirementHaveQuestItem, RequirementNone,
     StartCondition, Technology,
 };
-use eh_mod_dev::vanilla_mappings::add_vanilla_mappings;
+use eh_mod_cli::dev::vanilla_mappings::add_vanilla_mappings;
 
 use crate::test_mod::quest_surgeon::next_id;
-use crate::Args;
 
 pub mod quest_surgeon;
 

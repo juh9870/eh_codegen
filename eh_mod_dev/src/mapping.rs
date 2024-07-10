@@ -8,7 +8,7 @@ use eh_schema::schema::{DatabaseItem, DatabaseItemId};
 
 pub type IdMappingSerialized = BTreeMap<Cow<'static, str>, BTreeMap<String, i32>>;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct IdMapping {
     ids: BTreeMap<Cow<'static, str>, BTreeMap<String, i32>>,
     used_ids: HashMap<Cow<'static, str>, HashSet<String>>,
@@ -35,6 +35,9 @@ impl IdMapping {
 
     pub fn as_serializable(&self) -> &IdMappingSerialized {
         &self.ids
+    }
+    pub fn into_serializable(self) -> IdMappingSerialized {
+        self.ids
     }
 
     /// Adds another ID range to use for all entries
@@ -147,16 +150,12 @@ impl IdMapping {
         numeric_id
     }
 
-    pub fn get_inverse_id<'a, T: 'static + DatabaseItem>(
-        &'a self,
-        kind: impl Into<Cow<'a, str>>,
-        id: DatabaseItemId<T>,
-    ) -> Option<String> {
+    pub fn get_inverse_id<'a>(&'a self, kind: impl Into<Cow<'a, str>>, id: i32) -> Option<String> {
         let kind = kind.into();
 
         self.ids.get(&kind).and_then(|i| {
             i.iter()
-                .find_map(|(k, v)| if *v == id.0 { Some(k.clone()) } else { None })
+                .find_map(|(k, v)| if *v == id { Some(k.clone()) } else { None })
         })
     }
 
@@ -194,5 +193,47 @@ impl IdMapping {
         }
 
         panic!("No free IDs are left for this kind");
+    }
+}
+
+pub trait KindProvider {
+    fn kind() -> Cow<'static, str>;
+}
+
+impl<T: DatabaseItem> KindProvider for T {
+    fn kind() -> Cow<'static, str> {
+        Cow::Borrowed(T::type_name())
+    }
+}
+
+pub trait DatabaseIdLike<T: KindProvider> {
+    fn into_id(self, ids: &IdMapping) -> i32;
+    fn into_new_id(self, ids: &mut IdMapping) -> i32;
+}
+
+impl<T: 'static + DatabaseItem> DatabaseIdLike<T> for DatabaseItemId<T> {
+    fn into_id(self, _ids: &IdMapping) -> i32 {
+        self.0
+    }
+    fn into_new_id(self, _ids: &mut IdMapping) -> i32 {
+        self.0
+    }
+}
+
+impl<T: KindProvider> DatabaseIdLike<T> for &str {
+    fn into_id(self, ids: &IdMapping) -> i32 {
+        ids.existing_id(T::kind(), self)
+    }
+    fn into_new_id(self, ids: &mut IdMapping) -> i32 {
+        ids.new_id(T::kind(), self)
+    }
+}
+
+impl<T: KindProvider> DatabaseIdLike<T> for String {
+    fn into_id(self, ids: &IdMapping) -> i32 {
+        ids.existing_id(T::kind(), &self)
+    }
+    fn into_new_id(self, ids: &mut IdMapping) -> i32 {
+        ids.new_id(T::kind(), self)
     }
 }

@@ -1,0 +1,9 @@
+[package]
+name = "quests"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+duplicate = { workspace = true }
+eh_mod_dev = { workspace = true }
+parking_lot = { workspace = true }

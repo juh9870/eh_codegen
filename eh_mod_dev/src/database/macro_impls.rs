@@ -12,7 +12,7 @@ macro_rules! process_arg_type {
 }
 macro_rules! process_arg_conversion {
     (DatabaseItemId<$ty:ty>, $arg:ident, $target:ident) => {
-        $arg.into_new_id(&$target)
+        DatabaseItemId::new($target.lock(|db| $arg.into_new_id(&mut db.ids)))
     };
     ($ty:ty, $arg:ident, $target:ident) => {
         $arg.into()

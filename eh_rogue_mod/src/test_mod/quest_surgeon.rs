@@ -1,4 +1,4 @@
-use eh_mod_dev::schema::schema::Quest;
+use eh_mod_cli::dev::schema::schema::Quest;
 use std::collections::HashSet;
 
 pub fn next_id(quest: &Quest) -> impl FnMut() -> i32 {

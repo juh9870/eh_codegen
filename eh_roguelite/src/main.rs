@@ -1,8 +1,8 @@
 use eh_mod_cli::run_main;
 
-use crate::test_mod::build_mod;
+use crate::roguelite::build_mod;
 
-mod test_mod;
+mod roguelite;
 
 fn main() {
     run_main(build_mod)

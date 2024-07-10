@@ -5,7 +5,6 @@ pub mod database;
 pub mod helpers;
 pub mod layout;
 pub mod mapping;
-pub mod quests;
 pub mod reporting;
 pub mod utils;
 pub mod validators;
