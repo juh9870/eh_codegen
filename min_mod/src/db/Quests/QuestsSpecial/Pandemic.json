@@ -1,0 +1,23 @@
+{
+  "ItemType": 15,
+  "Id": 200,
+  "Name": "$Quest_Covid",
+  "QuestType": 4,
+  "StartCondition": 7,
+  "Weight": 0.3,
+  "Origin": {
+    "Type": 2,
+    "Factions": {
+      "List": []
+    },
+    "MinDistance": 10,
+    "MaxDistance": 40
+  },
+  "Level": 50,
+  "Nodes": [
+    {
+      "Id": 1,
+      "Type": 40
+    }
+  ]
+}

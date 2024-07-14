@@ -1,0 +1,15 @@
+{
+  "ItemType": 101,
+  "AbandonedStarbaseFaction": 1,
+  "StartingShipBuilds": [],
+  "StartingInventory": 1,
+  "SupporterPackShip": 4,
+  "DefaultStarbaseBuild": 5,
+  "CaptureStarbaseQuest": 9,
+  "SurvivalCombatRules": 3,
+  "StarbaseCombatRules": 4,
+  "FlagshipCombatRules": 5,
+  "ArenaCombatRules": 6,
+  "ChallengeCombatRules": 7,
+  "QuickCombatRules": 2
+}

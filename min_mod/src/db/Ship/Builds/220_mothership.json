@@ -1,0 +1,9 @@
+{
+  "ItemType": 8,
+  "Id": 220,
+  "ShipId": 83,
+  "AvailableForPlayer": false,
+  "AvailableForEnemy": false,
+  "Components": [],
+  "NotAvailableInGame": true
+}

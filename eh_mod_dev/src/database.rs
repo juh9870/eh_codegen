@@ -532,6 +532,46 @@ impl DatabaseHolder {
             self.consume_item(data);
         }
     }
+
+    pub fn load_from_included_dir(&self, dir: &include_dir::Dir) {
+        fn walkdir<'a>(dir: &include_dir::Dir<'a>) -> Vec<include_dir::File<'a>> {
+            let mut items = vec![];
+            append_files(dir, &mut items);
+            items
+        }
+
+        fn append_files<'a>(dir: &include_dir::Dir<'a>, files: &mut Vec<include_dir::File<'a>>) {
+            for entry in dir.entries() {
+                match entry {
+                    include_dir::DirEntry::Dir(dir) => append_files(dir, files),
+                    include_dir::DirEntry::File(file) => files.push(file.clone()),
+                }
+            }
+        }
+
+        let files = walkdir(dir);
+
+        let items: Vec<_> = files
+            .into_par_iter()
+            .map(|entry| {
+                let path = entry.path();
+
+                let _guard = error_span!("Loading file", path=%path.display()).entered();
+
+                let data = fs_err::read(path).expect("Should be able to read a file");
+
+                let data: Item = serde_json5::from_slice(&data).expect("Should be a valid json");
+
+                (path.to_path_buf(), data)
+            })
+            .collect();
+
+        for (path, data) in items {
+            let _guard = error_span!("Registering file", path=%path.display()).entered();
+
+            self.consume_item(data);
+        }
+    }
 }
 
 pub trait Remember: Into<Item> + DatabaseItem {

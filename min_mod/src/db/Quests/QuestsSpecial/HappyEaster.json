@@ -1,0 +1,11 @@
+{
+  "ItemType": 15,
+  "Id": 10,
+  "QuestType": 2,
+  "Nodes": [
+    {
+      "Id": 1,
+      "Type": 40
+    }
+  ]
+}

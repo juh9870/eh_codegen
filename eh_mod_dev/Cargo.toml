@@ -12,6 +12,7 @@ diagnostic = { workspace = true }
 eh_schema = { path = "../eh_schema" }
 flate2 = { workspace = true }
 fs-err = { workspace = true }
+include_dir = { workspace = true }
 owo-colors = { workspace = true }
 parking_lot = { workspace = true }
 paste = { workspace = true }
