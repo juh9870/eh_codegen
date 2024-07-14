@@ -1,0 +1,12 @@
+{
+  "ItemType": 8,
+  "Id": 3,
+  "ShipId": 3,
+  "DifficultyClass": 0,
+  "Components": [],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

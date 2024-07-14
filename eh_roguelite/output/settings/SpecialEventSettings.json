@@ -1,0 +1,8 @@
+{
+  "ItemType": 106,
+  "EnableXmasEvent": false,
+  "XmasCombatRules": 8,
+  "EasterQuest": 10,
+  "HalloweenDaysBefore": 5,
+  "HalloweenDaysAfter": 1
+}

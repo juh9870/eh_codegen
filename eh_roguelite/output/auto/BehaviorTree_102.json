@@ -1,0 +1,66 @@
+{
+  "ItemType": 28,
+  "Id": 102,
+  "RootNode": {
+    "Type": 3,
+    "Requirement": {
+      "Type": 10,
+      "DeviceClass": 8
+    },
+    "Nodes": [
+      {
+        "Type": 51,
+        "Requirement": {
+          "Type": 0
+        },
+        "MinValue": 0.25
+      },
+      {
+        "Type": 100,
+        "Requirement": {
+          "Type": 0
+        },
+        "MinValue": 0.5,
+        "NoDrones": true
+      },
+      {
+        "Type": 7,
+        "Requirement": {
+          "Type": 0
+        },
+        "Node": {
+          "Type": 1,
+          "Requirement": {
+            "Type": 0
+          },
+          "ItemId": 109
+        },
+        "ExecutionMode": 0,
+        "Result": true,
+        "Cooldown": 20.0
+      },
+      {
+        "Type": 2,
+        "Requirement": {
+          "Type": 0
+        },
+        "Nodes": [
+          {
+            "Type": 106,
+            "Requirement": {
+              "Type": 0
+            },
+            "InRange": true
+          },
+          {
+            "Type": 105,
+            "Requirement": {
+              "Type": 0
+            },
+            "UseSystems": true
+          }
+        ]
+      }
+    ]
+  }
+}

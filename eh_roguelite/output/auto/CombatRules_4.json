@@ -1,0 +1,11 @@
+{
+  "ItemType": 30,
+  "Id": 4,
+  "InitialEnemyShips": "3",
+  "TimeOutMode": 0,
+  "LootCondition": 0,
+  "ExpCondition": 0,
+  "ShipSelection": 0,
+  "DisablePlanet": true,
+  "CustomSoundtrack": []
+}

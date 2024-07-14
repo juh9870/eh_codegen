@@ -1,0 +1,82 @@
+{
+  "ItemType": 28,
+  "Id": 107,
+  "RootNode": {
+    "Type": 5,
+    "Requirement": {
+      "Type": 0
+    },
+    "Nodes": [
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Muttering1",
+        "Color": "#C080C0FF"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Muttering2",
+        "Color": "#C080C0FF"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Muttering3",
+        "Color": "#C080C0FF"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Muttering4",
+        "Color": "#C080C0FF"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Muttering5",
+        "Color": "#C080C0FF"
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      }
+    ]
+  }
+}

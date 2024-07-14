@@ -1,0 +1,33 @@
+{
+  "ItemType": 28,
+  "Id": 16,
+  "RootNode": {
+    "Type": 2,
+    "Requirement": {
+      "Type": 0
+    },
+    "Nodes": [
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 129
+      },
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 17
+      },
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 101
+      }
+    ]
+  }
+}

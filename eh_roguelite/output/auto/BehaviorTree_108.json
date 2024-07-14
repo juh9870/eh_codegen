@@ -1,0 +1,52 @@
+{
+  "ItemType": 28,
+  "Id": 108,
+  "RootNode": {
+    "Type": 5,
+    "Requirement": {
+      "Type": 0
+    },
+    "Nodes": [
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Whining1",
+        "Color": "#C0C0FF80"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Whining2",
+        "Color": "#C0C0FF80"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Whining3",
+        "Color": "#C0C0FF80"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Whining4",
+        "Color": "#C0C0FF80"
+      },
+      {
+        "Type": 300,
+        "Requirement": {
+          "Type": 0
+        },
+        "Text": "$Whining5",
+        "Color": "#C0C0FF80"
+      }
+    ]
+  }
+}

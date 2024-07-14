@@ -1,0 +1,52 @@
+{
+  "ItemType": 28,
+  "Id": 20,
+  "RootNode": {
+    "Type": 4,
+    "Requirement": {
+      "Type": 0
+    },
+    "Nodes": [
+      {
+        "Type": 130,
+        "Requirement": {
+          "Type": 0
+        }
+      },
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 133
+      },
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 124
+      },
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 139
+      },
+      {
+        "Type": 1,
+        "Requirement": {
+          "Type": 0
+        },
+        "ItemId": 132
+      },
+      {
+        "Type": 0,
+        "Requirement": {
+          "Type": 0
+        }
+      }
+    ]
+  }
+}

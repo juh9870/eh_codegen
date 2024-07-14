@@ -1,0 +1,37 @@
+{
+  "ids": {
+    "Device": {
+      "eh:toxic_waste": 18
+    },
+    "Faction": {
+      "eh:default": 1,
+      "eh:infected": 99
+    },
+    "GameObjectPrefab": {
+      "eh:energy_shield": 2,
+      "eh:energy_shield_outline": 3,
+      "eh:worm_tail_segment": 1
+    },
+    "Loot": {
+      "eh:starting_inventory": 1
+    },
+    "Quest": {
+      "eh:capture_starbase": 1,
+      "eh:local_pirates": 2
+    },
+    "Ship": {
+      "eh:hive": 3,
+      "eh:mothership": 83,
+      "eh:outpost": 1,
+      "eh:starbase": 5,
+      "eh:supporter_pack_ship": 4,
+      "eh:turret": 2
+    },
+    "ShipBuild": {
+      "eh:hive": 3,
+      "eh:mothership": 220,
+      "eh:starbase_default": 5,
+      "eh:supporter_pack_ship": 4
+    }
+  }
+}

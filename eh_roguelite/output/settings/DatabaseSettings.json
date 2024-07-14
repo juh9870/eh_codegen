@@ -1,0 +1,9 @@
+{
+  "ItemType": 102,
+  "DatabaseVersion": 1,
+  "DatabaseVersionMinor": 6,
+  "ModName": "ScrapLite",
+  "ModId": "scraplite_dev",
+  "ModVersion": 1,
+  "UnloadOriginalDatabase": true
+}
