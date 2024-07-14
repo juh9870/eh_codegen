@@ -23,10 +23,11 @@ macro_rules! constructor_impls {
     ($($name:ident ( $($arg:ident : ($($arg_ty:tt)*)),* $(,)? ) -> $ty:ty),* $(,)?) => {
         impl DatabaseHolder {
             $(
-                pub fn $name(self: &Arc<Self>, $($arg: process_arg_type!($($arg_ty)*)),*) -> DbItem::<$ty> {
-                    self.add_item(<$ty>::new($(process_arg_conversion!($($arg_ty)*, $arg, self)),*))
+                paste::paste! {
+                    pub fn [< new_ $name >](self: &Arc<Self>, $($arg: process_arg_type!($($arg_ty)*)),*) -> DbItem::<$ty> {
+                        self.add_item(<$ty>::new($(process_arg_conversion!($($arg_ty)*, $arg, self)),*))
+                    }
                 }
-
             )*
         }
     };

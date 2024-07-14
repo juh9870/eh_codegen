@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::time::Instant;
 
+use eh_mod_cli::db_vanilla::load_vanilla;
 use eh_mod_cli::Args;
 use pretty_duration::pretty_duration;
 use tracing::{debug, error_span, instrument};
@@ -16,7 +17,6 @@ use eh_mod_cli::dev::schema::schema::{
     QuestType, Requirement, RequirementAll, RequirementHaveQuestItem, RequirementNone,
     StartCondition, Technology,
 };
-use eh_mod_cli::dev::vanilla_mappings::add_vanilla_mappings;
 
 use crate::test_mod::quest_surgeon::next_id;
 
@@ -27,7 +27,9 @@ pub fn build_mod(args: Args) {
     let db = database(args.output_dir, args.output_mod);
 
     let start = Instant::now();
-    db.load_from_dir(args.vanilla_dir);
+
+    load_vanilla(&db);
+
     debug!(
         time = pretty_duration(&start.elapsed(), None),
         "Loaded in base database"
@@ -40,8 +42,6 @@ pub fn build_mod(args: Args) {
     });
 
     db.add_id_range(9870000..9999999);
-
-    add_vanilla_mappings(&db);
 
     let start = Instant::now();
 
@@ -390,7 +390,7 @@ fn cheap_tech(db: &Database) {
 
 #[instrument]
 fn encounter_patches(db: &Database) {
-    let mut scavenger_loot = db.loot("roguelike:scavenger_loot");
+    let mut scavenger_loot = db.new_loot("roguelike:scavenger_loot");
     scavenger_loot.loot = from_json_string(include_str!("scav_loot.json"));
 
     let patch_combat_encounters = |quest: QuestId, reward: LootId| {

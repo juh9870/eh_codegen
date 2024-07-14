@@ -4,11 +4,18 @@ use tracing_panic::panic_hook;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::EnvFilter;
 
+#[cfg(feature = "include_vanilla")]
+pub use db_vanilla;
+
+#[cfg(feature = "include_minimal")]
+pub use db_minimal;
+
 pub use eh_mod_dev as dev;
 
 #[derive(Debug, Parser)]
 pub struct Args {
-    pub vanilla_dir: PathBuf,
+    #[cfg(feature = "base_dir")]
+    pub base_dir: PathBuf,
     pub output_dir: PathBuf,
     pub output_mod: Option<PathBuf>,
 }

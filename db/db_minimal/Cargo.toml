@@ -1,5 +1,5 @@
 [package]
-name = "min_mod"
+name = "db_minimal"
 version = "0.1.0"
 edition = "2021"
 

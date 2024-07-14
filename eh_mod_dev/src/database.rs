@@ -516,6 +516,14 @@ impl DatabaseHolder {
 
                 let path = entry.path();
 
+                let Some(ext) = path.extension().and_then(|ext| ext.to_str()) else {
+                    return None;
+                };
+
+                if ext != "json" {
+                    return None;
+                }
+
                 let _guard = error_span!("Loading file", path=%path.display()).entered();
 
                 let data = fs_err::read(path).expect("Should be able to read a file");
@@ -553,16 +561,24 @@ impl DatabaseHolder {
 
         let items: Vec<_> = files
             .into_par_iter()
-            .map(|entry| {
+            .filter_map(|entry| {
                 let path = entry.path();
+
+                let Some(ext) = path.extension().and_then(|ext| ext.to_str()) else {
+                    return None;
+                };
+
+                if ext != "json" {
+                    return None;
+                }
 
                 let _guard = error_span!("Loading file", path=%path.display()).entered();
 
-                let data = fs_err::read(path).expect("Should be able to read a file");
+                let data = entry.contents();
 
-                let data: Item = serde_json5::from_slice(&data).expect("Should be a valid json");
+                let data: Item = serde_json5::from_slice(data).expect("Should be a valid json");
 
-                (path.to_path_buf(), data)
+                Some((path.to_path_buf(), data))
             })
             .collect();
 

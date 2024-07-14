@@ -37,7 +37,7 @@ fn parametric_ammo(db: &Database) {
         },
     );
 
-    let root = db.ammunition("juh9870:parametric_root").edit(|ammo| {
+    let root = db.new_ammunition("juh9870:parametric_root").edit(|ammo| {
         ammo.body = simple_body(None, 10.0);
         ammo.body.velocity = 10.0;
         ammo.body.parent_velocity_effect = 0.0;
@@ -60,29 +60,31 @@ fn parametric_ammo(db: &Database) {
         );
     });
 
-    let _repeater = db.ammunition("juh9870:parametric_repeater").edit(|ammo| {
-        ammo.body = simple_body(None, 5.0);
-        ammo.body.parent_velocity_effect = 0.0;
+    let _repeater = db
+        .new_ammunition("juh9870:parametric_repeater")
+        .edit(|ammo| {
+            ammo.body = simple_body(None, 5.0);
+            ammo.body.parent_velocity_effect = 0.0;
 
-        ammo.impact_type = BulletImpactType::HitAllTargets;
+            ammo.impact_type = BulletImpactType::HitAllTargets;
 
-        ammo.triggers.push(
-            BulletTrigger::spawn_bullet()
-                .with_condition(BulletTriggerCondition::Cooldown)
-                .with_cooldown(0.1)
-                .with_ammunition(root.id)
-                .with_quantity(1)
-                .wrap(),
-        );
-    });
+            ammo.triggers.push(
+                BulletTrigger::spawn_bullet()
+                    .with_condition(BulletTriggerCondition::Cooldown)
+                    .with_cooldown(0.1)
+                    .with_ammunition(root.id)
+                    .with_quantity(1)
+                    .wrap(),
+            );
+        });
 
-    let boolet = db.ammunition("juh9870:boolet").with(|a| {
+    let boolet = db.new_ammunition("juh9870:boolet").with(|a| {
         a.with_body(simple_body(db.id("eh:proton_torpedo"), 1000.0).with_attached_to_parent(true))
             .with_effects(vec![damage(DamageType::Corrosive, 1.0)])
     });
 
     let square = db
-        .ammunition("juh9870:square")
+        .new_ammunition("juh9870:square")
         .with(|a| a.with_body(simple_body(None, 20.0)))
         .edit(|a| {
             let w = 5;
@@ -121,16 +123,17 @@ fn parametric_ammo(db: &Database) {
                 .wrap();
         });
 
-    db.component("juh9870:parametric", "eh:weapon").with(|c| {
-        c.with_ammunition_id(square.id)
-            .with_weapon_id(weapon(db, "juh9870:parametric", 1.0).id)
-            .with_layout("1")
-            .with_name("SineShooter")
-            .with_cell_type(CellType::Weapon.to_string())
-            .with_icon("gun1")
-            .with_color("#FFFFFFFF")
-            .with_weapon_slot_type(WeaponSlotType::Special.to_string())
-    });
+    db.new_component("juh9870:parametric", "eh:weapon")
+        .with(|c| {
+            c.with_ammunition_id(square.id)
+                .with_weapon_id(weapon(db, "juh9870:parametric", 1.0).id)
+                .with_layout("1")
+                .with_name("SineShooter")
+                .with_cell_type(CellType::Weapon.to_string())
+                .with_icon("gun1")
+                .with_color("#FFFFFFFF")
+                .with_weapon_slot_type(WeaponSlotType::Special.to_string())
+        });
 }
 
 fn sine_ammo(
@@ -144,7 +147,7 @@ fn sine_ammo(
     let period = std::f32::consts::PI / period;
     let y = format!("SIN(t * {period}) * {magnitude}");
     let rotation = format!("COS(t * {period}) * {}", 180.0 / std::f32::consts::PI);
-    let left = db.ammunition(format!("{id}_left")).edit(|ammo| {
+    let left = db.new_ammunition(format!("{id}_left")).edit(|ammo| {
         edit(ammo);
         let mut controller = BulletController::parametric()
             .with_y(y.clone())
@@ -152,7 +155,7 @@ fn sine_ammo(
         param_edit(&mut controller);
         ammo.controller = controller.into();
     });
-    let right = db.ammunition(format!("{id}_right")).edit(|ammo| {
+    let right = db.new_ammunition(format!("{id}_right")).edit(|ammo| {
         edit(ammo);
 
         let mut controller = BulletController::parametric()

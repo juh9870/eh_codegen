@@ -278,6 +278,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "db_minimal"
+version = "0.1.0"
+dependencies = [
+ "eh_mod_dev",
+ "include_dir",
+]
+
+[[package]]
+name = "db_vanilla"
+version = "0.1.0"
+dependencies = [
+ "eh_mod_dev",
+ "include_dir",
+]
+
+[[package]]
 name = "diagnostic"
 version = "0.1.0"
 dependencies = [
@@ -332,6 +348,8 @@ version = "0.1.0"
 dependencies = [
  "clap",
  "color-backtrace",
+ "db_minimal",
+ "db_vanilla",
  "eh_mod_dev",
  "num_cpus",
  "rayon",
@@ -609,14 +627,6 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.66",
-]
-
-[[package]]
-name = "min_mod"
-version = "0.1.0"
-dependencies = [
- "eh_mod_dev",
- "include_dir",
 ]
 
 [[package]]

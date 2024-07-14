@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = ["diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "min_mod", "quests"]
+members = ["db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
 
 [workspace.dependencies]
 bitcode = "0.6.0"
@@ -9,9 +9,11 @@ clap = "4.5.7"
 color-backtrace = "0.6.1"
 convert_case = "0.6.0"
 downcast-rs = "1.2.1"
+duplicate = "1.0.0"
 flate2 = "1"
 fs-err = "2.11.0"
 glam = "0.28"
+include_dir = "0.7.4"
 itertools = "0.13.0"
 lockfree-object-pool = "0.1.5"
 miette = "7.2.0"
@@ -37,13 +39,13 @@ tracing = "0.1.40"
 tracing-panic = { version = "0.1.2", default-features = false }
 tracing-subscriber = "0.3.18"
 walkdir = "2.5.0"
-duplicate = "1.0.0"
-include_dir = "0.7.4"
 # Local dependencies
+db_minimal = { path = "db/db_minimal" }
+db_vanilla = { path = "db/db_vanilla" }
 diagnostic = { path = "diagnostic" }
+eh_mod_cli = { path = "eh_mod_cli" }
 eh_mod_dev = { path = "eh_mod_dev" }
 eh_schema = { path = "eh_schema" }
-eh_mod_cli = { path = "eh_mod_cli" }
 quests = { path = "quests" }
 
 [profile.release]
