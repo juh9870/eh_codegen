@@ -3,7 +3,7 @@
   "Id": 1,
   "Name": "$Quest_Tutorial",
   "QuestType": 2,
-  "StartCondition": 4,
+  "StartCondition": 0,
   "Origin": {
     "Type": 0,
     "Factions": {

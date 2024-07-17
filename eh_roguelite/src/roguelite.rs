@@ -4,7 +4,7 @@ use eh_mod_cli::Args;
 use eh_mod_cli::db_vanilla::load_vanilla;
 use eh_mod_cli::dev::database::{database, Database};
 use eh_mod_cli::dev::schema::schema::{
-    DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeRetreat, Quest,
+    DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeRetreat, Quest, StartCondition,
 };
 use eh_mod_cli::dev::validators::validate_settings;
 
@@ -53,6 +53,14 @@ fn patch_vanilla(db: &Database) {
             NodeCancelQuest { id: 2 }.into(),
         ];
     });
+
+    db.quest_iter_mut(|q| {
+        for mut q in q {
+            if matches!(q.start_condition, StartCondition::GameStart) {
+                q.start_condition = StartCondition::Manual;
+            }
+        }
+    })
 }
 
 #[instrument]
