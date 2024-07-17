@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+ahash = { workspace = true }
 eh_mod_cli = { workspace = true, features = ["include_vanilla"] }
 pretty-duration = { workspace = true }
 serde = { workspace = true }

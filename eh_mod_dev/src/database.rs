@@ -1,12 +1,13 @@
 use std::any::{Any, TypeId};
 use std::borrow::Cow;
-use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
+use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::{Debug, Formatter};
 use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 
+use ahash::{AHashMap, AHashSet, HashMapExt};
 use flate2::Compression;
 use parking_lot::{Mutex, RwLock};
 use rayon::prelude::{IntoParallelIterator, ParallelIterator};
@@ -62,15 +63,15 @@ impl Debug for DatabaseHolder {
 }
 
 type SharedItem = Arc<RwLock<Item>>;
-type ItemsMap = Arc<RwLock<HashMap<Option<i32>, SharedItem>>>;
+type ItemsMap = Arc<RwLock<AHashMap<Option<i32>, SharedItem>>>;
 
 pub struct DatabaseInner {
     output_path: PathBuf,
     output_file_path: Option<PathBuf>,
     ids: IdMapping,
-    other_ids: HashMap<Cow<'static, str>, Arc<RwLock<IdMapping>>>,
-    items: HashMap<&'static str, ItemsMap>,
-    extras: HashMap<TypeId, Arc<RwLock<dyn Any + Send + Sync>>>,
+    other_ids: AHashMap<Cow<'static, str>, Arc<RwLock<IdMapping>>>,
+    items: AHashMap<&'static str, ItemsMap>,
+    extras: AHashMap<TypeId, Arc<RwLock<dyn Any + Send + Sync>>>,
     // items: Vec<Item>,
 }
 
@@ -220,6 +221,10 @@ impl DatabaseHolder {
         self.lock(|db| db.other_ids.entry(T::kind()).or_default().clone())
     }
 
+    pub fn use_id_mappings<T>(&self, func: impl FnOnce(&mut IdMapping) -> T) -> T {
+        self.lock(|db| func(&mut db.ids))
+    }
+
     /// Gets the item that was saved to the database previously
     ///
     /// All returned handles **must** be dropped before saving the database, otherwise a panic will occur.
@@ -298,6 +303,15 @@ impl DatabaseHolder {
         let item = self.lock(|db| db.extras.get(&TypeId::of::<T>()).unwrap().clone());
         ExtraItem::new(item)
     }
+    pub fn extra_or_init<T: Any + Send + Sync + Default>(&self) -> ExtraItem<T> {
+        let item = self.lock(|db| {
+            db.extras
+                .entry(TypeId::of::<T>())
+                .or_insert_with(|| Arc::new(RwLock::new(T::default())))
+                .clone()
+        });
+        ExtraItem::new(item)
+    }
 
     /// Saves database to the file system, overriding old files
     pub fn save(self: Arc<Self>) -> DiagnosticContext {
@@ -325,7 +339,7 @@ impl DatabaseHolder {
             panic!("Output path is not a directory");
         }
 
-        let mut saved_files = HashSet::new();
+        let mut saved_files = AHashSet::new();
 
         let mappings_path = path.join(MAPPINGS_NAME);
         let mappings_bk_path = path.join(MAPPINGS_BACKUP_NAME);
@@ -476,7 +490,7 @@ impl DatabaseHolder {
                     None
                 }
             })
-            .collect::<HashMap<String, Vec<u8>>>();
+            .collect::<ahash::HashMap<String, Vec<u8>>>();
 
         fs_err::write(
             hashes_path,

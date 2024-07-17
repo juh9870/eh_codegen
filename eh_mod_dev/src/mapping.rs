@@ -1,7 +1,8 @@
 use std::borrow::Cow;
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::BTreeMap;
 use std::ops::Range;
 
+use ahash::{AHashMap, AHashSet};
 use regex::Regex;
 use tracing::error_span;
 
@@ -15,9 +16,9 @@ pub type IdIter<'a> =
 #[derive(Debug, Clone, Default)]
 pub struct IdMapping {
     ids: BTreeMap<Cow<'static, str>, BTreeMap<String, i32>>,
-    used_ids: HashMap<Cow<'static, str>, HashSet<String>>,
-    occupied_ids: HashMap<Cow<'static, str>, HashSet<i32>>,
-    available_ids: HashMap<Cow<'static, str>, Vec<Range<i32>>>,
+    used_ids: AHashMap<Cow<'static, str>, AHashSet<String>>,
+    occupied_ids: AHashMap<Cow<'static, str>, AHashSet<i32>>,
+    available_ids: AHashMap<Cow<'static, str>, Vec<Range<i32>>>,
     default_ids: Vec<Range<i32>>,
 }
 
@@ -25,7 +26,7 @@ impl IdMapping {
     pub fn new(mappings: IdMappingSerialized) -> Self {
         let occupied_ids = mappings
             .iter()
-            .map(|(k, v)| (k.clone(), v.values().copied().collect::<HashSet<i32>>()))
+            .map(|(k, v)| (k.clone(), v.values().copied().collect::<AHashSet<i32>>()))
             .collect();
 
         Self {
@@ -89,6 +90,14 @@ impl IdMapping {
             }
             Some(id) => *id,
         }
+    }
+
+    /// Returns an unstable numeric ID.
+    ///
+    /// IDs obtained this way are unstable and may change between runs, so
+    /// they should not be used for any kind of savefile-persistent data
+    pub fn get_unstable_id(&mut self, kind: impl Into<Cow<'static, str>>) -> i32 {
+        self.next_id_raw(kind)
     }
 
     /// Converts string ID into database item ID
@@ -171,11 +180,11 @@ impl IdMapping {
         })
     }
 
-    pub fn get_inverse_ids(&self) -> HashMap<Cow<'static, str>, HashMap<i32, String>> {
+    pub fn get_inverse_ids(&self) -> AHashMap<Cow<'static, str>, AHashMap<i32, String>> {
         self.ids
             .iter()
             .map(|(ty, ids)| {
-                let ids: HashMap<_, _> = ids.iter().map(|(k, v)| (*v, k.clone())).collect();
+                let ids: AHashMap<_, _> = ids.iter().map(|(k, v)| (*v, k.clone())).collect();
                 (ty.clone(), ids)
             })
             .collect()

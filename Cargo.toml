@@ -4,6 +4,7 @@ resolver = "2"
 members = ["caching", "components", "db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
 
 [workspace.dependencies]
+ahash = "0.8.11"
 auto_ops = "0.3.0"
 bitcode = "0.6.0"
 clap = "4.5.7"

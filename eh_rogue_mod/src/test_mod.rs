@@ -1,11 +1,10 @@
-use std::collections::HashMap;
 use std::time::Instant;
 
-use eh_mod_cli::db_vanilla::load_vanilla;
-use eh_mod_cli::Args;
+use ahash::AHashMap;
 use pretty_duration::pretty_duration;
 use tracing::{debug, error_span, instrument};
 
+use eh_mod_cli::db_vanilla::load_vanilla;
 use eh_mod_cli::dev::database::{database, Database, Remember};
 use eh_mod_cli::dev::helpers::from_json_string;
 use eh_mod_cli::dev::json;
@@ -17,6 +16,7 @@ use eh_mod_cli::dev::schema::schema::{
     QuestType, Requirement, RequirementAll, RequirementHaveQuestItem, RequirementNone,
     StartCondition, Technology,
 };
+use eh_mod_cli::Args;
 
 use crate::test_mod::quest_surgeon::next_id;
 
@@ -401,7 +401,7 @@ fn encounter_patches(db: &Database) {
 
         let mut extra_nodes: Vec<Node> = vec![];
 
-        let mut transitions = HashMap::<i32, i32>::default();
+        let mut transitions = AHashMap::<i32, i32>::default();
 
         let mut reward_node = |transition: i32| {
             if let Some(&node_id) = transitions.get(&transition) {
