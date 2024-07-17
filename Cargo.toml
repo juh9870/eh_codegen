@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = ["components", "db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
+members = ["caching", "components", "db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
 
 [workspace.dependencies]
 auto_ops = "0.3.0"
@@ -20,6 +20,7 @@ lockfree-object-pool = "0.1.5"
 miette = "7.2.0"
 num-traits = "0.2.19"
 num_cpus = "1.16.0"
+ordered-float = "4.2.1"
 owo-colors = "4"
 parking_lot = "0.12.3"
 paste = "1.0.15"

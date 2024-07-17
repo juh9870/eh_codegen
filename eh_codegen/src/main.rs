@@ -1,13 +1,15 @@
-use crate::codegen::CodegenState;
-use crate::schema::SchemaItem;
-use clap::Parser;
-use miette::{Context, Diagnostic, IntoDiagnostic, Report};
 use std::cmp::Ordering;
 use std::path::{Path, PathBuf};
+
+use clap::Parser;
+use miette::{Context, Diagnostic, IntoDiagnostic, Report};
 use thiserror::Error;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::EnvFilter;
 use walkdir::WalkDir;
+
+use crate::codegen::CodegenState;
+use crate::schema::SchemaItem;
 
 mod codegen;
 mod schema;
@@ -81,6 +83,7 @@ fn main() -> miette::Result<()> {
 
         let mut code_builder = "\
             #![allow(clippy::large_enum_variant)]\n\
+            #![allow(clippy::op_ref)]\n\
             #![allow(dead_code)]\n\
             #![allow(unused_variables)]\n\
             #![allow(unreachable_patterns)]\n\n"

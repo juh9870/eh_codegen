@@ -1,6 +1,9 @@
-use diagnostic::context::DiagnosticContextRef;
-use serde::Deserializer;
+use std::hash::{Hash, Hasher};
 use std::ops::{RangeInclusive, RangeToInclusive};
+
+use serde::Deserializer;
+
+use diagnostic::context::DiagnosticContextRef;
 
 pub trait DatabaseItem: serde::Serialize + for<'a> serde::Deserialize<'a> {
     fn validate(&self, ctx: DiagnosticContextRef);
@@ -56,6 +59,12 @@ impl<T: DatabaseItem> PartialEq for DatabaseItemId<T> {
 }
 
 impl<T: DatabaseItem> Eq for DatabaseItemId<T> {}
+
+impl<T: DatabaseItem> Hash for DatabaseItemId<T> {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.0.hash(state)
+    }
+}
 
 impl<T: DatabaseItem> Clone for DatabaseItemId<T> {
     fn clone(&self) -> Self {

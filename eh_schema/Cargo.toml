@@ -11,6 +11,7 @@ auto_ops = { workspace = true }
 diagnostic = { workspace = true }
 glam = { workspace = true, features = ["serde"] }
 num-traits = { workspace = true }
+ordered-float = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 serde_repr = { workspace = true }

@@ -149,7 +149,7 @@ impl CodegenState {
         let mut blocks: Vec<TokenStream> = vec![];
 
         let shared_enum = quote! {
-            #[derive(Debug, Clone)]
+            #[derive(Debug, Clone, Eq, PartialEq, Hash)]
             pub enum #switch_struct_ident {
                 #(#enum_variants)*
             }

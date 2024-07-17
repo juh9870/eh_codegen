@@ -171,6 +171,53 @@ impl Field {
         }
     }
 
+    fn eq_code(&self) -> TokenStream {
+        let Self { ident, field, .. } = self;
+        match field.ty {
+            SchemaStructMemberType::Float => {
+                quote! {
+                    ordered_float::OrderedFloat(self.#ident) == ordered_float::OrderedFloat(other.#ident)
+                }
+            }
+            SchemaStructMemberType::Vector => {
+                quote! {
+                    ordered_float::OrderedFloat(self.#ident.x) == ordered_float::OrderedFloat(other.#ident.x)
+                    && ordered_float::OrderedFloat(self.#ident.y) == ordered_float::OrderedFloat(other.#ident.y)
+                }
+            }
+            _ => {
+                quote! {&self.#ident == &other.#ident}
+            }
+        }
+    }
+
+    fn hash_code(&self) -> TokenStream {
+        let Self { ident, field, .. } = self;
+        match field.ty {
+            SchemaStructMemberType::Float => {
+                quote! {
+                    ordered_float::OrderedFloat(self.#ident).hash(state);
+                }
+            }
+            SchemaStructMemberType::Vector => {
+                quote! {
+                    ordered_float::OrderedFloat(self.#ident.x).hash(state);
+                    ordered_float::OrderedFloat(self.#ident.y).hash(state);
+                }
+            }
+            _ => {
+                quote! {self.#ident.hash(state);}
+            }
+        }
+    }
+
+    fn need_custom_eq_hash(&self) -> bool {
+        matches!(
+            self.field.ty,
+            SchemaStructMemberType::Float | SchemaStructMemberType::Vector
+        )
+    }
+
     fn validation(&self) -> TokensResult {
         let Self {
             ident, ty, field, ..
@@ -372,10 +419,49 @@ impl CodegenState {
             }
         });
 
+        let need_eq_hash_impls = fields.iter().any(|f| f.need_custom_eq_hash());
+        let custom_eq_hash_impls = need_eq_hash_impls.then(|| {
+            let eq_impl = fields.iter().enumerate().map(|(i, f)| {
+                let eq = f.eq_code();
+                if i == 0 {
+                    eq
+                } else {
+                    quote! {&& #eq}
+                }
+            });
+
+            let custom_eq_code = fields.is_empty().then(|| quote! {true});
+
+            let hash_impl = fields.iter().map(|f| f.hash_code());
+            quote! {
+                impl std::cmp::Eq for #name {}
+
+                impl std::cmp::PartialEq for #name {
+                    fn eq(&self, other: &Self) -> bool {
+                        #(#eq_impl)*
+                        #custom_eq_code
+                    }
+                }
+
+                impl std::hash::Hash for #name {
+                    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+                        #(#hash_impl)*
+                    }
+                }
+            }
+        });
+
+        let eq_hash_derives = (!need_eq_hash_impls).then(|| {
+            quote! {
+                #[derive(Eq, PartialEq, Hash)]
+            }
+        });
+
         let name_str = name.to_string();
 
         let code = quote! {
             #[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+            #eq_hash_derives
             #[serde(rename_all = "PascalCase")]
             pub struct #name {
                 #(#struct_fields)*
@@ -400,6 +486,8 @@ impl CodegenState {
                     #name_str
                 }
             }
+
+            #custom_eq_hash_impls
 
             #default_impl
         };

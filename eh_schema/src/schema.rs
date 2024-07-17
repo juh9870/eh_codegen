@@ -1,4 +1,5 @@
 #![allow(clippy::large_enum_variant)]
+#![allow(clippy::op_ref)]
 #![allow(dead_code)]
 #![allow(unused_variables)]
 #![allow(unreachable_patterns)]
@@ -1885,7 +1886,7 @@ impl std::fmt::Display for WeaponSlotType {
 // v1/Expressions/SizeClassToInt.xml
 
 // v1/Objects/Ai/BehaviorNodeRequirement.xml
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum BehaviorNodeRequirement {
     Empty(BehaviorNodeRequirementEmpty),
     Any(BehaviorNodeRequirementAny),
@@ -1915,7 +1916,7 @@ impl Default for BehaviorNodeRequirement {
         Self::Empty(Default::default())
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementEmpty {}
 impl BehaviorNodeRequirementEmpty {
@@ -1949,7 +1950,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementEmpty::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementAny {
     #[serde(default)]
@@ -2010,7 +2011,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementAny::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementAll {
     #[serde(default)]
@@ -2071,7 +2072,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementAll::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementNone {
     #[serde(default)]
@@ -2132,7 +2133,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementNone::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementAiLevel {
     ///AiLevel rises with the level of enemies. Always High for drones and autopilot
@@ -2186,7 +2187,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementAiLevel::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementMinAiLevel {
     ///AiLevel rises with the level of enemies. Always High for drones and autopilot
@@ -2240,7 +2241,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementMinAiLevel::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementSizeClass {
     #[serde(default)]
@@ -2287,7 +2288,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementSizeClass::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasDevice {
     #[serde(default)]
@@ -2334,7 +2335,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasDevice::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasDrones {}
 impl BehaviorNodeRequirementHasDrones {
@@ -2368,7 +2369,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasDrones::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasAnyWeapon {}
 impl BehaviorNodeRequirementHasAnyWeapon {
@@ -2402,7 +2403,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasAnyWeapon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementCanRepairAllies {}
 impl BehaviorNodeRequirementCanRepairAllies {
@@ -2436,7 +2437,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementCanRepairAllies::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasHighRecoilWeapon {}
 impl BehaviorNodeRequirementHasHighRecoilWeapon {
@@ -2470,7 +2471,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasHighRecoilWeapon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasChargeableWeapon {}
 impl BehaviorNodeRequirementHasChargeableWeapon {
@@ -2504,7 +2505,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasChargeableWeapon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasRemotelyControlledWeapon {}
 impl BehaviorNodeRequirementHasRemotelyControlledWeapon {
@@ -2571,6 +2572,17 @@ impl DatabaseItem for BehaviorNodeRequirementHasLongRangeWeapon {
         "BehaviorNodeRequirementHasLongRangeWeapon"
     }
 }
+impl std::cmp::Eq for BehaviorNodeRequirementHasLongRangeWeapon {}
+impl std::cmp::PartialEq for BehaviorNodeRequirementHasLongRangeWeapon {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#value) == ordered_float::OrderedFloat(other.r#value)
+    }
+}
+impl std::hash::Hash for BehaviorNodeRequirementHasLongRangeWeapon {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#value).hash(state);
+    }
+}
 impl Default for BehaviorNodeRequirementHasLongRangeWeapon {
     fn default() -> Self {
         Self::new()
@@ -2591,7 +2603,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasLongRangeWeapon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasEngine {}
 impl BehaviorNodeRequirementHasEngine {
@@ -2625,7 +2637,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasEngine::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementHasHarpoon {}
 impl BehaviorNodeRequirementHasHarpoon {
@@ -2659,7 +2671,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementHasHarpoon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementCanRechargeAllies {}
 impl BehaviorNodeRequirementCanRechargeAllies {
@@ -2693,7 +2705,7 @@ impl BehaviorNodeRequirement {
         BehaviorNodeRequirementCanRechargeAllies::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorNodeRequirementIsDrone {}
 impl BehaviorNodeRequirementIsDrone {
@@ -2760,6 +2772,17 @@ impl DatabaseItem for BehaviorNodeRequirementHasKineticResistance {
         "BehaviorNodeRequirementHasKineticResistance"
     }
 }
+impl std::cmp::Eq for BehaviorNodeRequirementHasKineticResistance {}
+impl std::cmp::PartialEq for BehaviorNodeRequirementHasKineticResistance {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#value) == ordered_float::OrderedFloat(other.r#value)
+    }
+}
+impl std::hash::Hash for BehaviorNodeRequirementHasKineticResistance {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#value).hash(state);
+    }
+}
 impl Default for BehaviorNodeRequirementHasKineticResistance {
     fn default() -> Self {
         Self::new()
@@ -2813,6 +2836,17 @@ impl DatabaseItem for BehaviorNodeRequirementHasHighManeuverability {
         "BehaviorNodeRequirementHasHighManeuverability"
     }
 }
+impl std::cmp::Eq for BehaviorNodeRequirementHasHighManeuverability {}
+impl std::cmp::PartialEq for BehaviorNodeRequirementHasHighManeuverability {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#value) == ordered_float::OrderedFloat(other.r#value)
+    }
+}
+impl std::hash::Hash for BehaviorNodeRequirementHasHighManeuverability {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#value).hash(state);
+    }
+}
 impl Default for BehaviorNodeRequirementHasHighManeuverability {
     fn default() -> Self {
         Self::new()
@@ -2864,6 +2898,17 @@ impl DatabaseItem for BehaviorNodeRequirementHasHighRammingDamage {
     }
     fn type_name() -> &'static str {
         "BehaviorNodeRequirementHasHighRammingDamage"
+    }
+}
+impl std::cmp::Eq for BehaviorNodeRequirementHasHighRammingDamage {}
+impl std::cmp::PartialEq for BehaviorNodeRequirementHasHighRammingDamage {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#value) == ordered_float::OrderedFloat(other.r#value)
+    }
+}
+impl std::hash::Hash for BehaviorNodeRequirementHasHighRammingDamage {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#value).hash(state);
     }
 }
 impl Default for BehaviorNodeRequirementHasHighRammingDamage {
@@ -3318,7 +3363,7 @@ impl BehaviorNodeRequirement {
 }
 
 // v1/Objects/Ai/BehaviorTreeNode.xml
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum BehaviorTreeNode {
     Success(BehaviorTreeNodeSuccess),
     Failure(BehaviorTreeNodeFailure),
@@ -3409,7 +3454,7 @@ impl Default for BehaviorTreeNode {
         Self::Success(Default::default())
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSuccess {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -3465,7 +3510,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSuccess::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeFailure {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -3521,7 +3566,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeFailure::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSubTree {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -3589,7 +3634,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSubTree::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSelector {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -3663,7 +3708,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSelector::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSequence {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -3737,7 +3782,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSequence::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeParallel {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -3883,6 +3928,22 @@ impl DatabaseItem for BehaviorTreeNodeRandomSelector {
         "BehaviorTreeNodeRandomSelector"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeRandomSelector {}
+impl std::cmp::PartialEq for BehaviorTreeNodeRandomSelector {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && &self.r#nodes == &other.r#nodes
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeRandomSelector {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        self.r#nodes.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeRandomSelector {
     fn default() -> Self {
         Self::new()
@@ -3903,7 +3964,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeRandomSelector::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeInvertor {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4069,6 +4130,26 @@ impl DatabaseItem for BehaviorTreeNodeCooldown {
         "BehaviorTreeNodeCooldown"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeCooldown {}
+impl std::cmp::PartialEq for BehaviorTreeNodeCooldown {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && &self.r#node == &other.r#node
+            && &self.r#execution_mode == &other.r#execution_mode
+            && &self.r#result == &other.r#result
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeCooldown {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        self.r#node.hash(state);
+        self.r#execution_mode.hash(state);
+        self.r#result.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeCooldown {
     fn default() -> Self {
         Self::new()
@@ -4089,7 +4170,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeCooldown::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeExecute {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4186,7 +4267,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeExecute::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeParallelSequence {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4260,7 +4341,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeParallelSequence::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodePreserveTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4331,7 +4412,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodePreserveTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeIfThenElse {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4462,6 +4543,20 @@ impl DatabaseItem for BehaviorTreeNodeHasEnoughEnergy {
         "BehaviorTreeNodeHasEnoughEnergy"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeHasEnoughEnergy {}
+impl std::cmp::PartialEq for BehaviorTreeNodeHasEnoughEnergy {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeHasEnoughEnergy {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeHasEnoughEnergy {
     fn default() -> Self {
         Self::new()
@@ -4539,6 +4634,20 @@ impl DatabaseItem for BehaviorTreeNodeIsLowOnHp {
         "BehaviorTreeNodeIsLowOnHp"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeIsLowOnHp {}
+impl std::cmp::PartialEq for BehaviorTreeNodeIsLowOnHp {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeIsLowOnHp {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeIsLowOnHp {
     fn default() -> Self {
         Self::new()
@@ -4611,6 +4720,20 @@ impl DatabaseItem for BehaviorTreeNodeIsNotControledByPlayer {
     }
     fn type_name() -> &'static str {
         "BehaviorTreeNodeIsNotControledByPlayer"
+    }
+}
+impl std::cmp::Eq for BehaviorTreeNodeIsNotControledByPlayer {}
+impl std::cmp::PartialEq for BehaviorTreeNodeIsNotControledByPlayer {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeIsNotControledByPlayer {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
     }
 }
 impl Default for BehaviorTreeNodeIsNotControledByPlayer {
@@ -4687,6 +4810,20 @@ impl DatabaseItem for BehaviorTreeNodeHasIncomingThreat {
         "BehaviorTreeNodeHasIncomingThreat"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeHasIncomingThreat {}
+impl std::cmp::PartialEq for BehaviorTreeNodeHasIncomingThreat {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeHasIncomingThreat {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeHasIncomingThreat {
     fn default() -> Self {
         Self::new()
@@ -4707,7 +4844,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeHasIncomingThreat::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasAdditionalTargets {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4820,6 +4957,20 @@ impl DatabaseItem for BehaviorTreeNodeIsFasterThanTarget {
         "BehaviorTreeNodeIsFasterThanTarget"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeIsFasterThanTarget {}
+impl std::cmp::PartialEq for BehaviorTreeNodeIsFasterThanTarget {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeIsFasterThanTarget {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeIsFasterThanTarget {
     fn default() -> Self {
         Self::new()
@@ -4840,7 +4991,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeIsFasterThanTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasMainTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4896,7 +5047,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeHasMainTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMainTargetIsAlly {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -4952,7 +5103,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMainTargetIsAlly::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMainTargetIsEnemy {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -5065,6 +5216,20 @@ impl DatabaseItem for BehaviorTreeNodeMainTargetLowHp {
         "BehaviorTreeNodeMainTargetLowHp"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMainTargetLowHp {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMainTargetLowHp {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMainTargetLowHp {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMainTargetLowHp {
     fn default() -> Self {
         Self::new()
@@ -5143,6 +5308,20 @@ impl DatabaseItem for BehaviorTreeNodeMainTargetWithinAttackRange {
         "BehaviorTreeNodeMainTargetWithinAttackRange"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMainTargetWithinAttackRange {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMainTargetWithinAttackRange {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMainTargetWithinAttackRange {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMainTargetWithinAttackRange {
     fn default() -> Self {
         Self::new()
@@ -5163,7 +5342,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMainTargetWithinAttackRange::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasMothership {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -5274,6 +5453,20 @@ impl DatabaseItem for BehaviorTreeNodeTargetDistance {
         "BehaviorTreeNodeTargetDistance"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeTargetDistance {}
+impl std::cmp::PartialEq for BehaviorTreeNodeTargetDistance {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeTargetDistance {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeTargetDistance {
     fn default() -> Self {
         Self::new()
@@ -5349,6 +5542,20 @@ impl DatabaseItem for BehaviorTreeNodeHasLongerAttackRange {
     }
     fn type_name() -> &'static str {
         "BehaviorTreeNodeHasLongerAttackRange"
+    }
+}
+impl std::cmp::Eq for BehaviorTreeNodeHasLongerAttackRange {}
+impl std::cmp::PartialEq for BehaviorTreeNodeHasLongerAttackRange {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeHasLongerAttackRange {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
     }
 }
 impl Default for BehaviorTreeNodeHasLongerAttackRange {
@@ -5467,6 +5674,27 @@ impl DatabaseItem for BehaviorTreeNodeFindEnemy {
         "BehaviorTreeNodeFindEnemy"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeFindEnemy {}
+impl std::cmp::PartialEq for BehaviorTreeNodeFindEnemy {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+            && &self.r#in_range == &other.r#in_range
+            && &self.r#no_drones == &other.r#no_drones
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeFindEnemy {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+        self.r#in_range.hash(state);
+        self.r#no_drones.hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeFindEnemy {
     fn default() -> Self {
         Self::new()
@@ -5566,6 +5794,23 @@ impl DatabaseItem for BehaviorTreeNodeMoveToAttackRange {
         "BehaviorTreeNodeMoveToAttackRange"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMoveToAttackRange {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMoveToAttackRange {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMoveToAttackRange {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMoveToAttackRange {
     fn default() -> Self {
         Self::new()
@@ -5586,7 +5831,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMoveToAttackRange::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAttackMainTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -5654,7 +5899,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeAttackMainTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSelectWeapon {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -5721,7 +5966,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSelectWeapon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSpawnDrones {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -5777,7 +6022,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSpawnDrones::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeRam {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -5845,7 +6090,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeRam::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeDetonateShip {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -5913,7 +6158,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeDetonateShip::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeVanish {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6049,6 +6294,23 @@ impl DatabaseItem for BehaviorTreeNodeMaintainAttackRange {
         "BehaviorTreeNodeMaintainAttackRange"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMaintainAttackRange {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMaintainAttackRange {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMaintainAttackRange {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMaintainAttackRange {
     fn default() -> Self {
         Self::new()
@@ -6135,6 +6397,22 @@ impl DatabaseItem for BehaviorTreeNodeWait {
         "BehaviorTreeNodeWait"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeWait {}
+impl std::cmp::PartialEq for BehaviorTreeNodeWait {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+            && &self.r#in_range == &other.r#in_range
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeWait {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+        self.r#in_range.hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeWait {
     fn default() -> Self {
         Self::new()
@@ -6155,7 +6433,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeWait::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeLookAtTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6265,6 +6543,20 @@ impl DatabaseItem for BehaviorTreeNodeLookForAdditionalTargets {
         "BehaviorTreeNodeLookForAdditionalTargets"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeLookForAdditionalTargets {}
+impl std::cmp::PartialEq for BehaviorTreeNodeLookForAdditionalTargets {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeLookForAdditionalTargets {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeLookForAdditionalTargets {
     fn default() -> Self {
         Self::new()
@@ -6337,6 +6629,20 @@ impl DatabaseItem for BehaviorTreeNodeLookForThreats {
     }
     fn type_name() -> &'static str {
         "BehaviorTreeNodeLookForThreats"
+    }
+}
+impl std::cmp::Eq for BehaviorTreeNodeLookForThreats {}
+impl std::cmp::PartialEq for BehaviorTreeNodeLookForThreats {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeLookForThreats {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
     }
 }
 impl Default for BehaviorTreeNodeLookForThreats {
@@ -6417,6 +6723,20 @@ impl DatabaseItem for BehaviorTreeNodeMatchVelocityWithTarget {
         "BehaviorTreeNodeMatchVelocityWithTarget"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMatchVelocityWithTarget {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMatchVelocityWithTarget {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMatchVelocityWithTarget {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMatchVelocityWithTarget {
     fn default() -> Self {
         Self::new()
@@ -6437,7 +6757,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMatchVelocityWithTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeActivateDevice {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6582,6 +6902,23 @@ impl DatabaseItem for BehaviorTreeNodeRechargeEnergy {
         "BehaviorTreeNodeRechargeEnergy"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeRechargeEnergy {}
+impl std::cmp::PartialEq for BehaviorTreeNodeRechargeEnergy {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeRechargeEnergy {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeRechargeEnergy {
     fn default() -> Self {
         Self::new()
@@ -6602,7 +6939,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeRechargeEnergy::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSustainAim {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6658,7 +6995,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSustainAim::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeChargeWeapons {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6714,7 +7051,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeChargeWeapons::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeChase {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6770,7 +7107,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeChase::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAvoidThreats {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6884,6 +7221,20 @@ impl DatabaseItem for BehaviorTreeNodeSlowDown {
         "BehaviorTreeNodeSlowDown"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeSlowDown {}
+impl std::cmp::PartialEq for BehaviorTreeNodeSlowDown {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeSlowDown {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeSlowDown {
     fn default() -> Self {
         Self::new()
@@ -6904,7 +7255,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSlowDown::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeUseRecoil {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -6960,7 +7311,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeUseRecoil::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeDefendWithFronalShield {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7016,7 +7367,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeDefendWithFronalShield::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTrackControllableAmmo {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7150,6 +7501,23 @@ impl DatabaseItem for BehaviorTreeNodeKeepDistance {
         "BehaviorTreeNodeKeepDistance"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeKeepDistance {}
+impl std::cmp::PartialEq for BehaviorTreeNodeKeepDistance {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeKeepDistance {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeKeepDistance {
     fn default() -> Self {
         Self::new()
@@ -7170,7 +7538,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeKeepDistance::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeForgetMainTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7226,7 +7594,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeForgetMainTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeEscapeTargetAttackRadius {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7282,7 +7650,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeEscapeTargetAttackRadius::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAttackAdditionalTargets {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7350,7 +7718,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeAttackAdditionalTargets::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetAllyStarbase {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7406,7 +7774,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeTargetAllyStarbase::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetEnemyStarbase {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7462,7 +7830,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeTargetEnemyStarbase::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeBypassObstacles {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7518,7 +7886,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeBypassObstacles::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeAttackTurretTargets {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7574,7 +7942,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeAttackTurretTargets::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHoldHarpoon {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7714,6 +8082,25 @@ impl DatabaseItem for BehaviorTreeNodeFindDamagedAlly {
         "BehaviorTreeNodeFindDamagedAlly"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeFindDamagedAlly {}
+impl std::cmp::PartialEq for BehaviorTreeNodeFindDamagedAlly {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+            && &self.r#in_range == &other.r#in_range
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeFindDamagedAlly {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+        self.r#in_range.hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeFindDamagedAlly {
     fn default() -> Self {
         Self::new()
@@ -7791,6 +8178,20 @@ impl DatabaseItem for BehaviorTreeNodeEnginePropulsionForce {
         "BehaviorTreeNodeEnginePropulsionForce"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeEnginePropulsionForce {}
+impl std::cmp::PartialEq for BehaviorTreeNodeEnginePropulsionForce {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeEnginePropulsionForce {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeEnginePropulsionForce {
     fn default() -> Self {
         Self::new()
@@ -7811,7 +8212,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeEnginePropulsionForce::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMotherShipRetreated {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -7867,7 +8268,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMotherShipRetreated::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMotherShipDestroyed {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8001,6 +8402,23 @@ impl DatabaseItem for BehaviorTreeNodeFlyAroundMothership {
         "BehaviorTreeNodeFlyAroundMothership"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeFlyAroundMothership {}
+impl std::cmp::PartialEq for BehaviorTreeNodeFlyAroundMothership {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeFlyAroundMothership {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeFlyAroundMothership {
     fn default() -> Self {
         Self::new()
@@ -8021,7 +8439,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeFlyAroundMothership::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeGoBerserk {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8077,7 +8495,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeGoBerserk::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetMothership {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8190,6 +8608,20 @@ impl DatabaseItem for BehaviorTreeNodeMothershipLowHp {
         "BehaviorTreeNodeMothershipLowHp"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMothershipLowHp {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMothershipLowHp {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMothershipLowHp {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMothershipLowHp {
     fn default() -> Self {
         Self::new()
@@ -8265,6 +8697,20 @@ impl DatabaseItem for BehaviorTreeNodeMothershipDistanceExceeded {
         "BehaviorTreeNodeMothershipDistanceExceeded"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMothershipDistanceExceeded {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMothershipDistanceExceeded {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#max_value)
+                == ordered_float::OrderedFloat(other.r#max_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMothershipDistanceExceeded {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#max_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMothershipDistanceExceeded {
     fn default() -> Self {
         Self::new()
@@ -8285,7 +8731,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMothershipDistanceExceeded::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMakeTargetMothership {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8398,6 +8844,20 @@ impl DatabaseItem for BehaviorTreeNodeMothershipLowEnergy {
         "BehaviorTreeNodeMothershipLowEnergy"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMothershipLowEnergy {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMothershipLowEnergy {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMothershipLowEnergy {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMothershipLowEnergy {
     fn default() -> Self {
         Self::new()
@@ -8475,6 +8935,20 @@ impl DatabaseItem for BehaviorTreeNodeMothershipLowShield {
         "BehaviorTreeNodeMothershipLowShield"
     }
 }
+impl std::cmp::Eq for BehaviorTreeNodeMothershipLowShield {}
+impl std::cmp::PartialEq for BehaviorTreeNodeMothershipLowShield {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#min_value)
+                == ordered_float::OrderedFloat(other.r#min_value)
+    }
+}
+impl std::hash::Hash for BehaviorTreeNodeMothershipLowShield {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#min_value).hash(state);
+    }
+}
 impl Default for BehaviorTreeNodeMothershipLowShield {
     fn default() -> Self {
         Self::new()
@@ -8495,7 +8969,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMothershipLowShield::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeShowMessage {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8574,7 +9048,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeShowMessage::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeDebugLog {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8641,7 +9115,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeDebugLog::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSetValue {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8720,7 +9194,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSetValue::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeGetValue {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8787,7 +9261,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeGetValue::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSendMessage {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8854,7 +9328,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSendMessage::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeMessageReceived {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8921,7 +9395,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeMessageReceived::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeTargetMessageSender {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -8977,7 +9451,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeTargetMessageSender::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeSaveTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -9044,7 +9518,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeSaveTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeLoadTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -9111,7 +9585,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeLoadTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeHasSavedTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -9178,7 +9652,7 @@ impl BehaviorTreeNode {
         BehaviorTreeNodeHasSavedTarget::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTreeNodeForgetSavedTarget {
     ///The node will not execute and will return FAILURE if the requirement is not met
@@ -11184,6 +11658,41 @@ impl DatabaseItem for Barrel {
         "Barrel"
     }
 }
+impl std::cmp::Eq for Barrel {}
+impl std::cmp::PartialEq for Barrel {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#position.x)
+            == ordered_float::OrderedFloat(other.r#position.x)
+            && ordered_float::OrderedFloat(self.r#position.y)
+                == ordered_float::OrderedFloat(other.r#position.y)
+            && ordered_float::OrderedFloat(self.r#rotation)
+                == ordered_float::OrderedFloat(other.r#rotation)
+            && ordered_float::OrderedFloat(self.r#offset)
+                == ordered_float::OrderedFloat(other.r#offset)
+            && &self.r#platform_type == &other.r#platform_type
+            && ordered_float::OrderedFloat(self.r#auto_aiming_arc)
+                == ordered_float::OrderedFloat(other.r#auto_aiming_arc)
+            && ordered_float::OrderedFloat(self.r#rotation_speed)
+                == ordered_float::OrderedFloat(other.r#rotation_speed)
+            && &self.r#weapon_class == &other.r#weapon_class
+            && &self.r#image == &other.r#image
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+    }
+}
+impl std::hash::Hash for Barrel {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#position.x).hash(state);
+        ordered_float::OrderedFloat(self.r#position.y).hash(state);
+        ordered_float::OrderedFloat(self.r#rotation).hash(state);
+        ordered_float::OrderedFloat(self.r#offset).hash(state);
+        self.r#platform_type.hash(state);
+        ordered_float::OrderedFloat(self.r#auto_aiming_arc).hash(state);
+        ordered_float::OrderedFloat(self.r#rotation_speed).hash(state);
+        self.r#weapon_class.hash(state);
+        self.r#image.hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+    }
+}
 impl Default for Barrel {
     fn default() -> Self {
         Self::new()
@@ -11191,7 +11700,7 @@ impl Default for Barrel {
 }
 
 // v1/Objects/ComponentRestrictions.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentRestrictions {
     #[serde(default)]
@@ -11350,6 +11859,23 @@ impl DatabaseItem for Engine {
         "Engine"
     }
 }
+impl std::cmp::Eq for Engine {}
+impl std::cmp::PartialEq for Engine {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#position.x)
+            == ordered_float::OrderedFloat(other.r#position.x)
+            && ordered_float::OrderedFloat(self.r#position.y)
+                == ordered_float::OrderedFloat(other.r#position.y)
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+    }
+}
+impl std::hash::Hash for Engine {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#position.x).hash(state);
+        ordered_float::OrderedFloat(self.r#position.y).hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+    }
+}
 impl Default for Engine {
     fn default() -> Self {
         Self::new()
@@ -11357,7 +11883,7 @@ impl Default for Engine {
 }
 
 // v1/Objects/InstalledComponent.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct InstalledComponent {
     pub r#component_id: ComponentId,
@@ -11517,7 +12043,7 @@ impl DatabaseItem for InstalledComponent {
 }
 
 // v1/Objects/Quests/FactionFilter.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct FactionFilter {
     #[serde(default)]
@@ -11562,7 +12088,7 @@ impl Default for FactionFilter {
 }
 
 // v1/Objects/Quests/LootContent.xml
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum LootContent {
     None(LootContentNone),
     SomeMoney(LootContentSomeMoney),
@@ -11587,7 +12113,7 @@ impl Default for LootContent {
         Self::None(Default::default())
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentNone {}
 impl LootContentNone {
@@ -11657,6 +12183,18 @@ impl DatabaseItem for LootContentSomeMoney {
         "LootContentSomeMoney"
     }
 }
+impl std::cmp::Eq for LootContentSomeMoney {}
+impl std::cmp::PartialEq for LootContentSomeMoney {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#value_ratio)
+            == ordered_float::OrderedFloat(other.r#value_ratio)
+    }
+}
+impl std::hash::Hash for LootContentSomeMoney {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#value_ratio).hash(state);
+    }
+}
 impl Default for LootContentSomeMoney {
     fn default() -> Self {
         Self::new()
@@ -11677,7 +12215,7 @@ impl LootContent {
         LootContentSomeMoney::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentFuel {
     #[serde(default = "default_0")]
@@ -11756,7 +12294,7 @@ impl LootContent {
         LootContentFuel::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentMoney {
     #[serde(default = "default_0")]
@@ -11835,7 +12373,7 @@ impl LootContent {
         LootContentMoney::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentStars {
     #[serde(default = "default_0")]
@@ -11914,7 +12452,7 @@ impl LootContent {
         LootContentStars::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentStarMap {}
 impl LootContentStarMap {
@@ -12043,6 +12581,24 @@ impl DatabaseItem for LootContentRandomComponents {
         "LootContentRandomComponents"
     }
 }
+impl std::cmp::Eq for LootContentRandomComponents {}
+impl std::cmp::PartialEq for LootContentRandomComponents {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#min_amount == &other.r#min_amount
+            && &self.r#max_amount == &other.r#max_amount
+            && ordered_float::OrderedFloat(self.r#value_ratio)
+                == ordered_float::OrderedFloat(other.r#value_ratio)
+            && &self.r#factions == &other.r#factions
+    }
+}
+impl std::hash::Hash for LootContentRandomComponents {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#min_amount.hash(state);
+        self.r#max_amount.hash(state);
+        ordered_float::OrderedFloat(self.r#value_ratio).hash(state);
+        self.r#factions.hash(state);
+    }
+}
 impl Default for LootContentRandomComponents {
     fn default() -> Self {
         Self::new()
@@ -12063,7 +12619,7 @@ impl LootContent {
         LootContentRandomComponents::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentRandomItems {
     #[serde(default = "default_0")]
@@ -12160,7 +12716,7 @@ impl LootContent {
         LootContentRandomItems::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentAllItems {
     #[serde(default)]
@@ -12215,7 +12771,7 @@ impl LootContent {
         LootContentAllItems::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentItemsWithChance {
     #[serde(default)]
@@ -12270,7 +12826,7 @@ impl LootContent {
         LootContentItemsWithChance::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentQuestItem {
     pub r#item_id: QuestItemId,
@@ -12354,7 +12910,7 @@ impl LootContent {
         LootContentQuestItem::new(r#item_id)
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentShip {
     pub r#item_id: ShipBuildId,
@@ -12393,7 +12949,7 @@ impl LootContent {
         LootContentShip::new(r#item_id)
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentEmptyShip {
     pub r#item_id: ShipId,
@@ -12432,7 +12988,7 @@ impl LootContent {
         LootContentEmptyShip::new(r#item_id)
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentComponent {
     pub r#item_id: ComponentId,
@@ -12516,7 +13072,7 @@ impl LootContent {
         LootContentComponent::new(r#item_id)
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentBlueprint {
     pub r#item_id: TechnologyId,
@@ -12555,7 +13111,7 @@ impl LootContent {
         LootContentBlueprint::new(r#item_id)
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentResearchPoints {
     #[serde(default = "default_0")]
@@ -12649,7 +13205,7 @@ impl LootContent {
         LootContentResearchPoints::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LootContentSatellite {
     pub r#item_id: SatelliteId,
@@ -13119,6 +13675,19 @@ impl DatabaseItem for LootItem {
         "LootItem"
     }
 }
+impl std::cmp::Eq for LootItem {}
+impl std::cmp::PartialEq for LootItem {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#weight) == ordered_float::OrderedFloat(other.r#weight)
+            && &self.r#loot == &other.r#loot
+    }
+}
+impl std::hash::Hash for LootItem {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#weight).hash(state);
+        self.r#loot.hash(state);
+    }
+}
 impl Default for LootItem {
     fn default() -> Self {
         Self::new()
@@ -13126,7 +13695,7 @@ impl Default for LootItem {
 }
 
 // v1/Objects/Quests/Node.xml
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum Node {
     Undefined(NodeUndefined),
     ComingSoon(NodeComingSoon),
@@ -13164,7 +13733,7 @@ impl Default for Node {
         Self::Undefined(Default::default())
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeUndefined {
     #[serde(default = "default_0")]
@@ -13220,7 +13789,7 @@ impl Node {
         NodeUndefined::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeComingSoon {
     #[serde(default = "default_0")]
@@ -13276,7 +13845,7 @@ impl Node {
         NodeComingSoon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeShowDialog {
     #[serde(default = "default_0")]
@@ -13410,7 +13979,7 @@ impl Node {
         NodeShowDialog::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeOpenShipyard {
     #[serde(default = "default_0")]
@@ -13525,7 +14094,7 @@ impl Node {
         NodeOpenShipyard::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeOpenWorkshop {
     #[serde(default = "default_0")]
@@ -13640,7 +14209,7 @@ impl Node {
         NodeOpenWorkshop::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSwitch {
     #[serde(default = "default_0")]
@@ -13751,7 +14320,7 @@ impl Node {
         NodeSwitch::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeRandom {
     #[serde(default = "default_0")]
@@ -13862,7 +14431,7 @@ impl Node {
         NodeRandom::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCondition {
     #[serde(default = "default_0")]
@@ -13949,7 +14518,7 @@ impl Node {
         NodeCondition::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAttackFleet {
     #[serde(default = "default_0")]
@@ -14079,7 +14648,7 @@ impl Node {
         NodeAttackFleet::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAttackOccupants {
     #[serde(default = "default_0")]
@@ -14185,7 +14754,7 @@ impl Node {
         NodeAttackOccupants::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAttackStarbase {
     #[serde(default = "default_0")]
@@ -14291,7 +14860,7 @@ impl Node {
         NodeAttackStarbase::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeDestroyOccupants {
     #[serde(default = "default_0")]
@@ -14373,7 +14942,7 @@ impl Node {
         NodeDestroyOccupants::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSuppressOccupants {
     #[serde(default = "default_0")]
@@ -14455,7 +15024,7 @@ impl Node {
         NodeSuppressOccupants::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeRetreat {
     #[serde(default = "default_0")]
@@ -14537,7 +15106,7 @@ impl Node {
         NodeRetreat::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeReceiveItem {
     #[serde(default = "default_0")]
@@ -14631,7 +15200,7 @@ impl Node {
         NodeReceiveItem::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeRemoveItem {
     #[serde(default = "default_0")]
@@ -14725,7 +15294,7 @@ impl Node {
         NodeRemoveItem::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeTrade {
     #[serde(default = "default_0")]
@@ -14819,7 +15388,7 @@ impl Node {
         NodeTrade::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCompleteQuest {
     #[serde(default = "default_0")]
@@ -14875,7 +15444,7 @@ impl Node {
         NodeCompleteQuest::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeFailQuest {
     #[serde(default = "default_0")]
@@ -14931,7 +15500,7 @@ impl Node {
         NodeFailQuest::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCancelQuest {
     #[serde(default = "default_0")]
@@ -14987,7 +15556,7 @@ impl Node {
         NodeCancelQuest::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeStartQuest {
     #[serde(default = "default_0")]
@@ -15081,7 +15650,7 @@ impl Node {
         NodeStartQuest::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSetCharacterRelations {
     #[serde(default = "default_0")]
@@ -15196,7 +15765,7 @@ impl Node {
         NodeSetCharacterRelations::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSetFactionRelations {
     #[serde(default = "default_0")]
@@ -15299,7 +15868,7 @@ impl Node {
         NodeSetFactionRelations::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeSetFactionStarbasePower {
     #[serde(default = "default_0")]
@@ -15403,7 +15972,7 @@ impl Node {
         NodeSetFactionStarbasePower::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeCharacterRelations {
     #[serde(default = "default_0")]
@@ -15518,7 +16087,7 @@ impl Node {
         NodeChangeCharacterRelations::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeFactionRelations {
     #[serde(default = "default_0")]
@@ -15621,7 +16190,7 @@ impl Node {
         NodeChangeFactionRelations::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeFactionStarbasePower {
     #[serde(default = "default_0")]
@@ -15725,7 +16294,7 @@ impl Node {
         NodeChangeFactionStarbasePower::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeCaptureStarBase {
     #[serde(default = "default_0")]
@@ -15807,7 +16376,7 @@ impl Node {
         NodeCaptureStarBase::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeLiberateStarBase {
     #[serde(default = "default_0")]
@@ -15889,7 +16458,7 @@ impl Node {
         NodeLiberateStarBase::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeChangeFaction {
     #[serde(default = "default_0")]
@@ -16673,7 +17242,7 @@ impl Node {
 }
 
 // v1/Objects/Quests/NodeAction.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct NodeAction {
     #[serde(default = "default_0")]
@@ -16818,6 +17387,22 @@ impl DatabaseItem for NodeTransition {
         "NodeTransition"
     }
 }
+impl std::cmp::Eq for NodeTransition {}
+impl std::cmp::PartialEq for NodeTransition {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#target_node == &other.r#target_node
+            && &self.r#requirement == &other.r#requirement
+            && ordered_float::OrderedFloat(self.r#weight)
+                == ordered_float::OrderedFloat(other.r#weight)
+    }
+}
+impl std::hash::Hash for NodeTransition {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#target_node.hash(state);
+        self.r#requirement.hash(state);
+        ordered_float::OrderedFloat(self.r#weight).hash(state);
+    }
+}
 impl Default for NodeTransition {
     fn default() -> Self {
         Self::new()
@@ -16825,7 +17410,7 @@ impl Default for NodeTransition {
 }
 
 // v1/Objects/Quests/QuestOrigin.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct QuestOrigin {
     #[serde(default)]
@@ -16959,7 +17544,7 @@ impl Default for QuestOrigin {
 }
 
 // v1/Objects/Quests/Requirement.xml
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum Requirement {
     Empty(RequirementEmpty),
     Any(RequirementAny),
@@ -16988,7 +17573,7 @@ impl Default for Requirement {
         Self::Empty(Default::default())
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementEmpty {}
 impl RequirementEmpty {
@@ -17022,7 +17607,7 @@ impl Requirement {
         RequirementEmpty::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementAny {
     #[serde(default)]
@@ -17077,7 +17662,7 @@ impl Requirement {
         RequirementAny::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementAll {
     #[serde(default)]
@@ -17132,7 +17717,7 @@ impl Requirement {
         RequirementAll::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementNone {
     #[serde(default)]
@@ -17187,7 +17772,7 @@ impl Requirement {
         RequirementNone::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementPlayerPosition {
     #[serde(default = "default_0")]
@@ -17278,7 +17863,7 @@ impl Requirement {
         RequirementPlayerPosition::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementRandomStarSystem {
     #[serde(default = "default_0")]
@@ -17369,7 +17954,7 @@ impl Requirement {
         RequirementRandomStarSystem::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementAggressiveOccupants {}
 impl RequirementAggressiveOccupants {
@@ -17403,7 +17988,7 @@ impl Requirement {
         RequirementAggressiveOccupants::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementQuestCompleted {
     #[serde(default)]
@@ -17451,7 +18036,7 @@ impl Requirement {
         RequirementQuestCompleted::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementQuestActive {
     #[serde(default)]
@@ -17499,7 +18084,7 @@ impl Requirement {
         RequirementQuestActive::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementCharacterRelations {
     #[serde(default = "default_0")]
@@ -17590,7 +18175,7 @@ impl Requirement {
         RequirementCharacterRelations::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementFactionRelations {
     #[serde(default = "default_0")]
@@ -17669,7 +18254,7 @@ impl Requirement {
         RequirementFactionRelations::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementStarbaseCaptured {}
 impl RequirementStarbaseCaptured {
@@ -17703,7 +18288,7 @@ impl Requirement {
         RequirementStarbaseCaptured::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementFactionStarbasePower {
     ///Percentage value
@@ -17784,7 +18369,7 @@ impl Requirement {
         RequirementFactionStarbasePower::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementIsHostileFaction {}
 impl RequirementIsHostileFaction {
@@ -17818,7 +18403,7 @@ impl Requirement {
         RequirementIsHostileFaction::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementFaction {
     #[serde(default)]
@@ -17866,7 +18451,7 @@ impl Requirement {
         RequirementFaction::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementHaveQuestItem {
     #[serde(default)]
@@ -17936,7 +18521,7 @@ impl Requirement {
         RequirementHaveQuestItem::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementHaveItem {
     #[serde(default)]
@@ -17988,7 +18573,7 @@ impl Requirement {
         RequirementHaveItem::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementHaveItemById {
     #[serde(default)]
@@ -18036,7 +18621,7 @@ impl Requirement {
         RequirementHaveItemById::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementComeToOrigin {
     #[serde(default = "default_false")]
@@ -18084,7 +18669,7 @@ impl Requirement {
         RequirementComeToOrigin::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementTimeSinceQuestStart {
     #[serde(default = "default_0")]
@@ -18163,7 +18748,7 @@ impl Requirement {
         RequirementTimeSinceQuestStart::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct RequirementTimeSinceLastCompletion {
     #[serde(default = "default_0")]
@@ -18648,7 +19233,7 @@ impl Requirement {
 }
 
 // v1/Objects/Settings/DebugCode.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct DebugCode {
     #[serde(default = "default_0")]
@@ -18708,7 +19293,7 @@ impl Default for DebugCode {
 }
 
 // v1/Objects/Settings/ShipToValue.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipToValue {
     #[serde(default)]
@@ -18762,7 +19347,7 @@ impl Default for ShipToValue {
 }
 
 // v1/Objects/Settings/SoundTrack.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct SoundTrack {
     #[serde(default)]
@@ -18796,7 +19381,7 @@ impl Default for SoundTrack {
 }
 
 // v1/Objects/ShipBuildPerks.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipBuildPerks {
     #[serde(default)]
@@ -19192,6 +19777,58 @@ impl DatabaseItem for ShipFeatures {
         "ShipFeatures"
     }
 }
+impl std::cmp::Eq for ShipFeatures {}
+impl std::cmp::PartialEq for ShipFeatures {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#energy_resistance)
+            == ordered_float::OrderedFloat(other.r#energy_resistance)
+            && ordered_float::OrderedFloat(self.r#kinetic_resistance)
+                == ordered_float::OrderedFloat(other.r#kinetic_resistance)
+            && ordered_float::OrderedFloat(self.r#heat_resistance)
+                == ordered_float::OrderedFloat(other.r#heat_resistance)
+            && ordered_float::OrderedFloat(self.r#ship_weight_bonus)
+                == ordered_float::OrderedFloat(other.r#ship_weight_bonus)
+            && ordered_float::OrderedFloat(self.r#equipment_weight_bonus)
+                == ordered_float::OrderedFloat(other.r#equipment_weight_bonus)
+            && ordered_float::OrderedFloat(self.r#velocity_bonus)
+                == ordered_float::OrderedFloat(other.r#velocity_bonus)
+            && ordered_float::OrderedFloat(self.r#turn_rate_bonus)
+                == ordered_float::OrderedFloat(other.r#turn_rate_bonus)
+            && ordered_float::OrderedFloat(self.r#armor_bonus)
+                == ordered_float::OrderedFloat(other.r#armor_bonus)
+            && ordered_float::OrderedFloat(self.r#shield_bonus)
+                == ordered_float::OrderedFloat(other.r#shield_bonus)
+            && ordered_float::OrderedFloat(self.r#energy_bonus)
+                == ordered_float::OrderedFloat(other.r#energy_bonus)
+            && ordered_float::OrderedFloat(self.r#drone_build_speed_bonus)
+                == ordered_float::OrderedFloat(other.r#drone_build_speed_bonus)
+            && ordered_float::OrderedFloat(self.r#drone_attack_bonus)
+                == ordered_float::OrderedFloat(other.r#drone_attack_bonus)
+            && ordered_float::OrderedFloat(self.r#drone_defense_bonus)
+                == ordered_float::OrderedFloat(other.r#drone_defense_bonus)
+            && &self.r#regeneration == &other.r#regeneration
+            && &self.r#builtin_devices == &other.r#builtin_devices
+    }
+}
+impl std::hash::Hash for ShipFeatures {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#energy_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#kinetic_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#heat_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#ship_weight_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#equipment_weight_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#velocity_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#turn_rate_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#armor_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#shield_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#drone_build_speed_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#drone_attack_bonus).hash(state);
+        ordered_float::OrderedFloat(self.r#drone_defense_bonus).hash(state);
+        self.r#regeneration.hash(state);
+        self.r#builtin_devices.hash(state);
+    }
+}
 impl Default for ShipFeatures {
     fn default() -> Self {
         Self::new()
@@ -19296,6 +19933,34 @@ impl DatabaseItem for StatModification {
     fn validate(&self, ctx: DiagnosticContextRef) {}
     fn type_name() -> &'static str {
         "StatModification"
+    }
+}
+impl std::cmp::Eq for StatModification {}
+impl std::cmp::PartialEq for StatModification {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#type == &other.r#type
+            && ordered_float::OrderedFloat(self.r#gray_3)
+                == ordered_float::OrderedFloat(other.r#gray_3)
+            && ordered_float::OrderedFloat(self.r#gray_2)
+                == ordered_float::OrderedFloat(other.r#gray_2)
+            && ordered_float::OrderedFloat(self.r#gray_1)
+                == ordered_float::OrderedFloat(other.r#gray_1)
+            && ordered_float::OrderedFloat(self.r#green)
+                == ordered_float::OrderedFloat(other.r#green)
+            && ordered_float::OrderedFloat(self.r#purple)
+                == ordered_float::OrderedFloat(other.r#purple)
+            && ordered_float::OrderedFloat(self.r#gold) == ordered_float::OrderedFloat(other.r#gold)
+    }
+}
+impl std::hash::Hash for StatModification {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#type.hash(state);
+        ordered_float::OrderedFloat(self.r#gray_3).hash(state);
+        ordered_float::OrderedFloat(self.r#gray_2).hash(state);
+        ordered_float::OrderedFloat(self.r#gray_1).hash(state);
+        ordered_float::OrderedFloat(self.r#green).hash(state);
+        ordered_float::OrderedFloat(self.r#purple).hash(state);
+        ordered_float::OrderedFloat(self.r#gold).hash(state);
     }
 }
 impl Default for StatModification {
@@ -19624,6 +20289,54 @@ impl DatabaseItem for BulletBody {
         "BulletBody"
     }
 }
+impl std::cmp::Eq for BulletBody {}
+impl std::cmp::PartialEq for BulletBody {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#length)
+                == ordered_float::OrderedFloat(other.r#length)
+            && ordered_float::OrderedFloat(self.r#velocity)
+                == ordered_float::OrderedFloat(other.r#velocity)
+            && ordered_float::OrderedFloat(self.r#parent_velocity_effect)
+                == ordered_float::OrderedFloat(other.r#parent_velocity_effect)
+            && &self.r#attached_to_parent == &other.r#attached_to_parent
+            && ordered_float::OrderedFloat(self.r#range)
+                == ordered_float::OrderedFloat(other.r#range)
+            && ordered_float::OrderedFloat(self.r#lifetime)
+                == ordered_float::OrderedFloat(other.r#lifetime)
+            && ordered_float::OrderedFloat(self.r#weight)
+                == ordered_float::OrderedFloat(other.r#weight)
+            && &self.r#hit_points == &other.r#hit_points
+            && &self.r#color == &other.r#color
+            && &self.r#bullet_prefab == &other.r#bullet_prefab
+            && ordered_float::OrderedFloat(self.r#energy_cost)
+                == ordered_float::OrderedFloat(other.r#energy_cost)
+            && &self.r#can_be_disarmed == &other.r#can_be_disarmed
+            && &self.r#friendly_fire == &other.r#friendly_fire
+            && &self.r#ai_bullet_behavior == &other.r#ai_bullet_behavior
+            && &self.r#type == &other.r#type
+    }
+}
+impl std::hash::Hash for BulletBody {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#length).hash(state);
+        ordered_float::OrderedFloat(self.r#velocity).hash(state);
+        ordered_float::OrderedFloat(self.r#parent_velocity_effect).hash(state);
+        self.r#attached_to_parent.hash(state);
+        ordered_float::OrderedFloat(self.r#range).hash(state);
+        ordered_float::OrderedFloat(self.r#lifetime).hash(state);
+        ordered_float::OrderedFloat(self.r#weight).hash(state);
+        self.r#hit_points.hash(state);
+        self.r#color.hash(state);
+        self.r#bullet_prefab.hash(state);
+        ordered_float::OrderedFloat(self.r#energy_cost).hash(state);
+        self.r#can_be_disarmed.hash(state);
+        self.r#friendly_fire.hash(state);
+        self.r#ai_bullet_behavior.hash(state);
+        self.r#type.hash(state);
+    }
+}
 impl Default for BulletBody {
     fn default() -> Self {
         Self::new()
@@ -19631,7 +20344,7 @@ impl Default for BulletBody {
 }
 
 // v1/Objects/Weapon/BulletController.xml
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum BulletController {
     Projectile(BulletControllerProjectile),
     Homing(BulletControllerHoming),
@@ -19645,7 +20358,7 @@ impl Default for BulletController {
         Self::Projectile(Default::default())
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletControllerProjectile {}
 impl BulletControllerProjectile {
@@ -19753,6 +20466,22 @@ impl DatabaseItem for BulletControllerHoming {
         "BulletControllerHoming"
     }
 }
+impl std::cmp::Eq for BulletControllerHoming {}
+impl std::cmp::PartialEq for BulletControllerHoming {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#starting_velocity_modifier)
+            == ordered_float::OrderedFloat(other.r#starting_velocity_modifier)
+            && &self.r#ignore_rotation == &other.r#ignore_rotation
+            && &self.r#smart_aim == &other.r#smart_aim
+    }
+}
+impl std::hash::Hash for BulletControllerHoming {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#starting_velocity_modifier).hash(state);
+        self.r#ignore_rotation.hash(state);
+        self.r#smart_aim.hash(state);
+    }
+}
 impl Default for BulletControllerHoming {
     fn default() -> Self {
         Self::new()
@@ -19773,7 +20502,7 @@ impl BulletController {
         BulletControllerHoming::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletControllerBeam {}
 impl BulletControllerBeam {
@@ -19807,7 +20536,7 @@ impl BulletController {
         BulletControllerBeam::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletControllerParametric {
     #[serde(default = "default_ඞquoteඞ0ඞquoteඞ")]
@@ -19903,7 +20632,7 @@ impl BulletController {
         BulletControllerParametric::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletControllerHarpoon {}
 impl BulletControllerHarpoon {
@@ -19937,7 +20666,7 @@ impl BulletController {
         BulletControllerHarpoon::new()
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BulletControllerAuraEmitter {}
 impl BulletControllerAuraEmitter {
@@ -20137,7 +20866,7 @@ impl BulletController {
 }
 
 // v1/Objects/Weapon/BulletTrigger.xml
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum BulletTrigger {
     None(BulletTriggerNone),
     PlaySfx(BulletTriggerPlaySfx),
@@ -20198,6 +20927,20 @@ impl DatabaseItem for BulletTriggerNone {
     }
     fn type_name() -> &'static str {
         "BulletTriggerNone"
+    }
+}
+impl std::cmp::Eq for BulletTriggerNone {}
+impl std::cmp::PartialEq for BulletTriggerNone {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#condition == &other.r#condition
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BulletTriggerNone {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#condition.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
     }
 }
 impl Default for BulletTriggerNone {
@@ -20403,6 +21146,39 @@ impl DatabaseItem for BulletTriggerPlaySfx {
     }
     fn type_name() -> &'static str {
         "BulletTriggerPlaySfx"
+    }
+}
+impl std::cmp::Eq for BulletTriggerPlaySfx {}
+impl std::cmp::PartialEq for BulletTriggerPlaySfx {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#condition == &other.r#condition
+            && &self.r#visual_effect == &other.r#visual_effect
+            && &self.r#audio_clip == &other.r#audio_clip
+            && &self.r#color == &other.r#color
+            && &self.r#color_mode == &other.r#color_mode
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#lifetime)
+                == ordered_float::OrderedFloat(other.r#lifetime)
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+            && &self.r#once_per_collision == &other.r#once_per_collision
+            && &self.r#use_bullet_position == &other.r#use_bullet_position
+            && &self.r#sync_lifetime_with_bullet == &other.r#sync_lifetime_with_bullet
+    }
+}
+impl std::hash::Hash for BulletTriggerPlaySfx {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#condition.hash(state);
+        self.r#visual_effect.hash(state);
+        self.r#audio_clip.hash(state);
+        self.r#color.hash(state);
+        self.r#color_mode.hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#lifetime).hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+        self.r#once_per_collision.hash(state);
+        self.r#use_bullet_position.hash(state);
+        self.r#sync_lifetime_with_bullet.hash(state);
     }
 }
 impl Default for BulletTriggerPlaySfx {
@@ -20666,6 +21442,46 @@ impl DatabaseItem for BulletTriggerSpawnBullet {
         "BulletTriggerSpawnBullet"
     }
 }
+impl std::cmp::Eq for BulletTriggerSpawnBullet {}
+impl std::cmp::PartialEq for BulletTriggerSpawnBullet {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#condition == &other.r#condition
+            && &self.r#audio_clip == &other.r#audio_clip
+            && &self.r#ammunition == &other.r#ammunition
+            && &self.r#color == &other.r#color
+            && &self.r#color_mode == &other.r#color_mode
+            && &self.r#quantity == &other.r#quantity
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+            && ordered_float::OrderedFloat(self.r#random_factor)
+                == ordered_float::OrderedFloat(other.r#random_factor)
+            && ordered_float::OrderedFloat(self.r#power_multiplier)
+                == ordered_float::OrderedFloat(other.r#power_multiplier)
+            && &self.r#max_nesting_level == &other.r#max_nesting_level
+            && &self.r#rotation == &other.r#rotation
+            && &self.r#offset_x == &other.r#offset_x
+            && &self.r#offset_y == &other.r#offset_y
+    }
+}
+impl std::hash::Hash for BulletTriggerSpawnBullet {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#condition.hash(state);
+        self.r#audio_clip.hash(state);
+        self.r#ammunition.hash(state);
+        self.r#color.hash(state);
+        self.r#color_mode.hash(state);
+        self.r#quantity.hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+        ordered_float::OrderedFloat(self.r#random_factor).hash(state);
+        ordered_float::OrderedFloat(self.r#power_multiplier).hash(state);
+        self.r#max_nesting_level.hash(state);
+        self.r#rotation.hash(state);
+        self.r#offset_x.hash(state);
+        self.r#offset_y.hash(state);
+    }
+}
 impl Default for BulletTriggerSpawnBullet {
     fn default() -> Self {
         Self::new()
@@ -20733,6 +21549,20 @@ impl DatabaseItem for BulletTriggerDetonate {
     }
     fn type_name() -> &'static str {
         "BulletTriggerDetonate"
+    }
+}
+impl std::cmp::Eq for BulletTriggerDetonate {}
+impl std::cmp::PartialEq for BulletTriggerDetonate {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#condition == &other.r#condition
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+    }
+}
+impl std::hash::Hash for BulletTriggerDetonate {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#condition.hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
     }
 }
 impl Default for BulletTriggerDetonate {
@@ -20910,6 +21740,35 @@ impl DatabaseItem for BulletTriggerSpawnStaticSfx {
         "BulletTriggerSpawnStaticSfx"
     }
 }
+impl std::cmp::Eq for BulletTriggerSpawnStaticSfx {}
+impl std::cmp::PartialEq for BulletTriggerSpawnStaticSfx {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#condition == &other.r#condition
+            && &self.r#visual_effect == &other.r#visual_effect
+            && &self.r#audio_clip == &other.r#audio_clip
+            && &self.r#color == &other.r#color
+            && &self.r#color_mode == &other.r#color_mode
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#lifetime)
+                == ordered_float::OrderedFloat(other.r#lifetime)
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+            && &self.r#once_per_collision == &other.r#once_per_collision
+    }
+}
+impl std::hash::Hash for BulletTriggerSpawnStaticSfx {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#condition.hash(state);
+        self.r#visual_effect.hash(state);
+        self.r#audio_clip.hash(state);
+        self.r#color.hash(state);
+        self.r#color_mode.hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#lifetime).hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+        self.r#once_per_collision.hash(state);
+    }
+}
 impl Default for BulletTriggerSpawnStaticSfx {
     fn default() -> Self {
         Self::new()
@@ -21016,6 +21875,25 @@ impl DatabaseItem for BulletTriggerGravityField {
     }
     fn type_name() -> &'static str {
         "BulletTriggerGravityField"
+    }
+}
+impl std::cmp::Eq for BulletTriggerGravityField {}
+impl std::cmp::PartialEq for BulletTriggerGravityField {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#condition == &other.r#condition
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+            && ordered_float::OrderedFloat(self.r#power_multiplier)
+                == ordered_float::OrderedFloat(other.r#power_multiplier)
+    }
+}
+impl std::hash::Hash for BulletTriggerGravityField {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#condition.hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+        ordered_float::OrderedFloat(self.r#power_multiplier).hash(state);
     }
 }
 impl Default for BulletTriggerGravityField {
@@ -21373,6 +22251,25 @@ impl DatabaseItem for ImpactEffect {
         "ImpactEffect"
     }
 }
+impl std::cmp::Eq for ImpactEffect {}
+impl std::cmp::PartialEq for ImpactEffect {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#type == &other.r#type
+            && &self.r#damage_type == &other.r#damage_type
+            && ordered_float::OrderedFloat(self.r#power)
+                == ordered_float::OrderedFloat(other.r#power)
+            && ordered_float::OrderedFloat(self.r#factor)
+                == ordered_float::OrderedFloat(other.r#factor)
+    }
+}
+impl std::hash::Hash for ImpactEffect {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#type.hash(state);
+        self.r#damage_type.hash(state);
+        ordered_float::OrderedFloat(self.r#power).hash(state);
+        ordered_float::OrderedFloat(self.r#factor).hash(state);
+    }
+}
 impl Default for ImpactEffect {
     fn default() -> Self {
         Self::new()
@@ -21658,6 +22555,57 @@ impl DatabaseItem for VisualEffectElement {
         "VisualEffectElement"
     }
 }
+impl std::cmp::Eq for VisualEffectElement {}
+impl std::cmp::PartialEq for VisualEffectElement {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#type == &other.r#type
+            && &self.r#image == &other.r#image
+            && &self.r#color_mode == &other.r#color_mode
+            && &self.r#color == &other.r#color
+            && &self.r#quantity == &other.r#quantity
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#growth_rate)
+                == ordered_float::OrderedFloat(other.r#growth_rate)
+            && ordered_float::OrderedFloat(self.r#turn_rate)
+                == ordered_float::OrderedFloat(other.r#turn_rate)
+            && ordered_float::OrderedFloat(self.r#start_time)
+                == ordered_float::OrderedFloat(other.r#start_time)
+            && ordered_float::OrderedFloat(self.r#lifetime)
+                == ordered_float::OrderedFloat(other.r#lifetime)
+            && ordered_float::OrderedFloat(self.r#particle_size)
+                == ordered_float::OrderedFloat(other.r#particle_size)
+            && ordered_float::OrderedFloat(self.r#offset.x)
+                == ordered_float::OrderedFloat(other.r#offset.x)
+            && ordered_float::OrderedFloat(self.r#offset.y)
+                == ordered_float::OrderedFloat(other.r#offset.y)
+            && ordered_float::OrderedFloat(self.r#rotation)
+                == ordered_float::OrderedFloat(other.r#rotation)
+            && &self.r#loop == &other.r#loop
+            && &self.r#inverse == &other.r#inverse
+            && &self.r#use_real_time == &other.r#use_real_time
+    }
+}
+impl std::hash::Hash for VisualEffectElement {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#type.hash(state);
+        self.r#image.hash(state);
+        self.r#color_mode.hash(state);
+        self.r#color.hash(state);
+        self.r#quantity.hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#growth_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#turn_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#start_time).hash(state);
+        ordered_float::OrderedFloat(self.r#lifetime).hash(state);
+        ordered_float::OrderedFloat(self.r#particle_size).hash(state);
+        ordered_float::OrderedFloat(self.r#offset.x).hash(state);
+        ordered_float::OrderedFloat(self.r#offset.y).hash(state);
+        ordered_float::OrderedFloat(self.r#rotation).hash(state);
+        self.r#loop.hash(state);
+        self.r#inverse.hash(state);
+        self.r#use_real_time.hash(state);
+    }
+}
 impl Default for VisualEffectElement {
     fn default() -> Self {
         Self::new()
@@ -21665,7 +22613,7 @@ impl Default for VisualEffectElement {
 }
 
 // v1/Objects/Settings/CombatSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct CombatSettings {
     #[serde(default)]
@@ -21796,7 +22744,7 @@ impl Default for CombatSettings {
 }
 
 // v1/Objects/Settings/DatabaseSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct DatabaseSettings {
     #[serde(default = "default_0")]
@@ -21914,7 +22862,7 @@ impl Default for DatabaseSettings {
 }
 
 // v1/Objects/Settings/DebugSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct DebugSettings {
     #[serde(default)]
@@ -21971,7 +22919,7 @@ impl Default for DebugSettings {
 }
 
 // v1/Objects/Settings/ExplorationSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct ExplorationSettings {
     #[serde(default)]
@@ -22068,7 +23016,7 @@ impl Default for ExplorationSettings {
 }
 
 // v1/Objects/Settings/FactionsSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct FactionsSettings {
     #[serde(
@@ -22162,7 +23110,7 @@ impl Default for FactionsSettings {
 }
 
 // v1/Objects/Settings/GalaxySettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct GalaxySettings {
     #[serde(default)]
@@ -22495,7 +23443,7 @@ impl Default for GalaxySettings {
 }
 
 // v1/Objects/Settings/LocalizationSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct LocalizationSettings {
     #[serde(default = "default_ඞquoteඞඞdollarඞWeaponDamageඞquoteඞ")]
@@ -22548,7 +23496,7 @@ impl Default for LocalizationSettings {
 }
 
 // v1/Objects/Settings/MusicPlaylist.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct MusicPlaylist {
     #[serde(default)]
@@ -22965,6 +23913,52 @@ impl DatabaseItem for ShipModSettings {
     }
     fn type_name() -> &'static str {
         "ShipModSettings"
+    }
+}
+impl std::cmp::Eq for ShipModSettings {}
+impl std::cmp::PartialEq for ShipModSettings {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#remove_weapon_slot_mod == &other.r#remove_weapon_slot_mod
+            && &self.r#remove_unlimited_respawn_mod == &other.r#remove_unlimited_respawn_mod
+            && &self.r#remove_energy_recharge_cd_mod == &other.r#remove_energy_recharge_cd_mod
+            && &self.r#remove_shield_recharge_cd_mod == &other.r#remove_shield_recharge_cd_mod
+            && &self.r#remove_bigger_satellites_mod == &other.r#remove_bigger_satellites_mod
+            && ordered_float::OrderedFloat(self.r#heat_defense_value)
+                == ordered_float::OrderedFloat(other.r#heat_defense_value)
+            && ordered_float::OrderedFloat(self.r#kinetic_defense_value)
+                == ordered_float::OrderedFloat(other.r#kinetic_defense_value)
+            && ordered_float::OrderedFloat(self.r#energy_defense_value)
+                == ordered_float::OrderedFloat(other.r#energy_defense_value)
+            && ordered_float::OrderedFloat(self.r#regeneration_value)
+                == ordered_float::OrderedFloat(other.r#regeneration_value)
+            && ordered_float::OrderedFloat(self.r#regeneration_armor)
+                == ordered_float::OrderedFloat(other.r#regeneration_armor)
+            && ordered_float::OrderedFloat(self.r#weight_reduction)
+                == ordered_float::OrderedFloat(other.r#weight_reduction)
+            && ordered_float::OrderedFloat(self.r#attack_reduction)
+                == ordered_float::OrderedFloat(other.r#attack_reduction)
+            && ordered_float::OrderedFloat(self.r#energy_reduction)
+                == ordered_float::OrderedFloat(other.r#energy_reduction)
+            && ordered_float::OrderedFloat(self.r#shield_reduction)
+                == ordered_float::OrderedFloat(other.r#shield_reduction)
+    }
+}
+impl std::hash::Hash for ShipModSettings {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#remove_weapon_slot_mod.hash(state);
+        self.r#remove_unlimited_respawn_mod.hash(state);
+        self.r#remove_energy_recharge_cd_mod.hash(state);
+        self.r#remove_shield_recharge_cd_mod.hash(state);
+        self.r#remove_bigger_satellites_mod.hash(state);
+        ordered_float::OrderedFloat(self.r#heat_defense_value).hash(state);
+        ordered_float::OrderedFloat(self.r#kinetic_defense_value).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_defense_value).hash(state);
+        ordered_float::OrderedFloat(self.r#regeneration_value).hash(state);
+        ordered_float::OrderedFloat(self.r#regeneration_armor).hash(state);
+        ordered_float::OrderedFloat(self.r#weight_reduction).hash(state);
+        ordered_float::OrderedFloat(self.r#attack_reduction).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_reduction).hash(state);
+        ordered_float::OrderedFloat(self.r#shield_reduction).hash(state);
     }
 }
 impl Default for ShipModSettings {
@@ -23483,6 +24477,65 @@ impl DatabaseItem for ShipSettings {
         "ShipSettings"
     }
 }
+impl std::cmp::Eq for ShipSettings {}
+impl std::cmp::PartialEq for ShipSettings {
+    fn eq(&self, other: &Self) -> bool {
+        ordered_float::OrderedFloat(self.r#default_weight_per_cell)
+            == ordered_float::OrderedFloat(other.r#default_weight_per_cell)
+            && ordered_float::OrderedFloat(self.r#minimum_weight_per_cell)
+                == ordered_float::OrderedFloat(other.r#minimum_weight_per_cell)
+            && ordered_float::OrderedFloat(self.r#base_armor_points)
+                == ordered_float::OrderedFloat(other.r#base_armor_points)
+            && ordered_float::OrderedFloat(self.r#armor_points_per_cell)
+                == ordered_float::OrderedFloat(other.r#armor_points_per_cell)
+            && ordered_float::OrderedFloat(self.r#armor_repair_cooldown)
+                == ordered_float::OrderedFloat(other.r#armor_repair_cooldown)
+            && ordered_float::OrderedFloat(self.r#base_energy_points)
+                == ordered_float::OrderedFloat(other.r#base_energy_points)
+            && ordered_float::OrderedFloat(self.r#base_energy_recharge_rate)
+                == ordered_float::OrderedFloat(other.r#base_energy_recharge_rate)
+            && ordered_float::OrderedFloat(self.r#energy_recharge_cooldown)
+                == ordered_float::OrderedFloat(other.r#energy_recharge_cooldown)
+            && ordered_float::OrderedFloat(self.r#base_shield_recharge_rate)
+                == ordered_float::OrderedFloat(other.r#base_shield_recharge_rate)
+            && ordered_float::OrderedFloat(self.r#shield_recharge_cooldown)
+                == ordered_float::OrderedFloat(other.r#shield_recharge_cooldown)
+            && ordered_float::OrderedFloat(self.r#base_drone_reconstruction_speed)
+                == ordered_float::OrderedFloat(other.r#base_drone_reconstruction_speed)
+            && ordered_float::OrderedFloat(self.r#shield_corrosive_resistance)
+                == ordered_float::OrderedFloat(other.r#shield_corrosive_resistance)
+            && ordered_float::OrderedFloat(self.r#max_velocity)
+                == ordered_float::OrderedFloat(other.r#max_velocity)
+            && ordered_float::OrderedFloat(self.r#max_angular_velocity)
+                == ordered_float::OrderedFloat(other.r#max_angular_velocity)
+            && ordered_float::OrderedFloat(self.r#max_acceleration)
+                == ordered_float::OrderedFloat(other.r#max_acceleration)
+            && ordered_float::OrderedFloat(self.r#max_angular_acceleration)
+                == ordered_float::OrderedFloat(other.r#max_angular_acceleration)
+            && &self.r#disable_cells_expansions == &other.r#disable_cells_expansions
+    }
+}
+impl std::hash::Hash for ShipSettings {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        ordered_float::OrderedFloat(self.r#default_weight_per_cell).hash(state);
+        ordered_float::OrderedFloat(self.r#minimum_weight_per_cell).hash(state);
+        ordered_float::OrderedFloat(self.r#base_armor_points).hash(state);
+        ordered_float::OrderedFloat(self.r#armor_points_per_cell).hash(state);
+        ordered_float::OrderedFloat(self.r#armor_repair_cooldown).hash(state);
+        ordered_float::OrderedFloat(self.r#base_energy_points).hash(state);
+        ordered_float::OrderedFloat(self.r#base_energy_recharge_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_recharge_cooldown).hash(state);
+        ordered_float::OrderedFloat(self.r#base_shield_recharge_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#shield_recharge_cooldown).hash(state);
+        ordered_float::OrderedFloat(self.r#base_drone_reconstruction_speed).hash(state);
+        ordered_float::OrderedFloat(self.r#shield_corrosive_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#max_velocity).hash(state);
+        ordered_float::OrderedFloat(self.r#max_angular_velocity).hash(state);
+        ordered_float::OrderedFloat(self.r#max_acceleration).hash(state);
+        ordered_float::OrderedFloat(self.r#max_angular_acceleration).hash(state);
+        self.r#disable_cells_expansions.hash(state);
+    }
+}
 impl Default for ShipSettings {
     fn default() -> Self {
         Self::new()
@@ -23886,6 +24939,61 @@ impl DatabaseItem for SkillSettings {
         "SkillSettings"
     }
 }
+impl std::cmp::Eq for SkillSettings {}
+impl std::cmp::PartialEq for SkillSettings {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#beat_all_enemies_faction_list == &other.r#beat_all_enemies_faction_list
+            && &self.r#disable_exceed_the_limits == &other.r#disable_exceed_the_limits
+            && &self.r#fuel_tank_capacity == &other.r#fuel_tank_capacity
+            && &self.r#attack_bonus == &other.r#attack_bonus
+            && &self.r#defense_bonus == &other.r#defense_bonus
+            && &self.r#shield_strength_bonus == &other.r#shield_strength_bonus
+            && &self.r#shield_recharge_bonus == &other.r#shield_recharge_bonus
+            && &self.r#experience_bonus == &other.r#experience_bonus
+            && &self.r#flight_speed == &other.r#flight_speed
+            && &self.r#flight_range == &other.r#flight_range
+            && &self.r#exploration_loot_bonus == &other.r#exploration_loot_bonus
+            && &self.r#heat_resistance == &other.r#heat_resistance
+            && &self.r#kinetic_resistance == &other.r#kinetic_resistance
+            && &self.r#energy_resistance == &other.r#energy_resistance
+            && &self.r#merchant_price_factor == &other.r#merchant_price_factor
+            && &self.r#crafting_price_factor == &other.r#crafting_price_factor
+            && &self.r#crafting_level_reduction == &other.r#crafting_level_reduction
+            && &self.r#max_player_ships_level == &other.r#max_player_ships_level
+            && &self.r#increased_level_limit == &other.r#increased_level_limit
+            && &self.r#base_fuel_capacity == &other.r#base_fuel_capacity
+            && ordered_float::OrderedFloat(self.r#base_flight_range)
+                == ordered_float::OrderedFloat(other.r#base_flight_range)
+            && ordered_float::OrderedFloat(self.r#base_flight_speed)
+                == ordered_float::OrderedFloat(other.r#base_flight_speed)
+    }
+}
+impl std::hash::Hash for SkillSettings {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#beat_all_enemies_faction_list.hash(state);
+        self.r#disable_exceed_the_limits.hash(state);
+        self.r#fuel_tank_capacity.hash(state);
+        self.r#attack_bonus.hash(state);
+        self.r#defense_bonus.hash(state);
+        self.r#shield_strength_bonus.hash(state);
+        self.r#shield_recharge_bonus.hash(state);
+        self.r#experience_bonus.hash(state);
+        self.r#flight_speed.hash(state);
+        self.r#flight_range.hash(state);
+        self.r#exploration_loot_bonus.hash(state);
+        self.r#heat_resistance.hash(state);
+        self.r#kinetic_resistance.hash(state);
+        self.r#energy_resistance.hash(state);
+        self.r#merchant_price_factor.hash(state);
+        self.r#crafting_price_factor.hash(state);
+        self.r#crafting_level_reduction.hash(state);
+        self.r#max_player_ships_level.hash(state);
+        self.r#increased_level_limit.hash(state);
+        self.r#base_fuel_capacity.hash(state);
+        ordered_float::OrderedFloat(self.r#base_flight_range).hash(state);
+        ordered_float::OrderedFloat(self.r#base_flight_speed).hash(state);
+    }
+}
 impl Default for SkillSettings {
     fn default() -> Self {
         Self::new()
@@ -23893,7 +25001,7 @@ impl Default for SkillSettings {
 }
 
 // v1/Objects/Settings/SpecialEventSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct SpecialEventSettings {
     #[serde(default = "default_true")]
@@ -24175,7 +25283,7 @@ impl Default for SpecialEventSettings {
 }
 
 // v1/Objects/Settings/UiSettings.xml
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct UiSettings {
     #[serde(default = "default_ඞquoteඞඞhashඞ50C0FFඞquoteඞ")]
@@ -24744,7 +25852,7 @@ impl Default for UiSettings {
 
 // v1/Objects/Ai/BehaviorTree.xml
 pub type BehaviorTreeId = DatabaseItemId<BehaviorTree>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct BehaviorTree {
     pub r#id: BehaviorTreeId,
@@ -25164,6 +26272,69 @@ impl DatabaseItem for AmmunitionObsolete {
         "AmmunitionObsolete"
     }
 }
+impl std::cmp::Eq for AmmunitionObsolete {}
+impl std::cmp::PartialEq for AmmunitionObsolete {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#ammunition_class == &other.r#ammunition_class
+            && &self.r#damage_type == &other.r#damage_type
+            && ordered_float::OrderedFloat(self.r#impulse)
+                == ordered_float::OrderedFloat(other.r#impulse)
+            && ordered_float::OrderedFloat(self.r#recoil)
+                == ordered_float::OrderedFloat(other.r#recoil)
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#initial_position.x)
+                == ordered_float::OrderedFloat(other.r#initial_position.x)
+            && ordered_float::OrderedFloat(self.r#initial_position.y)
+                == ordered_float::OrderedFloat(other.r#initial_position.y)
+            && ordered_float::OrderedFloat(self.r#area_of_effect)
+                == ordered_float::OrderedFloat(other.r#area_of_effect)
+            && ordered_float::OrderedFloat(self.r#damage)
+                == ordered_float::OrderedFloat(other.r#damage)
+            && ordered_float::OrderedFloat(self.r#range)
+                == ordered_float::OrderedFloat(other.r#range)
+            && ordered_float::OrderedFloat(self.r#velocity)
+                == ordered_float::OrderedFloat(other.r#velocity)
+            && ordered_float::OrderedFloat(self.r#life_time)
+                == ordered_float::OrderedFloat(other.r#life_time)
+            && &self.r#hit_points == &other.r#hit_points
+            && &self.r#ignores_ship_velocity == &other.r#ignores_ship_velocity
+            && ordered_float::OrderedFloat(self.r#energy_cost)
+                == ordered_float::OrderedFloat(other.r#energy_cost)
+            && &self.r#coupled_ammunition_id == &other.r#coupled_ammunition_id
+            && &self.r#color == &other.r#color
+            && &self.r#fire_sound == &other.r#fire_sound
+            && &self.r#hit_sound == &other.r#hit_sound
+            && &self.r#hit_effect_prefab == &other.r#hit_effect_prefab
+            && &self.r#bullet_prefab == &other.r#bullet_prefab
+    }
+}
+impl std::hash::Hash for AmmunitionObsolete {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#ammunition_class.hash(state);
+        self.r#damage_type.hash(state);
+        ordered_float::OrderedFloat(self.r#impulse).hash(state);
+        ordered_float::OrderedFloat(self.r#recoil).hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#initial_position.x).hash(state);
+        ordered_float::OrderedFloat(self.r#initial_position.y).hash(state);
+        ordered_float::OrderedFloat(self.r#area_of_effect).hash(state);
+        ordered_float::OrderedFloat(self.r#damage).hash(state);
+        ordered_float::OrderedFloat(self.r#range).hash(state);
+        ordered_float::OrderedFloat(self.r#velocity).hash(state);
+        ordered_float::OrderedFloat(self.r#life_time).hash(state);
+        self.r#hit_points.hash(state);
+        self.r#ignores_ship_velocity.hash(state);
+        ordered_float::OrderedFloat(self.r#energy_cost).hash(state);
+        self.r#coupled_ammunition_id.hash(state);
+        self.r#color.hash(state);
+        self.r#fire_sound.hash(state);
+        self.r#hit_sound.hash(state);
+        self.r#hit_effect_prefab.hash(state);
+        self.r#bullet_prefab.hash(state);
+    }
+}
 impl DatabaseItemWithId for AmmunitionObsolete {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -25173,7 +26344,7 @@ impl DatabaseItemWithId for AmmunitionObsolete {
 
 // v1/Objects/Component.xml
 pub type ComponentId = DatabaseItemId<Component>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct Component {
     pub r#id: ComponentId,
@@ -25479,7 +26650,7 @@ impl DatabaseItemWithId for Component {
 
 // v1/Objects/ComponentMod.xml
 pub type ComponentModId = DatabaseItemId<ComponentMod>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentMod {
     pub r#id: ComponentModId,
@@ -25547,7 +26718,7 @@ impl DatabaseItemWithId for ComponentMod {
 
 // v1/Objects/ComponentStatUpgrade.xml
 pub type ComponentStatUpgradeId = DatabaseItemId<ComponentStatUpgrade>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct ComponentStatUpgrade {
     pub r#id: ComponentStatUpgradeId,
@@ -26453,6 +27624,110 @@ impl DatabaseItem for ComponentStats {
         "ComponentStats"
     }
 }
+impl std::cmp::Eq for ComponentStats {}
+impl std::cmp::PartialEq for ComponentStats {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#type == &other.r#type
+            && ordered_float::OrderedFloat(self.r#armor_points)
+                == ordered_float::OrderedFloat(other.r#armor_points)
+            && ordered_float::OrderedFloat(self.r#armor_repair_rate)
+                == ordered_float::OrderedFloat(other.r#armor_repair_rate)
+            && ordered_float::OrderedFloat(self.r#armor_repair_cooldown_modifier)
+                == ordered_float::OrderedFloat(other.r#armor_repair_cooldown_modifier)
+            && ordered_float::OrderedFloat(self.r#energy_points)
+                == ordered_float::OrderedFloat(other.r#energy_points)
+            && ordered_float::OrderedFloat(self.r#energy_recharge_rate)
+                == ordered_float::OrderedFloat(other.r#energy_recharge_rate)
+            && ordered_float::OrderedFloat(self.r#energy_recharge_cooldown_modifier)
+                == ordered_float::OrderedFloat(other.r#energy_recharge_cooldown_modifier)
+            && ordered_float::OrderedFloat(self.r#shield_points)
+                == ordered_float::OrderedFloat(other.r#shield_points)
+            && ordered_float::OrderedFloat(self.r#shield_recharge_rate)
+                == ordered_float::OrderedFloat(other.r#shield_recharge_rate)
+            && ordered_float::OrderedFloat(self.r#shield_recharge_cooldown_modifier)
+                == ordered_float::OrderedFloat(other.r#shield_recharge_cooldown_modifier)
+            && ordered_float::OrderedFloat(self.r#weight)
+                == ordered_float::OrderedFloat(other.r#weight)
+            && ordered_float::OrderedFloat(self.r#ramming_damage)
+                == ordered_float::OrderedFloat(other.r#ramming_damage)
+            && ordered_float::OrderedFloat(self.r#energy_absorption)
+                == ordered_float::OrderedFloat(other.r#energy_absorption)
+            && ordered_float::OrderedFloat(self.r#kinetic_resistance)
+                == ordered_float::OrderedFloat(other.r#kinetic_resistance)
+            && ordered_float::OrderedFloat(self.r#energy_resistance)
+                == ordered_float::OrderedFloat(other.r#energy_resistance)
+            && ordered_float::OrderedFloat(self.r#thermal_resistance)
+                == ordered_float::OrderedFloat(other.r#thermal_resistance)
+            && ordered_float::OrderedFloat(self.r#engine_power)
+                == ordered_float::OrderedFloat(other.r#engine_power)
+            && ordered_float::OrderedFloat(self.r#turn_rate)
+                == ordered_float::OrderedFloat(other.r#turn_rate)
+            && &self.r#autopilot == &other.r#autopilot
+            && ordered_float::OrderedFloat(self.r#drone_range_modifier)
+                == ordered_float::OrderedFloat(other.r#drone_range_modifier)
+            && ordered_float::OrderedFloat(self.r#drone_damage_modifier)
+                == ordered_float::OrderedFloat(other.r#drone_damage_modifier)
+            && ordered_float::OrderedFloat(self.r#drone_defense_modifier)
+                == ordered_float::OrderedFloat(other.r#drone_defense_modifier)
+            && ordered_float::OrderedFloat(self.r#drone_speed_modifier)
+                == ordered_float::OrderedFloat(other.r#drone_speed_modifier)
+            && ordered_float::OrderedFloat(self.r#drones_built_per_second)
+                == ordered_float::OrderedFloat(other.r#drones_built_per_second)
+            && ordered_float::OrderedFloat(self.r#drone_build_time_modifier)
+                == ordered_float::OrderedFloat(other.r#drone_build_time_modifier)
+            && ordered_float::OrderedFloat(self.r#weapon_fire_rate_modifier)
+                == ordered_float::OrderedFloat(other.r#weapon_fire_rate_modifier)
+            && ordered_float::OrderedFloat(self.r#weapon_damage_modifier)
+                == ordered_float::OrderedFloat(other.r#weapon_damage_modifier)
+            && ordered_float::OrderedFloat(self.r#weapon_range_modifier)
+                == ordered_float::OrderedFloat(other.r#weapon_range_modifier)
+            && ordered_float::OrderedFloat(self.r#weapon_energy_cost_modifier)
+                == ordered_float::OrderedFloat(other.r#weapon_energy_cost_modifier)
+            && &self.r#alter_weapon_platform == &other.r#alter_weapon_platform
+            && ordered_float::OrderedFloat(self.r#auto_aiming_arc)
+                == ordered_float::OrderedFloat(other.r#auto_aiming_arc)
+            && ordered_float::OrderedFloat(self.r#turret_turn_speed)
+                == ordered_float::OrderedFloat(other.r#turret_turn_speed)
+    }
+}
+impl std::hash::Hash for ComponentStats {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#type.hash(state);
+        ordered_float::OrderedFloat(self.r#armor_points).hash(state);
+        ordered_float::OrderedFloat(self.r#armor_repair_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#armor_repair_cooldown_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_points).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_recharge_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_recharge_cooldown_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#shield_points).hash(state);
+        ordered_float::OrderedFloat(self.r#shield_recharge_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#shield_recharge_cooldown_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#weight).hash(state);
+        ordered_float::OrderedFloat(self.r#ramming_damage).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_absorption).hash(state);
+        ordered_float::OrderedFloat(self.r#kinetic_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#energy_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#thermal_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#engine_power).hash(state);
+        ordered_float::OrderedFloat(self.r#turn_rate).hash(state);
+        self.r#autopilot.hash(state);
+        ordered_float::OrderedFloat(self.r#drone_range_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#drone_damage_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#drone_defense_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#drone_speed_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#drones_built_per_second).hash(state);
+        ordered_float::OrderedFloat(self.r#drone_build_time_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#weapon_fire_rate_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#weapon_damage_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#weapon_range_modifier).hash(state);
+        ordered_float::OrderedFloat(self.r#weapon_energy_cost_modifier).hash(state);
+        self.r#alter_weapon_platform.hash(state);
+        ordered_float::OrderedFloat(self.r#auto_aiming_arc).hash(state);
+        ordered_float::OrderedFloat(self.r#turret_turn_speed).hash(state);
+    }
+}
 impl DatabaseItemWithId for ComponentStats {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -26795,6 +28070,63 @@ impl DatabaseItem for Device {
         "Device"
     }
 }
+impl std::cmp::Eq for Device {}
+impl std::cmp::PartialEq for Device {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#device_class == &other.r#device_class
+            && ordered_float::OrderedFloat(self.r#energy_consumption)
+                == ordered_float::OrderedFloat(other.r#energy_consumption)
+            && ordered_float::OrderedFloat(self.r#passive_energy_consumption)
+                == ordered_float::OrderedFloat(other.r#passive_energy_consumption)
+            && &self.r#scale_energy_with_ship_size == &other.r#scale_energy_with_ship_size
+            && ordered_float::OrderedFloat(self.r#power)
+                == ordered_float::OrderedFloat(other.r#power)
+            && ordered_float::OrderedFloat(self.r#range)
+                == ordered_float::OrderedFloat(other.r#range)
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#cooldown)
+                == ordered_float::OrderedFloat(other.r#cooldown)
+            && ordered_float::OrderedFloat(self.r#lifetime)
+                == ordered_float::OrderedFloat(other.r#lifetime)
+            && ordered_float::OrderedFloat(self.r#offset.x)
+                == ordered_float::OrderedFloat(other.r#offset.x)
+            && ordered_float::OrderedFloat(self.r#offset.y)
+                == ordered_float::OrderedFloat(other.r#offset.y)
+            && &self.r#activation_type == &other.r#activation_type
+            && &self.r#color == &other.r#color
+            && &self.r#sound == &other.r#sound
+            && &self.r#effect_prefab == &other.r#effect_prefab
+            && &self.r#visual_effect == &other.r#visual_effect
+            && &self.r#object_prefab == &other.r#object_prefab
+            && &self.r#prefab == &other.r#prefab
+            && &self.r#control_button_icon == &other.r#control_button_icon
+    }
+}
+impl std::hash::Hash for Device {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#device_class.hash(state);
+        ordered_float::OrderedFloat(self.r#energy_consumption).hash(state);
+        ordered_float::OrderedFloat(self.r#passive_energy_consumption).hash(state);
+        self.r#scale_energy_with_ship_size.hash(state);
+        ordered_float::OrderedFloat(self.r#power).hash(state);
+        ordered_float::OrderedFloat(self.r#range).hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#cooldown).hash(state);
+        ordered_float::OrderedFloat(self.r#lifetime).hash(state);
+        ordered_float::OrderedFloat(self.r#offset.x).hash(state);
+        ordered_float::OrderedFloat(self.r#offset.y).hash(state);
+        self.r#activation_type.hash(state);
+        self.r#color.hash(state);
+        self.r#sound.hash(state);
+        self.r#effect_prefab.hash(state);
+        self.r#visual_effect.hash(state);
+        self.r#object_prefab.hash(state);
+        self.r#prefab.hash(state);
+        self.r#control_button_icon.hash(state);
+    }
+}
 impl DatabaseItemWithId for Device {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -27128,6 +28460,53 @@ impl DatabaseItem for DroneBay {
         "DroneBay"
     }
 }
+impl std::cmp::Eq for DroneBay {}
+impl std::cmp::PartialEq for DroneBay {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && ordered_float::OrderedFloat(self.r#energy_consumption)
+                == ordered_float::OrderedFloat(other.r#energy_consumption)
+            && ordered_float::OrderedFloat(self.r#passive_energy_consumption)
+                == ordered_float::OrderedFloat(other.r#passive_energy_consumption)
+            && ordered_float::OrderedFloat(self.r#range)
+                == ordered_float::OrderedFloat(other.r#range)
+            && ordered_float::OrderedFloat(self.r#damage_multiplier)
+                == ordered_float::OrderedFloat(other.r#damage_multiplier)
+            && ordered_float::OrderedFloat(self.r#defense_multiplier)
+                == ordered_float::OrderedFloat(other.r#defense_multiplier)
+            && ordered_float::OrderedFloat(self.r#speed_multiplier)
+                == ordered_float::OrderedFloat(other.r#speed_multiplier)
+            && &self.r#build_extra_cycles == &other.r#build_extra_cycles
+            && &self.r#improved_ai == &other.r#improved_ai
+            && &self.r#capacity == &other.r#capacity
+            && &self.r#activation_type == &other.r#activation_type
+            && &self.r#launch_sound == &other.r#launch_sound
+            && &self.r#launch_effect_prefab == &other.r#launch_effect_prefab
+            && &self.r#control_button_icon == &other.r#control_button_icon
+            && &self.r#defensive_drone_ai == &other.r#defensive_drone_ai
+            && &self.r#offensive_drone_ai == &other.r#offensive_drone_ai
+    }
+}
+impl std::hash::Hash for DroneBay {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        ordered_float::OrderedFloat(self.r#energy_consumption).hash(state);
+        ordered_float::OrderedFloat(self.r#passive_energy_consumption).hash(state);
+        ordered_float::OrderedFloat(self.r#range).hash(state);
+        ordered_float::OrderedFloat(self.r#damage_multiplier).hash(state);
+        ordered_float::OrderedFloat(self.r#defense_multiplier).hash(state);
+        ordered_float::OrderedFloat(self.r#speed_multiplier).hash(state);
+        self.r#build_extra_cycles.hash(state);
+        self.r#improved_ai.hash(state);
+        self.r#capacity.hash(state);
+        self.r#activation_type.hash(state);
+        self.r#launch_sound.hash(state);
+        self.r#launch_effect_prefab.hash(state);
+        self.r#control_button_icon.hash(state);
+        self.r#defensive_drone_ai.hash(state);
+        self.r#offensive_drone_ai.hash(state);
+    }
+}
 impl DatabaseItemWithId for DroneBay {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -27137,7 +28516,7 @@ impl DatabaseItemWithId for DroneBay {
 
 // v1/Objects/Faction.xml
 pub type FactionId = DatabaseItemId<Faction>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct Faction {
     pub r#id: FactionId,
@@ -27414,14 +28793,14 @@ impl DatabaseItemWithId for Faction {
 
 // v1/Objects/GameObjectPrefab.xml
 pub type GameObjectPrefabId = DatabaseItemId<GameObjectPrefab>;
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum GameObjectPrefab {
     Undefined(GameObjectPrefabUndefined),
     WormTailSegment(GameObjectPrefabWormTailSegment),
     CircularSpriteObject(GameObjectPrefabCircularSpriteObject),
     CircularOutlineObject(GameObjectPrefabCircularOutlineObject),
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct GameObjectPrefabUndefined {
     pub r#id: GameObjectPrefabId,
@@ -27656,6 +29035,42 @@ impl DatabaseItem for GameObjectPrefabWormTailSegment {
         "GameObjectPrefabWormTailSegment"
     }
 }
+impl std::cmp::Eq for GameObjectPrefabWormTailSegment {}
+impl std::cmp::PartialEq for GameObjectPrefabWormTailSegment {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#image_1 == &other.r#image_1
+            && &self.r#image_2 == &other.r#image_2
+            && ordered_float::OrderedFloat(self.r#image_scale)
+                == ordered_float::OrderedFloat(other.r#image_scale)
+            && ordered_float::OrderedFloat(self.r#image_offset)
+                == ordered_float::OrderedFloat(other.r#image_offset)
+            && ordered_float::OrderedFloat(self.r#length)
+                == ordered_float::OrderedFloat(other.r#length)
+            && ordered_float::OrderedFloat(self.r#offset_1)
+                == ordered_float::OrderedFloat(other.r#offset_1)
+            && ordered_float::OrderedFloat(self.r#offset_2)
+                == ordered_float::OrderedFloat(other.r#offset_2)
+            && ordered_float::OrderedFloat(self.r#angle_1)
+                == ordered_float::OrderedFloat(other.r#angle_1)
+            && ordered_float::OrderedFloat(self.r#angle_2)
+                == ordered_float::OrderedFloat(other.r#angle_2)
+    }
+}
+impl std::hash::Hash for GameObjectPrefabWormTailSegment {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#image_1.hash(state);
+        self.r#image_2.hash(state);
+        ordered_float::OrderedFloat(self.r#image_scale).hash(state);
+        ordered_float::OrderedFloat(self.r#image_offset).hash(state);
+        ordered_float::OrderedFloat(self.r#length).hash(state);
+        ordered_float::OrderedFloat(self.r#offset_1).hash(state);
+        ordered_float::OrderedFloat(self.r#offset_2).hash(state);
+        ordered_float::OrderedFloat(self.r#angle_1).hash(state);
+        ordered_float::OrderedFloat(self.r#angle_2).hash(state);
+    }
+}
 impl From<GameObjectPrefabWormTailSegment> for GameObjectPrefab {
     fn from(item: GameObjectPrefabWormTailSegment) -> Self {
         Self::WormTailSegment(item)
@@ -27728,6 +29143,22 @@ impl DatabaseItem for GameObjectPrefabCircularSpriteObject {
     }
     fn type_name() -> &'static str {
         "GameObjectPrefabCircularSpriteObject"
+    }
+}
+impl std::cmp::Eq for GameObjectPrefabCircularSpriteObject {}
+impl std::cmp::PartialEq for GameObjectPrefabCircularSpriteObject {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#image_1 == &other.r#image_1
+            && ordered_float::OrderedFloat(self.r#image_scale)
+                == ordered_float::OrderedFloat(other.r#image_scale)
+    }
+}
+impl std::hash::Hash for GameObjectPrefabCircularSpriteObject {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#image_1.hash(state);
+        ordered_float::OrderedFloat(self.r#image_scale).hash(state);
     }
 }
 impl From<GameObjectPrefabCircularSpriteObject> for GameObjectPrefab {
@@ -27846,6 +29277,28 @@ impl DatabaseItem for GameObjectPrefabCircularOutlineObject {
     }
     fn type_name() -> &'static str {
         "GameObjectPrefabCircularOutlineObject"
+    }
+}
+impl std::cmp::Eq for GameObjectPrefabCircularOutlineObject {}
+impl std::cmp::PartialEq for GameObjectPrefabCircularOutlineObject {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#image_1 == &other.r#image_1
+            && ordered_float::OrderedFloat(self.r#image_scale)
+                == ordered_float::OrderedFloat(other.r#image_scale)
+            && ordered_float::OrderedFloat(self.r#thickness)
+                == ordered_float::OrderedFloat(other.r#thickness)
+            && ordered_float::OrderedFloat(self.r#aspect_ratio)
+                == ordered_float::OrderedFloat(other.r#aspect_ratio)
+    }
+}
+impl std::hash::Hash for GameObjectPrefabCircularOutlineObject {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#image_1.hash(state);
+        ordered_float::OrderedFloat(self.r#image_scale).hash(state);
+        ordered_float::OrderedFloat(self.r#thickness).hash(state);
+        ordered_float::OrderedFloat(self.r#aspect_ratio).hash(state);
     }
 }
 impl From<GameObjectPrefabCircularOutlineObject> for GameObjectPrefab {
@@ -28042,7 +29495,7 @@ impl DatabaseItemWithId for GameObjectPrefab {
 
 // v1/Objects/Quests/Character.xml
 pub type CharacterId = DatabaseItemId<Character>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct Character {
     pub r#id: CharacterId,
@@ -28169,7 +29622,7 @@ impl DatabaseItemWithId for Character {
 
 // v1/Objects/Quests/CombatRules.xml
 pub type CombatRulesId = DatabaseItemId<CombatRules>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct CombatRules {
     pub r#id: CombatRulesId,
@@ -28422,7 +29875,7 @@ impl DatabaseItemWithId for CombatRules {
 
 // v1/Objects/Quests/Fleet.xml
 pub type FleetId = DatabaseItemId<Fleet>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct Fleet {
     pub r#id: FleetId,
@@ -28637,7 +30090,7 @@ impl DatabaseItemWithId for Fleet {
 
 // v1/Objects/Quests/Loot.xml
 pub type LootId = DatabaseItemId<Loot>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct Loot {
     pub r#id: LootId,
@@ -28853,6 +30306,36 @@ impl DatabaseItem for Quest {
         "Quest"
     }
 }
+impl std::cmp::Eq for Quest {}
+impl std::cmp::PartialEq for Quest {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#name == &other.r#name
+            && &self.r#quest_type == &other.r#quest_type
+            && &self.r#start_condition == &other.r#start_condition
+            && ordered_float::OrderedFloat(self.r#weight)
+                == ordered_float::OrderedFloat(other.r#weight)
+            && &self.r#origin == &other.r#origin
+            && &self.r#requirement == &other.r#requirement
+            && &self.r#level == &other.r#level
+            && &self.r#use_random_seed == &other.r#use_random_seed
+            && &self.r#nodes == &other.r#nodes
+    }
+}
+impl std::hash::Hash for Quest {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#name.hash(state);
+        self.r#quest_type.hash(state);
+        self.r#start_condition.hash(state);
+        ordered_float::OrderedFloat(self.r#weight).hash(state);
+        self.r#origin.hash(state);
+        self.r#requirement.hash(state);
+        self.r#level.hash(state);
+        self.r#use_random_seed.hash(state);
+        self.r#nodes.hash(state);
+    }
+}
 impl DatabaseItemWithId for Quest {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -28862,7 +30345,7 @@ impl DatabaseItemWithId for Quest {
 
 // v1/Objects/Quests/QuestItem.xml
 pub type QuestItemId = DatabaseItemId<QuestItem>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct QuestItem {
     pub r#id: QuestItemId,
@@ -29080,6 +30563,30 @@ impl DatabaseItem for Satellite {
         "Satellite"
     }
 }
+impl std::cmp::Eq for Satellite {}
+impl std::cmp::PartialEq for Satellite {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#name == &other.r#name
+            && &self.r#model_image == &other.r#model_image
+            && ordered_float::OrderedFloat(self.r#model_scale)
+                == ordered_float::OrderedFloat(other.r#model_scale)
+            && &self.r#size_class == &other.r#size_class
+            && &self.r#layout == &other.r#layout
+            && &self.r#barrels == &other.r#barrels
+    }
+}
+impl std::hash::Hash for Satellite {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#name.hash(state);
+        self.r#model_image.hash(state);
+        ordered_float::OrderedFloat(self.r#model_scale).hash(state);
+        self.r#size_class.hash(state);
+        self.r#layout.hash(state);
+        self.r#barrels.hash(state);
+    }
+}
 impl DatabaseItemWithId for Satellite {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -29089,7 +30596,7 @@ impl DatabaseItemWithId for Satellite {
 
 // v1/Objects/SatelliteBuild.xml
 pub type SatelliteBuildId = DatabaseItemId<SatelliteBuild>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct SatelliteBuild {
     pub r#id: SatelliteBuildId,
@@ -29637,6 +31144,81 @@ impl DatabaseItem for Ship {
         "Ship"
     }
 }
+impl std::cmp::Eq for Ship {}
+impl std::cmp::PartialEq for Ship {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#ship_type == &other.r#ship_type
+            && &self.r#ship_rarity == &other.r#ship_rarity
+            && &self.r#size_class == &other.r#size_class
+            && &self.r#name == &other.r#name
+            && &self.r#description == &other.r#description
+            && &self.r#faction == &other.r#faction
+            && &self.r#icon_image == &other.r#icon_image
+            && ordered_float::OrderedFloat(self.r#icon_scale)
+                == ordered_float::OrderedFloat(other.r#icon_scale)
+            && &self.r#model_image == &other.r#model_image
+            && ordered_float::OrderedFloat(self.r#model_scale)
+                == ordered_float::OrderedFloat(other.r#model_scale)
+            && &self.r#engine_color == &other.r#engine_color
+            && &self.r#engines == &other.r#engines
+            && &self.r#layout == &other.r#layout
+            && &self.r#barrels == &other.r#barrels
+            && &self.r#features == &other.r#features
+            && &self.r#cells_expansions == &other.r#cells_expansions
+            && ordered_float::OrderedFloat(self.r#collider_tolerance)
+                == ordered_float::OrderedFloat(other.r#collider_tolerance)
+            && ordered_float::OrderedFloat(self.r#engine_position.x)
+                == ordered_float::OrderedFloat(other.r#engine_position.x)
+            && ordered_float::OrderedFloat(self.r#engine_position.y)
+                == ordered_float::OrderedFloat(other.r#engine_position.y)
+            && ordered_float::OrderedFloat(self.r#engine_size)
+                == ordered_float::OrderedFloat(other.r#engine_size)
+            && &self.r#ship_category == &other.r#ship_category
+            && ordered_float::OrderedFloat(self.r#energy_resistance)
+                == ordered_float::OrderedFloat(other.r#energy_resistance)
+            && ordered_float::OrderedFloat(self.r#kinetic_resistance)
+                == ordered_float::OrderedFloat(other.r#kinetic_resistance)
+            && ordered_float::OrderedFloat(self.r#heat_resistance)
+                == ordered_float::OrderedFloat(other.r#heat_resistance)
+            && &self.r#regeneration == &other.r#regeneration
+            && &self.r#builtin_devices == &other.r#builtin_devices
+            && ordered_float::OrderedFloat(self.r#base_weight_modifier)
+                == ordered_float::OrderedFloat(other.r#base_weight_modifier)
+    }
+}
+impl std::hash::Hash for Ship {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#ship_type.hash(state);
+        self.r#ship_rarity.hash(state);
+        self.r#size_class.hash(state);
+        self.r#name.hash(state);
+        self.r#description.hash(state);
+        self.r#faction.hash(state);
+        self.r#icon_image.hash(state);
+        ordered_float::OrderedFloat(self.r#icon_scale).hash(state);
+        self.r#model_image.hash(state);
+        ordered_float::OrderedFloat(self.r#model_scale).hash(state);
+        self.r#engine_color.hash(state);
+        self.r#engines.hash(state);
+        self.r#layout.hash(state);
+        self.r#barrels.hash(state);
+        self.r#features.hash(state);
+        self.r#cells_expansions.hash(state);
+        ordered_float::OrderedFloat(self.r#collider_tolerance).hash(state);
+        ordered_float::OrderedFloat(self.r#engine_position.x).hash(state);
+        ordered_float::OrderedFloat(self.r#engine_position.y).hash(state);
+        ordered_float::OrderedFloat(self.r#engine_size).hash(state);
+        self.r#ship_category.hash(state);
+        ordered_float::OrderedFloat(self.r#energy_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#kinetic_resistance).hash(state);
+        ordered_float::OrderedFloat(self.r#heat_resistance).hash(state);
+        self.r#regeneration.hash(state);
+        self.r#builtin_devices.hash(state);
+        ordered_float::OrderedFloat(self.r#base_weight_modifier).hash(state);
+    }
+}
 impl DatabaseItemWithId for Ship {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -29646,7 +31228,7 @@ impl DatabaseItemWithId for Ship {
 
 // v1/Objects/ShipBuild.xml
 pub type ShipBuildId = DatabaseItemId<ShipBuild>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct ShipBuild {
     pub r#id: ShipBuildId,
@@ -29878,7 +31460,7 @@ impl DatabaseItemWithId for ShipBuild {
 
 // v1/Objects/StatUpgradeTemplate.xml
 pub type StatUpgradeTemplateId = DatabaseItemId<StatUpgradeTemplate>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct StatUpgradeTemplate {
     pub r#id: StatUpgradeTemplateId,
@@ -29965,13 +31547,13 @@ impl DatabaseItemWithId for StatUpgradeTemplate {
 
 // v1/Objects/Technology.xml
 pub type TechnologyId = DatabaseItemId<Technology>;
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum Technology {
     Component(TechnologyComponent),
     Ship(TechnologyShip),
     Satellite(TechnologySatellite),
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct TechnologyComponent {
     pub r#id: TechnologyId,
@@ -30115,7 +31697,7 @@ impl Technology {
         TechnologyComponent::new(r#id, r#item_id)
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct TechnologyShip {
     pub r#id: TechnologyId,
@@ -30247,7 +31829,7 @@ impl Technology {
         TechnologyShip::new(r#id, r#item_id)
     }
 }
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct TechnologySatellite {
     pub r#id: TechnologyId,
@@ -30708,7 +32290,7 @@ impl DatabaseItemWithId for Technology {
 
 // v1/Objects/Weapon/Ammunition.xml
 pub type AmmunitionId = DatabaseItemId<Ammunition>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct Ammunition {
     pub r#id: AmmunitionId,
@@ -30982,6 +32564,37 @@ impl DatabaseItem for BulletPrefab {
         "BulletPrefab"
     }
 }
+impl std::cmp::Eq for BulletPrefab {}
+impl std::cmp::PartialEq for BulletPrefab {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#shape == &other.r#shape
+            && &self.r#image == &other.r#image
+            && ordered_float::OrderedFloat(self.r#size) == ordered_float::OrderedFloat(other.r#size)
+            && ordered_float::OrderedFloat(self.r#margins)
+                == ordered_float::OrderedFloat(other.r#margins)
+            && ordered_float::OrderedFloat(self.r#deformation)
+                == ordered_float::OrderedFloat(other.r#deformation)
+            && &self.r#main_color == &other.r#main_color
+            && &self.r#main_color_mode == &other.r#main_color_mode
+            && &self.r#second_color == &other.r#second_color
+            && &self.r#second_color_mode == &other.r#second_color_mode
+    }
+}
+impl std::hash::Hash for BulletPrefab {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#shape.hash(state);
+        self.r#image.hash(state);
+        ordered_float::OrderedFloat(self.r#size).hash(state);
+        ordered_float::OrderedFloat(self.r#margins).hash(state);
+        ordered_float::OrderedFloat(self.r#deformation).hash(state);
+        self.r#main_color.hash(state);
+        self.r#main_color_mode.hash(state);
+        self.r#second_color.hash(state);
+        self.r#second_color_mode.hash(state);
+    }
+}
 impl DatabaseItemWithId for BulletPrefab {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -30991,7 +32604,7 @@ impl DatabaseItemWithId for BulletPrefab {
 
 // v1/Objects/Weapon/VisualEffect.xml
 pub type VisualEffectId = DatabaseItemId<VisualEffect>;
-#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Eq, PartialEq, Hash)]
 #[serde(rename_all = "PascalCase")]
 pub struct VisualEffect {
     pub r#id: VisualEffectId,
@@ -31246,6 +32859,42 @@ impl DatabaseItem for Weapon {
         "Weapon"
     }
 }
+impl std::cmp::Eq for Weapon {}
+impl std::cmp::PartialEq for Weapon {
+    fn eq(&self, other: &Self) -> bool {
+        &self.r#id == &other.r#id
+            && &self.r#weapon_class == &other.r#weapon_class
+            && ordered_float::OrderedFloat(self.r#fire_rate)
+                == ordered_float::OrderedFloat(other.r#fire_rate)
+            && ordered_float::OrderedFloat(self.r#spread)
+                == ordered_float::OrderedFloat(other.r#spread)
+            && &self.r#magazine == &other.r#magazine
+            && &self.r#activation_type == &other.r#activation_type
+            && &self.r#shot_sound == &other.r#shot_sound
+            && &self.r#charge_sound == &other.r#charge_sound
+            && &self.r#shot_effect_prefab == &other.r#shot_effect_prefab
+            && &self.r#visual_effect == &other.r#visual_effect
+            && ordered_float::OrderedFloat(self.r#effect_size)
+                == ordered_float::OrderedFloat(other.r#effect_size)
+            && &self.r#control_button_icon == &other.r#control_button_icon
+    }
+}
+impl std::hash::Hash for Weapon {
+    fn hash<H: std::hash::Hasher>(&self, state: &mut H) {
+        self.r#id.hash(state);
+        self.r#weapon_class.hash(state);
+        ordered_float::OrderedFloat(self.r#fire_rate).hash(state);
+        ordered_float::OrderedFloat(self.r#spread).hash(state);
+        self.r#magazine.hash(state);
+        self.r#activation_type.hash(state);
+        self.r#shot_sound.hash(state);
+        self.r#charge_sound.hash(state);
+        self.r#shot_effect_prefab.hash(state);
+        self.r#visual_effect.hash(state);
+        ordered_float::OrderedFloat(self.r#effect_size).hash(state);
+        self.r#control_button_icon.hash(state);
+    }
+}
 impl DatabaseItemWithId for Weapon {
     fn id(&self) -> DatabaseItemId<Self> {
         let x = self;
@@ -31254,7 +32903,7 @@ impl DatabaseItemWithId for Weapon {
 }
 
 // Core Database Item
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash)]
 pub enum Item {
     Component(Component),
     Device(Device),
