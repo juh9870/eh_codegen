@@ -173,6 +173,7 @@ fn init_cleaning_items(db: &Database) {
         .extra::<Events>()
         .read()
         .iter()
+        .sorted_by_cached_key(|c| c.quest_id())
         .map(|event| event.item.as_loot(100).wrap_item(1.0))
         .collect_vec();
 
@@ -181,6 +182,7 @@ fn init_cleaning_items(db: &Database) {
 
     let ships_to_remove = db.ship_iter(|ships| {
         ships
+            .sorted_by_key(|c| i32::from(c.id))
             .map(|ship| ship.id.as_loot().repeat(100).wrap_item(1.0))
             .collect_vec()
     });
@@ -190,9 +192,11 @@ fn init_cleaning_items(db: &Database) {
 
     let components_to_remove = db.component_iter(|components| {
         components
+            .sorted_by_key(|c| i32::from(c.id))
             .map(|c| c.id.as_loot(1000).wrap_item(1.0))
             .collect_vec()
     });
+
     db.new_loot(ALL_COMPONENTS_1000)
         .set_loot(LootContent::all_items().with_items(components_to_remove));
 }
