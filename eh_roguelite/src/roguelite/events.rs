@@ -52,9 +52,9 @@ impl Event {
     pub fn new(db: &Database, id: impl Into<String>, kind: EventKind) -> Self {
         let id = id.into();
         let item = db.new_quest_item(id.as_str()).edit(|i| {
-            i.set_price(0)
-                .set_name("The Code")
-                .set_description("I am a man of my word, standing on your CPU");
+            i.set_price(0).set_name(match &kind {
+                EventKind::Combat(_, _) => "Combat",
+            });
         });
 
         Self {

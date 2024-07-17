@@ -2,7 +2,7 @@
   "ItemType": 15,
   "Id": 10000,
   "Name": "",
-  "QuestType": 1,
+  "QuestType": 2,
   "StartCondition": 4,
   "Weight": 1.0,
   "Origin": {
@@ -35,301 +35,57 @@
       "Type": 36,
       "Id": 10,
       "DefaultTransition": 11,
-      "Loot": 10006
+      "Loot": 10007
     },
     {
       "Type": 36,
       "Id": 11,
       "DefaultTransition": 12,
-      "Loot": 10007
-    },
-    {
-      "Type": 36,
-      "Id": 12,
-      "DefaultTransition": 27,
       "Loot": 10008
     },
     {
       "Type": 36,
-      "Id": 27,
+      "Id": 12,
       "DefaultTransition": 13,
       "Loot": 10009
     },
     {
-      "Type": 10,
-      "Id": 20,
-      "RequiredView": 0,
-      "Message": "This branch has no conclusion. Try again",
-      "Actions": [
-        {
-          "TargetNode": 1,
-          "Requirement": {
-            "Type": 0
-          },
-          "ButtonText": "$Continue"
-        }
-      ]
-    },
-    {
-      "Type": 20,
-      "Id": 19,
+      "Type": 36,
+      "Id": 13,
       "DefaultTransition": 14,
-      "FailureTransition": 20,
-      "Enemy": 10000
-    },
-    {
-      "Type": 10,
-      "Id": 21,
-      "RequiredView": 0,
-      "Message": "Something gone wrong.\nPlease screenshot this error and send it to juh9870 on Discord\nError:\nNo fleets for event `event@rgl:scouts`",
-      "Actions": [
-        {
-          "TargetNode": 1,
-          "Requirement": {
-            "Type": 0
-          },
-          "ButtonText": "Start new run"
-        }
-      ]
-    },
-    {
-      "Type": 10,
-      "Id": 17,
-      "RequiredView": 0,
-      "Message": "rgl:scouts.desc",
-      "Actions": [
-        {
-          "TargetNode": 18,
-          "Requirement": {
-            "Type": 0
-          },
-          "ButtonText": "$Continue"
-        },
-        {
-          "TargetNode": 16,
-          "Requirement": {
-            "Type": 0
-          },
-          "ButtonText": "$Cancel"
-        }
-      ]
-    },
-    {
-      "Type": 16,
-      "Id": 18,
-      "Message": "QUEST rgl:core NODE #18",
-      "DefaultTransition": 21,
-      "Transitions": [
-        {
-          "TargetNode": 19,
-          "Requirement": {
-            "Type": 0
-          },
-          "Weight": 1.0
-        }
-      ]
-    },
-    {
-      "Type": 10,
-      "Id": 16,
-      "RequiredView": 0,
-      "Message": "Select a path",
-      "Actions": [
-        {
-          "TargetNode": 17,
-          "Requirement": {
-            "Type": 25,
-            "ItemId": 10000,
-            "MinValue": 1
-          },
-          "ButtonText": "rgl:scouts.name"
-        }
-      ]
-    },
-    {
-      "Type": 35,
-      "Id": 15,
-      "DefaultTransition": 16,
       "Loot": 10001
     },
     {
       "Type": 35,
-      "Id": 22,
-      "DefaultTransition": 16,
-      "Loot": 10002
+      "Id": 14,
+      "DefaultTransition": 15,
+      "Loot": 10000
     },
     {
-      "Type": 35,
-      "Id": 23,
+      "Type": 43,
+      "Id": 15,
       "DefaultTransition": 16,
-      "Loot": 10003
+      "Quest": 10001
     },
     {
-      "Type": 35,
-      "Id": 24,
-      "DefaultTransition": 16,
-      "Loot": 10004
-    },
-    {
-      "Type": 35,
-      "Id": 25,
-      "DefaultTransition": 16,
-      "Loot": 10005
-    },
-    {
-      "Type": 10,
-      "Id": 26,
-      "RequiredView": 0,
-      "Message": "Something gone wrong.\nPlease screenshot this error and send it to juh9870 on Discord\nError:\nCurrent chapter out of range",
-      "Actions": [
+      "Type": 17,
+      "Id": 16,
+      "Message": "Run in progress",
+      "Transitions": [
         {
           "TargetNode": 1,
           "Requirement": {
-            "Type": 0
-          },
-          "ButtonText": "Start new run"
-        }
-      ]
-    },
-    {
-      "Type": 36,
-      "Id": 28,
-      "DefaultTransition": 14,
-      "Loot": 10006
-    },
-    {
-      "Type": 16,
-      "Id": 14,
-      "Message": "QUEST rgl:core NODE #14",
-      "DefaultTransition": 26,
-      "Transitions": [
-        {
-          "TargetNode": 15,
-          "Requirement": {
-            "Type": 2,
+            "Type": 3,
             "Requirements": [
               {
-                "Type": 3,
-                "Requirements": [
-                  {
-                    "Type": 25,
-                    "ItemId": 10001,
-                    "MinValue": 2
-                  }
-                ]
-              },
-              {
-                "Type": 25,
-                "ItemId": 10001,
-                "MinValue": 1
-              }
-            ]
-          },
-          "Weight": 1.0
-        },
-        {
-          "TargetNode": 22,
-          "Requirement": {
-            "Type": 2,
-            "Requirements": [
-              {
-                "Type": 3,
-                "Requirements": [
-                  {
-                    "Type": 25,
-                    "ItemId": 10001,
-                    "MinValue": 3
-                  }
-                ]
-              },
-              {
-                "Type": 25,
-                "ItemId": 10001,
-                "MinValue": 2
-              }
-            ]
-          },
-          "Weight": 1.0
-        },
-        {
-          "TargetNode": 23,
-          "Requirement": {
-            "Type": 2,
-            "Requirements": [
-              {
-                "Type": 3,
-                "Requirements": [
-                  {
-                    "Type": 25,
-                    "ItemId": 10001,
-                    "MinValue": 4
-                  }
-                ]
-              },
-              {
-                "Type": 25,
-                "ItemId": 10001,
-                "MinValue": 3
-              }
-            ]
-          },
-          "Weight": 1.0
-        },
-        {
-          "TargetNode": 24,
-          "Requirement": {
-            "Type": 2,
-            "Requirements": [
-              {
-                "Type": 3,
-                "Requirements": [
-                  {
-                    "Type": 25,
-                    "ItemId": 10001,
-                    "MinValue": 5
-                  }
-                ]
-              },
-              {
-                "Type": 25,
-                "ItemId": 10001,
-                "MinValue": 4
-              }
-            ]
-          },
-          "Weight": 1.0
-        },
-        {
-          "TargetNode": 25,
-          "Requirement": {
-            "Type": 2,
-            "Requirements": [
-              {
-                "Type": 3,
-                "Requirements": [
-                  {
-                    "Type": 25,
-                    "ItemId": 10001,
-                    "MinValue": 6
-                  }
-                ]
-              },
-              {
-                "Type": 25,
-                "ItemId": 10001,
-                "MinValue": 5
+                "Type": 10,
+                "ItemId": 10001
               }
             ]
           },
           "Weight": 1.0
         }
       ]
-    },
-    {
-      "Type": 35,
-      "Id": 13,
-      "DefaultTransition": 28,
-      "Loot": 10000
     }
   ]
 }

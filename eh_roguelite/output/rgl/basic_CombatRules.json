@@ -1,7 +1,7 @@
 {
   "ItemType": 30,
   "Id": 10000,
-  "InitialEnemyShips": "RANDOM(2,5)",
+  "InitialEnemyShips": "RANDOM(1,4)",
   "TimeLimit": "30",
   "TimeOutMode": 0,
   "LootCondition": 0,

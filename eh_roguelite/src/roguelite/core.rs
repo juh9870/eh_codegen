@@ -5,7 +5,7 @@ use itertools::Itertools;
 use eh_mod_cli::dev::database::{Database, Remember};
 use eh_mod_cli::dev::mapping::DatabaseIdLike;
 use eh_mod_cli::dev::schema::schema::{
-    FleetId, Loot, LootContent, LootContentRandomItems, LootId, QuestItem, QuestType,
+    FleetId, Loot, LootContent, LootContentRandomItems, LootId, Quest, QuestItem, QuestType,
     StartCondition,
 };
 use quests::{MSG_CANCEL, MSG_CONTINUE};
@@ -23,11 +23,24 @@ pub fn core_quest(db: &Database) {
     init_chapter_event_items(db);
     init_cleaning_items(db);
 
+    encounter_quest(db);
+
     init_raw(ctx.deref_mut());
 
     let mut quest = ctx.into_quest();
-    quest.quest_type = QuestType::Singleton;
+    quest.quest_type = QuestType::Storyline;
     quest.start_condition = StartCondition::GameStart;
+    quest.remember(db);
+}
+
+fn encounter_quest(db: &Database) {
+    let mut ctx = QuestContext::new(db, QUEST_ENCOUNTER, "path_choices_init");
+    path_choices_init(ctx.deref_mut());
+
+    let mut quest = ctx.into_quest();
+    quest.quest_type = QuestType::Common;
+    quest.start_condition = StartCondition::Manual;
+    quest.use_random_seed = true;
     quest.remember(db);
 }
 
@@ -43,11 +56,14 @@ const ITEM_CHAPTER: &str = "rgl:chapter_indicator";
 const LOOT_ITEM_CHAPTER: &str = "rgl:chapter_indicator";
 const LOOT_ITEM_CHAPTER_100X: &str = "rgl:chapter_indicator_100x";
 
+const QUEST_ENCOUNTER: &str = "rgl:encounter";
+
 fn loot_chapter(chapter: usize) -> impl DatabaseIdLike<Loot> {
     LOOT_CHAPTER_EVENT.to_string() + &chapter.to_string()
 }
 
 fn init_raw(ctx: Ctx) {
+    let db = ctx.db.clone();
     ctx.branch()
         .dialog("init", "Welcome to the <MODNAME>", |d| d.next(MSG_CONTINUE))
         .remove_item("init_clean_event_items", ALL_EVENT_ITEMS_100)
@@ -55,7 +71,11 @@ fn init_raw(ctx: Ctx) {
         .remove_item("init_clean_components", ALL_COMPONENTS_1000)
         .remove_item("init_clean_chapter_indicator", LOOT_ITEM_CHAPTER_100X)
         .receive_item("init_chapter_indicator", LOOT_ITEM_CHAPTER)
-        .goto(path_choices_init)
+        .start_quest("branching_quest", QUEST_ENCOUNTER)
+        .condition_end("init_branching", |c| {
+            c.transition(1.0, !db.id::<Quest>(QUEST_ENCOUNTER).req_active(), init)
+                .message("Run in progress")
+        })
         .entrypoint();
 }
 
@@ -89,6 +109,12 @@ fn path_choices_init(ctx: Ctx) -> NodeId {
             .entrypoint()
     })
 }
+fn path_choices_next(ctx: Ctx) -> NodeId {
+    ctx.branch()
+        .start_quest("start_next_encounter", QUEST_ENCOUNTER)
+        .complete_quest()
+        .entrypoint()
+}
 
 fn path_choice(ctx: Ctx) -> NodeId {
     ctx.cached("path_choice", |ctx| {
@@ -108,7 +134,7 @@ fn path_choice(ctx: Ctx) -> NodeId {
 
 fn win_combat(ctx: Ctx) -> NodeId {
     // TODO: rewards
-    ctx.cached("win_combat", path_choices_init)
+    ctx.cached("win_combat", path_choices_next)
 }
 
 fn lose_combat(ctx: Ctx) -> NodeId {
@@ -119,7 +145,7 @@ fn lose_combat(ctx: Ctx) -> NodeId {
                 "This branch has no conclusion. Try again",
                 |d| d.next(MSG_CONTINUE),
             )
-            .goto(init)
+            .complete_quest()
             .entrypoint()
     })
 }
@@ -131,7 +157,7 @@ fn something_gone_wrong(ctx: Ctx, error: &str) -> NodeId {
             .dialog(id, MSG_GONE_WRONG.to_string() + error, |d| {
                 d.next("Start new run")
             })
-            .goto(init)
+            .complete_quest()
             .entrypoint()
     })
 }
@@ -145,15 +171,21 @@ fn event_combat<'a, const N: bool>(
     let event_id = event.quest_id();
     d.action((event.name(), event.item.req_at_least(1)), |ctx| {
         ctx.branch()
-            .dialog(format!("{}_confirm", event_id), event.description(), |d| {
-                d.next(MSG_CONTINUE).action(MSG_CANCEL, path_choice)
-            })
             .random_end(format!("{}_random", event_id), |mut r| {
-                for fleet in fleets {
+                for (idx, fleet) in fleets.iter().enumerate() {
                     r = r.transition(fleet.weight, fleet.req.clone(), |ctx| {
                         ctx.branch()
+                            .dialog(
+                                format!("{}_{}_confirm", event_id, idx),
+                                event.description(),
+                                |d| {
+                                    d.enemy(fleet.item)
+                                        .next(MSG_CONTINUE)
+                                        .action(MSG_CANCEL, path_choice)
+                                },
+                            )
                             .attack_fleet_end(
-                                format!("{}_combat", event_id),
+                                format!("{}_{}_combat", event_id, idx),
                                 fleet.item,
                                 loot,
                                 win_combat,
