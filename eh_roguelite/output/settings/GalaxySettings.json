@@ -9,6 +9,8 @@
   "StartingInventory": 12,
   "SupporterPackShip": 92,
   "DefaultStarbaseBuild": 192,
+  "MaxEnemyShipsLevel": 500,
+  "EnemyLevel": "MAX(distance - 100, 0)",
   "CaptureStarbaseQuest": 9,
   "SurvivalCombatRules": 3,
   "StarbaseCombatRules": 4,

@@ -24,7 +24,7 @@ pub fn build_mod(args: Args) {
 
     patch_vanilla(&db);
 
-    // settings(&db);
+    settings(&db);
 
     // create_fleets(&db);
     //
