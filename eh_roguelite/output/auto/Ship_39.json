@@ -1,0 +1,48 @@
+{
+  "ItemType": 6,
+  "Id": 39,
+  "ShipType": 0,
+  "ShipRarity": 0,
+  "SizeClass": -1,
+  "Name": "$f5_Scout",
+  "Description": "",
+  "Faction": 5,
+  "IconImage": "f5s1",
+  "IconScale": 0.4,
+  "ModelImage": "f5s1",
+  "ModelScale": 1.0,
+  "EngineColor": "#40FFCC6F",
+  "Engines": [
+    {
+      "Position": {
+        "x": -0.4
+      },
+      "Size": 0.2
+    }
+  ],
+  "Layout": "0000000004240011424111322231132523101555100000000",
+  "Barrels": [
+    {
+      "Position": {
+        "x": 0.5,
+        "y": 0.7
+      },
+      "WeaponClass": "C",
+      "Image": ""
+    },
+    {
+      "Position": {
+        "x": 0.5,
+        "y": -0.7
+      },
+      "WeaponClass": "C",
+      "Image": ""
+    }
+  ],
+  "Features": {
+    "BuiltinDevices": []
+  },
+  "CellsExpansions": 0,
+  "EnginePosition": {},
+  "BuiltinDevices": []
+}

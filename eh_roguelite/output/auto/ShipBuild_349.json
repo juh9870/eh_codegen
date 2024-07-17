@@ -1,0 +1,75 @@
+{
+  "ItemType": 8,
+  "Id": 349,
+  "ShipId": 147,
+  "AvailableForEnemy": false,
+  "DifficultyClass": 0,
+  "Components": [
+    {
+      "ComponentId": 61,
+      "Quality": 0,
+      "X": 5,
+      "Y": 9
+    },
+    {
+      "ComponentId": 75,
+      "Quality": 0,
+      "X": 4,
+      "Y": 4
+    },
+    {
+      "ComponentId": 274,
+      "Quality": 0,
+      "X": 10,
+      "Y": 4,
+      "BarrelId": 1
+    },
+    {
+      "ComponentId": 271,
+      "Quality": 0,
+      "X": -1,
+      "Y": 4
+    },
+    {
+      "ComponentId": 63,
+      "Quality": 0,
+      "X": 2,
+      "Y": 8
+    },
+    {
+      "ComponentId": 63,
+      "Quality": 0,
+      "X": 2,
+      "Y": 6
+    },
+    {
+      "ComponentId": 63,
+      "Quality": 0,
+      "X": 9,
+      "Y": 8
+    },
+    {
+      "ComponentId": 63,
+      "Quality": 0,
+      "X": 9,
+      "Y": 6
+    },
+    {
+      "ComponentId": 62,
+      "Quality": 0,
+      "X": 5,
+      "Y": 1
+    },
+    {
+      "ComponentId": 57,
+      "Quality": 0,
+      "X": 6,
+      "Y": 12
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "ItemType": 1,
+  "Id": 31,
+  "Name": "$Detonator_M",
+  "Description": "",
+  "DisplayCategory": 6,
+  "Availability": 1,
+  "ComponentStatsId": 3,
+  "Faction": -1,
+  "Level": 20,
+  "Icon": "detonator1",
+  "Color": "#FFC840",
+  "Layout": "1111",
+  "CellType": "2",
+  "DeviceId": 5,
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    2,
+    7,
+    1
+  ]
+}

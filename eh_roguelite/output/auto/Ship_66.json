@@ -1,0 +1,50 @@
+{
+  "ItemType": 6,
+  "Id": 66,
+  "ShipType": 0,
+  "ShipRarity": 0,
+  "SizeClass": -1,
+  "Name": "$fa_Scout",
+  "Description": "",
+  "Faction": 9,
+  "IconImage": "fas1",
+  "IconScale": 0.7,
+  "ModelImage": "fas1",
+  "ModelScale": 1.2,
+  "EngineColor": "#40FFFFFF",
+  "Engines": [
+    {
+      "Position": {
+        "x": -0.9
+      },
+      "Size": 0.2
+    }
+  ],
+  "Layout": "000111000000222000000222000400222004400222004400030004450030054052252250003252300",
+  "Barrels": [
+    {
+      "Position": {
+        "x": 0.2,
+        "y": 0.9
+      },
+      "Rotation": -3.0,
+      "WeaponClass": "L",
+      "Image": ""
+    },
+    {
+      "Position": {
+        "x": 0.2,
+        "y": -0.9
+      },
+      "Rotation": 3.0,
+      "WeaponClass": "L",
+      "Image": ""
+    }
+  ],
+  "Features": {
+    "BuiltinDevices": []
+  },
+  "CellsExpansions": 0,
+  "EnginePosition": {},
+  "BuiltinDevices": []
+}

@@ -1,0 +1,50 @@
+{
+  "ItemType": 8,
+  "Id": 184,
+  "ShipId": 87,
+  "DifficultyClass": 0,
+  "Components": [
+    {
+      "ComponentId": 147,
+      "Quality": 0,
+      "X": 1
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "Y": 1
+    },
+    {
+      "ComponentId": 196,
+      "Quality": 0,
+      "X": 2,
+      "Y": 2,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "Y": 2,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 197,
+      "Quality": 0,
+      "X": 1,
+      "Y": 2,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 2,
+      "Y": 1,
+      "KeyBinding": -1
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

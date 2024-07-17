@@ -1,0 +1,17 @@
+{
+  "ItemType": 4,
+  "Id": 7,
+  "AmmunitionClass": 18,
+  "DamageType": 2,
+  "Size": 1.5,
+  "InitialPosition": {},
+  "Damage": 300.0,
+  "Range": 40.0,
+  "LifeTime": 2.0,
+  "EnergyCost": 150.0,
+  "Color": "#FF3F70",
+  "FireSound": "shot_11",
+  "HitSound": "",
+  "HitEffectPrefab": "FlashAdditive",
+  "BulletPrefab": "Laser"
+}

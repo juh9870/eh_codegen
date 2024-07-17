@@ -1,0 +1,87 @@
+{
+  "ItemType": 15,
+  "Id": 4,
+  "Name": "$Beacon_EscapePod",
+  "QuestType": 0,
+  "StartCondition": 1,
+  "Weight": 0.5,
+  "Origin": {
+    "Type": 0,
+    "Factions": {
+      "Type": 0,
+      "List": []
+    }
+  },
+  "Requirement": {
+    "Type": 0
+  },
+  "Nodes": [
+    {
+      "Type": 10,
+      "Id": 1,
+      "RequiredView": 0,
+      "Message": "$Beacon_EscapePod_Intro",
+      "Actions": [
+        {
+          "TargetNode": 2,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Action_Accept"
+        },
+        {
+          "TargetNode": 6,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$Action_Decline"
+        }
+      ]
+    },
+    {
+      "Type": 17,
+      "Id": 2,
+      "Message": "",
+      "Transitions": [
+        {
+          "TargetNode": 3,
+          "Requirement": {
+            "Type": 7,
+            "MinValue": 3,
+            "MaxValue": 5
+          }
+        }
+      ]
+    },
+    {
+      "Type": 10,
+      "Id": 3,
+      "RequiredView": 0,
+      "Message": "$Beacon_EscapePod_Completed",
+      "Loot": 1,
+      "Actions": [
+        {
+          "TargetNode": 4,
+          "Requirement": {
+            "Type": 0
+          },
+          "ButtonText": "$ACTION_Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 4,
+      "DefaultTransition": 5,
+      "Loot": 1
+    },
+    {
+      "Type": 40,
+      "Id": 5
+    },
+    {
+      "Type": 41,
+      "Id": 6
+    }
+  ]
+}

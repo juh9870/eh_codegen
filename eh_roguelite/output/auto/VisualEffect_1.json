@@ -1,0 +1,13 @@
+{
+  "ItemType": 26,
+  "Id": 1,
+  "Elements": [
+    {
+      "Type": 1,
+      "Image": "star",
+      "ColorMode": 0,
+      "Lifetime": 0.2,
+      "Offset": {}
+    }
+  ]
+}

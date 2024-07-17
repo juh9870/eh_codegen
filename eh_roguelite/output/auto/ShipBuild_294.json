@@ -1,0 +1,82 @@
+{
+  "ItemType": 8,
+  "Id": 294,
+  "ShipId": 130,
+  "DifficultyClass": 0,
+  "Components": [
+    {
+      "ComponentId": 131,
+      "Quality": 0,
+      "X": 12,
+      "Y": 8,
+      "BarrelId": 1
+    },
+    {
+      "ComponentId": 131,
+      "Quality": 0,
+      "X": 1,
+      "Y": 8
+    },
+    {
+      "ComponentId": 58,
+      "Quality": 0,
+      "X": 8,
+      "Y": 11,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 58,
+      "Quality": 0,
+      "X": 5,
+      "Y": 11,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 56,
+      "Quality": 0,
+      "X": 7,
+      "Y": 11,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 76,
+      "Quality": 0,
+      "X": 6,
+      "Y": 7,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 66,
+      "Quality": 0,
+      "X": 6,
+      "Y": 3,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 66,
+      "Quality": 0,
+      "X": 6,
+      "Y": 5,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 11,
+      "Quality": 0,
+      "X": 9,
+      "Y": 8,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 11,
+      "Quality": 0,
+      "X": 4,
+      "Y": 8,
+      "KeyBinding": 1
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

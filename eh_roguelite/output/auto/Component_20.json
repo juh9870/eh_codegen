@@ -1,0 +1,27 @@
+{
+  "ItemType": 1,
+  "Id": 20,
+  "Name": "LaserBeam_L_1",
+  "Description": "",
+  "DisplayCategory": 1,
+  "Availability": 0,
+  "ComponentStatsId": 1,
+  "Faction": 7,
+  "Icon": "laser4",
+  "Color": "#FFFFC0",
+  "Layout": "111111111",
+  "CellType": "4",
+  "WeaponId": 24,
+  "AmmunitionId": 24,
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    5,
+    2,
+    7,
+    1
+  ]
+}

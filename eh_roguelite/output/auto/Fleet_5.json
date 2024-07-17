@@ -1,0 +1,13 @@
+{
+  "ItemType": 18,
+  "Id": 5,
+  "Factions": {
+    "Type": 1,
+    "List": [
+      0
+    ]
+  },
+  "LootCondition": 0,
+  "ExpCondition": 0,
+  "SpecificShips": []
+}

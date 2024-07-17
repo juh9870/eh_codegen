@@ -1,0 +1,16 @@
+{
+  "ItemType": 18,
+  "Id": 1,
+  "Factions": {
+    "Type": 0,
+    "List": []
+  },
+  "NoRandomShips": true,
+  "LootCondition": 2,
+  "ExpCondition": 2,
+  "SpecificShips": [
+    214,
+    215,
+    216
+  ]
+}

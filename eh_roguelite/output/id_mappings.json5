@@ -1,37 +1,65 @@
 {
   "ids": {
-    "Device": {
-      "eh:toxic_waste": 18
-    },
-    "Faction": {
-      "eh:default": 1,
-      "eh:infected": 99
-    },
-    "GameObjectPrefab": {
-      "eh:energy_shield": 2,
-      "eh:energy_shield_outline": 3,
-      "eh:worm_tail_segment": 1
-    },
     "Loot": {
-      "eh:starting_inventory": 1
+      "eh:civilian_ship_reward": 17,
+      "eh:covid_loot": 21,
+      "eh:merchant_goods": 6,
+      "eh:merchant_loot": 5,
+      "eh:random_resources": 8,
+      "eh:random_stuff": 3,
+      "eh:scavenger_goods": 16,
+      "eh:some_money": 1,
+      "eh:some_money_x5": 10,
+      "eh:worm_boss_loot": 7
     },
     "Quest": {
-      "eh:capture_starbase": 1,
-      "eh:local_pirates": 2
+      "eh:capture_starbase": 9,
+      "eh:easter": 10,
+      "eh:escapepod": 4,
+      "eh:fac_delivery": 22,
+      "eh:fac_pirates": 20,
+      "eh:fac_resources": 21,
+      "eh:freestuff": 2,
+      "eh:jansalo_combat": 102,
+      "eh:jansalo_fuel": 101,
+      "eh:jansalo_into": 100,
+      "eh:local_pirates": 5,
+      "eh:merchant": 6,
+      "eh:pandemic": 200,
+      "eh:pirates": 3,
+      "eh:scavenger_distress": 106,
+      "eh:scavenger_harbor": 107,
+      "eh:scavenger_trade": 105,
+      "eh:ship_out_of_fuel": 8,
+      "eh:tutorial": 1,
+      "eh:wormship": 7
     },
     "Ship": {
-      "eh:hive": 3,
-      "eh:mothership": 83,
-      "eh:outpost": 1,
-      "eh:starbase": 5,
-      "eh:supporter_pack_ship": 4,
-      "eh:turret": 2
+      "eh:dart": 22,
+      "eh:excalibur": 21,
+      "eh:javelin": 20,
+      "eh:paladin": 19,
+      "eh:scout": 17,
+      "eh:scout_mk2": 18
     },
     "ShipBuild": {
-      "eh:hive": 3,
-      "eh:mothership": 220,
-      "eh:starbase_default": 5,
-      "eh:supporter_pack_ship": 4
+      "eh:dart": 44,
+      "eh:dart_x": 112,
+      "eh:excalibur": 43,
+      "eh:excalibur_x": 111,
+      "eh:excalibur_xx": 164,
+      "eh:javelin": 42,
+      "eh:javelin_x": 110,
+      "eh:paladin": 41,
+      "eh:paladin_x": 109,
+      "eh:paladin_x2": 194,
+      "eh:paladin_xx": 163,
+      "eh:scout": 39,
+      "eh:scout_mk2": 40,
+      "eh:scout_mk2_x": 108,
+      "eh:scout_mk2_xx": 235,
+      "eh:scout_x": 106,
+      "eh:scout_x2": 107
     }
   }
 }

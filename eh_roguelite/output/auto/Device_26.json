@@ -1,0 +1,15 @@
+{
+  "ItemType": 2,
+  "Id": 26,
+  "DeviceClass": 16,
+  "PassiveEnergyConsumption": 2.0,
+  "Size": 2.0,
+  "Cooldown": 45.0,
+  "Offset": {},
+  "ActivationType": 2,
+  "Color": "#FFC6F4",
+  "Sound": "launch_08",
+  "EffectPrefab": "OrbAdditive",
+  "ObjectPrefab": "",
+  "ControlButtonIcon": "controls_drone"
+}

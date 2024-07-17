@@ -1,0 +1,28 @@
+{
+  "ItemType": 1,
+  "Id": 264,
+  "Name": "$EcmDroneBay_M",
+  "Description": "",
+  "DisplayCategory": 5,
+  "Availability": 2,
+  "ComponentStatsId": 2,
+  "Faction": 17,
+  "Level": 100,
+  "Icon": "dronebay2",
+  "Color": "#808080",
+  "Layout": "1110111011101100",
+  "CellType": "1",
+  "WeaponSlotType": "",
+  "DroneBayId": 2,
+  "DroneId": 290,
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    18,
+    19,
+    1,
+    2
+  ]
+}

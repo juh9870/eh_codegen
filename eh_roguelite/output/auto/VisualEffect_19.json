@@ -1,0 +1,14 @@
+{
+  "ItemType": 26,
+  "Id": 19,
+  "Elements": [
+    {
+      "Type": 7,
+      "Image": "beam",
+      "ColorMode": 0,
+      "Offset": {},
+      "Loop": true,
+      "UseRealTime": true
+    }
+  ]
+}

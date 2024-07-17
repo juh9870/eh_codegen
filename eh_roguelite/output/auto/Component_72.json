@@ -1,0 +1,22 @@
+{
+  "ItemType": 1,
+  "Id": 72,
+  "Name": "$NanofiberStructures",
+  "Description": "",
+  "DisplayCategory": 6,
+  "Availability": 1,
+  "ComponentStatsId": 72,
+  "Faction": -1,
+  "Icon": "lightweight1",
+  "Color": "#C0FFC0",
+  "Layout": "1",
+  "CellType": "",
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    4
+  ]
+}

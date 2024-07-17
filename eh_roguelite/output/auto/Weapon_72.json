@@ -1,0 +1,10 @@
+{
+  "ItemType": 3,
+  "Id": 72,
+  "WeaponClass": 2,
+  "ActivationType": 1,
+  "ShotSound": "",
+  "ChargeSound": "",
+  "ShotEffectPrefab": "OrbAdditive",
+  "ControlButtonIcon": "controls_laser"
+}

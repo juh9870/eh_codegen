@@ -1,0 +1,23 @@
+{
+  "ItemType": 1,
+  "Id": 86,
+  "Name": "TutorialDrive",
+  "Description": "",
+  "DisplayCategory": 4,
+  "Availability": 0,
+  "ComponentStatsId": 1,
+  "Faction": -1,
+  "Icon": "engine1",
+  "Layout": "1",
+  "CellType": "5",
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    2,
+    11,
+    1
+  ]
+}

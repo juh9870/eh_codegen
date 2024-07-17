@@ -1,0 +1,14 @@
+{
+  "ItemType": 26,
+  "Id": 10,
+  "Elements": [
+    {
+      "Type": 1,
+      "Image": "cloud",
+      "ColorMode": 0,
+      "GrowthRate": 1.0,
+      "Lifetime": 0.2,
+      "Offset": {}
+    }
+  ]
+}

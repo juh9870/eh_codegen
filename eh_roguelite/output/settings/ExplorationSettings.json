@@ -1,7 +1,7 @@
 {
   "ItemType": 103,
-  "OutpostShip": 1,
-  "TurretShip": 2,
-  "InfectedPlanetFaction": 99,
-  "HiveShipBuild": 3
+  "OutpostShip": 101,
+  "TurretShip": 100,
+  "InfectedPlanetFaction": 16,
+  "HiveShipBuild": 275
 }

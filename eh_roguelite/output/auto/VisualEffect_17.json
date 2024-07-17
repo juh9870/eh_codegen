@@ -1,0 +1,21 @@
+{
+  "ItemType": 26,
+  "Id": 17,
+  "Elements": [
+    {
+      "Type": 0,
+      "Image": "twirl",
+      "ColorMode": 0,
+      "GrowthRate": 2.0,
+      "TurnRate": -360.0,
+      "Offset": {}
+    },
+    {
+      "Type": 0,
+      "Image": "star",
+      "ColorMode": 0,
+      "Size": 1.5,
+      "Offset": {}
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "ItemType": 1,
+  "Id": 158,
+  "Name": "$HighEnergyFocus_M",
+  "Description": "",
+  "DisplayCategory": 6,
+  "Availability": 1,
+  "ComponentStatsId": 158,
+  "Faction": 3,
+  "Level": 80,
+  "Icon": "focus2",
+  "Color": "#FFFFA0",
+  "Layout": "1111",
+  "CellType": "2",
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    1,
+    2
+  ]
+}

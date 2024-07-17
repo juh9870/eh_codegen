@@ -1,0 +1,106 @@
+{
+  "ItemType": 8,
+  "Id": 97,
+  "ShipId": 75,
+  "DifficultyClass": 0,
+  "Components": [
+    {
+      "ComponentId": 59,
+      "Quality": 0,
+      "X": 2,
+      "Y": 7,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 59,
+      "Quality": 0,
+      "X": 4,
+      "Y": 7,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 56,
+      "Quality": 0,
+      "X": 6,
+      "Y": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 56,
+      "Quality": 0,
+      "X": 1,
+      "Y": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 11,
+      "Quality": 0,
+      "X": 6,
+      "Y": 3,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 11,
+      "Quality": 0,
+      "Y": 3,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 66,
+      "Quality": 0,
+      "X": 3,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 77,
+      "Quality": 0,
+      "X": 4,
+      "Y": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 77,
+      "Quality": 0,
+      "X": 2,
+      "Y": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0,
+      "X": 6,
+      "Y": 1,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0,
+      "X": 5,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0,
+      "X": 2,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0,
+      "X": 1,
+      "Y": 1,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 144,
+      "Quality": 0,
+      "X": 3,
+      "Y": 3
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

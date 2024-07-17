@@ -1,0 +1,45 @@
+{
+  "ItemType": 26,
+  "Id": 9,
+  "Elements": [
+    {
+      "Type": 1,
+      "Image": "star",
+      "ColorMode": 0,
+      "Size": 1.5,
+      "Offset": {}
+    },
+    {
+      "Type": 0,
+      "Image": "",
+      "ColorMode": 1,
+      "Size": 1.2,
+      "Offset": {}
+    },
+    {
+      "Type": 2,
+      "Image": "wave",
+      "ColorMode": 0,
+      "Size": 1.2,
+      "Lifetime": 0.5,
+      "Offset": {}
+    },
+    {
+      "Type": 8,
+      "Image": "beam",
+      "ColorMode": 2,
+      "Color": "#0000FF",
+      "Quantity": 6,
+      "Size": 1.2,
+      "ParticleSize": 1.5,
+      "Offset": {}
+    },
+    {
+      "Type": 5,
+      "Image": "",
+      "ColorMode": 0,
+      "Lifetime": 0.0,
+      "Offset": {}
+    }
+  ]
+}

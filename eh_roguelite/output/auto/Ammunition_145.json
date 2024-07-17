@@ -1,0 +1,40 @@
+{
+  "ItemType": 25,
+  "Id": 145,
+  "Body": {
+    "Size": 1.0,
+    "Velocity": 10.0,
+    "Range": 30.0,
+    "Weight": 100.0,
+    "Color": "#C345FF",
+    "BulletPrefab": 9,
+    "EnergyCost": 30.0,
+    "AiBulletBehavior": 0,
+    "Type": 0
+  },
+  "Controller": {
+    "Type": 0
+  },
+  "Triggers": [
+    {
+      "EffectType": 2,
+      "Condition": 2,
+      "AudioClip": "launch_04",
+      "Ammunition": 146,
+      "ColorMode": 0,
+      "Size": 1.0,
+      "Rotation": "0",
+      "OffsetX": "0"
+    },
+    {
+      "EffectType": 1,
+      "Condition": 1,
+      "VisualEffect": 18,
+      "AudioClip": "",
+      "ColorMode": 0,
+      "Size": 4.0
+    }
+  ],
+  "ImpactType": 0,
+  "Effects": []
+}

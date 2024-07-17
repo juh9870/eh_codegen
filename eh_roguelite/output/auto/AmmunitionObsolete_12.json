@@ -1,0 +1,17 @@
+{
+  "ItemType": 4,
+  "Id": 12,
+  "AmmunitionClass": 6,
+  "DamageType": 0,
+  "Size": 0.6,
+  "InitialPosition": {},
+  "Range": 10.0,
+  "Velocity": 10.0,
+  "LifeTime": 1.0,
+  "EnergyCost": 5.0,
+  "Color": "#B4FFFFFF",
+  "FireSound": "launch_05",
+  "HitSound": "launch_02",
+  "HitEffectPrefab": "OrbAdditive",
+  "BulletPrefab": "Energy2"
+}

@@ -1,0 +1,64 @@
+{
+  "ItemType": 25,
+  "Id": 112,
+  "Body": {
+    "Size": 0.5,
+    "Velocity": 15.0,
+    "Range": 15.0,
+    "Weight": 0.1,
+    "HitPoints": 1,
+    "Color": "#FFA57F",
+    "BulletPrefab": 10,
+    "EnergyCost": 40.0,
+    "CanBeDisarmed": true,
+    "AiBulletBehavior": 1,
+    "Type": 1
+  },
+  "Controller": {
+    "Type": 1
+  },
+  "Triggers": [
+    {
+      "EffectType": 2,
+      "Condition": 5,
+      "AudioClip": "explosion_02",
+      "Ammunition": 112,
+      "ColorMode": 0,
+      "Quantity": 3,
+      "Size": 0.75,
+      "RandomFactor": 1.0,
+      "MaxNestingLevel": 3
+    },
+    {
+      "EffectType": 1,
+      "Condition": 2,
+      "VisualEffect": 1,
+      "AudioClip": "",
+      "ColorMode": 2,
+      "Size": 2.0
+    },
+    {
+      "EffectType": 2,
+      "Condition": 6,
+      "AudioClip": "explosion_02",
+      "Ammunition": 113,
+      "Color": "#FF0000",
+      "ColorMode": 2,
+      "Quantity": 1,
+      "Size": 5.0,
+      "PowerMultiplier": 8.0
+    },
+    {
+      "EffectType": 3,
+      "Condition": 7
+    }
+  ],
+  "ImpactType": 0,
+  "Effects": [
+    {
+      "Type": 0,
+      "DamageType": 0,
+      "Power": 5.0
+    }
+  ]
+}

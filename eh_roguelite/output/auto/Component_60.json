@@ -1,0 +1,24 @@
+{
+  "ItemType": 1,
+  "Id": 60,
+  "Name": "$NuclearDrive_S",
+  "Description": "",
+  "DisplayCategory": 4,
+  "Availability": 1,
+  "ComponentStatsId": 60,
+  "Faction": -1,
+  "Icon": "engine1",
+  "Color": "#FFDCC0",
+  "Layout": "1",
+  "CellType": "5",
+  "WeaponSlotType": "",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    2,
+    11,
+    1
+  ]
+}

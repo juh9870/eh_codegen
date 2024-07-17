@@ -1,0 +1,59 @@
+{
+  "ItemType": 6,
+  "Id": 45,
+  "ShipType": 0,
+  "ShipRarity": 1,
+  "SizeClass": -1,
+  "Name": "$f6_Scout2",
+  "Description": "",
+  "Faction": 6,
+  "IconImage": "f6s1_2",
+  "IconScale": 0.7,
+  "ModelImage": "f6s1_2",
+  "ModelScale": 1.0,
+  "EngineColor": "#10A0FFA0",
+  "Engines": [
+    {
+      "Position": {
+        "x": -0.1
+      },
+      "Size": 0.5
+    }
+  ],
+  "Layout": "000222000001222100001222100004525400004545400004040400004040400000040000000000000",
+  "Barrels": [
+    {
+      "Position": {
+        "x": -0.55,
+        "y": 0.95
+      },
+      "Rotation": 130.0,
+      "WeaponClass": "C",
+      "Image": ""
+    },
+    {
+      "Position": {
+        "x": -0.55,
+        "y": -0.95
+      },
+      "Rotation": 230.0,
+      "WeaponClass": "C",
+      "Image": ""
+    },
+    {
+      "Position": {
+        "x": -1.0
+      },
+      "Rotation": 180.0,
+      "WeaponClass": "C",
+      "Image": ""
+    }
+  ],
+  "Features": {
+    "Regeneration": true,
+    "BuiltinDevices": []
+  },
+  "CellsExpansions": 0,
+  "EnginePosition": {},
+  "BuiltinDevices": []
+}

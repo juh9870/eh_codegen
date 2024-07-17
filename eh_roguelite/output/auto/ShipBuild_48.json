@@ -1,0 +1,164 @@
+{
+  "ItemType": 8,
+  "Id": 48,
+  "ShipId": 26,
+  "DifficultyClass": 0,
+  "Components": [
+    {
+      "ComponentId": 42,
+      "Quality": 0,
+      "X": 8,
+      "Y": 5,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 42,
+      "Quality": 0,
+      "Y": 5,
+      "KeyBinding": 1
+    },
+    {
+      "ComponentId": 55,
+      "Quality": 0,
+      "X": 4,
+      "Y": 7
+    },
+    {
+      "ComponentId": 57,
+      "Quality": 0,
+      "X": 6,
+      "Y": 8
+    },
+    {
+      "ComponentId": 57,
+      "Quality": 0,
+      "X": 3,
+      "Y": 8
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 6,
+      "Y": 7
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 3,
+      "Y": 7
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 7,
+      "Y": 3
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 7,
+      "Y": 4
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 6,
+      "Y": 2
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 7,
+      "Y": 2
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 2,
+      "Y": 2
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 3,
+      "Y": 2
+    },
+    {
+      "ComponentId": 136,
+      "Quality": 0,
+      "X": 4,
+      "Y": 1
+    },
+    {
+      "ComponentId": 77,
+      "Quality": 0,
+      "X": 6,
+      "Y": 5
+    },
+    {
+      "ComponentId": 29,
+      "Quality": 0,
+      "X": 2,
+      "Y": 4,
+      "KeyBinding": -1
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 2,
+      "Y": 3
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 3,
+      "Y": 6
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 3,
+      "Y": 4
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 5,
+      "Y": 4
+    },
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 6,
+      "Y": 4
+    },
+    {
+      "ComponentId": 12,
+      "Quality": 0,
+      "Y": 8
+    },
+    {
+      "ComponentId": 12,
+      "Quality": 0,
+      "X": 9,
+      "Y": 8
+    },
+    {
+      "ComponentId": 12,
+      "Quality": 0,
+      "X": 8,
+      "Y": 2
+    },
+    {
+      "ComponentId": 12,
+      "Quality": 0,
+      "X": 1,
+      "Y": 2
+    }
+  ],
+  "Perks": {
+    "Perk1": 0,
+    "Perk2": 0,
+    "Perk3": 0
+  }
+}

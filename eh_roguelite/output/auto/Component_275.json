@@ -1,0 +1,30 @@
+{
+  "ItemType": 1,
+  "Id": 275,
+  "Name": "$EnergySiphonHarpoon",
+  "Description": "",
+  "DisplayCategory": 1,
+  "Availability": 2,
+  "ComponentStatsId": 1,
+  "Faction": 19,
+  "Level": 350,
+  "Icon": "firework",
+  "Color": "#AFE5F7",
+  "Layout": "0110011001100110",
+  "CellType": "4",
+  "WeaponId": 127,
+  "AmmunitionId": 131,
+  "WeaponSlotType": "S",
+  "Restrictions": {
+    "ShipSizes": [],
+    "UniqueComponentTag": ""
+  },
+  "PossibleModifications": [
+    5,
+    8,
+    21,
+    6,
+    7,
+    1
+  ]
+}

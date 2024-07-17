@@ -1,0 +1,46 @@
+{
+  "ItemType": 9,
+  "Id": 12,
+  "SatelliteId": 9,
+  "DifficultyClass": 1,
+  "Components": [
+    {
+      "ComponentId": 78,
+      "Quality": 0,
+      "X": 1,
+      "Y": 1
+    },
+    {
+      "ComponentId": 67,
+      "Quality": 0,
+      "X": 1,
+      "Y": 2
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0,
+      "X": 2,
+      "Y": 1
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0,
+      "X": 2
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0
+    },
+    {
+      "ComponentId": 72,
+      "Quality": 0,
+      "Y": 1
+    },
+    {
+      "ComponentId": 128,
+      "Quality": 0,
+      "X": 1,
+      "KeyBinding": 3
+    }
+  ]
+}
