@@ -17,6 +17,7 @@ owo-colors = { workspace = true }
 parking_lot = { workspace = true }
 paste = { workspace = true }
 rayon = { workspace = true }
+regex = { workspace = true }
 replace_with = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

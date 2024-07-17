@@ -1,22 +1,56 @@
 use tracing::instrument;
 
-use eh_mod_cli::db_minimal::load_minimal;
+use eh_mod_cli::db_vanilla::load_vanilla;
 use eh_mod_cli::dev::database::{database, Database};
-use eh_mod_cli::dev::schema::schema::DatabaseSettings;
+use eh_mod_cli::dev::schema::schema::{
+    DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeRetreat, Quest,
+};
 use eh_mod_cli::dev::validators::validate_settings;
 use eh_mod_cli::Args;
 
+use crate::roguelite::events::Events;
+
+mod core;
+mod enemy_fleets;
+mod events;
+
 #[instrument]
 pub fn build_mod(args: Args) {
-    let db = database(args.output_dir, args.output_mod);
+    let db = database(args.output_dir.clone(), args.output_mod.clone());
 
-    load_minimal(&db);
+    load_vanilla(&db);
 
-    db.add_id_range(1..999999999);
+    db.add_id_range(10000..999999999);
 
-    settings(&db);
+    // patch_vanilla(&db);
+
+    // settings(&db);
+
+    // create_fleets(&db);
+    //
+    // core_quest(&db);
 
     db.save();
+}
+
+fn patch_vanilla(db: &Database) {
+    db.faction_iter_mut(|f| {
+        for mut faction in f {
+            faction.hidden = true;
+            faction.hide_research_tree = true;
+        }
+    });
+
+    db.get_item::<Quest>("eh:local_pirates").unwrap().edit(|q| {
+        q.nodes = vec![
+            NodeRetreat {
+                id: 1,
+                default_transition: 2,
+            }
+            .into(),
+            NodeCancelQuest { id: 2 }.into(),
+        ];
+    });
 }
 
 #[instrument]
@@ -27,7 +61,16 @@ fn settings(db: &Database) {
         s.mod_version = 1;
     });
 
+    db.get_singleton::<GalaxySettings>().unwrap().edit(|s| {
+        s.enemy_level = "MAX(distance - 100, 0)".to_string();
+        s.max_enemy_ships_level = 500;
+    });
+
     db.new_factions_settings();
+
+    db.init_extra::<Events>();
 
     validate_settings(db);
 }
+
+const MSG_GONE_WRONG:&str = "Something gone wrong.\nPlease screenshot this error and send it to juh9870 on Discord\nError:\n";

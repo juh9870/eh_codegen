@@ -4,7 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-eh_mod_cli = { workspace = true, features = ["include_minimal"] }
+eh_mod_cli = { workspace = true, features = ["include_minimal", "include_vanilla"] }
+itertools = { workspace = true }
+quests = { workspace = true }
 serde = { workspace = true }
 tracing = { workspace = true }
 

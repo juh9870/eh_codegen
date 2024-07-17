@@ -2,11 +2,15 @@ use std::borrow::Cow;
 use std::collections::{BTreeMap, HashMap, HashSet};
 use std::ops::Range;
 
+use regex::Regex;
 use tracing::error_span;
 
 use eh_schema::schema::{DatabaseItem, DatabaseItemId};
 
 pub type IdMappingSerialized = BTreeMap<Cow<'static, str>, BTreeMap<String, i32>>;
+
+pub type IdIter<'a> =
+    std::iter::Flatten<std::option::IntoIter<std::collections::hash_set::Iter<'a, String>>>;
 
 #[derive(Debug, Clone, Default)]
 pub struct IdMapping {
@@ -116,17 +120,20 @@ impl IdMapping {
         {
             let _guard = error_span!("Creating new item ID", id = id_str, ty = %kind).entered();
 
-            if self
-                .used_ids
-                .entry(kind.clone())
-                .or_default()
-                .contains(&id_str)
-            {
+            let used_ids = self.used_ids.entry(kind.clone()).or_default();
+
+            if !used_ids.insert(id_str.clone()) {
                 panic!("ID is already in use")
             }
         }
 
         self.get_id_raw(kind, id_str)
+    }
+
+    pub fn is_used(&self, kind: impl Into<Cow<'static, str>>, id: &str) -> bool {
+        self.used_ids
+            .get(&kind.into())
+            .is_some_and(|ids| ids.contains(id))
     }
 
     /// Forcefully assigns numeric ID to a string
@@ -150,6 +157,11 @@ impl IdMapping {
         numeric_id
     }
 
+    pub fn forget_used_id(&mut self, kind: impl Into<Cow<'static, str>>, id: &str) {
+        let kind = kind.into();
+        self.used_ids.entry(kind).or_default().remove(id);
+    }
+
     pub fn get_inverse_id<'a>(&'a self, kind: impl Into<Cow<'a, str>>, id: i32) -> Option<String> {
         let kind = kind.into();
 
@@ -169,18 +181,40 @@ impl IdMapping {
             .collect()
     }
 
-    fn next_id_raw(&mut self, kind: impl Into<Cow<'static, str>>) -> i32 {
-        if self.default_ids.is_empty() {
-            panic!(
-                "No ID range were given for Database to assign, please use `add_id_range` method"
-            )
-        }
+    // Iterator of all used string ids for the given kind
+    pub fn used_ids<'a>(&'a self, kind: impl Into<Cow<'a, str>>) -> IdIter {
+        self.used_ids
+            .get(&kind.into())
+            .map(|h| h.iter())
+            .into_iter()
+            .flatten()
+    }
 
+    pub fn used_ids_filtered<'a>(
+        &'a self,
+        filter: &str,
+        kind: impl Into<Cow<'a, str>>,
+    ) -> RegexIter {
+        RegexIter {
+            regex: Regex::new(filter).unwrap(),
+            items: self.used_ids(kind),
+        }
+    }
+
+    fn next_id_raw(&mut self, kind: impl Into<Cow<'static, str>>) -> i32 {
         let kind = kind.into();
+
         let ids = self
             .available_ids
             .entry(kind.clone())
             .or_insert_with(|| self.default_ids.clone());
+
+        if ids.is_empty() {
+            let _guard = error_span!("Getting next item ID", kind = %kind).entered();
+            panic!(
+                "No ID range were given for Database to assign or all ids were exhausted, please use `add_id_range` method"
+            )
+        }
 
         let mappings = self.occupied_ids.entry(kind).or_default();
 
@@ -235,5 +269,48 @@ impl<T: KindProvider> DatabaseIdLike<T> for String {
     }
     fn into_new_id(self, ids: &mut IdMapping) -> i32 {
         ids.new_id(T::kind(), self)
+    }
+}
+
+pub trait OptionalDatabaseIdLike<K: KindProvider, T: DatabaseIdLike<K>> {
+    fn into_opt(self) -> Option<T>;
+}
+
+impl<K: KindProvider, T: DatabaseIdLike<K>> OptionalDatabaseIdLike<K, T> for T {
+    fn into_opt(self) -> Option<T> {
+        Some(self)
+    }
+}
+
+impl<K: KindProvider, T: DatabaseIdLike<K>> OptionalDatabaseIdLike<K, T> for Option<T> {
+    fn into_opt(self) -> Option<T> {
+        self
+    }
+}
+
+impl<K: KindProvider> OptionalDatabaseIdLike<K, String> for () {
+    fn into_opt(self) -> Option<String> {
+        None
+    }
+}
+
+#[derive(Debug)]
+pub struct RegexIter<'a> {
+    regex: regex::Regex,
+    items: IdIter<'a>,
+}
+
+impl<'a> Iterator for RegexIter<'a> {
+    type Item = <IdIter<'a> as Iterator>::Item;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        for next in self.items.by_ref() {
+            if !self.regex.is_match(next) {
+                continue;
+            }
+            return Some(next);
+        }
+
+        None
     }
 }

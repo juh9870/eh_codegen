@@ -3,6 +3,7 @@ use eh_schema::schema::Item;
 use std::ops::{Deref, DerefMut};
 use std::sync::Arc;
 
+#[derive(Debug)]
 pub struct DbItem<T: Into<Item>> {
     item: Option<T>,
     db: Arc<DatabaseHolder>,

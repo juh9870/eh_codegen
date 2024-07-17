@@ -7,10 +7,12 @@ use parking_lot::RwLock;
 use eh_mod_dev::database::Database;
 use eh_mod_dev::mapping::{IdMapping, KindProvider};
 use eh_mod_dev::schema::schema::{
-    Node, NodeCancelQuest, NodeCompleteQuest, NodeFailQuest, QuestId,
+    Node, NodeCancelQuest, NodeCompleteQuest, NodeFailQuest, Quest, QuestId,
 };
 
-pub mod nodes;
+use crate::quests::branch::{BranchBuilder, BranchBuilderData};
+
+pub mod branch;
 
 pub const COMPLETE_ID_NAME: &str = "complete";
 pub const FAIL_ID_NAME: &str = "fail";
@@ -36,6 +38,7 @@ impl QuestContext {
         let id = db.new_id(string_id.as_str());
         let mut data = QuestContextData {
             id,
+            db: db.clone(),
             string_id,
             mappings,
             nodes: vec![],
@@ -48,6 +51,21 @@ impl QuestContext {
         data.set_start_id(starting_node_id);
         Self { data }
     }
+
+    pub fn into_quest(self) -> Quest {
+        Quest {
+            id: self.id,
+            name: "".to_string(),
+            quest_type: Default::default(),
+            start_condition: Default::default(),
+            weight: 1.0,
+            origin: Default::default(),
+            requirement: Default::default(),
+            level: 0,
+            use_random_seed: false,
+            nodes: self.data.nodes,
+        }
+    }
 }
 
 impl Deref for QuestContext {
@@ -55,6 +73,12 @@ impl Deref for QuestContext {
 
     fn deref(&self) -> &Self::Target {
         &self.data
+    }
+}
+
+impl DerefMut for QuestContext {
+    fn deref_mut(&mut self) -> &mut Self::Target {
+        &mut self.data
     }
 }
 
@@ -77,9 +101,27 @@ pub struct Contextual<'a, T> {
     data: T,
 }
 
-impl<T> Contextual<'_, T> {
+impl<'a, T> Contextual<'a, T> {
+    pub fn new(context: &'a mut QuestContextData, data: T) -> Self {
+        Self { context, data }
+    }
+}
+
+impl<'a, T> Contextual<'a, T> {
     pub fn ctx(&mut self) -> &mut QuestContextData {
         self.context
+    }
+
+    #[allow(clippy::wrong_self_convention)]
+    pub fn into_inner(contextual: Self) -> T {
+        contextual.data
+    }
+
+    pub fn map<U>(item: Self, f: impl FnOnce(T) -> U) -> Contextual<'a, U> {
+        Contextual {
+            context: item.context,
+            data: f(item.data),
+        }
     }
 }
 
@@ -100,6 +142,7 @@ impl<T> DerefMut for Contextual<'_, T> {
 #[derive(Debug)]
 pub struct QuestContextData {
     pub id: QuestId,
+    pub db: Database,
     pub string_id: String,
     mappings: Arc<RwLock<IdMapping>>,
     pub nodes: Vec<Node>,
@@ -122,7 +165,24 @@ impl QuestContextData {
     pub fn set_id(&mut self, string_id: impl Into<String>, numeric_id: i32) {
         self.mappings
             .write()
-            .set_id(NodeId::kind(), string_id, numeric_id);
+            .set_id(self.string_id.clone(), string_id, numeric_id);
+    }
+
+    pub fn branch(&mut self) -> BranchBuilder {
+        Contextual::new(self, BranchBuilderData::default())
+    }
+
+    pub fn cached(
+        &mut self,
+        id: impl Into<String>,
+        func: impl FnOnce(&mut Self) -> NodeId,
+    ) -> NodeId {
+        let id = id.into();
+        if self.mappings.read().is_used(self.string_id.clone(), &id) {
+            return self.id(id);
+        }
+
+        func(self)
     }
 
     fn set_start_id(&mut self, string_id: impl Into<String>) {
@@ -137,7 +197,11 @@ impl QuestContextData {
         }
 
         self.has_start = true;
-        self.set_id(string_id, START_ID.0)
+        let string_id = string_id.into();
+        self.set_id(&string_id, START_ID.0);
+        self.mappings
+            .write()
+            .forget_used_id(self.string_id.clone(), &string_id);
     }
 
     fn add_complete(&mut self) -> NodeId {

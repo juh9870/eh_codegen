@@ -1,5 +1,6 @@
+use eh_schema::schema::{Loot, Quest, Ship, ShipBuild};
+
 use crate::database::Database;
-use eh_schema::schema::{Loot, Quest};
 
 pub fn add_vanilla_mappings(db: &Database) {
     db.set_id::<Quest>("eh:local_pirates", 5);
@@ -33,4 +34,37 @@ pub fn add_vanilla_mappings(db: &Database) {
     db.set_id::<Loot>("eh:some_money", 1);
     db.set_id::<Loot>("eh:some_money_x5", 10);
     db.set_id::<Loot>("eh:worm_boss_loot", 7);
+
+    veniri(db);
+}
+
+fn veniri(db: &Database) {
+    db.set_id::<Ship>("eh:scout", 17);
+    db.set_id::<ShipBuild>("eh:scout", 39);
+    db.set_id::<ShipBuild>("eh:scout_x", 106);
+    db.set_id::<ShipBuild>("eh:scout_x2", 107);
+
+    db.set_id::<Ship>("eh:scout_mk2", 18);
+    db.set_id::<ShipBuild>("eh:scout_mk2", 40);
+    db.set_id::<ShipBuild>("eh:scout_mk2_x", 108);
+    db.set_id::<ShipBuild>("eh:scout_mk2_xx", 235);
+
+    db.set_id::<Ship>("eh:paladin", 19);
+    db.set_id::<ShipBuild>("eh:paladin", 41);
+    db.set_id::<ShipBuild>("eh:paladin_x", 109);
+    db.set_id::<ShipBuild>("eh:paladin_x2", 194);
+    db.set_id::<ShipBuild>("eh:paladin_xx", 163);
+
+    db.set_id::<Ship>("eh:javelin", 20);
+    db.set_id::<ShipBuild>("eh:javelin", 42);
+    db.set_id::<ShipBuild>("eh:javelin_x", 110);
+
+    db.set_id::<Ship>("eh:excalibur", 21);
+    db.set_id::<ShipBuild>("eh:excalibur", 43);
+    db.set_id::<ShipBuild>("eh:excalibur_x", 111);
+    db.set_id::<ShipBuild>("eh:excalibur_xx", 164);
+
+    db.set_id::<Ship>("eh:dart", 22);
+    db.set_id::<ShipBuild>("eh:dart", 44);
+    db.set_id::<ShipBuild>("eh:dart_x", 112);
 }

@@ -1,5 +1,6 @@
 use diagnostic::context::DiagnosticContextRef;
 use serde::Deserializer;
+use std::ops::{RangeInclusive, RangeToInclusive};
 
 pub trait DatabaseItem: serde::Serialize + for<'a> serde::Deserialize<'a> {
     fn validate(&self, ctx: DiagnosticContextRef);
@@ -111,5 +112,33 @@ pub mod glam_ser {
         de: D,
     ) -> Result<glam::f32::Vec2, D::Error> {
         Ok(Vec2Shim::deserialize(de)?.into())
+    }
+}
+
+pub trait MinMax<T> {
+    fn into_min_max(self) -> (T, T);
+}
+
+impl<T> MinMax<T> for RangeInclusive<T> {
+    fn into_min_max(self) -> (T, T) {
+        self.into_inner()
+    }
+}
+
+impl<T: num_traits::Zero> MinMax<T> for RangeToInclusive<T> {
+    fn into_min_max(self) -> (T, T) {
+        (T::zero(), self.end)
+    }
+}
+
+impl<T: Copy> MinMax<T> for T {
+    fn into_min_max(self) -> (T, T) {
+        (self, self)
+    }
+}
+
+impl<T> MinMax<T> for (T, T) {
+    fn into_min_max(self) -> (T, T) {
+        self
     }
 }

@@ -1,10 +1,14 @@
+use std::sync::Arc;
+
+use eh_schema::schema::*;
+use eh_schema::{apply_all_collections, apply_all_items, apply_constructors};
+
+use crate::mapping::{IdIter, RegexIter};
+
 use super::{
     Database, DatabaseHolder, DatabaseIdLike, DatabaseItemIter, DatabaseItemIterMut, DbItem,
     Remember,
 };
-use eh_schema::schema::*;
-use eh_schema::{apply_all_collections, apply_all_items, apply_constructors};
-use std::sync::Arc;
 
 macro_rules! process_arg_type {
     (DatabaseItemId<$ty:ty>) => {impl DatabaseIdLike<$ty>};
@@ -38,11 +42,17 @@ macro_rules! collections_impls {
         impl DatabaseHolder {
             $(
                 paste::paste! {
-                    pub fn [< $name  _iter >]<U>(self: &Self, func: impl Fn(DatabaseItemIter<'_, $ty>) -> U) -> U {
+                    pub fn [< $name  _iter >]<U>(self: &Self, func: impl FnOnce(DatabaseItemIter<'_, $ty>) -> U) -> U {
                         self.iter::<$ty, U>(func)
                     }
-                    pub fn [< $name  _iter_mut >]<U>(self: &Self, func: impl Fn(DatabaseItemIterMut<'_, $ty>) -> U) -> U {
+                    pub fn [< $name  _iter_mut >]<U>(self: &Self, func: impl FnOnce(DatabaseItemIterMut<'_, $ty>) -> U) -> U {
                         self.iter_mut::<$ty, U>(func)
+                    }
+                    pub fn [< $name  _id_iter >]<U>(self: &Self, func: impl FnOnce(IdIter<'_>) -> U) -> U {
+                        self.iter_ids::<$ty, U>(func)
+                    }
+                    pub fn [< $name  _id_iter_filtered >]<U>(self: &Self, filter: &str, func: impl FnOnce(RegexIter<'_>) -> U) -> U {
+                        self.iter_ids_filtered::<$ty, U>(filter, func)
                     }
                 }
             )*

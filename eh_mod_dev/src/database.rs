@@ -1,4 +1,4 @@
-use std::any::Any;
+use std::any::{Any, TypeId};
 use std::borrow::Cow;
 use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
 use std::fmt::{Debug, Formatter};
@@ -18,13 +18,15 @@ use eh_schema::schema::{DatabaseItem, DatabaseItemId, DatabaseSettings, Item};
 
 use crate::builder::{ModBuilderData, ModBuilderInfo};
 pub use crate::database::db_item::DbItem;
+use crate::database::extra_item::ExtraItem;
 pub use crate::database::iters::{DatabaseItemIter, DatabaseItemIterMut};
 pub use crate::database::stored_db_item::StoredDbItem;
 pub use crate::mapping::DatabaseIdLike;
-use crate::mapping::{IdMapping, IdMappingSerialized, KindProvider};
+use crate::mapping::{IdIter, IdMapping, IdMappingSerialized, KindProvider, RegexIter};
 use crate::utils::{compress, decompress, sha256};
 
 pub mod db_item;
+pub mod extra_item;
 pub mod iters;
 pub mod stored_db_item;
 
@@ -68,6 +70,7 @@ pub struct DatabaseInner {
     ids: IdMapping,
     other_ids: HashMap<Cow<'static, str>, Arc<RwLock<IdMapping>>>,
     items: HashMap<&'static str, ItemsMap>,
+    extras: HashMap<TypeId, Arc<RwLock<dyn Any + Send + Sync>>>,
     // items: Vec<Item>,
 }
 
@@ -131,6 +134,7 @@ impl DatabaseHolder {
                 ids: IdMapping::new(mappings.ids),
                 other_ids,
                 items: Default::default(),
+                extras: Default::default(),
             }),
         };
         Arc::new(db)
@@ -184,6 +188,18 @@ impl DatabaseHolder {
         numeric_id: i32,
     ) -> DatabaseItemId<T> {
         DatabaseItemId::new(self.lock(|db| db.ids.set_id(T::type_name(), string_id, numeric_id)))
+    }
+
+    pub fn iter_ids<T: 'static + DatabaseItem, U>(&self, func: impl FnOnce(IdIter) -> U) -> U {
+        self.lock(|db| func(db.ids.used_ids(T::kind())))
+    }
+
+    pub fn iter_ids_filtered<T: 'static + DatabaseItem, U>(
+        &self,
+        pat: &str,
+        func: impl FnOnce(RegexIter) -> U,
+    ) -> U {
+        self.lock(|db| func(db.ids.used_ids_filtered(pat, T::kind())))
     }
 
     pub fn get_id_name<T: 'static + DatabaseItem>(&self, id: DatabaseItemId<T>) -> Option<String> {
@@ -265,6 +281,22 @@ impl DatabaseHolder {
                 error!(ty = type_name, "Duplicate setting detected")
             }
         }
+    }
+
+    pub fn insert_extra<T: Any + Send + Sync>(&self, extra: T) {
+        self.lock(|db| {
+            db.extras
+                .insert(TypeId::of::<T>(), Arc::new(RwLock::new(extra)))
+        });
+    }
+
+    pub fn init_extra<T: Any + Send + Sync + Default>(&self) {
+        self.insert_extra(T::default())
+    }
+
+    pub fn extra<T: Any + Send + Sync>(&self) -> ExtraItem<T> {
+        let item = self.lock(|db| db.extras.get(&TypeId::of::<T>()).unwrap().clone());
+        ExtraItem::new(item)
     }
 
     /// Saves database to the file system, overriding old files
@@ -469,6 +501,10 @@ impl DatabaseHolder {
                 continue;
             }
 
+            if file.path().is_dir() {
+                continue;
+            }
+
             let _guard = error_span!("Cleaning up old file", path=%file.path().display()).entered();
 
             fs_err::remove_file(file.path()).expect("Should be able to delete old file");
@@ -516,9 +552,7 @@ impl DatabaseHolder {
 
                 let path = entry.path();
 
-                let Some(ext) = path.extension().and_then(|ext| ext.to_str()) else {
-                    return None;
-                };
+                let ext = path.extension().and_then(|ext| ext.to_str())?;
 
                 if ext != "json" {
                     return None;
@@ -564,9 +598,7 @@ impl DatabaseHolder {
             .filter_map(|entry| {
                 let path = entry.path();
 
-                let Some(ext) = path.extension().and_then(|ext| ext.to_str()) else {
-                    return None;
-                };
+                let ext = path.extension().and_then(|ext| ext.to_str())?;
 
                 if ext != "json" {
                     return None;

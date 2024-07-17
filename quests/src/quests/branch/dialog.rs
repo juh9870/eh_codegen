@@ -2,7 +2,7 @@ use eh_mod_dev::schema::schema::{
     CharacterId, FleetId, LootId, NodeAction, NodeShowDialog, RequiredViewMode, Requirement,
 };
 
-use crate::quests::nodes::{BranchBuilder, BranchDone, TransitionalNode};
+use crate::quests::branch::TransitionalNode;
 use crate::quests::{IntoNodeId, NodeId, QuestContextData};
 
 pub struct SmartDialog<'a, const HAS_NEXT: bool> {
@@ -13,13 +13,13 @@ pub struct SmartDialog<'a, const HAS_NEXT: bool> {
 
 impl<const HAS_NEXT: bool> SmartDialog<'_, HAS_NEXT> {
     /// Adds an action that branches out
-    pub fn action<T>(
+    pub fn action(
         mut self,
         action: impl IntoDialogAction,
-        branch: impl DialogActionTarget<T>,
+        branch: impl FnOnce(&mut QuestContextData) -> NodeId,
     ) -> Self {
         let mut action = action.into_action();
-        action.target_node = branch.call(self.ctx).0;
+        action.target_node = branch(self.ctx).0;
         self.node.actions.push(action);
         self
     }
@@ -47,6 +47,10 @@ impl<const HAS_NEXT: bool> SmartDialog<'_, HAS_NEXT> {
         self.node.set_required_view(mode);
         self
     }
+
+    pub fn ctx(&mut self) -> &mut QuestContextData {
+        self.ctx
+    }
 }
 
 impl<'a> SmartDialog<'a, false> {
@@ -72,7 +76,7 @@ impl<'a> SmartDialog<'a, false> {
         message: impl Into<String>,
     ) -> Self {
         let node = NodeShowDialog {
-            id: ctx.id(id).0,
+            id: ctx.new_id(id).0,
             required_view: Default::default(),
             message: message.into(),
             enemy: None,
@@ -114,12 +118,18 @@ impl IntoDialogAction for String {
     }
 }
 
-impl<T: Into<Requirement>> IntoDialogAction for (String, T) {
+impl IntoDialogAction for &str {
+    fn into_action(self) -> NodeAction {
+        self.to_string().into_action()
+    }
+}
+
+impl<S: Into<String>, T: Into<Requirement>> IntoDialogAction for (S, T) {
     fn into_action(self) -> NodeAction {
         NodeAction {
             target_node: 0,
             requirement: self.1.into(),
-            button_text: self.0,
+            button_text: self.0.into(),
         }
     }
 }
@@ -146,24 +156,8 @@ impl From<SmartDialog<'_, true>> for BakedDialog {
     }
 }
 
-pub trait DialogActionTarget<T> {
-    fn call(self, ctx: &mut QuestContextData) -> NodeId;
-}
-
-impl DialogActionTarget<NodeId> for NodeId {
-    fn call(self, _ctx: &mut QuestContextData) -> NodeId {
-        self
-    }
-}
-
-impl<F: Fn(&mut QuestContextData) -> NodeId> DialogActionTarget<()> for F {
-    fn call(self, ctx: &mut QuestContextData) -> NodeId {
-        self(ctx)
-    }
-}
-
-impl<F: Fn(BranchBuilder) -> BranchDone> DialogActionTarget<BranchDone> for F {
-    fn call(self, ctx: &mut QuestContextData) -> NodeId {
-        self(BranchBuilder::new(ctx)).entrypoint()
-    }
-}
+// impl<F: FnOnce(BranchBuilder) -> BranchDone> DialogActionTarget<BranchDone> for F {
+//     fn call(self, ctx: &mut QuestContextData) -> NodeId {
+//         self(ctx.branch()).entrypoint()
+//     }
+// }

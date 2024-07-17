@@ -1,15 +1,18 @@
-use crate::database::{DatabaseHolder, SharedItem};
-use eh_schema::schema::{DatabaseItem, Item};
+use std::any::Any;
+use std::marker::PhantomData;
+
 use parking_lot::{
     MappedRwLockReadGuard, MappedRwLockWriteGuard, RwLockReadGuard, RwLockWriteGuard,
 };
-use std::any::Any;
-use std::marker::PhantomData;
+
+use eh_schema::schema::{DatabaseItem, Item};
+
+use crate::database::{DatabaseHolder, SharedItem};
 
 impl DatabaseHolder {
     pub fn iter<T: Into<Item> + DatabaseItem + Any, U>(
         &self,
-        func: impl Fn(DatabaseItemIter<'_, T>) -> U,
+        func: impl FnOnce(DatabaseItemIter<'_, T>) -> U,
     ) -> U {
         let mut db_lock = self.inner.lock();
         let items = db_lock.items.entry(T::type_name()).or_default().clone();
@@ -25,7 +28,7 @@ impl DatabaseHolder {
 
     pub fn iter_mut<T: Into<Item> + DatabaseItem + Any, U>(
         &self,
-        func: impl Fn(DatabaseItemIterMut<'_, T>) -> U,
+        func: impl FnOnce(DatabaseItemIterMut<'_, T>) -> U,
     ) -> U {
         let mut db_lock = self.inner.lock();
         let items = db_lock.items.entry(T::type_name()).or_default().clone();
