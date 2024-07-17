@@ -1,0 +1,12 @@
+{
+  "ItemType": 30,
+  "Id": 10000,
+  "InitialEnemyShips": "RANDOM_INT(2, 5)",
+  "TimeLimit": "30",
+  "TimeOutMode": 0,
+  "LootCondition": 0,
+  "ExpCondition": 0,
+  "ShipSelection": 3,
+  "DisableRandomLoot": true,
+  "CustomSoundtrack": []
+}

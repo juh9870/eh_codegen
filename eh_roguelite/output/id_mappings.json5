@@ -1,5 +1,13 @@
 {
   "ids": {
+    "CombatRules": {
+      "rgl:basic": 10000,
+      "rgl:blitz": 10002,
+      "rgl:gang": 10001
+    },
+    "Fleet": {
+      "rgl:scouts": 10000
+    },
     "Loot": {
       "eh:civilian_ship_reward": 17,
       "eh:covid_loot": 21,
@@ -33,6 +41,9 @@
       "eh:ship_out_of_fuel": 8,
       "eh:tutorial": 1,
       "eh:wormship": 7
+    },
+    "QuestItem": {
+      "rgl:scouts": 10000
     },
     "Ship": {
       "eh:dart": 22,
