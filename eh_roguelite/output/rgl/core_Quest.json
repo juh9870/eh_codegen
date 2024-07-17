@@ -192,6 +192,12 @@
       ]
     },
     {
+      "Type": 36,
+      "Id": 28,
+      "DefaultTransition": 14,
+      "Loot": 10006
+    },
+    {
       "Type": 16,
       "Id": 14,
       "Message": "QUEST rgl:core NODE #14",
@@ -322,7 +328,7 @@
     {
       "Type": 35,
       "Id": 13,
-      "DefaultTransition": 14,
+      "DefaultTransition": 28,
       "Loot": 10000
     }
   ]

@@ -66,6 +66,7 @@ fn init(ctx: Ctx) -> NodeId {
 fn path_choices_init(ctx: Ctx) -> NodeId {
     ctx.cached("path_choices_init", |ctx| {
         ctx.branch()
+            .remove_item("path_choices_clean_event_items", ALL_EVENT_ITEMS_100)
             .random_end("path_choices_init", |mut r| {
                 let db = r.ctx().db.clone();
                 for chapter in 1..=CHAPTERS {
@@ -127,7 +128,7 @@ fn something_gone_wrong(ctx: Ctx, error: &str) -> NodeId {
     let id = format!("something_gone_wrong_{}", error);
     ctx.cached(id.clone(), |ctx| {
         ctx.branch()
-            .dialog(id, MSG_GONE_WRONG.to_string() + &error, |d| {
+            .dialog(id, MSG_GONE_WRONG.to_string() + error, |d| {
                 d.next("Start new run")
             })
             .goto(init)

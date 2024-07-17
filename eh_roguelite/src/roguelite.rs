@@ -72,7 +72,7 @@ fn settings(db: &Database) {
     });
 
     db.get_singleton::<GalaxySettings>().unwrap().edit(|s| {
-        s.enemy_level = "MAX(distance - 100, 0)".to_string();
+        s.enemy_level = "MAX(distance - 100, 0) / 4".to_string();
         s.max_enemy_ships_level = 500;
     });
 

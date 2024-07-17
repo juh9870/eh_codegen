@@ -22,7 +22,7 @@ pub fn create_fleets(db: &Database) {
 fn rules(db: &Database) {
     let basic_rules = CombatRules {
         id: db.new_id("rgl:basic"),
-        initial_enemy_ships: "RANDOM_INT(2, 5)".to_string(),
+        initial_enemy_ships: "RANDOM(1,4)".to_string(),
         max_enemy_ships: "12".to_string(),
         battle_map_size: 200,
         time_limit: "30".to_string(),
@@ -78,7 +78,7 @@ fn fleet(
     Fleet {
         id: db.new_id(id),
         factions: Default::default(),
-        level_bonus: 100 + level,
+        level_bonus: 100 + level * 4,
         no_random_ships: true,
         combat_time_limit: 0,
         loot_condition: RewardCondition::Never,

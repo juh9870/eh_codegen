@@ -101,6 +101,7 @@
       "init_clean_ships": 11,
       "lose_combat": 20,
       "path_choice": 16,
+      "path_choices_clean_event_items": 28,
       "path_choices_init": 14,
       "path_choices_init_chapter_1": 15,
       "path_choices_init_chapter_2": 22,
