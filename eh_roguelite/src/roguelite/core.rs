@@ -41,6 +41,7 @@ const LOOT_CHAPTER_EVENT: &str = "rgl:event_chapter_";
 
 const ITEM_CHAPTER: &str = "rgl:chapter_indicator";
 const LOOT_ITEM_CHAPTER: &str = "rgl:chapter_indicator";
+const LOOT_ITEM_CHAPTER_100X: &str = "rgl:chapter_indicator_100x";
 
 fn loot_chapter(chapter: usize) -> impl DatabaseIdLike<Loot> {
     LOOT_CHAPTER_EVENT.to_string() + &chapter.to_string()
@@ -52,6 +53,7 @@ fn init_raw(ctx: Ctx) {
         .remove_item("init_clean_event_items", ALL_EVENT_ITEMS_100)
         .remove_item("init_clean_ships", ALL_SHIPS_100)
         .remove_item("init_clean_components", ALL_COMPONENTS_1000)
+        .remove_item("init_clean_chapter_indicator", LOOT_ITEM_CHAPTER_100X)
         .receive_item("init_chapter_indicator", LOOT_ITEM_CHAPTER)
         .goto(path_choices_init)
         .entrypoint();
@@ -213,6 +215,8 @@ fn init_chapter_event_items(db: &Database) {
 
     db.new_loot(LOOT_ITEM_CHAPTER)
         .set_loot(ch_item.id.as_loot(1));
+    db.new_loot(LOOT_ITEM_CHAPTER_100X)
+        .set_loot(ch_item.id.as_loot(100));
     drop(ch_item);
 
     for chapter in 1..=CHAPTERS {

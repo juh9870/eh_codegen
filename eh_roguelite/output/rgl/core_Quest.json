@@ -46,8 +46,14 @@
     {
       "Type": 36,
       "Id": 12,
-      "DefaultTransition": 13,
+      "DefaultTransition": 27,
       "Loot": 10008
+    },
+    {
+      "Type": 36,
+      "Id": 27,
+      "DefaultTransition": 13,
+      "Loot": 10009
     },
     {
       "Type": 10,
