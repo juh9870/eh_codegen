@@ -2,5 +2,7 @@
   "ItemType": 14,
   "Id": 2,
   "Name": "$Faction2",
-  "Color": "#FF8080"
+  "Color": "#FF8080",
+  "HideResearchTree": true,
+  "Hidden": true
 }

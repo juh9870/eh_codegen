@@ -6,5 +6,6 @@
   "NoTerritories": true,
   "NoWanderingShips": true,
   "HideFromMerchants": true,
-  "HideResearchTree": true
+  "HideResearchTree": true,
+  "Hidden": true
 }

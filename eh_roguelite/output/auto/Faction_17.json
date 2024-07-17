@@ -4,5 +4,7 @@
   "Name": "$Faction17",
   "Color": "#3507CB",
   "HomeStarDistance": 150,
-  "WanderingShipsDistance": 100
+  "WanderingShipsDistance": 100,
+  "HideResearchTree": true,
+  "Hidden": true
 }

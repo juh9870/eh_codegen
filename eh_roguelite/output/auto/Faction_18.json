@@ -5,5 +5,7 @@
   "Color": "#403020",
   "HomeStarDistance": 100,
   "WanderingShipsDistance": 50,
-  "NoMissions": true
+  "HideResearchTree": true,
+  "NoMissions": true,
+  "Hidden": true
 }

@@ -3,5 +3,7 @@
   "Id": 3,
   "Name": "$Faction3",
   "Color": "#8C8CFF",
-  "HomeStarDistance": 20
+  "HomeStarDistance": 20,
+  "HideResearchTree": true,
+  "Hidden": true
 }

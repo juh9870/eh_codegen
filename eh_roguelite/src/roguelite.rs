@@ -1,12 +1,12 @@
 use tracing::instrument;
 
+use eh_mod_cli::Args;
 use eh_mod_cli::db_vanilla::load_vanilla;
 use eh_mod_cli::dev::database::{database, Database};
 use eh_mod_cli::dev::schema::schema::{
     DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeRetreat, Quest,
 };
 use eh_mod_cli::dev::validators::validate_settings;
-use eh_mod_cli::Args;
 
 use crate::roguelite::events::Events;
 
@@ -22,7 +22,7 @@ pub fn build_mod(args: Args) {
 
     db.add_id_range(10000..999999999);
 
-    // patch_vanilla(&db);
+    patch_vanilla(&db);
 
     // settings(&db);
 
