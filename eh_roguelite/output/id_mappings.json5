@@ -18,7 +18,16 @@
       "eh:scavenger_goods": 16,
       "eh:some_money": 1,
       "eh:some_money_x5": 10,
-      "eh:worm_boss_loot": 7
+      "eh:worm_boss_loot": 7,
+      "rgl:all_components_1000x": 10008,
+      "rgl:all_event_items": 10006,
+      "rgl:all_ships_100x": 10007,
+      "rgl:chapter_indicator": 10000,
+      "rgl:event_chapter_1": 10001,
+      "rgl:event_chapter_2": 10002,
+      "rgl:event_chapter_3": 10003,
+      "rgl:event_chapter_4": 10004,
+      "rgl:event_chapter_5": 10005
     },
     "Quest": {
       "eh:capture_starbase": 9,
@@ -40,9 +49,11 @@
       "eh:scavenger_trade": 105,
       "eh:ship_out_of_fuel": 8,
       "eh:tutorial": 1,
-      "eh:wormship": 7
+      "eh:wormship": 7,
+      "rgl:core": 10000
     },
     "QuestItem": {
+      "rgl:chapter_indicator": 10001,
       "rgl:scouts": 10000
     },
     "Ship": {
@@ -71,6 +82,31 @@
       "eh:scout_mk2_xx": 235,
       "eh:scout_x": 106,
       "eh:scout_x2": 107
+    }
+  },
+  "QuestBuilderNode": {
+    "rgl:core": {
+      "cancel": 4,
+      "complete": 2,
+      "event@rgl:scouts_combat": 19,
+      "event@rgl:scouts_confirm": 17,
+      "event@rgl:scouts_random": 18,
+      "fail": 3,
+      "init": 1,
+      "init_chapter_indicator": 13,
+      "init_clean_components": 12,
+      "init_clean_event_items": 10,
+      "init_clean_ships": 11,
+      "lose_combat": 20,
+      "path_choice": 16,
+      "path_choices_init": 14,
+      "path_choices_init_chapter_1": 15,
+      "path_choices_init_chapter_2": 22,
+      "path_choices_init_chapter_3": 23,
+      "path_choices_init_chapter_4": 24,
+      "path_choices_init_chapter_5": 25,
+      "something_gone_wrong_Current chapter out of range": 26,
+      "something_gone_wrong_No fleets for event `event@rgl:scouts`": 21
     }
   }
 }

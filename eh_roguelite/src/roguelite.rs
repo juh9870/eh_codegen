@@ -8,6 +8,7 @@ use eh_mod_cli::dev::schema::schema::{
 };
 use eh_mod_cli::dev::validators::validate_settings;
 
+use crate::roguelite::core::core_quest;
 use crate::roguelite::enemy_fleets::create_fleets;
 use crate::roguelite::events::Events;
 
@@ -29,7 +30,7 @@ pub fn build_mod(args: Args) {
 
     create_fleets(&db);
 
-    // core_quest(&db);
+    core_quest(&db);
 
     db.save();
 }

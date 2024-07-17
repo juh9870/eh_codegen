@@ -8,9 +8,9 @@ use eh_mod_cli::dev::schema::schema::{
     FleetId, Loot, LootContent, LootContentRandomItems, LootId, QuestItem, QuestType,
     StartCondition,
 };
-use quests::quests::branch::dialog::SmartDialog;
-use quests::quests::{NodeId, QuestContext, QuestContextData};
 use quests::{MSG_CANCEL, MSG_CONTINUE};
+use quests::quests::{NodeId, QuestContext, QuestContextData};
+use quests::quests::branch::dialog::SmartDialog;
 
 use crate::roguelite::events::{Event, EventKind, Events, WeightedVec};
 use crate::roguelite::MSG_GONE_WRONG;
@@ -35,7 +35,7 @@ const CHAPTERS: usize = 5;
 
 const ALL_EVENT_ITEMS_100: &str = "rgl:all_event_items";
 const ALL_SHIPS_100: &str = "rgl:all_ships_100x";
-const ALL_COMPONENTS_1000: &str = "rgl:all_components_100x";
+const ALL_COMPONENTS_1000: &str = "rgl:all_components_1000x";
 
 const LOOT_CHAPTER_EVENT: &str = "rgl:event_chapter_";
 
