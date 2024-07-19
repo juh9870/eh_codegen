@@ -2,8 +2,8 @@ use eh_mod_dev::schema::schema::{
     NodeCondition, NodeRandom, NodeSwitch, NodeTransition, Requirement,
 };
 
-use crate::quests::branch::TransitionalNode;
 use crate::quests::{Contextual, IntoNodeId, NodeId, QuestContextData};
+use crate::quests::branch::TransitionalNode;
 
 pub type SmartSwitch<'a, const HAS_NEXT: bool, const HAS_DEFAULT: bool> =
     Contextual<'a, SmartSwitchData<HAS_NEXT, HAS_DEFAULT>>;
@@ -82,19 +82,19 @@ impl<'a, const HAS_DEFAULT: bool> SmartSwitch<'a, false, HAS_DEFAULT> {
 }
 
 impl<'a> SmartSwitch<'a, false, false> {
-    pub fn next_default<T>(mut self) -> SmartSwitch<'a, true, true> {
+    pub fn next_default(mut self) -> SmartSwitch<'a, true, true> {
         self.next_transition = Some(NextTransition::Default);
 
         Contextual::map(self, |s| s.transmogrify())
     }
 }
 
-impl<'a> SmartSwitch<'a, true, true> {
-    pub fn bake_switch(self) -> BakedSwitch {
+impl<'a, const HAS_DEFAULT: bool> SmartSwitch<'a, true, HAS_DEFAULT> {
+    pub fn bake_switch(self) -> BakedSwitch<HAS_DEFAULT> {
         BakedSwitch(Self::into_inner(self))
     }
 
-    pub fn bake_random(self) -> BakedRandom {
+    pub fn bake_random(self) -> BakedRandom<HAS_DEFAULT> {
         BakedRandom(Self::into_inner(self))
     }
 }
@@ -115,25 +115,7 @@ impl SmartSwitchData<false, false> {
     }
 }
 
-impl SmartSwitchData<false, true> {
-    pub fn into_random(self) -> NodeRandom {
-        NodeRandom {
-            id: self.id,
-            message: self.message,
-            default_transition: self.default_transition.unwrap(),
-            transitions: self.transitions,
-        }
-    }
-
-    pub fn into_switch(self) -> NodeSwitch {
-        NodeSwitch {
-            id: self.id,
-            message: self.message,
-            default_transition: self.default_transition.unwrap(),
-            transitions: self.transitions,
-        }
-    }
-}
+impl SmartSwitchData<false, true> {}
 
 impl<'a, const HAS_NEXT: bool> SmartSwitch<'a, HAS_NEXT, false> {
     pub fn default(
@@ -149,6 +131,26 @@ impl<'a, const HAS_NEXT: bool> SmartSwitch<'a, HAS_NEXT, false> {
             transitions: s.transitions,
             next_transition: s.next_transition,
         })
+    }
+}
+
+impl<const HAS_DEFAULT: bool> SmartSwitchData<false, HAS_DEFAULT> {
+    pub fn into_random(self) -> NodeRandom {
+        NodeRandom {
+            id: self.id,
+            message: self.message,
+            default_transition: self.default_transition.unwrap_or(0),
+            transitions: self.transitions,
+        }
+    }
+
+    pub fn into_switch(self) -> NodeSwitch {
+        NodeSwitch {
+            id: self.id,
+            message: self.message,
+            default_transition: self.default_transition.unwrap_or(0),
+            transitions: self.transitions,
+        }
     }
 }
 
@@ -183,15 +185,15 @@ impl<const HAS_NEXT: bool, const HAS_DEFAULT: bool> SmartSwitchData<HAS_NEXT, HA
 }
 
 #[derive(Debug)]
-pub struct BakedSwitch(SmartSwitchData<true, true>);
+pub struct BakedSwitch<const HAS_DEFAULT: bool>(SmartSwitchData<true, HAS_DEFAULT>);
 
 #[derive(Debug)]
-pub struct BakedRandom(SmartSwitchData<true, true>);
+pub struct BakedRandom<const HAS_DEFAULT: bool>(SmartSwitchData<true, HAS_DEFAULT>);
 
 #[derive(Debug)]
 pub struct BakedCondition(SmartSwitchData<true, false>);
 
-impl TransitionalNode for BakedSwitch {
+impl<const HAS_DEFAULT: bool> TransitionalNode for BakedSwitch<HAS_DEFAULT> {
     fn consume(self: Box<Self>, ctx: &mut QuestContextData, next: NodeId) {
         ctx.add_node(self.0.set_next(next).into_switch());
     }
@@ -201,7 +203,7 @@ impl TransitionalNode for BakedSwitch {
     }
 }
 
-impl TransitionalNode for BakedRandom {
+impl<const HAS_DEFAULT: bool> TransitionalNode for BakedRandom<HAS_DEFAULT> {
     fn consume(self: Box<Self>, ctx: &mut QuestContextData, next: NodeId) {
         ctx.add_node(self.0.set_next(next).into_random());
     }

@@ -1,0 +1,118 @@
+{
+  "ItemType": 15,
+  "Id": 10001,
+  "Name": "Core Quest",
+  "QuestType": 0,
+  "StartCondition": 0,
+  "Weight": 1.0,
+  "Origin": {
+    "Type": 0,
+    "Factions": {
+      "Type": 0,
+      "List": []
+    }
+  },
+  "Requirement": {
+    "Type": 0
+  },
+  "Nodes": [
+    {
+      "Type": 15,
+      "Id": 1,
+      "Message": "QUEST rgl:new_game NODE #1",
+      "DefaultTransition": 10,
+      "Transitions": [
+        {
+          "TargetNode": 4,
+          "Requirement": {
+            "Type": 25,
+            "ItemId": 9999,
+            "MinValue": 1
+          },
+          "Weight": 1.0
+        }
+      ]
+    },
+    {
+      "Type": 42,
+      "Id": 4
+    },
+    {
+      "Type": 10,
+      "Id": 10,
+      "RequiredView": 0,
+      "Message": "Welcome to the <MODNAME>",
+      "Actions": [
+        {
+          "TargetNode": 4,
+          "Requirement": {
+            "Type": 25,
+            "ItemId": 9999,
+            "MinValue": 1
+          },
+          "ButtonText": "Continue (technical limitation)"
+        },
+        {
+          "TargetNode": 11,
+          "Requirement": {
+            "Type": 3,
+            "Requirements": [
+              {
+                "Type": 25,
+                "ItemId": 9999,
+                "MinValue": 1
+              }
+            ]
+          },
+          "ButtonText": "$Continue"
+        }
+      ]
+    },
+    {
+      "Type": 35,
+      "Id": 11,
+      "DefaultTransition": 12,
+      "Loot": 10013
+    },
+    {
+      "Type": 36,
+      "Id": 12,
+      "DefaultTransition": 13,
+      "Loot": 10008
+    },
+    {
+      "Type": 36,
+      "Id": 13,
+      "DefaultTransition": 14,
+      "Loot": 10009
+    },
+    {
+      "Type": 36,
+      "Id": 14,
+      "DefaultTransition": 15,
+      "Loot": 10010
+    },
+    {
+      "Type": 36,
+      "Id": 15,
+      "DefaultTransition": 16,
+      "Loot": 10002
+    },
+    {
+      "Type": 35,
+      "Id": 16,
+      "DefaultTransition": 17,
+      "Loot": 10001
+    },
+    {
+      "Type": 40,
+      "Id": 2
+    },
+    {
+      "Type": 43,
+      "Id": 17,
+      "DefaultTransition": 2,
+      "Quest": 10000
+    }
+  ]
+}

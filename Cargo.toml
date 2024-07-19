@@ -53,6 +53,7 @@ eh_mod_cli = { path = "eh_mod_cli" }
 eh_mod_dev = { path = "eh_mod_dev" }
 eh_schema = { path = "eh_schema" }
 quests = { path = "quests" }
+caching = { path = "caching" }
 
 [profile.release]
 opt-level = 3

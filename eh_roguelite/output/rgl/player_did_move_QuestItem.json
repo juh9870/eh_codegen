@@ -1,7 +1,7 @@
 {
   "ItemType": 20,
-  "Id": 10001,
-  "Name": "Combat",
+  "Id": 10000,
+  "Name": "ITEM_PLAYER_DID_MOVE",
   "Description": "",
   "Icon": ""
 }

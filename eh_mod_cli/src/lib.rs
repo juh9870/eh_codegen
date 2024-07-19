@@ -1,15 +1,15 @@
-use clap::Parser;
 use std::path::PathBuf;
+
+use clap::Parser;
 use tracing_panic::panic_hook;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::EnvFilter;
 
-#[cfg(feature = "include_vanilla")]
-pub use db_vanilla;
-
+pub use caching;
 #[cfg(feature = "include_minimal")]
 pub use db_minimal;
-
+#[cfg(feature = "include_vanilla")]
+pub use db_vanilla;
 pub use eh_mod_dev as dev;
 
 #[derive(Debug, Parser)]

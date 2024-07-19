@@ -1,0 +1,8 @@
+{
+  "ItemType": 20,
+  "Id": 9999,
+  "Name": "run in progress",
+  "Description": "If your savefile is broken, sell this item and restart the game to end the run.",
+  "Icon": "",
+  "Price": 1
+}

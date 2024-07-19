@@ -1,14 +1,16 @@
 use tracing::instrument;
 
+use eh_mod_cli::caching::loot_content::LootContentExt;
 use eh_mod_cli::db_vanilla::load_vanilla;
 use eh_mod_cli::dev::database::{database, Database};
 use eh_mod_cli::dev::schema::schema::{
-    DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeRetreat, Quest, StartCondition,
+    Availability, DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeReceiveItem, NodeRetreat,
+    Quest, QuestItem, ShipType, StartCondition,
 };
 use eh_mod_cli::dev::validators::validate_settings;
 use eh_mod_cli::Args;
 
-use crate::roguelite::core::core_quest;
+use crate::roguelite::core::{core_quest, ITEM_PLAYER_DID_MOVE};
 use crate::roguelite::enemy_fleets::create_fleets;
 use crate::roguelite::events::Events;
 
@@ -50,7 +52,17 @@ fn patch_vanilla(db: &Database) {
                 default_transition: 2,
             }
             .into(),
-            NodeCancelQuest { id: 2 }.into(),
+            NodeReceiveItem {
+                id: 2,
+                default_transition: 3,
+                loot: Some(
+                    db.get_id_raw::<QuestItem>(ITEM_PLAYER_DID_MOVE)
+                        .as_loot(1)
+                        .loot(db),
+                ),
+            }
+            .into(),
+            NodeCancelQuest { id: 3 }.into(),
         ];
     });
 
@@ -60,7 +72,25 @@ fn patch_vanilla(db: &Database) {
                 q.start_condition = StartCondition::Manual;
             }
         }
-    })
+    });
+
+    // db.component_iter_mut(|c| {
+    //     for mut c in c {
+    //         c.availability = Availability::None;
+    //     }
+    // });
+    //
+    // db.ship_iter_mut(|s| {
+    //     for mut s in s {
+    //         s.ship_type = ShipType::Special;
+    //     }
+    // });
+    //
+    // db.ship_build_iter_mut(|b| {
+    //     for mut b in b {
+    //         b.available_for_player = false;
+    //     }
+    // });
 }
 
 #[instrument]

@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+caching = { workspace = true }
 clap = { workspace = true, features = ["derive"] }
 color-backtrace = { workspace = true }
 db_minimal = { workspace = true, optional = true }

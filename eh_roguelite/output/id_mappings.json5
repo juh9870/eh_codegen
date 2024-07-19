@@ -19,16 +19,16 @@
       "eh:some_money": 1,
       "eh:some_money_x5": 10,
       "eh:worm_boss_loot": 7,
-      "rgl:all_components_1000x": 10009,
-      "rgl:all_event_items": 10007,
-      "rgl:all_ships_100x": 10008,
-      "rgl:chapter_indicator": 10000,
-      "rgl:chapter_indicator_100x": 10001,
-      "rgl:event_chapter_1": 10002,
-      "rgl:event_chapter_2": 10003,
-      "rgl:event_chapter_3": 10004,
-      "rgl:event_chapter_4": 10005,
-      "rgl:event_chapter_5": 10006
+      "rgl:all_components_1000x": 10010,
+      "rgl:all_event_items": 10008,
+      "rgl:all_ships_100x": 10009,
+      "rgl:chapter_indicator": 10001,
+      "rgl:chapter_indicator_100x": 10002,
+      "rgl:event_chapter_1": 10003,
+      "rgl:event_chapter_2": 10004,
+      "rgl:event_chapter_3": 10005,
+      "rgl:event_chapter_4": 10006,
+      "rgl:event_chapter_5": 10007
     },
     "Quest": {
       "eh:capture_starbase": 9,
@@ -51,12 +51,15 @@
       "eh:ship_out_of_fuel": 8,
       "eh:tutorial": 1,
       "eh:wormship": 7,
-      "rgl:core": 10000,
-      "rgl:encounter": 10001
+      "rgl:encounter": 10000,
+      "rgl:new_game": 10001,
+      "rgl:startup": 10002
     },
     "QuestItem": {
-      "rgl:chapter_indicator": 10001,
-      "rgl:scouts": 10000
+      "rgl:chapter_indicator": 10002,
+      "rgl:init_quest_lock": 9999,
+      "rgl:player_did_move": 10000,
+      "rgl:scouts": 10001
     },
     "Ship": {
       "eh:dart": 22,
@@ -87,38 +90,49 @@
     }
   },
   "QuestBuilderNode": {
-    "rgl:core": {
-      "branching_quest": 15,
+    "rgl:encounter": {
+      "cancel": 4,
+      "clear_run_marker": 19,
+      "complete": 2,
+      "event@rgl:scouts_0_combat": 17,
+      "event@rgl:scouts_0_confirm": 16,
+      "event@rgl:scouts_random": 15,
+      "fail": 3,
+      "loadout_clear_triggers": 13,
+      "loadout_edit": 14,
+      "lose_combat": 18,
+      "path_choice": 12,
+      "path_choices_init": 1,
+      "path_choices_init_chapter_1": 11,
+      "path_choices_init_chapter_2": 23,
+      "path_choices_init_chapter_3": 24,
+      "path_choices_init_chapter_4": 25,
+      "path_choices_init_chapter_5": 26,
+      "path_events_item_init": 10,
+      "something_gone_wrong_Current chapter out of range": 27,
+      "something_gone_wrong_No fleets for event `event@rgl:scouts`": 22,
+      "start_new_game": 20,
+      "start_next_encounter": 21
+    },
+    "rgl:new_game": {
+      "branching_quest": 17,
       "cancel": 4,
       "complete": 2,
       "fail": 3,
       "init": 1,
-      "init_branching": 16,
-      "init_chapter_indicator": 14,
-      "init_clean_chapter_indicator": 13,
-      "init_clean_components": 12,
-      "init_clean_event_items": 10,
-      "init_clean_ships": 11
+      "init_chapter_indicator": 16,
+      "init_clean_chapter_indicator": 15,
+      "init_clean_components": 14,
+      "init_clean_event_items": 12,
+      "init_clean_ships": 13,
+      "init_dialog": 10,
+      "init_get_lock_item": 11
     },
-    "rgl:encounter": {
+    "rgl:startup": {
       "cancel": 4,
       "complete": 2,
-      "event@rgl:scouts_0_combat": 15,
-      "event@rgl:scouts_0_confirm": 14,
-      "event@rgl:scouts_random": 13,
       "fail": 3,
-      "lose_combat": 17,
-      "path_choice": 12,
-      "path_choices_clean_event_items": 10,
-      "path_choices_init": 1,
-      "path_choices_init_chapter_1": 11,
-      "path_choices_init_chapter_2": 19,
-      "path_choices_init_chapter_3": 20,
-      "path_choices_init_chapter_4": 21,
-      "path_choices_init_chapter_5": 22,
-      "something_gone_wrong_Current chapter out of range": 23,
-      "something_gone_wrong_No fleets for event `event@rgl:scouts`": 18,
-      "start_next_encounter": 16
+      "init": 1
     }
   }
 }

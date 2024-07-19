@@ -2,11 +2,12 @@ use std::ops::DerefMut;
 
 use itertools::Itertools;
 
+use eh_mod_cli::caching::loot_content::LootContentExt;
 use eh_mod_cli::dev::database::{Database, Remember};
 use eh_mod_cli::dev::mapping::DatabaseIdLike;
 use eh_mod_cli::dev::schema::schema::{
-    FleetId, Loot, LootContent, LootContentRandomItems, LootId, Quest, QuestItem, QuestType,
-    StartCondition,
+    FleetId, Loot, LootContent, LootContentRandomItems, LootId, Quest, QuestItem, QuestItemId,
+    QuestType, RequirementRandomStarSystem, StartCondition,
 };
 use quests::{MSG_CANCEL, MSG_CONTINUE};
 use quests::quests::{NodeId, QuestContext, QuestContextData};
@@ -18,18 +19,51 @@ use crate::roguelite::MSG_GONE_WRONG;
 type Ctx<'a> = &'a mut QuestContextData;
 
 pub fn core_quest(db: &Database) {
-    let mut ctx = QuestContext::new(db, "rgl:core", "init");
-
     init_chapter_event_items(db);
     init_cleaning_items(db);
 
-    encounter_quest(db);
+    db.set_id::<QuestItem>(ITEM_RUN_ON_PROGRESS, 9999);
+    db.forget_used_id::<QuestItem>(ITEM_RUN_ON_PROGRESS);
 
-    init_raw(ctx.deref_mut());
+    db.new_quest_item(ITEM_RUN_ON_PROGRESS).with(|i| {
+        i.with_name("run in progress")
+            .with_description(
+                "If your savefile is broken, sell this item and restart the game to end the run.",
+            )
+            .with_price(1)
+    });
+
+    db.new_quest_item(ITEM_PLAYER_DID_MOVE)
+        .with(|i| i.with_name("ITEM_PLAYER_DID_MOVE"));
+
+    encounter_quest(db);
+    new_run_quest(db);
+    startup_quest(db);
+}
+
+fn startup_quest(db: &Database) {
+    let core_quest = db.id::<Quest>(QUEST_NEW_GAME);
+    let mut ctx = QuestContext::new(db, "rgl:startup", "init");
+    ctx.branch()
+        .start_quest("init", core_quest)
+        .cancel_quest()
+        .entrypoint();
 
     let mut quest = ctx.into_quest();
-    quest.quest_type = QuestType::Storyline;
+    quest.quest_type = QuestType::Common;
     quest.start_condition = StartCondition::GameStart;
+    quest.remember(db);
+}
+
+fn new_run_quest(db: &Database) {
+    let mut ctx = QuestContext::new(db, QUEST_NEW_GAME, "init");
+
+    new_game_quest(ctx.deref_mut());
+
+    let mut quest = ctx.into_quest();
+    quest.name = "Core Quest".to_string();
+    quest.quest_type = QuestType::Common;
+    quest.start_condition = StartCondition::Manual;
     quest.remember(db);
 }
 
@@ -38,10 +72,15 @@ fn encounter_quest(db: &Database) {
     path_choices_init(ctx.deref_mut());
 
     let mut quest = ctx.into_quest();
+    quest.name = "Encounter".to_string();
     quest.quest_type = QuestType::Common;
     quest.start_condition = StartCondition::Manual;
     quest.use_random_seed = true;
     quest.remember(db);
+}
+
+fn item(db: &Database, id: impl DatabaseIdLike<QuestItem>) -> QuestItemId {
+    db.id(id)
 }
 
 const CHAPTERS: usize = 5;
@@ -52,42 +91,54 @@ const ALL_COMPONENTS_1000: &str = "rgl:all_components_1000x";
 
 const LOOT_CHAPTER_EVENT: &str = "rgl:event_chapter_";
 
+const ITEM_RUN_ON_PROGRESS: &str = "rgl:init_quest_lock";
+
+pub const ITEM_PLAYER_DID_MOVE: &str = "rgl:player_did_move";
+
 const ITEM_CHAPTER: &str = "rgl:chapter_indicator";
 const LOOT_ITEM_CHAPTER: &str = "rgl:chapter_indicator";
 const LOOT_ITEM_CHAPTER_100X: &str = "rgl:chapter_indicator_100x";
 
 const QUEST_ENCOUNTER: &str = "rgl:encounter";
+const QUEST_NEW_GAME: &str = "rgl:new_game";
 
 fn loot_chapter(chapter: usize) -> impl DatabaseIdLike<Loot> {
     LOOT_CHAPTER_EVENT.to_string() + &chapter.to_string()
 }
 
-fn init_raw(ctx: Ctx) {
+fn new_game_quest(ctx: Ctx) {
     let db = ctx.db.clone();
+    let lock = item(&db, ITEM_RUN_ON_PROGRESS);
     ctx.branch()
-        .dialog("init", "Welcome to the <MODNAME>", |d| d.next(MSG_CONTINUE))
+        .switch("init", |c| {
+            c.transition(1.0, lock.req_at_least(1), |ctx| {
+                ctx.branch().cancel_quest().entrypoint()
+            })
+            .next_default()
+        })
+        .dialog("init_dialog", "Welcome to the <MODNAME>", |d| {
+            d.action(
+                ("Continue (technical limitation)", lock.req_at_least(1)),
+                |c| c.branch().cancel_quest().entrypoint(),
+            )
+            .next((MSG_CONTINUE, lock.req_at_most(0)))
+        })
+        .receive_item("init_get_lock_item", lock.as_loot(1).loot(&db))
         .remove_item("init_clean_event_items", ALL_EVENT_ITEMS_100)
         .remove_item("init_clean_ships", ALL_SHIPS_100)
         .remove_item("init_clean_components", ALL_COMPONENTS_1000)
         .remove_item("init_clean_chapter_indicator", LOOT_ITEM_CHAPTER_100X)
         .receive_item("init_chapter_indicator", LOOT_ITEM_CHAPTER)
         .start_quest("branching_quest", QUEST_ENCOUNTER)
-        .condition_end("init_branching", |c| {
-            c.transition(1.0, !db.id::<Quest>(QUEST_ENCOUNTER).req_active(), init)
-                .message("Run in progress")
-        })
+        .complete_quest()
         .entrypoint();
-}
-
-fn init(ctx: Ctx) -> NodeId {
-    ctx.id("init")
 }
 
 fn path_choices_init(ctx: Ctx) -> NodeId {
     ctx.cached("path_choices_init", |ctx| {
         ctx.branch()
-            .remove_item("path_choices_clean_event_items", ALL_EVENT_ITEMS_100)
-            .random_end("path_choices_init", |mut r| {
+            .remove_item("path_choices_init", ALL_EVENT_ITEMS_100)
+            .random_end("path_events_item_init", |mut r| {
                 let db = r.ctx().db.clone();
                 for chapter in 1..=CHAPTERS {
                     r = r.transition(
@@ -121,6 +172,7 @@ fn path_choice(ctx: Ctx) -> NodeId {
         let db = ctx.db.clone();
         ctx.branch()
             .dialog_end("path_choice", "Select a path", |mut d| {
+                d = d.action("Change Loadout", edit_loadout);
                 for event in db.extra::<Events>().read().iter() {
                     d = match &event.kind {
                         EventKind::Combat(fleet, loot) => event_combat(d, event, fleet, *loot),
@@ -130,6 +182,38 @@ fn path_choice(ctx: Ctx) -> NodeId {
             })
             .entrypoint()
     })
+}
+
+fn edit_loadout(ctx: Ctx) -> NodeId {
+    // fn finish(ctx: Ctx) -> NodeId {
+    //     ctx.cached("loadout_retreat", |ctx| {
+    //         ctx.branch()
+    //             .retreat("loadout_retreat")
+    //             .goto(path_choice)
+    //             .entrypoint()
+    //     })
+    // }
+    let db = ctx.db.clone();
+    let player_moved_item = item(&db, ITEM_PLAYER_DID_MOVE);
+    ctx.branch()
+        .remove_item(
+            "loadout_clear_triggers",
+            player_moved_item.as_loot(1000).loot(&db),
+        )
+        .switch_end("loadout_edit", |s| {
+            s.message("Editing loadout. Fly to the target to continue your adventure")
+                .transition(
+                    1.0,
+                    RequirementRandomStarSystem {
+                        min_value: 1,
+                        max_value: 1,
+                        ..Default::default()
+                    },
+                    path_choice,
+                )
+                .transition(1.0, player_moved_item.req_at_least(1), path_choice)
+        })
+        .entrypoint()
 }
 
 fn win_combat(ctx: Ctx) -> NodeId {
@@ -145,7 +229,21 @@ fn lose_combat(ctx: Ctx) -> NodeId {
                 "This branch has no conclusion. Try again",
                 |d| d.next(MSG_CONTINUE),
             )
-            .complete_quest()
+            .goto(start_new_run)
+            .entrypoint()
+    })
+}
+
+fn start_new_run(ctx: Ctx) -> NodeId {
+    ctx.cached("clear_run_marker", |ctx| {
+        let db = ctx.db.clone();
+        ctx.branch()
+            .remove_item(
+                "clear_run_marker",
+                item(&db, ITEM_RUN_ON_PROGRESS).as_loot(1000).loot(&db),
+            )
+            .start_quest("start_new_game", db.get_id_raw(QUEST_NEW_GAME))
+            .cancel_quest()
             .entrypoint()
     })
 }
@@ -157,7 +255,7 @@ fn something_gone_wrong(ctx: Ctx, error: &str) -> NodeId {
             .dialog(id, MSG_GONE_WRONG.to_string() + error, |d| {
                 d.next("Start new run")
             })
-            .complete_quest()
+            .goto(start_new_run)
             .entrypoint()
     })
 }

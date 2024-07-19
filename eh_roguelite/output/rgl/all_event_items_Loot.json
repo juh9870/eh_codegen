@@ -1,6 +1,6 @@
 {
   "ItemType": 16,
-  "Id": 10007,
+  "Id": 10008,
   "Loot": {
     "Type": 21,
     "Items": [
@@ -8,7 +8,7 @@
         "Weight": 1.0,
         "Loot": {
           "Type": 25,
-          "ItemId": 10000,
+          "ItemId": 10001,
           "MinAmount": 100,
           "MaxAmount": 100
         }

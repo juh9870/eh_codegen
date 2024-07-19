@@ -382,6 +382,7 @@ dependencies = [
 name = "eh_mod_cli"
 version = "0.1.0"
 dependencies = [
+ "caching",
  "clap",
  "color-backtrace",
  "db_minimal",

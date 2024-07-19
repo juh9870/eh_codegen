@@ -4,8 +4,8 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::{Debug, Formatter};
 use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
-use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
+use std::sync::atomic::{AtomicUsize, Ordering};
 
 use ahash::{AHashMap, AHashSet, HashMapExt};
 use flate2::Compression;
@@ -22,8 +22,8 @@ pub use crate::database::db_item::DbItem;
 use crate::database::extra_item::ExtraItem;
 pub use crate::database::iters::{DatabaseItemIter, DatabaseItemIterMut};
 pub use crate::database::stored_db_item::StoredDbItem;
-pub use crate::mapping::DatabaseIdLike;
 use crate::mapping::{IdIter, IdMapping, IdMappingSerialized, KindProvider, RegexIter};
+pub use crate::mapping::DatabaseIdLike;
 use crate::utils::{compress, decompress, sha256};
 
 pub mod db_item;
@@ -175,6 +175,7 @@ impl DatabaseHolder {
         DatabaseItemId::new(self.lock(|db| id.into_new_id(&mut db.ids)))
     }
 
+    /// Returns raw ID without checking if it exists or marking it as existing
     pub fn get_id_raw<T: 'static + DatabaseItem>(
         &self,
         id: impl Into<String>,
@@ -189,6 +190,10 @@ impl DatabaseHolder {
         numeric_id: i32,
     ) -> DatabaseItemId<T> {
         DatabaseItemId::new(self.lock(|db| db.ids.set_id(T::type_name(), string_id, numeric_id)))
+    }
+
+    pub fn forget_used_id<T: 'static + DatabaseItem>(&self, string_id: &str) {
+        self.lock(|db| db.ids.forget_used_id(T::type_name(), string_id))
     }
 
     pub fn iter_ids<T: 'static + DatabaseItem, U>(&self, func: impl FnOnce(IdIter) -> U) -> U {

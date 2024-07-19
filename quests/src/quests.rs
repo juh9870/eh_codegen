@@ -161,6 +161,10 @@ impl QuestContextData {
         let mut m = self.mappings.write();
         NodeId(id.into_new_id(self.string_id.clone(), &mut m))
     }
+    pub fn raw_id(&mut self, id: impl Into<String>) -> NodeId {
+        let mut m = self.mappings.write();
+        NodeId(m.get_id_raw(self.string_id.clone() ,id))
+    }
 
     pub fn set_id(&mut self, string_id: impl Into<String>, numeric_id: i32) {
         self.mappings
@@ -233,7 +237,12 @@ impl QuestContextData {
     }
 
     fn add_node(&mut self, node: impl Into<Node>) {
-        self.nodes.push(node.into());
+        let node = node.into();
+        if *node.id() == 1 {
+            self.nodes.insert(0, node)
+        } else {
+            self.nodes.push(node);
+        }
     }
 
     fn init_defaults(&mut self) {

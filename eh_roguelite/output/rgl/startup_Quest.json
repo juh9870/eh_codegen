@@ -1,9 +1,9 @@
 {
   "ItemType": 15,
-  "Id": 5,
+  "Id": 10002,
   "Name": "",
-  "QuestType": 3,
-  "StartCondition": 2,
+  "QuestType": 0,
+  "StartCondition": 4,
   "Weight": 1.0,
   "Origin": {
     "Type": 0,
@@ -17,19 +17,14 @@
   },
   "Nodes": [
     {
-      "Type": 30,
+      "Type": 43,
       "Id": 1,
-      "DefaultTransition": 2
-    },
-    {
-      "Type": 35,
-      "Id": 2,
-      "DefaultTransition": 3,
-      "Loot": 10000
+      "DefaultTransition": 4,
+      "Quest": 10001
     },
     {
       "Type": 42,
-      "Id": 3
+      "Id": 4
     }
   ]
 }

@@ -34,4 +34,9 @@ impl<'a> BranchBuilder<'a> {
         let id = self.ctx().new_id(id);
         self.node(Node::start_quest().with_id(id.0).with_quest(quest_id))
     }
+
+    pub fn retreat(mut self, id: impl IntoNodeId) -> BranchBuilder<'a> {
+        let id = self.ctx().new_id(id);
+        self.node(Node::retreat().with_id(id.0))
+    }
 }

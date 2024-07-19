@@ -1,8 +1,8 @@
-use eh_mod_dev::schema::schema::Node;
+use eh_mod_dev::schema::schema::{Node, Requirement};
 
+use crate::quests::{Contextual, IntoNodeId, NodeId, QuestContextData};
 use crate::quests::branch::dialog::{BakedDialog, SmartDialog};
 use crate::quests::branch::switch::{new_smart_switch, SmartSwitch};
-use crate::quests::{Contextual, IntoNodeId, NodeId, QuestContextData};
 
 pub mod combat;
 pub mod dialog;
@@ -67,10 +67,10 @@ impl<'a> BranchBuilder<'a> {
     }
 
     /// Switch node that continues the branch
-    pub fn switch(
+    pub fn switch<const HAS_DEFAULT: bool>(
         mut self,
         id: impl IntoNodeId,
-        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<true, true>,
+        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<true, HAS_DEFAULT>,
     ) -> BranchBuilder<'a> {
         let s = new_smart_switch(self.ctx(), id);
         let out = func(s).bake_switch();
@@ -79,10 +79,10 @@ impl<'a> BranchBuilder<'a> {
     }
 
     /// Random node that continues the branch
-    pub fn random(
+    pub fn random<const HAS_DEFAULT: bool>(
         mut self,
         id: impl IntoNodeId,
-        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<true, true>,
+        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<true, HAS_DEFAULT>,
     ) -> BranchBuilder<'a> {
         let s = new_smart_switch(self.ctx(), id);
         let out = func(s).bake_random();
@@ -103,10 +103,10 @@ impl<'a> BranchBuilder<'a> {
     }
 
     /// Switch node that ends the branch
-    pub fn switch_end(
+    pub fn switch_end<const HAS_DEFAULT: bool>(
         mut self,
         id: impl IntoNodeId,
-        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<false, true>,
+        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<false, HAS_DEFAULT>,
     ) -> BranchDone {
         let s = new_smart_switch(self.ctx(), id);
         let out = Contextual::into_inner(func(s)).into_switch();
@@ -115,10 +115,10 @@ impl<'a> BranchBuilder<'a> {
     }
 
     /// Random node that ends the branch
-    pub fn random_end(
+    pub fn random_end<const HAS_DEFAULT: bool>(
         mut self,
         id: impl IntoNodeId,
-        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<false, true>,
+        func: impl FnOnce(SmartSwitch<false, false>) -> SmartSwitch<false, HAS_DEFAULT>,
     ) -> BranchDone {
         let s = new_smart_switch(self.ctx(), id);
         let out = Contextual::into_inner(func(s)).into_random();
@@ -136,6 +136,15 @@ impl<'a> BranchBuilder<'a> {
         let out = Contextual::into_inner(func(s)).into_condition();
 
         self.push_final(out)
+    }
+
+    pub fn wait_for(
+        self,
+        id: impl IntoNodeId,
+        quest_log_message: impl Into<String>,
+        requirement: impl Into<Requirement>,
+    ) -> BranchBuilder<'a> {
+        self.condition(id, |c| c.message(quest_log_message).next(1.0, requirement))
     }
 
     pub fn into_transitional(self) -> impl TransitionalNode {
