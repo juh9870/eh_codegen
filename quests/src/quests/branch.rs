@@ -1,8 +1,8 @@
 use eh_mod_dev::schema::schema::{Node, Requirement};
 
-use crate::quests::{Contextual, IntoNodeId, NodeId, QuestContextData};
 use crate::quests::branch::dialog::{BakedDialog, SmartDialog};
 use crate::quests::branch::switch::{new_smart_switch, SmartSwitch};
+use crate::quests::{Contextual, IntoNodeId, NodeId, QuestContextData};
 
 pub mod combat;
 pub mod dialog;

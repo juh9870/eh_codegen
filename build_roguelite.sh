@@ -5,7 +5,7 @@ set -e
 export RUST_LOG=info
 export RUST_BACKTRACE=1
 
-cargo run -p eh_roguelite -- eh_roguelite/output
+cargo lrun -p eh_roguelite -- eh_roguelite/output
 
 DIR=/media/juh9870/drive1t/Games/EH/Mods/roguelite
 

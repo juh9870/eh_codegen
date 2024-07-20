@@ -1,9 +1,9 @@
 {
   "ItemType": 15,
-  "Id": 10000,
-  "Name": "Startup",
+  "Id": 10005,
+  "Name": "End of run",
   "QuestType": 0,
-  "StartCondition": 4,
+  "StartCondition": 0,
   "Weight": 1.0,
   "Origin": {
     "Type": 0,
@@ -17,14 +17,20 @@
   },
   "Nodes": [
     {
-      "Type": 43,
+      "Type": 36,
       "Id": 1,
-      "DefaultTransition": 4,
-      "Quest": 10001
+      "DefaultTransition": 10,
+      "Loot": 10015
     },
     {
       "Type": 42,
       "Id": 4
+    },
+    {
+      "Type": 43,
+      "Id": 10,
+      "DefaultTransition": 4,
+      "Quest": 10001
     }
   ]
 }

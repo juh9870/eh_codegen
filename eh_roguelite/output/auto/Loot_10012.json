@@ -3,8 +3,8 @@
   "Id": 10012,
   "Loot": {
     "Type": 25,
-    "ItemId": 9999,
-    "MinAmount": 1000,
-    "MaxAmount": 1000
+    "ItemId": 10003,
+    "MinAmount": 1,
+    "MaxAmount": 1
   }
 }

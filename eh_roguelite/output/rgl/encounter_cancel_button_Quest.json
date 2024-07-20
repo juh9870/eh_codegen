@@ -1,0 +1,46 @@
+{
+  "ItemType": 15,
+  "Id": 10004,
+  "Name": "Loadout Done",
+  "QuestType": 0,
+  "StartCondition": 0,
+  "Weight": 1.0,
+  "Origin": {
+    "Type": 0,
+    "Factions": {
+      "Type": 0,
+      "List": []
+    }
+  },
+  "Requirement": {
+    "Type": 0
+  },
+  "Nodes": [
+    {
+      "Type": 35,
+      "Id": 1,
+      "DefaultTransition": 10,
+      "Loot": 10012
+    },
+    {
+      "Type": 42,
+      "Id": 4
+    },
+    {
+      "Type": 17,
+      "Id": 10,
+      "Message": "Cancel this quest or move to any star to continue your journey",
+      "Transitions": [
+        {
+          "TargetNode": 4,
+          "Requirement": {
+            "Type": 25,
+            "ItemId": 10000,
+            "MinValue": 1
+          },
+          "Weight": 1.0
+        }
+      ]
+    }
+  ]
+}

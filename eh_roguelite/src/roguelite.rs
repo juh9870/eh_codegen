@@ -4,8 +4,8 @@ use eh_mod_cli::caching::loot_content::LootContentExt;
 use eh_mod_cli::db_vanilla::load_vanilla;
 use eh_mod_cli::dev::database::{database, Database};
 use eh_mod_cli::dev::schema::schema::{
-    Availability, DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeReceiveItem, NodeRetreat,
-    Quest, QuestItem, ShipType, StartCondition,
+    DatabaseSettings, GalaxySettings, NodeCancelQuest, NodeReceiveItem, NodeRetreat, Quest,
+    QuestItem, StartCondition,
 };
 use eh_mod_cli::dev::validators::validate_settings;
 use eh_mod_cli::Args;

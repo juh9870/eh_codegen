@@ -1,3 +1,4 @@
+mod character;
 mod component;
 mod loot_content;
 mod quest;

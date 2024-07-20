@@ -2,8 +2,8 @@ use eh_mod_dev::schema::schema::{
     NodeCondition, NodeRandom, NodeSwitch, NodeTransition, Requirement,
 };
 
-use crate::quests::{Contextual, IntoNodeId, NodeId, QuestContextData};
 use crate::quests::branch::TransitionalNode;
+use crate::quests::{Contextual, IntoNodeId, NodeId, QuestContextData};
 
 pub type SmartSwitch<'a, const HAS_NEXT: bool, const HAS_DEFAULT: bool> =
     Contextual<'a, SmartSwitchData<HAS_NEXT, HAS_DEFAULT>>;

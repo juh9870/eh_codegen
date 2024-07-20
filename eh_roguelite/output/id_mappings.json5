@@ -51,14 +51,18 @@
       "eh:ship_out_of_fuel": 8,
       "eh:tutorial": 1,
       "eh:wormship": 7,
-      "rgl:encounter": 10000,
+      "rgl:encounter_cancel_button": 10004,
+      "rgl:encounter_choice": 10003,
+      "rgl:encounter_init": 10002,
+      "rgl:end_game": 10005,
       "rgl:new_game": 10001,
-      "rgl:startup": 10002
+      "rgl:startup": 10000
     },
     "QuestItem": {
       "rgl:chapter_indicator": 10002,
       "rgl:init_quest_lock": 9999,
       "rgl:player_did_move": 10000,
+      "rgl:resume_button_indicator": 10003,
       "rgl:scouts": 10001
     },
     "Ship": {
@@ -90,29 +94,48 @@
     }
   },
   "QuestBuilderNode": {
-    "rgl:encounter": {
+    "rgl:encounter_cancel_button": {
       "cancel": 4,
-      "clear_run_marker": 19,
       "complete": 2,
-      "event@rgl:scouts_0_combat": 17,
-      "event@rgl:scouts_0_confirm": 16,
-      "event@rgl:scouts_random": 15,
       "fail": 3,
-      "loadout_clear_triggers": 13,
-      "loadout_edit": 14,
+      "init": 1,
+      "waiter": 10
+    },
+    "rgl:encounter_choice": {
+      "cancel": 4,
+      "complete": 2,
+      "end_run": 19,
+      "event@rgl:scouts_0_combat": 16,
+      "event@rgl:scouts_0_confirm": 15,
+      "event@rgl:scouts_random": 14,
+      "fail": 3,
+      "init": 1,
+      "init_cancel_button": 12,
+      "loadout_clear_moved": 10,
+      "loadout_clear_resume_button": 11,
+      "loadout_edit": 13,
       "lose_combat": 18,
-      "path_choice": 12,
-      "path_choices_init": 1,
+      "win_combat": 17
+    },
+    "rgl:encounter_init": {
+      "cancel": 4,
+      "complete": 2,
+      "fail": 3,
+      "goto_path_choice": 12,
+      "init": 1,
       "path_choices_init_chapter_1": 11,
-      "path_choices_init_chapter_2": 23,
-      "path_choices_init_chapter_3": 24,
-      "path_choices_init_chapter_4": 25,
-      "path_choices_init_chapter_5": 26,
-      "path_events_item_init": 10,
-      "something_gone_wrong_Current chapter out of range": 27,
-      "something_gone_wrong_No fleets for event `event@rgl:scouts`": 22,
-      "start_new_game": 20,
-      "start_next_encounter": 21
+      "path_choices_init_chapter_2": 13,
+      "path_choices_init_chapter_3": 14,
+      "path_choices_init_chapter_4": 15,
+      "path_choices_init_chapter_5": 16,
+      "path_events_item_init": 10
+    },
+    "rgl:end_game": {
+      "cancel": 4,
+      "complete": 2,
+      "fail": 3,
+      "init": 1,
+      "start_new_game": 10
     },
     "rgl:new_game": {
       "branching_quest": 17,

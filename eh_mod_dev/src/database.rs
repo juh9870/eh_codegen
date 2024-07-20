@@ -4,8 +4,8 @@ use std::collections::{BTreeMap, BTreeSet};
 use std::fmt::{Debug, Formatter};
 use std::ops::{DerefMut, Range};
 use std::path::{Path, PathBuf};
-use std::sync::Arc;
 use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::Arc;
 
 use ahash::{AHashMap, AHashSet, HashMapExt};
 use flate2::Compression;
@@ -22,8 +22,8 @@ pub use crate::database::db_item::DbItem;
 use crate::database::extra_item::ExtraItem;
 pub use crate::database::iters::{DatabaseItemIter, DatabaseItemIterMut};
 pub use crate::database::stored_db_item::StoredDbItem;
-use crate::mapping::{IdIter, IdMapping, IdMappingSerialized, KindProvider, RegexIter};
 pub use crate::mapping::DatabaseIdLike;
+use crate::mapping::{IdIter, IdMapping, IdMappingSerialized, KindProvider, RegexIter};
 use crate::utils::{compress, decompress, sha256};
 
 pub mod db_item;
@@ -196,6 +196,10 @@ impl DatabaseHolder {
         self.lock(|db| db.ids.forget_used_id(T::type_name(), string_id))
     }
 
+    pub fn is_id_used<T: 'static + DatabaseItem>(&self, string_id: &str) -> bool {
+        self.lock(|db| db.ids.is_used(T::type_name(), string_id))
+    }
+
     pub fn iter_ids<T: 'static + DatabaseItem, U>(&self, func: impl FnOnce(IdIter) -> U) -> U {
         self.lock(|db| func(db.ids.used_ids(T::kind())))
     }
@@ -210,6 +214,18 @@ impl DatabaseHolder {
 
     pub fn get_id_name<T: 'static + DatabaseItem>(&self, id: DatabaseItemId<T>) -> Option<String> {
         self.lock(|db| db.ids.get_inverse_id(T::type_name(), id.0))
+    }
+
+    pub fn cached<T: 'static + DatabaseItem>(
+        &self,
+        id: &str,
+        cb: impl FnOnce() -> DatabaseItemId<T>,
+    ) -> DatabaseItemId<T> {
+        if self.is_id_used::<T>(id) {
+            return self.id(id);
+        }
+
+        cb()
     }
 
     /// Adds an item to the database, returns a mutable handle to the inserted item

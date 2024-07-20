@@ -53,6 +53,9 @@ impl QuestContext {
     }
 
     pub fn into_quest(self) -> Quest {
+        if !self.nodes.first().is_some_and(|n| *n.id() == 1) {
+            panic!("Quest {} is missing the starting node", self.string_id)
+        }
         Quest {
             id: self.id,
             name: "".to_string(),
@@ -163,7 +166,7 @@ impl QuestContextData {
     }
     pub fn raw_id(&mut self, id: impl Into<String>) -> NodeId {
         let mut m = self.mappings.write();
-        NodeId(m.get_id_raw(self.string_id.clone() ,id))
+        NodeId(m.get_id_raw(self.string_id.clone(), id))
     }
 
     pub fn set_id(&mut self, string_id: impl Into<String>, numeric_id: i32) {

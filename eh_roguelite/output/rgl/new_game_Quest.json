@@ -1,7 +1,7 @@
 {
   "ItemType": 15,
   "Id": 10001,
-  "Name": "Core Quest",
+  "Name": "New Game Startup",
   "QuestType": 0,
   "StartCondition": 0,
   "Weight": 1.0,
@@ -72,7 +72,7 @@
       "Type": 35,
       "Id": 11,
       "DefaultTransition": 12,
-      "Loot": 10013
+      "Loot": 10011
     },
     {
       "Type": 36,
@@ -99,20 +99,16 @@
       "Loot": 10002
     },
     {
+      "Type": 43,
+      "Id": 17,
+      "DefaultTransition": 4,
+      "Quest": 10002
+    },
+    {
       "Type": 35,
       "Id": 16,
       "DefaultTransition": 17,
       "Loot": 10001
-    },
-    {
-      "Type": 40,
-      "Id": 2
-    },
-    {
-      "Type": 43,
-      "Id": 17,
-      "DefaultTransition": 2,
-      "Quest": 10000
     }
   ]
 }
