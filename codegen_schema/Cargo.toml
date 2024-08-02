@@ -1,0 +1,11 @@
+[package]
+name = "codegen_schema"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fs-err = { workspace = true }
+miette = { workspace = true, features = ["fancy"] }
+quick-xml = { workspace = true, features = ["serialize", "serde-types"] }
+serde = { workspace = true, features = ["derive"] }
+walkdir = { workspace = true }

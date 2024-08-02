@@ -1,9 +1,11 @@
-use crate::codegen::structs::StructData;
-use crate::codegen::CodegenState;
-use crate::schema::{SchemaStructMember, SchemaStructMemberType};
 use miette::Context;
 use proc_macro2::Ident;
 use quote::{format_ident, quote};
+
+use codegen_schema::schema::{SchemaStructMember, SchemaStructMemberType};
+
+use crate::codegen::structs::StructData;
+use crate::codegen::CodegenState;
 
 impl CodegenState {
     pub fn codegen_object(

@@ -1,11 +1,14 @@
-use crate::codegen::{CodegenState, TokensResult};
-use crate::m_try;
-use crate::schema::SchemaEnumItem;
+use std::str::FromStr;
+
 use itertools::Itertools;
 use miette::bail;
 use proc_macro2::Ident;
 use quote::{format_ident, quote};
-use std::str::FromStr;
+
+use codegen_schema::schema::SchemaEnumItem;
+
+use crate::codegen::{CodegenState, TokensResult};
+use crate::m_try;
 
 impl CodegenState {
     pub fn codegen_enum(&mut self, name: Ident, items: Vec<SchemaEnumItem>) -> TokensResult {

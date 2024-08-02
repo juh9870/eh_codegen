@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = ["caching", "components", "db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
+members = ["caching", "codegen_schema", "components", "db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
 
 [workspace.dependencies]
 ahash = "0.8.11"
@@ -46,6 +46,8 @@ tracing-panic = { version = "0.1.2", default-features = false }
 tracing-subscriber = "0.3.18"
 walkdir = "2.5.0"
 # Local dependencies
+caching = { path = "caching" }
+codegen_schema = { path = "codegen_schema" }
 db_minimal = { path = "db/db_minimal" }
 db_vanilla = { path = "db/db_vanilla" }
 diagnostic = { path = "diagnostic" }
@@ -53,7 +55,6 @@ eh_mod_cli = { path = "eh_mod_cli" }
 eh_mod_dev = { path = "eh_mod_dev" }
 eh_schema = { path = "eh_schema" }
 quests = { path = "quests" }
-caching = { path = "caching" }
 
 [profile.release]
 opt-level = 3

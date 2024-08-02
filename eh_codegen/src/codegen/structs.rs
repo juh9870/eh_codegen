@@ -7,8 +7,9 @@ use miette::{bail, miette, Context, IntoDiagnostic, Result};
 use proc_macro2::{Ident, TokenStream};
 use quote::{format_ident, quote};
 
+use codegen_schema::schema::{SchemaStructMember, SchemaStructMemberType};
+
 use crate::codegen::{CodegenState, TokensResult};
-use crate::schema::{SchemaStructMember, SchemaStructMemberType};
 
 #[derive(Debug, Clone)]
 pub struct Field {

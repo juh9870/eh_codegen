@@ -1,16 +1,18 @@
-use crate::codegen::structs::{Field, StructData};
-use crate::codegen::switch::Variant;
-use crate::schema::{SchemaDataType, SchemaItem};
-use convert_case::{Case, Casing};
+use std::collections::{BTreeMap, HashMap};
+use std::iter::once;
 
+use convert_case::{Case, Casing};
 use itertools::Itertools;
 use miette::{miette, Diagnostic, IntoDiagnostic, LabeledSpan, Report, SourceCode};
 use miette::{Context, Result};
 use proc_macro2::TokenStream;
 use quote::{format_ident, quote};
-use std::collections::{BTreeMap, HashMap};
-use std::iter::once;
 use thiserror::Error;
+
+use codegen_schema::schema::{SchemaDataType, SchemaItem};
+
+use crate::codegen::structs::{Field, StructData};
+use crate::codegen::switch::Variant;
 
 mod enums;
 mod objects;

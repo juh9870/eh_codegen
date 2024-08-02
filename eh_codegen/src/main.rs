@@ -1,18 +1,14 @@
-use std::cmp::Ordering;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 use clap::Parser;
 use miette::{Context, Diagnostic, IntoDiagnostic, Report};
 use thiserror::Error;
 use tracing_subscriber::layer::SubscriberExt;
 use tracing_subscriber::EnvFilter;
-use walkdir::WalkDir;
 
 use crate::codegen::CodegenState;
-use crate::schema::SchemaItem;
 
 mod codegen;
-mod schema;
 
 /// Generates typescript definitions for items from Event Horizon schema
 #[derive(Debug, Parser)]
@@ -50,34 +46,7 @@ fn main() -> miette::Result<()> {
     m_try(|| {
         let Args { schema, output } = Args::parse();
 
-        let mut files = vec![];
-        for entry in WalkDir::new(&schema).into_iter() {
-            let entry = entry.into_diagnostic()?;
-            if !entry.file_type().is_file() {
-                continue;
-            }
-            if !entry
-                .path()
-                .extension()
-                .is_some_and(|ext| ext.to_ascii_lowercase() == "xml")
-            {
-                continue;
-            }
-
-            process_file(entry.path(), &mut files).with_context(|| {
-                format!("Failed to process file at `{}`", entry.path().display())
-            })?;
-        }
-
-        files.sort_by(|a, b| {
-            match (&a.1, &b.1) {
-                (SchemaItem::Schema { .. }, SchemaItem::Data(..)) => Ordering::Less,
-                (SchemaItem::Data(..), SchemaItem::Schema { .. }) => Ordering::Greater,
-                (SchemaItem::Data(a), SchemaItem::Data(b)) => a.ty.cmp(&b.ty),
-                (SchemaItem::Schema { .. }, SchemaItem::Schema { .. }) => Ordering::Equal,
-            }
-            .then_with(|| a.0.cmp(&b.0))
-        });
+        let files = codegen_schema::load_from_dir(&schema)?;
 
         let mut state = CodegenState::default();
 
@@ -121,20 +90,6 @@ fn main() -> miette::Result<()> {
         Ok(())
     })
     .context("Code generator failed")
-}
-
-fn process_file(path: &Path, files: &mut Vec<(PathBuf, SchemaItem)>) -> miette::Result<()> {
-    let data = fs_err::read_to_string(path)
-        .into_diagnostic()
-        .context("Failed to read the file")?;
-
-    let data = quick_xml::de::from_str::<SchemaItem>(&data)
-        .into_diagnostic()
-        .context("Failed to deserialize XML")?;
-
-    files.push((path.to_path_buf(), data));
-
-    Ok(())
 }
 
 /// Helper for wrapping a code block to help with contextualizing errors
