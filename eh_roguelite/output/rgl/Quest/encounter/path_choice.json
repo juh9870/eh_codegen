@@ -61,7 +61,7 @@
     {
       "Type": 15,
       "Id": 13,
-      "Message": "QUEST rgl:encounter_choice NODE #13",
+      "Message": "QUEST rgl:encounter/path_choice NODE #13",
       "Transitions": [
         {
           "TargetNode": 1,
@@ -161,7 +161,7 @@
     {
       "Type": 16,
       "Id": 14,
-      "Message": "QUEST rgl:encounter_choice NODE #14",
+      "Message": "QUEST rgl:encounter/path_choice NODE #14",
       "DefaultTransition": 1,
       "Transitions": [
         {

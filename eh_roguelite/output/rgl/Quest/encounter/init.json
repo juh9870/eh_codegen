@@ -65,7 +65,7 @@
     {
       "Type": 16,
       "Id": 10,
-      "Message": "QUEST rgl:encounter_init NODE #10",
+      "Message": "QUEST rgl:encounter/init NODE #10",
       "DefaultTransition": 1,
       "Transitions": [
         {

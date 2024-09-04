@@ -13,14 +13,14 @@ use crate::roguelite::core::{
 };
 use crate::roguelite::events::{Event, EventKind, Events, WeightedVec};
 
-const QUEST_ENCOUNTER_INIT: &str = "rgl:encounter_init";
-const QUEST_ENCOUNTER_CHOICE: &str = "rgl:encounter_choice";
-const QUEST_ENCOUNTER_CANCEL_BUTTON: &str = "rgl:encounter_cancel_button";
-const QUEST_ENCOUNTER_REWARDS: &str = "rgl:encounter_rewards";
+const QUEST_ENCOUNTER_INIT: &str = "rgl:encounter/init";
+const QUEST_ENCOUNTER_CHOICE: &str = "rgl:encounter/path_choice";
+const QUEST_ENCOUNTER_CANCEL_BUTTON: &str = "rgl:encounter/cancel_button";
+const QUEST_ENCOUNTER_REWARDS: &str = "rgl:encounter/rewards";
 
-const QUEST_ENCOUNTER_COMBAT_: &str = "rgl:encounter_combat_";
+const QUEST_ENCOUNTER_COMBAT_: &str = "rgl:encounter/combat/";
 
-const ITEM_RESUME_BUTTON_INDICATOR: &str = "rgl:resume_button_indicator";
+const ITEM_RESUME_BUTTON_INDICATOR: &str = "rgl:encounter/resume_button_indicator";
 
 pub fn new_encounter(db: &Database) -> QuestId {
     db.cached::<Quest>(QUEST_ENCOUNTER_INIT, || {

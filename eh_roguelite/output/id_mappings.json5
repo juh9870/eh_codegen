@@ -51,18 +51,18 @@
       "eh:ship_out_of_fuel": 8,
       "eh:tutorial": 1,
       "eh:wormship": 7,
-      "rgl:encounter_cancel_button": 10004,
-      "rgl:encounter_choice": 10003,
-      "rgl:encounter_init": 10002,
+      "rgl:encounter/cancel_button": 10004,
+      "rgl:encounter/init": 10002,
+      "rgl:encounter/path_choice": 10003,
       "rgl:end_game": 10005,
       "rgl:new_game": 10001,
       "rgl:startup": 10000
     },
     "QuestItem": {
       "rgl:chapter_indicator": 10002,
+      "rgl:encounter/resume_button_indicator": 10003,
       "rgl:init_quest_lock": 9999,
       "rgl:player_did_move": 10000,
-      "rgl:resume_button_indicator": 10003,
       "rgl:scouts": 10001
     },
     "Ship": {
@@ -94,14 +94,27 @@
     }
   },
   "QuestBuilderNode": {
-    "rgl:encounter_cancel_button": {
+    "rgl:encounter/cancel_button": {
       "cancel": 4,
       "complete": 2,
       "fail": 3,
       "init": 1,
       "waiter": 10
     },
-    "rgl:encounter_choice": {
+    "rgl:encounter/init": {
+      "cancel": 4,
+      "complete": 2,
+      "fail": 3,
+      "goto_path_choice": 12,
+      "init": 1,
+      "path_choices_init_chapter_1": 11,
+      "path_choices_init_chapter_2": 13,
+      "path_choices_init_chapter_3": 14,
+      "path_choices_init_chapter_4": 15,
+      "path_choices_init_chapter_5": 16,
+      "path_events_item_init": 10
+    },
+    "rgl:encounter/path_choice": {
       "cancel": 4,
       "complete": 2,
       "end_run": 19,
@@ -116,19 +129,6 @@
       "loadout_edit": 13,
       "lose_combat": 18,
       "win_combat": 17
-    },
-    "rgl:encounter_init": {
-      "cancel": 4,
-      "complete": 2,
-      "fail": 3,
-      "goto_path_choice": 12,
-      "init": 1,
-      "path_choices_init_chapter_1": 11,
-      "path_choices_init_chapter_2": 13,
-      "path_choices_init_chapter_3": 14,
-      "path_choices_init_chapter_4": 15,
-      "path_choices_init_chapter_5": 16,
-      "path_events_item_init": 10
     },
     "rgl:end_game": {
       "cancel": 4,
