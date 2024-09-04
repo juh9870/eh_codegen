@@ -1,7 +1,9 @@
-use lockfree_object_pool::{LinearObjectPool, LinearReusable};
 use std::borrow::Cow;
 use std::fmt::{Debug, Display, Formatter};
+use std::hash::{Hash, Hasher};
 use std::sync::OnceLock;
+
+use lockfree_object_pool::{LinearObjectPool, LinearReusable};
 
 static PATH_VEC_POOL: OnceLock<LinearObjectPool<Vec<DiagnosticPathSegment>>> = OnceLock::new();
 
@@ -9,7 +11,7 @@ fn path_vec_pool() -> &'static LinearObjectPool<Vec<DiagnosticPathSegment>> {
     PATH_VEC_POOL.get_or_init(|| LinearObjectPool::new(Vec::new, |v| v.clear()))
 }
 
-#[derive(Debug, Clone, Eq, PartialEq, Ord, PartialOrd)]
+#[derive(Debug, Clone, Eq, PartialEq, Hash, Ord, PartialOrd)]
 pub enum DiagnosticPathSegment {
     Index(usize),
     Field(Cow<'static, str>),
@@ -113,6 +115,12 @@ impl PartialEq for DiagnosticPath {
 }
 
 impl Eq for DiagnosticPath {}
+
+impl Hash for DiagnosticPath {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.0.hash(state);
+    }
+}
 
 impl Ord for DiagnosticPath {
     fn cmp(&self, other: &Self) -> std::cmp::Ordering {
