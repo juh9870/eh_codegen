@@ -1,0 +1,17 @@
+[package]
+name = "smart_output"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ahash = { workspace = true }
+bitcode = { workspace = true }
+bytes = { workspace = true }
+flate2 = { workspace = true }
+fs-err = { workspace = true }
+miette = { workspace = true }
+rayon = { workspace = true }
+sha2 = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+trash = { workspace = true }

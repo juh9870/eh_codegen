@@ -8,11 +8,11 @@ repository = "https://github.com/juh9870/random_cli"
 
 [dependencies]
 ahash = { workspace = true }
-bitcode = { workspace = true }
 diagnostic = { workspace = true }
 eh_schema = { path = "../eh_schema" }
 flate2 = { workspace = true }
 fs-err = { workspace = true }
+image = { workspace = true, default-features = false, features = ["png"] }
 include_dir = { workspace = true }
 owo-colors = { workspace = true }
 parking_lot = { workspace = true }
@@ -24,5 +24,6 @@ serde = { workspace = true }
 serde_json = { workspace = true }
 serde_json5 = { workspace = true }
 sha2 = { workspace = true }
+smart_output = { workspace = true }
 tracing = { workspace = true }
 walkdir = { workspace = true }

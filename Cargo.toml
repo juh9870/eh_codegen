@@ -1,12 +1,13 @@
 [workspace]
 resolver = "2"
 
-members = ["caching", "codegen_schema", "components", "db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests"]
+members = ["caching", "codegen_schema", "components", "db/db_minimal", "db/db_vanilla", "diagnostic", "eh_codegen", "eh_mod_cli", "eh_mod_dev", "eh_mod_example", "eh_rogue_mod", "eh_roguelite", "eh_schema", "quests", "smart_output"]
 
 [workspace.dependencies]
 ahash = "0.8.11"
 auto_ops = "0.3.0"
 bitcode = "0.6.0"
+bytes = "1.7.1"
 clap = "4.5.7"
 color-backtrace = "0.6.1"
 convert_case = "0.6.0"
@@ -15,6 +16,7 @@ duplicate = "1.0.0"
 flate2 = "1"
 fs-err = "2.11.0"
 glam = "0.28"
+image = { version = "0.25.2", default-features = false }
 include_dir = "0.7.4"
 itertools = "0.13.0"
 lockfree-object-pool = "0.1.5"
@@ -44,6 +46,7 @@ thiserror = "1.0.61"
 tracing = "0.1.40"
 tracing-panic = { version = "0.1.2", default-features = false }
 tracing-subscriber = "0.3.18"
+trash = "5.1.1"
 walkdir = "2.5.0"
 # Local dependencies
 caching = { path = "caching" }
@@ -55,6 +58,7 @@ eh_mod_cli = { path = "eh_mod_cli" }
 eh_mod_dev = { path = "eh_mod_dev" }
 eh_schema = { path = "eh_schema" }
 quests = { path = "quests" }
+smart_output = { path = "smart_output" }
 
 [profile.release]
 opt-level = 3
