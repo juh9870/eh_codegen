@@ -446,10 +446,11 @@ impl DatabaseHolder {
                         .get(type_name)
                         .and_then(|ids| ids.get(&id).cloned())
                         .map(|id| {
-                            let id = id.replace(':', "/");
-                            format!("{id}_{type_name}.json")
+                            let id = id.split(':').collect::<Vec<_>>();
+
+                            format!("{}/{}/{}.json", id[0], type_name, id[1])
                         })
-                        .unwrap_or_else(|| format!("auto/{type_name}_{id}.json"))
+                        .unwrap_or_else(|| format!("auto/{type_name}/{id}.json"))
                 })
                 .unwrap_or_else(|| format!("settings/{type_name}.json"));
 
