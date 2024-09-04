@@ -96,7 +96,7 @@ const ALL_EVENT_ITEMS_100: &str = "rgl:all_event_items";
 const ALL_SHIPS_100: &str = "rgl:all_ships_100x";
 const ALL_COMPONENTS_1000: &str = "rgl:all_components_1000x";
 
-const LOOT_CHAPTER_EVENT: &str = "rgl:event_chapter_";
+const LOOT_CHAPTER_EVENT: &str = "rgl:events/chapter_";
 
 const ITEM_RUN_ON_PROGRESS: &str = "rgl:init_quest_lock";
 

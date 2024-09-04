@@ -24,11 +24,11 @@
       "rgl:all_ships_100x": 10009,
       "rgl:chapter_indicator": 10001,
       "rgl:chapter_indicator_100x": 10002,
-      "rgl:event_chapter_1": 10003,
-      "rgl:event_chapter_2": 10004,
-      "rgl:event_chapter_3": 10005,
-      "rgl:event_chapter_4": 10006,
-      "rgl:event_chapter_5": 10007
+      "rgl:events/chapter_1": 10003,
+      "rgl:events/chapter_2": 10004,
+      "rgl:events/chapter_3": 10005,
+      "rgl:events/chapter_4": 10006,
+      "rgl:events/chapter_5": 10007
     },
     "Quest": {
       "eh:capture_starbase": 9,
