@@ -41,6 +41,33 @@
     },
     "QuestItem": {
       "roguelike:marker": 9870000
+    },
+    "Ship": {
+      "eh:dart": 22,
+      "eh:excalibur": 21,
+      "eh:javelin": 20,
+      "eh:paladin": 19,
+      "eh:scout": 17,
+      "eh:scout_mk2": 18
+    },
+    "ShipBuild": {
+      "eh:dart": 44,
+      "eh:dart_x": 112,
+      "eh:excalibur": 43,
+      "eh:excalibur_x": 111,
+      "eh:excalibur_xx": 164,
+      "eh:javelin": 42,
+      "eh:javelin_x": 110,
+      "eh:paladin": 41,
+      "eh:paladin_x": 109,
+      "eh:paladin_x2": 194,
+      "eh:paladin_xx": 163,
+      "eh:scout": 39,
+      "eh:scout_mk2": 40,
+      "eh:scout_mk2_x": 108,
+      "eh:scout_mk2_xx": 235,
+      "eh:scout_x": 106,
+      "eh:scout_x2": 107
     }
   }
 }
